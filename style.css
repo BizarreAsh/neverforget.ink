@@ -1,1 +1,145 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
+body {
+  font-family: 'Georgia', serif;
+  background: #0f0f1a;
+  color: #e8e0d0;
+}
+
+/* HEADER */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background: #1a1a2e;
+  border-bottom: 2px solid #c9a84c;
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #c9a84c;
+}
+
+nav a {
+  color: #e8e0d0;
+  text-decoration: none;
+  margin-left: 25px;
+  font-size: 1rem;
+  transition: color 0.3s;
+}
+
+nav a:hover {
+  color: #c9a84c;
+}
+
+/* HERO */
+.hero {
+  text-align: center;
+  padding: 80px 20px;
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  color: #c9a84c;
+  margin-bottom: 15px;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  color: #b0a898;
+}
+
+.hero input {
+  padding: 12px 20px;
+  width: 350px;
+  max-width: 80%;
+  border: 2px solid #c9a84c;
+  border-radius: 25px 0 0 25px;
+  background: #0f0f1a;
+  color: #e8e0d0;
+  font-size: 1rem;
+  outline: none;
+}
+
+.hero button {
+  padding: 12px 25px;
+  background: #c9a84c;
+  color: #0f0f1a;
+  border: none;
+  border-radius: 0 25px 25px 0;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.hero button:hover {
+  background: #e8c96d;
+}
+
+/* FEATURED */
+.featured {
+  padding: 60px 40px;
+}
+
+.featured h2 {
+  font-size: 1.8rem;
+  color: #c9a84c;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.books-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 25px;
+}
+
+.book-card {
+  background: #1a1a2e;
+  border: 1px solid #2a2a4e;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s, border-color 0.3s;
+  cursor: pointer;
+}
+
+.book-card:hover {
+  transform: translateY(-5px);
+  border-color: #c9a84c;
+}
+
+.book-cover {
+  font-size: 4rem;
+  margin-bottom: 15px;
+}
+
+.book-card h3 {
+  font-size: 1rem;
+  color: #e8e0d0;
+  margin-bottom: 8px;
+}
+
+.book-card p {
+  font-size: 0.85rem;
+  color: #b0a898;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 25px;
+  background: #1a1a2e;
+  border-top: 2px solid #c9a84c;
+  color: #b0a898;
+  font-size: 0.9rem;
+}
