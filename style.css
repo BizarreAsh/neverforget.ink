@@ -113,11 +113,30 @@ nav a:hover {
   padding: 60px 40px;
 }
 
+.featured + .featured {
+  border-top: 1px solid #2a2a4e;
+}
+
 .featured h2 {
   font-size: 1.8rem;
   color: #c9a84c;
   margin-bottom: 30px;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.lang-tag {
+  font-size: 0.7rem;
+  font-family: 'Georgia', serif;
+  background: #c9a84c;
+  color: #0f0f1a;
+  border-radius: 4px;
+  padding: 3px 8px;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
 }
 
 .books-grid {
