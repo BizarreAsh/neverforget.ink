@@ -32,6 +32,8 @@ const translations = {
     fav_title:          'Избранное',
     fav_empty_title:    'Здесь пока пусто',
     fav_empty_hint:     'Нажми ♡ на любой книге, чтобы сохранить её здесь',
+    catalog_title:      'Каталог',
+    shuffle_btn:        'Перемешать',
   },
   en: {
     nav_catalog:        'Catalog',
@@ -66,6 +68,8 @@ const translations = {
     fav_title:          'Favorites',
     fav_empty_title:    'Nothing here yet',
     fav_empty_hint:     'Tap ♡ on any book to save it here',
+    catalog_title:      'Catalog',
+    shuffle_btn:        'Shuffle',
   },
   de: {
     nav_catalog:        'Katalog',
@@ -100,6 +104,8 @@ const translations = {
     fav_title:          'Favoriten',
     fav_empty_title:    'Noch nichts hier',
     fav_empty_hint:     'Tippe ♡ auf ein Buch, um es hier zu speichern',
+    catalog_title:      'Katalog',
+    shuffle_btn:        'Mischen',
   },
 };
 
@@ -115,6 +121,10 @@ function setLanguage(lang) {
   i18nEls.forEach(el => {
     if (el.dataset.i18n)            el.textContent = t[el.dataset.i18n]            ?? el.textContent;
     if (el.dataset.i18nPlaceholder) el.placeholder = t[el.dataset.i18nPlaceholder] ?? el.placeholder;
+  });
+  // update dynamically rendered genre pills
+  document.querySelectorAll('[data-genre]').forEach(el => {
+    el.textContent = t[el.dataset.genre] ?? el.textContent;
   });
   langBtns.forEach(btn => btn.classList.toggle('active', btn.dataset.lang === lang));
 }
@@ -147,7 +157,7 @@ function toggleFavorite(title, author) {
   return idx === -1;
 }
 
-// --- Book cards (index.html) ---
+// --- Book cards on index.html (static) ---
 
 const searchInput  = document.querySelector('.hero input');
 const searchButton = document.querySelector('.hero button');
@@ -156,13 +166,7 @@ const bookCards    = document.querySelectorAll('.book-card');
 const cardData = Array.from(bookCards).map(card => {
   const displayTitle  = card.querySelector('h3').textContent;
   const displayAuthor = card.querySelector('p').textContent;
-  return {
-    el: card,
-    title:        displayTitle.toLowerCase(),
-    author:       displayAuthor.toLowerCase(),
-    displayTitle,
-    displayAuthor,
-  };
+  return { el: card, title: displayTitle.toLowerCase(), author: displayAuthor.toLowerCase(), displayTitle, displayAuthor };
 });
 
 cardData.forEach(({ el, displayTitle, displayAuthor }) => {
@@ -188,16 +192,116 @@ if (searchButton) {
       el.style.display = (!query || title.includes(query) || author.includes(query)) ? 'block' : 'none';
     });
   }
-
   searchButton.addEventListener('click', runSearch);
   searchInput.addEventListener('keydown', e => { if (e.key === 'Enter') runSearch(); });
-
   cardData.forEach(({ el, displayTitle }) => {
     el.addEventListener('click', () => alert(`${translations[currentLang].book_open}: "${displayTitle}"`));
   });
 }
 
-// --- Favorites page (favorites.html) ---
+// --- Catalog page ---
+
+const bookPool = [
+  { title: 'Стив Джобс',                          author: 'Уолтер Айзексон',            genre: 'genre_bio'     },
+  { title: 'Дневник Анны Франк',                   author: 'Анна Франк',                 genre: 'genre_bio'     },
+  { title: 'Long Walk to Freedom',                 author: 'Nelson Mandela',             genre: 'genre_bio'     },
+  { title: 'I Know Why the Caged Bird Sings',      author: 'Maya Angelou',               genre: 'genre_bio'     },
+  { title: 'Маленький принц',                      author: 'Антуан де Сент-Экзюпери',   genre: 'genre_romance' },
+  { title: 'Pride and Prejudice',                  author: 'Jane Austen',                genre: 'genre_romance' },
+  { title: 'Анна Каренина',                        author: 'Лев Толстой',                genre: 'genre_romance' },
+  { title: 'Jane Eyre',                            author: 'Charlotte Brontë',           genre: 'genre_romance' },
+  { title: 'Мастер и Маргарита',                   author: 'Михаил Булгаков',            genre: 'genre_mystic'  },
+  { title: 'Die Verwandlung',                      author: 'Franz Kafka',                genre: 'genre_mystic'  },
+  { title: 'Faust',                                author: 'Johann Wolfgang von Goethe', genre: 'genre_mystic'  },
+  { title: 'Der Steppenwolf',                      author: 'Hermann Hesse',              genre: 'genre_mystic'  },
+  { title: 'Преступление и наказание',             author: 'Фёдор Достоевский',          genre: 'genre_inspire' },
+  { title: 'To Kill a Mockingbird',                author: 'Harper Lee',                 genre: 'genre_inspire' },
+  { title: 'The Old Man and the Sea',              author: 'Ernest Hemingway',           genre: 'genre_inspire' },
+  { title: 'Война и мир',                          author: 'Лев Толстой',                genre: 'genre_inspire' },
+  { title: 'Der Zauberberg',                       author: 'Thomas Mann',                genre: 'genre_inspire' },
+  { title: 'Ready Player One',                     author: 'Ernest Cline',               genre: 'genre_tech'    },
+  { title: 'Neuromancer',                          author: 'William Gibson',             genre: 'genre_tech'    },
+  { title: "Ender's Game",                         author: 'Orson Scott Card',           genre: 'genre_tech'    },
+  { title: 'Do Androids Dream of Electric Sheep?', author: 'Philip K. Dick',            genre: 'genre_tech'    },
+  { title: '1984',                                 author: 'George Orwell',              genre: 'genre_tech'    },
+];
+
+function shuffleArray(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// Guarantees all 5 genres are represented: 1 book per genre + 1 bonus random
+function getCatalogPicks() {
+  const genres = ['genre_bio', 'genre_romance', 'genre_mystic', 'genre_inspire', 'genre_tech'];
+  const picks  = genres.map(g => {
+    const group = bookPool.filter(b => b.genre === g);
+    return group[Math.floor(Math.random() * group.length)];
+  });
+  const bonus = bookPool.filter(b => !picks.includes(b));
+  picks.push(bonus[Math.floor(Math.random() * bonus.length)]);
+  return shuffleArray(picks);
+}
+
+function makeCatalogCard({ title, author, genre }) {
+  const card = document.createElement('div');
+  card.className = 'book-card';
+
+  const favBtn = document.createElement('button');
+  favBtn.className = 'fav-btn';
+  const syncHeart = () => {
+    const on = isFavorite(title);
+    favBtn.classList.toggle('active', on);
+    favBtn.textContent = on ? '♥' : '♡';
+  };
+  syncHeart();
+  favBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    toggleFavorite(title, author);
+    syncHeart();
+  });
+
+  const cover = document.createElement('div');
+  cover.className   = 'book-cover';
+  cover.textContent = '📖';
+
+  const h3 = document.createElement('h3');
+  h3.textContent = title;
+
+  const p = document.createElement('p');
+  p.textContent = author;
+
+  const pill = document.createElement('span');
+  pill.className      = 'genre-pill';
+  pill.dataset.genre  = genre;
+  pill.textContent    = translations[currentLang][genre] ?? genre;
+
+  card.append(favBtn, cover, h3, p, pill);
+  return card;
+}
+
+const catalogGrid = document.getElementById('catalog-grid');
+const shuffleBtn  = document.getElementById('shuffle-btn');
+
+if (catalogGrid) {
+  function renderCatalog() {
+    catalogGrid.style.opacity = '0';
+    setTimeout(() => {
+      catalogGrid.innerHTML = '';
+      getCatalogPicks().forEach(book => catalogGrid.appendChild(makeCatalogCard(book)));
+      catalogGrid.style.opacity = '1';
+    }, 180);
+  }
+
+  renderCatalog();
+  shuffleBtn.addEventListener('click', renderCatalog);
+}
+
+// --- Favorites page ---
 
 const favGrid  = document.getElementById('favorites-grid');
 const favEmpty = document.getElementById('fav-empty');
@@ -206,13 +310,11 @@ if (favGrid) {
   function renderFavorites() {
     const favs = loadFavorites();
     favGrid.innerHTML = '';
-
     if (favs.length === 0) {
       favEmpty.removeAttribute('hidden');
       return;
     }
     favEmpty.setAttribute('hidden', '');
-
     favs.forEach(({ title, author }) => {
       const card  = document.createElement('div');
       card.className = 'book-card';
@@ -225,10 +327,10 @@ if (favGrid) {
       cover.className   = 'book-cover';
       cover.textContent = '📖';
 
-      const h3    = document.createElement('h3');
+      const h3 = document.createElement('h3');
       h3.textContent = title;
 
-      const p     = document.createElement('p');
+      const p = document.createElement('p');
       p.textContent = author;
 
       card.append(btn, cover, h3, p);
@@ -240,11 +342,10 @@ if (favGrid) {
       favGrid.appendChild(card);
     });
   }
-
   renderFavorites();
 }
 
-// --- About modal (index.html) ---
+// --- About modal (index.html only) ---
 
 const aboutModal = document.getElementById('about-modal');
 

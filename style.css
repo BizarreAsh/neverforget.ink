@@ -200,6 +200,53 @@ nav a:hover {
   color: #b0a898;
 }
 
+/* CATALOG PAGE */
+.catalog-section {
+  padding: 60px 40px;
+}
+
+.catalog-section h1 {
+  font-size: 2rem;
+  color: #c9a84c;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.catalog-grid {
+  transition: opacity 0.18s ease;
+}
+
+.genre-pill {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 3px 10px;
+  border: 1px solid #3a3a5e;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  color: #b0a898;
+}
+
+.shuffle-wrap {
+  text-align: center;
+  margin-top: 44px;
+}
+
+#shuffle-btn {
+  background: #c9a84c;
+  color: #0f0f1a;
+  border: none;
+  border-radius: 25px;
+  padding: 14px 44px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  font-family: 'Georgia', serif;
+}
+
+#shuffle-btn:hover  { background: #e8c96d; }
+#shuffle-btn:active { transform: scale(0.96); }
+
 /* FAVORITES PAGE */
 .favorites-section {
   padding: 60px 40px;
@@ -399,12 +446,14 @@ a.logo {
   }
 
   .genres-section,
-  .favorites-section {
+  .favorites-section,
+  .catalog-section {
     padding: 40px 20px;
   }
 
   .genres-section h1,
-  .favorites-section h1 {
+  .favorites-section h1,
+  .catalog-section h1 {
     font-size: 1.6rem;
     margin-bottom: 30px;
   }
