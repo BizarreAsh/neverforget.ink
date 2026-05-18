@@ -38,6 +38,29 @@ nav a:hover {
   color: #c9a84c;
 }
 
+/* LANGUAGE SWITCHER */
+.lang-switcher {
+  display: flex;
+  gap: 6px;
+}
+
+.lang-btn {
+  background: transparent;
+  border: 1px solid #c9a84c;
+  color: #c9a84c;
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.lang-btn:hover,
+.lang-btn.active {
+  background: #c9a84c;
+  color: #0f0f1a;
+}
+
 /* HERO */
 .hero {
   text-align: center;

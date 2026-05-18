@@ -11,22 +11,27 @@
   <header>
     <div class="logo">📚 NeverForget</div>
     <nav>
-      <a href="#">Каталог</a>
-      <a href="#">Жанры</a>
-      <a href="#">Избранное</a>
-      <a href="#">О нас</a>
+      <a href="#" data-i18n="nav_catalog">Каталог</a>
+      <a href="#" data-i18n="nav_genres">Жанры</a>
+      <a href="#" data-i18n="nav_favorites">Избранное</a>
+      <a href="#" data-i18n="nav_about">О нас</a>
     </nav>
+    <div class="lang-switcher">
+      <button class="lang-btn active" data-lang="ru">RU</button>
+      <button class="lang-btn" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="de">DE</button>
+    </div>
   </header>
 
   <section class="hero">
-    <h1>Читай. Сохраняй. Не забывай.</h1>
-    <p>Тысячи книг в одном месте — бесплатно и навсегда</p>
-    <input type="text" placeholder="Поиск книги или автора...">
-    <button>Найти</button>
+    <h1 data-i18n="hero_title">Читай. Сохраняй. Не забывай.</h1>
+    <p data-i18n="hero_subtitle">Тысячи книг в одном месте — бесплатно и навсегда</p>
+    <input type="text" data-i18n-placeholder="search_placeholder" placeholder="Поиск книги или автора...">
+    <button data-i18n="search_btn">Найти</button>
   </section>
 
   <section class="featured">
-    <h2>Популярные книги</h2>
+    <h2 data-i18n="popular_title">Популярные книги</h2>
     <div class="books-grid">
       <div class="book-card">
         <div class="book-cover">📖</div>
@@ -52,7 +57,7 @@
   </section>
 
   <footer>
-    <p>© 2026 NeverForget.ink — Все права защищены</p>
+    <p data-i18n="footer_text">© 2026 NeverForget.ink — Все права защищены</p>
   </footer>
 
   <script src="script.js"></script>
