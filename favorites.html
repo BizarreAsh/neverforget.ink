@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NeverForget — Избранное</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <a class="logo" href="index.html">📚 NeverForget</a>
+    <nav>
+      <a href="index.html" data-i18n="nav_catalog">Каталог</a>
+      <a href="genres.html" data-i18n="nav_genres">Жанры</a>
+      <a href="favorites.html" data-i18n="nav_favorites" class="nav-active">Избранное</a>
+      <a href="#" data-i18n="nav_about">О нас</a>
+    </nav>
+    <div class="lang-switcher">
+      <button class="lang-btn active" data-lang="ru">RU</button>
+      <button class="lang-btn" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="de">DE</button>
+    </div>
+  </header>
+
+  <section class="favorites-section">
+    <h1 data-i18n="fav_title">Избранное</h1>
+    <div id="favorites-grid" class="books-grid"></div>
+    <div id="fav-empty" class="fav-empty" hidden>
+      <div class="fav-empty-icon">📚</div>
+      <p data-i18n="fav_empty_title">Здесь пока пусто</p>
+      <p data-i18n="fav_empty_hint">Нажми ♡ на любой книге, чтобы сохранить её здесь</p>
+    </div>
+  </section>
+
+  <footer>
+    <p data-i18n="footer_text">© 2026 NeverForget.ink — Все права защищены</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

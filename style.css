@@ -146,6 +146,7 @@ nav a:hover {
 }
 
 .book-card {
+  position: relative;
   background: #1a1a2e;
   border: 1px solid #2a2a4e;
   border-radius: 10px;
@@ -153,6 +154,29 @@ nav a:hover {
   text-align: center;
   transition: transform 0.3s, border-color 0.3s;
   cursor: pointer;
+}
+
+.fav-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: #b0a898;
+  cursor: pointer;
+  padding: 2px 4px;
+  line-height: 1;
+  transition: color 0.2s, transform 0.2s;
+  z-index: 1;
+}
+
+.fav-btn:hover {
+  transform: scale(1.3);
+}
+
+.fav-btn.active {
+  color: #e05252;
 }
 
 .book-card:hover {
@@ -173,6 +197,39 @@ nav a:hover {
 
 .book-card p {
   font-size: 0.85rem;
+  color: #b0a898;
+}
+
+/* FAVORITES PAGE */
+.favorites-section {
+  padding: 60px 40px;
+}
+
+.favorites-section h1 {
+  font-size: 2rem;
+  color: #c9a84c;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.fav-empty {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.fav-empty-icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+}
+
+.fav-empty p:first-of-type {
+  font-size: 1.2rem;
+  color: #e8e0d0;
+  margin-bottom: 10px;
+}
+
+.fav-empty p:last-of-type {
+  font-size: 0.95rem;
   color: #b0a898;
 }
 
@@ -341,11 +398,13 @@ a.logo {
     font-size: 1.4rem;
   }
 
-  .genres-section {
+  .genres-section,
+  .favorites-section {
     padding: 40px 20px;
   }
 
-  .genres-section h1 {
+  .genres-section h1,
+  .favorites-section h1 {
     font-size: 1.6rem;
     margin-bottom: 30px;
   }

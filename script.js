@@ -29,6 +29,9 @@ const translations = {
     genre_inspire_desc: 'Истории, которые меняют взгляд на мир',
     genre_tech:         'Технологические (Игры)',
     genre_tech_desc:    'Виртуальные миры и цифровые судьбы',
+    fav_title:          'Избранное',
+    fav_empty_title:    'Здесь пока пусто',
+    fav_empty_hint:     'Нажми ♡ на любой книге, чтобы сохранить её здесь',
   },
   en: {
     nav_catalog:        'Catalog',
@@ -60,6 +63,9 @@ const translations = {
     genre_inspire_desc: 'Stories that change how you see the world',
     genre_tech:         'Technological (Games)',
     genre_tech_desc:    'Virtual worlds and digital destinies',
+    fav_title:          'Favorites',
+    fav_empty_title:    'Nothing here yet',
+    fav_empty_hint:     'Tap ♡ on any book to save it here',
   },
   de: {
     nav_catalog:        'Katalog',
@@ -91,6 +97,9 @@ const translations = {
     genre_inspire_desc: 'Geschichten, die deinen Blick auf die Welt verändern',
     genre_tech:         'Technologisch (Spiele)',
     genre_tech_desc:    'Virtuelle Welten und digitale Schicksale',
+    fav_title:          'Favoriten',
+    fav_empty_title:    'Noch nichts hier',
+    fav_empty_hint:     'Tippe ♡ auf ein Buch, um es hier zu speichern',
   },
 };
 
@@ -102,30 +111,74 @@ const i18nEls  = document.querySelectorAll('[data-i18n], [data-i18n-placeholder]
 function setLanguage(lang) {
   currentLang = lang;
   document.documentElement.lang = lang;
-
   const t = translations[lang];
   i18nEls.forEach(el => {
     if (el.dataset.i18n)            el.textContent = t[el.dataset.i18n]            ?? el.textContent;
     if (el.dataset.i18nPlaceholder) el.placeholder = t[el.dataset.i18nPlaceholder] ?? el.placeholder;
   });
-
   langBtns.forEach(btn => btn.classList.toggle('active', btn.dataset.lang === lang));
 }
 
 langBtns.forEach(btn => btn.addEventListener('click', () => setLanguage(btn.dataset.lang)));
+
+// --- Favorites (localStorage) ---
+
+const FAVORITES_KEY = 'nf_favorites';
+
+function loadFavorites() {
+  try { return JSON.parse(localStorage.getItem(FAVORITES_KEY)) || []; }
+  catch { return []; }
+}
+
+function saveFavorites(favs) {
+  localStorage.setItem(FAVORITES_KEY, JSON.stringify(favs));
+}
+
+function isFavorite(title) {
+  return loadFavorites().some(f => f.title === title);
+}
+
+function toggleFavorite(title, author) {
+  const favs = loadFavorites();
+  const idx  = favs.findIndex(f => f.title === title);
+  if (idx === -1) favs.push({ title, author });
+  else            favs.splice(idx, 1);
+  saveFavorites(favs);
+  return idx === -1;
+}
+
+// --- Book cards (index.html) ---
 
 const searchInput  = document.querySelector('.hero input');
 const searchButton = document.querySelector('.hero button');
 const bookCards    = document.querySelectorAll('.book-card');
 
 const cardData = Array.from(bookCards).map(card => {
-  const displayTitle = card.querySelector('h3').textContent;
+  const displayTitle  = card.querySelector('h3').textContent;
+  const displayAuthor = card.querySelector('p').textContent;
   return {
     el: card,
     title:        displayTitle.toLowerCase(),
-    author:       card.querySelector('p').textContent.toLowerCase(),
+    author:       displayAuthor.toLowerCase(),
     displayTitle,
+    displayAuthor,
   };
+});
+
+cardData.forEach(({ el, displayTitle, displayAuthor }) => {
+  const favBtn = el.querySelector('.fav-btn');
+  if (!favBtn) return;
+  const sync = () => {
+    const on = isFavorite(displayTitle);
+    favBtn.classList.toggle('active', on);
+    favBtn.textContent = on ? '♥' : '♡';
+  };
+  sync();
+  favBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    toggleFavorite(displayTitle, displayAuthor);
+    sync();
+  });
 });
 
 if (searchButton) {
@@ -144,6 +197,55 @@ if (searchButton) {
   });
 }
 
+// --- Favorites page (favorites.html) ---
+
+const favGrid  = document.getElementById('favorites-grid');
+const favEmpty = document.getElementById('fav-empty');
+
+if (favGrid) {
+  function renderFavorites() {
+    const favs = loadFavorites();
+    favGrid.innerHTML = '';
+
+    if (favs.length === 0) {
+      favEmpty.removeAttribute('hidden');
+      return;
+    }
+    favEmpty.setAttribute('hidden', '');
+
+    favs.forEach(({ title, author }) => {
+      const card  = document.createElement('div');
+      card.className = 'book-card';
+
+      const btn   = document.createElement('button');
+      btn.className   = 'fav-btn active';
+      btn.textContent = '♥';
+
+      const cover = document.createElement('div');
+      cover.className   = 'book-cover';
+      cover.textContent = '📖';
+
+      const h3    = document.createElement('h3');
+      h3.textContent = title;
+
+      const p     = document.createElement('p');
+      p.textContent = author;
+
+      card.append(btn, cover, h3, p);
+      btn.addEventListener('click', e => {
+        e.stopPropagation();
+        toggleFavorite(title, author);
+        renderFavorites();
+      });
+      favGrid.appendChild(card);
+    });
+  }
+
+  renderFavorites();
+}
+
+// --- About modal (index.html) ---
+
 const aboutModal = document.getElementById('about-modal');
 
 if (aboutModal) {
@@ -151,15 +253,12 @@ if (aboutModal) {
     e.preventDefault();
     aboutModal.classList.add('open');
   });
-
   aboutModal.addEventListener('click', e => {
     if (e.target === aboutModal) aboutModal.classList.remove('open');
   });
-
   document.querySelector('.modal-close').addEventListener('click', () => {
     aboutModal.classList.remove('open');
   });
-
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') aboutModal.classList.remove('open');
   });
