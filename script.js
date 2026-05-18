@@ -18,6 +18,17 @@ const translations = {
     about_p3:           'Биографии реальных людей, истории любви, игры судьбы, события которые меняют всё — жанры разные, но цель одна: подарить эмоцию. Ту самую, которую не забываешь.',
     about_p4:           'Библиотека живёт на трёх языках — потому что эмоции не знают границ.',
     about_p5:           'NeverForget. Потому что такие истории не забываются.',
+    genres_title:       'Жанры',
+    genre_bio:          'Биографии',
+    genre_bio_desc:     'Реальные жизни, настоящие судьбы',
+    genre_romance:      'Романтические',
+    genre_romance_desc: 'Истории о любви и чувствах',
+    genre_mystic:       'Мистические',
+    genre_mystic_desc:  'Загадки, тайны и необъяснимое',
+    genre_inspire:      'Вдохновляющие',
+    genre_inspire_desc: 'Истории, которые меняют взгляд на мир',
+    genre_tech:         'Технологические (Игры)',
+    genre_tech_desc:    'Виртуальные миры и цифровые судьбы',
   },
   en: {
     nav_catalog:        'Catalog',
@@ -38,6 +49,17 @@ const translations = {
     about_p3:           'Biographies of real people, love stories, twists of fate, events that change everything — the genres vary, but the goal is one: to give you an emotion. The kind you don\'t forget.',
     about_p4:           'The library lives in three languages — because emotions know no borders.',
     about_p5:           'NeverForget. Because stories like these are never forgotten.',
+    genres_title:       'Genres',
+    genre_bio:          'Biographies',
+    genre_bio_desc:     'Real lives, true destinies',
+    genre_romance:      'Romantic',
+    genre_romance_desc: 'Stories of love and feeling',
+    genre_mystic:       'Mystical',
+    genre_mystic_desc:  'Mysteries, secrets and the unexplained',
+    genre_inspire:      'Inspiring',
+    genre_inspire_desc: 'Stories that change how you see the world',
+    genre_tech:         'Technological (Games)',
+    genre_tech_desc:    'Virtual worlds and digital destinies',
   },
   de: {
     nav_catalog:        'Katalog',
@@ -58,6 +80,17 @@ const translations = {
     about_p3:           'Biografien realer Menschen, Liebesgeschichten, Schicksalswendungen, Ereignisse, die alles verändern — die Genres sind verschieden, aber das Ziel ist eines: dir eine Emotion zu schenken. Eine, die du nicht vergisst.',
     about_p4:           'Die Bibliothek lebt in drei Sprachen — weil Emotionen keine Grenzen kennen.',
     about_p5:           'NeverForget. Weil solche Geschichten nicht vergessen werden.',
+    genres_title:       'Genres',
+    genre_bio:          'Biografien',
+    genre_bio_desc:     'Echte Leben, wahre Schicksale',
+    genre_romance:      'Romantisch',
+    genre_romance_desc: 'Geschichten von Liebe und Gefühlen',
+    genre_mystic:       'Mystisch',
+    genre_mystic_desc:  'Rätsel, Geheimnisse und Unerklärliches',
+    genre_inspire:      'Inspirierend',
+    genre_inspire_desc: 'Geschichten, die deinen Blick auf die Welt verändern',
+    genre_tech:         'Technologisch (Spiele)',
+    genre_tech_desc:    'Virtuelle Welten und digitale Schicksale',
   },
 };
 
@@ -95,35 +128,39 @@ const cardData = Array.from(bookCards).map(card => {
   };
 });
 
-function runSearch() {
-  const query = searchInput.value.toLowerCase().trim();
-  cardData.forEach(({ el, title, author }) => {
-    el.style.display = (!query || title.includes(query) || author.includes(query)) ? 'block' : 'none';
+if (searchButton) {
+  function runSearch() {
+    const query = searchInput.value.toLowerCase().trim();
+    cardData.forEach(({ el, title, author }) => {
+      el.style.display = (!query || title.includes(query) || author.includes(query)) ? 'block' : 'none';
+    });
+  }
+
+  searchButton.addEventListener('click', runSearch);
+  searchInput.addEventListener('keydown', e => { if (e.key === 'Enter') runSearch(); });
+
+  cardData.forEach(({ el, displayTitle }) => {
+    el.addEventListener('click', () => alert(`${translations[currentLang].book_open}: "${displayTitle}"`));
   });
 }
 
-searchButton.addEventListener('click', runSearch);
-searchInput.addEventListener('keydown', e => { if (e.key === 'Enter') runSearch(); });
-
-cardData.forEach(({ el, displayTitle }) => {
-  el.addEventListener('click', () => alert(`${translations[currentLang].book_open}: "${displayTitle}"`));
-});
-
 const aboutModal = document.getElementById('about-modal');
 
-document.querySelector('[data-i18n="nav_about"]').addEventListener('click', e => {
-  e.preventDefault();
-  aboutModal.classList.add('open');
-});
+if (aboutModal) {
+  document.querySelector('[data-i18n="nav_about"]').addEventListener('click', e => {
+    e.preventDefault();
+    aboutModal.classList.add('open');
+  });
 
-aboutModal.addEventListener('click', e => {
-  if (e.target === aboutModal) aboutModal.classList.remove('open');
-});
+  aboutModal.addEventListener('click', e => {
+    if (e.target === aboutModal) aboutModal.classList.remove('open');
+  });
 
-document.querySelector('.modal-close').addEventListener('click', () => {
-  aboutModal.classList.remove('open');
-});
+  document.querySelector('.modal-close').addEventListener('click', () => {
+    aboutModal.classList.remove('open');
+  });
 
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') aboutModal.classList.remove('open');
-});
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') aboutModal.classList.remove('open');
+  });
+}

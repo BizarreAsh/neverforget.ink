@@ -176,6 +176,68 @@ nav a:hover {
   color: #b0a898;
 }
 
+/* GENRES PAGE */
+.genres-section {
+  padding: 60px 40px;
+}
+
+.genres-section h1 {
+  font-size: 2rem;
+  color: #c9a84c;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.genres-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 25px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.genre-card {
+  background: #1a1a2e;
+  border: 1px solid #2a2a4e;
+  border-radius: 12px;
+  padding: 36px 20px 28px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s, border-color 0.3s;
+}
+
+.genre-card:hover {
+  transform: translateY(-6px);
+  border-color: #c9a84c;
+}
+
+.genre-icon {
+  font-size: 3.2rem;
+  margin-bottom: 16px;
+}
+
+.genre-card h3 {
+  font-size: 1.05rem;
+  color: #c9a84c;
+  margin-bottom: 10px;
+}
+
+.genre-card p {
+  font-size: 0.85rem;
+  color: #b0a898;
+  line-height: 1.5;
+}
+
+/* NAV ACTIVE */
+.nav-active {
+  color: #c9a84c !important;
+}
+
+/* LOGO LINK */
+a.logo {
+  text-decoration: none;
+}
+
 /* MODAL */
 .modal-overlay {
   display: none;
@@ -277,6 +339,15 @@ nav a:hover {
 
   .featured h2 {
     font-size: 1.4rem;
+  }
+
+  .genres-section {
+    padding: 40px 20px;
+  }
+
+  .genres-section h1 {
+    font-size: 1.6rem;
+    margin-bottom: 30px;
   }
 }
 

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NeverForget — Жанры</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <a class="logo" href="index.html">📚 NeverForget</a>
+    <nav>
+      <a href="index.html" data-i18n="nav_catalog">Каталог</a>
+      <a href="genres.html" data-i18n="nav_genres" class="nav-active">Жанры</a>
+      <a href="#" data-i18n="nav_favorites">Избранное</a>
+      <a href="#" data-i18n="nav_about">О нас</a>
+    </nav>
+    <div class="lang-switcher">
+      <button class="lang-btn active" data-lang="ru">RU</button>
+      <button class="lang-btn" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="de">DE</button>
+    </div>
+  </header>
+
+  <section class="genres-section">
+    <h1 data-i18n="genres_title">Жанры</h1>
+    <div class="genres-grid">
+
+      <div class="genre-card">
+        <div class="genre-icon">📜</div>
+        <h3 data-i18n="genre_bio">Биографии</h3>
+        <p data-i18n="genre_bio_desc">Реальные жизни, настоящие судьбы</p>
+      </div>
+
+      <div class="genre-card">
+        <div class="genre-icon">💕</div>
+        <h3 data-i18n="genre_romance">Романтические</h3>
+        <p data-i18n="genre_romance_desc">Истории о любви и чувствах</p>
+      </div>
+
+      <div class="genre-card">
+        <div class="genre-icon">🌙</div>
+        <h3 data-i18n="genre_mystic">Мистические</h3>
+        <p data-i18n="genre_mystic_desc">Загадки, тайны и необъяснимое</p>
+      </div>
+
+      <div class="genre-card">
+        <div class="genre-icon">✨</div>
+        <h3 data-i18n="genre_inspire">Вдохновляющие</h3>
+        <p data-i18n="genre_inspire_desc">Истории, которые меняют взгляд на мир</p>
+      </div>
+
+      <div class="genre-card">
+        <div class="genre-icon">🎮</div>
+        <h3 data-i18n="genre_tech">Технологические (Игры)</h3>
+        <p data-i18n="genre_tech_desc">Виртуальные миры и цифровые судьбы</p>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <p data-i18n="footer_text">© 2026 NeverForget.ink — Все права защищены</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
