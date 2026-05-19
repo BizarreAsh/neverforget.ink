@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abgegeben — Bizarre Ash</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #0f180f;
+    --paper: #f0f5f0;
+    --fade: #708070;
+    --accent: #205020;
+    --gold: #508050;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(60,140,60,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(32,80,32,0.05) 0%, transparent 60%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; }
+
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 6rem 0;
+    position: relative;
+  }
+
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+
+  .cover-eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 3rem;
+    opacity: 0.8;
+  }
+
+  .cover-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(48px, 10vw, 78px);
+    font-weight: 300;
+    letter-spacing: 0.06em;
+    color: var(--ink);
+    line-height: 1.0;
+    margin-bottom: 0.4rem;
+  }
+
+  .cover-rule {
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    margin: 2.5rem auto;
+    opacity: 0.6;
+  }
+
+  .cover-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--fade);
+    letter-spacing: 0.2em;
+    margin-bottom: 5rem;
+  }
+
+  .cover-author {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--fade);
+    opacity: 0.7;
+  }
+
+  .toc {
+    padding: 7rem 0 5rem;
+    border-bottom: 1px solid rgba(80,128,80,0.2);
+    margin-bottom: 7rem;
+  }
+
+  .toc-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2.5rem;
+  }
+
+  .toc-item {
+    display: grid;
+    grid-template-columns: 2em 1fr 2em;
+    gap: 0.5rem;
+    align-items: baseline;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(80,128,80,0.12);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .toc-item:hover { color: var(--accent); }
+
+  .toc-roman {
+    font-style: normal;
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    padding-top: 0.3em;
+  }
+
+  .toc-num {
+    font-style: normal;
+    font-size: 11px;
+    color: var(--fade);
+    text-align: right;
+  }
+
+  .chapter { padding-top: 6rem; margin-bottom: 3rem; }
+  .chapter-header { margin-bottom: 3rem; }
+
+  .chapter-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 100px;
+    font-weight: 300;
+    color: var(--gold);
+    opacity: 0.18;
+    line-height: 0.85;
+    margin-bottom: -0.1em;
+    letter-spacing: -0.02em;
+    user-select: none;
+  }
+
+  .chapter-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--ink);
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(80,128,80,0.35);
+    line-height: 1.3;
+  }
+
+  p {
+    margin-bottom: 1.5em;
+    text-align: justify;
+    hyphens: auto;
+  }
+
+  .chapter > p:first-of-type::first-letter {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4.8em;
+    font-weight: 300;
+    float: left;
+    line-height: 0.72;
+    margin-right: 0.06em;
+    margin-top: 0.1em;
+    color: var(--accent);
+  }
+
+  .dialogue {
+    margin: 2em 0 2em 2.2em;
+    font-style: italic;
+    color: #1a2e1a;
+    position: relative;
+    font-size: 17.5px;
+  }
+
+  .dialogue::before {
+    content: '—';
+    position: absolute;
+    left: -1.5em;
+    color: var(--gold);
+    font-style: normal;
+  }
+
+  .break {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6em;
+    margin: 3rem 0;
+    color: var(--gold);
+    opacity: 0.5;
+    font-size: 8px;
+    letter-spacing: 0.6em;
+  }
+
+  .break::before, .break::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(80,128,80,0.3));
+  }
+
+  .break::after {
+    background: linear-gradient(to left, transparent, rgba(80,128,80,0.3));
+  }
+
+  .chapter-end {
+    margin: 6rem 0 0;
+    text-align: center;
+    color: var(--gold);
+    opacity: 0.3;
+    font-size: 20px;
+    letter-spacing: 0.6em;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">autobiografische Prosa</div>
+    <div class="cover-title">Abgegeben</div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">über das Bestehen ohne Vorbereitung</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Inhalt</div>
+    <a class="toc-item" href="#ch1">
+      <span class="toc-roman">I</span>
+      <span>Ein zufälliger Autor</span>
+      <span class="toc-num">—</span>
+    </a>
+    <a class="toc-item" href="#ch2">
+      <span class="toc-roman">II</span>
+      <span>Blindes Entschärfen</span>
+      <span class="toc-num">—</span>
+    </a>
+    <a class="toc-item" href="#ch3">
+      <span class="toc-roman">III</span>
+      <span>World of Warcraft rettet die Note</span>
+      <span class="toc-num">—</span>
+    </a>
+  </div>
+
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">Ein zufälliger Autor</div>
+    </div>
+
+    <p>Mart ging an seine staatlichen Abschlussprüfungen heran wie man an etwas Unvermeidliches herangeht — ohne Panik, aber auch ohne besondere Vorbereitung. Gezielt lernen hatte er nicht vor. Das wäre einer Kapitulation vor dem System gleichgekommen, und kapitulieren lag ihm nicht. Logik, Selbstsicherheit, Improvisation — das waren die drei Säulen auf denen alles ruhte.</p>
+
+    <p>Zuerst kam ukrainische Literatur.</p>
+
+    <p>Der Multiple-Choice-Teil lief erträglich — zumindest gab es Auswahlmöglichkeiten. Als die schriftliche Aufgabe kam, las Mart die Frage sorgfältig, legte den Stift hin und dachte nach.</p>
+
+    <p>Die Aufgabe war fast beleidigend einfach: einen Autor nennen, ein Werk — und entweder die Idee verteidigen oder widerlegen. Mit Begründung.</p>
+
+    <p>Das Problem war dass Mart über das Offensichtlichste hinaus nichts wusste. Und selbst das Offensichtliche war wackelig. Ein leeres Blatt anstarren war keine Option — er blätterte durch das Prüfungsheft auf der Suche nach irgendeinem Anhaltspunkt. Autoren, Titel, Assoziationen — alles was einen Ausgangspunkt bieten könnte.</p>
+
+    <p>Er fand einen. Ein zufälliger Autor, ein zufälliges Werk — die Wahl wurde nicht mit dem Kopf getroffen, sondern mit dem Instinkt. Mart nahm den Stift und fing an zu schreiben.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Er füllte Seiten. Viel, selbstsicher, mit dem Auftreten von jemandem der genau weiß wovon er spricht. Es war eine eigene Kunst die er perfekt beherrschte: wenn man die Substanz nicht kennt, redet man über die Verpackung so überzeugend dass niemand merkt dass nichts drin ist. Sätze wurden zu Absätzen, Absätze zu Seiten. Irgendwann wurde er wirklich mitgerissen — der Text gewann Rhythmus, eine Logik entstand, und Mart ertappte sich dabei fast stolz auf das Geschriebene zu sein.</p>
+
+    <p>Nach der Prüfung ging er sofort zur Lehrerin — um von seiner Heldentat zu berichten. Sie hörte zu, lächelte und sagte ruhig:</p>
+
+    <div class="dialogue">So eine Arbeit werden sie wahrscheinlich annullieren. Oder sehr wenig Punkte geben.</div>
+
+    <p>Mart war überzeugt vom Gegenteil.</p>
+
+    <p>Die Ergebnisse bestätigten ihn — vierzehn von zwanzig für die schriftliche Aufgabe. Die Lehrerin kommentierte nichts weiter. Er auch nicht.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">Blindes Entschärfen</div>
+    </div>
+
+    <p>Geschichte war fremdes Territorium. Nicht im Sinne dass Mart gar nichts wusste — er wusste was ihn interessierte. Einzelne Ereignisse, einzelne Epochen, Fragmente die aus irgendeinem Grund hängen geblieben waren. Der Schullehrplan hatte mit diesen Fragmenten fast nichts zu tun.</p>
+
+    <p>Die Geschichtsprüfung war blindes Entschärfen — jede Frage konnte alles sein. Manche Fragen trafen vertrautes Terrain, etwas tauchte durch Assoziation aus dem Gedächtnis auf, etwas wurde aus der Ereignislogik heraus erraten. Manche nicht — und dann blieb nur die plausibelste Antwort zu wählen und weiterzumachen.</p>
+
+    <p>Das Ergebnis war nicht katastrophal. Nicht glänzend — aber brauchbar. Mart bestand Geschichte so wie man nachts durch ein unbekanntes Viertel geht: vorsichtig, ohne unnötige Bewegungen, und kommt am Ende ans Ziel.</p>
+
+    <p>Als nächstes kam Englisch.</p>
+
+    <p>Das war eine andere Sache.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">World of Warcraft rettet die Note</div>
+    </div>
+
+    <p>Leon war zum richtigen Zeitpunkt in Marts Leben aufgetaucht — so wie Menschen auftauchen die ihr Handwerk kennen und es weitergeben können. Ein ehemaliger Schuldirektor, ein Mann mit Haltung und wenig überflüssigen Worten — er legte Mart die Grundlagen des Englischen in den Kopf so wie es gemacht werden sollte: klar, ohne Füllstoff, mit Respekt vor dem Schüler.</p>
+
+    <p>Danach brachte Mart sich selbst bei.</p>
+
+    <p>Spiele waren bessere Lehrer als jedes Lehrbuch. Ausländische Titel ohne Übersetzung — und die meisten Spiele die er spielen wollte hatten keine — zwangen einen zu lesen, zu verstehen, zu behalten. Nicht Regeln auswendig zu lernen, sondern die Sprache lebendig zu hören. Der Wortschatz wuchs nicht aus Wortlisten sondern aus Dialogen, Beschreibungen, Benutzeroberflächen. Past Perfect kannte er nicht — aber er konnte Gespräche zu Dutzenden von Themen führen und verstand Geschriebenes beim ersten Lesen.</p>
+
+    <p>Englisch war längst seine Sprache geworden bevor es offiziell verlangt wurde.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>In der Prüfung, unter den Lesetexten, war einer über World of Warcraft.</p>
+
+    <p>Mart las den ersten Satz und hielt inne.</p>
+
+    <p>Der Text handelte von seiner Welt — den Mechaniken, der Geschichte des Spiels, Dingen die er nicht aus einem Buch kannte sondern aus Hunderten von Stunden vor dem Monitor. Die Fragen zum Text waren klar bevor er sie überhaupt gelesen hatte. Die Antworten lagen fertig in seinem Kopf — er musste sie nur noch hinschreiben.</p>
+
+    <p>Kein einziger Fehler.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Englisch stellte sich als eines seiner besten Ergebnisse aller Prüfungen heraus. Nicht weil er Glück hatte — sondern weil Jahre des selbstständigen Eintauchens in die Sprache ihm etwas gegeben hatten das kein Nachhilfelehrer ohne den eigenen Antrieb des Schülers geben kann.</p>
+
+    <p>Das System prüfte Wissen. Mart brachte seines mit — nur anders erworben als erwartet.</p>
+
+    <p>Leon, hätte er von World of Warcraft in der Prüfung gehört, hätte wahrscheinlich gelächelt. Er hatte immer verstanden dass das Entscheidende ist ob die Sprache funktioniert. Egal woher man sie hat.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>

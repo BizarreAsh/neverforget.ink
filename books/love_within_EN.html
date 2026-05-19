@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Love Within — Bizarre Ash</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #160f0a;
+    --paper: #f7f2ea;
+    --fade: #8a7d6e;
+    --accent: #6b3020;
+    --gold: #c9a96e;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(185,146,74,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(107,48,32,0.05) 0%, transparent 60%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; }
+
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 6rem 0;
+    position: relative;
+  }
+
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+
+  .cover-eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 3rem;
+    opacity: 0.8;
+  }
+
+  .cover-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(48px, 10vw, 72px);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    line-height: 1.1;
+    margin-bottom: 0.4rem;
+  }
+
+  .cover-title em { font-style: italic; color: var(--accent); }
+
+  .cover-rule {
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    margin: 2.5rem auto;
+    opacity: 0.6;
+  }
+
+  .cover-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--fade);
+    letter-spacing: 0.2em;
+    margin-bottom: 5rem;
+  }
+
+  .cover-author {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--fade);
+    opacity: 0.7;
+  }
+
+  .toc {
+    padding: 7rem 0 5rem;
+    border-bottom: 1px solid rgba(185,146,74,0.2);
+    margin-bottom: 7rem;
+  }
+
+  .toc-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2.5rem;
+  }
+
+  .toc-item {
+    display: grid;
+    grid-template-columns: 2em 1fr 2em;
+    gap: 0.5rem;
+    align-items: baseline;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(185,146,74,0.12);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .toc-item:hover { color: var(--accent); }
+
+  .toc-roman {
+    font-style: normal;
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    padding-top: 0.3em;
+  }
+
+  .toc-num {
+    font-style: normal;
+    font-size: 11px;
+    color: var(--fade);
+    text-align: right;
+  }
+
+  .chapter { padding-top: 6rem; margin-bottom: 3rem; }
+  .chapter-header { margin-bottom: 3rem; }
+
+  .chapter-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 100px;
+    font-weight: 300;
+    color: var(--gold);
+    opacity: 0.18;
+    line-height: 0.85;
+    margin-bottom: -0.1em;
+    letter-spacing: -0.02em;
+    user-select: none;
+  }
+
+  .chapter-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--ink);
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(185,146,74,0.35);
+    line-height: 1.3;
+  }
+
+  p {
+    margin-bottom: 1.5em;
+    text-align: justify;
+    hyphens: auto;
+  }
+
+  .chapter > p:first-of-type::first-letter {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4.8em;
+    font-weight: 300;
+    float: left;
+    line-height: 0.72;
+    margin-right: 0.06em;
+    margin-top: 0.1em;
+    color: var(--accent);
+  }
+
+  .dialogue {
+    margin: 2em 0 2em 2.2em;
+    font-style: italic;
+    color: #2a1e16;
+    position: relative;
+    font-size: 17.5px;
+  }
+
+  .dialogue::before {
+    content: '—';
+    position: absolute;
+    left: -1.5em;
+    color: var(--gold);
+    font-style: normal;
+  }
+
+  .break {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6em;
+    margin: 3rem 0;
+    color: var(--gold);
+    opacity: 0.5;
+    font-size: 8px;
+    letter-spacing: 0.6em;
+  }
+
+  .break::before, .break::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(185,146,74,0.3));
+  }
+
+  .break::after {
+    background: linear-gradient(to left, transparent, rgba(185,146,74,0.3));
+  }
+
+  .chapter-end {
+    margin: 6rem 0 0;
+    text-align: center;
+    color: var(--gold);
+    opacity: 0.3;
+    font-size: 20px;
+    letter-spacing: 0.6em;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">autobiographical prose</div>
+    <div class="cover-title">Love<br><em>Within</em></div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">a story about how it begins</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Contents</div>
+    <a class="toc-item" href="#ch1">
+      <span class="toc-roman">I</span>
+      <span>The Frog from the City Centre</span>
+      <span class="toc-num">—</span>
+    </a>
+    <a class="toc-item" href="#ch2">
+      <span class="toc-roman">II</span>
+      <span>Work Again</span>
+      <span class="toc-num">—</span>
+    </a>
+    <a class="toc-item" href="#ch3">
+      <span class="toc-roman">III</span>
+      <span>Pass or Fail</span>
+      <span class="toc-num">—</span>
+    </a>
+  </div>
+
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">The Frog from the City Centre</div>
+    </div>
+
+    <p>What's done is done. By morning the message had been deleted — but it was already too late. The person it was meant for had read it. Grotter simply hadn't wanted it sitting there like something self-evident. He didn't agree. Or he did — but not entirely. He couldn't give himself an honest answer.</p>
+
+    <p>He recovered and played the fool: claimed he'd been drunk when he sent it. Apparently that flew. He exhaled properly for the first time in several hours.</p>
+
+    <p>But the holidays after New Year dragged on, and there was too much free time. Grotter tried everything to get Veya out for a walk — she kept refusing. With every refusal something inside him tightened a little more, though he didn't show it. He had his methods. This time his last resort was to start at the end. He wrote simply:</p>
+
+    <div class="dialogue">If we're not going for a walk and you keep refusing — why are we even talking?</div>
+
+    <p>The ultimatum seemed foolproof. It worked.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>They arranged to meet on the second of January. The city hadn't quite woken up from the holidays yet — like someone who hasn't decided whether to get up. Grotter was restless: he wanted to move, and he was impatient to finally meet this person in real life. A lot of questions hadn't been asked in chat — they were waiting for a real conversation.</p>
+
+    <p>He arrived early, prepared a small gift — a reliable move. Grotter always put maximum effort into gifts when it mattered. It was his language — one of the few he could speak without words.</p>
+
+    <p>Veya warned him about being late almost at the last moment. "These things happen," he decided, and stayed to wait. When the wait crossed half an hour with no end in sight, he realised he'd backed himself into a corner: leaving now was out of the question, but there was still a good stretch ahead. She tried to cancel and send him home. But at that point it was a matter of principle: you started waiting — you wait. Pride is a stubborn thing.</p>
+
+    <p>The frog showed up two hours later. The whole time Grotter had been finding ways to entertain himself, trying not to think about how much of an idiot he felt. It was the middle of winter, cold — but there were places nearby to get out of it.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>When they met, he silently handed over his gift. Veya took it — without extra words, but something in her expression softened for a moment. They went to find somewhere to sit: the plan was just to have coffee. They found a place quickly. Once they'd ordered, a conversation started.</p>
+
+    <p>Almost immediately Grotter found out Veya was nineteen. He was seventeen at the time.</p>
+
+    <p>It hit unexpectedly and hard. He barely listened after that — the number stood in front of everything else and pushed it out. As far as he was concerned the meeting had ended right there. What exactly caused that reaction was never entirely clear. Maybe fear of looking ridiculous. Maybe something else. But he decided to wrap things up quickly: the odds, it seemed, were close to zero.</p>
+
+    <p>They kept sitting and talking pleasantly about everything and nothing — the standard introduction of two people who don't yet know why they've met. Grotter paid the bill despite Veya's long refusals. Some negotiation — and a win. They started getting ready to leave.</p>
+
+    <p>At that point he felt something like relief: finally over, he could get back to his own life. But when they stepped outside and he tried to end the meeting, she said simply:</p>
+
+    <div class="dialogue">Already going home? We just got here.</div>
+
+    <p>Three words — and all the relief vanished. He understood almost immediately: sending him home would have to wait until Veya had had her fill of the city. Grotter's finances at that moment were critically close to zero, and he definitely hadn't prepared for this to continue.</p>
+
+    <p>Veya pulled him toward the centre — she spent a lot of time there and knew it well.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>It was the holiday season and where they were walking there was a fair. They headed straight in — talking, getting to know each other. In the meantime Grotter had been quietly reconsidering. The more they walked and talked, the more he became convinced: there was something here. That initial verdict — premature.</p>
+
+    <p>After the fair Veya pulled him toward the funicular — one of the landmarks of their city. When they got there, Grotter looked at the price board and mistook the fine amount for the ticket price. The number was high enough to make him a little ill — he didn't have that much left.</p>
+
+    <p>He started making excuses as best he could: fear of heights, not feeling it, anything. Veya started to suspect something — and when the real reason became obvious, she gently explained he'd misread it. No mockery in her voice. Grotter agreed — feeling a little embarrassed at being figured out so quickly. Veya insisted, and there wasn't much choice.</p>
+
+    <p>After the ride, which differed little from being packed into a tram, they kept walking. But as time passed the cold was sharpening — the day was becoming night.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>They decided to find somewhere warm and get a bite. A supermarket nearby solved both. The only complication was that Grotter had almost nothing left. He couldn't let Veya see that — he quietly ran through his expenses in his head, trying not to give away by any gesture that the situation was close to catastrophic.</p>
+
+    <p>They got a couple of filled pastries — cheap and to the point. Grotter stood at the shelf for a long time figuring out what he could still afford. Veya found this amusing. She didn't know what it was actually like for him.</p>
+
+    <p>They warmed up a little and moved on.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>They'd been walking in a wide circle and after a few hours ended up back at the same fair they'd started from. There was a skating rink. Next to it stood an annex — part waiting room, part small café. The central windows gave a clear view of the ice and everyone on it: someone's artistry, someone's persistence, someone's falls under the muted laughter of spectators.</p>
+
+    <p>They took seats right across from it, got cups of hot tea. Their hands finally warmed up. Outside, life was going on, and there was something calming in simply watching it from the side. At some point Grotter decided to test what was going on in Veya's head, and mentioned a close friend — someone he'd been with at one point. The reaction was interesting. Not jealousy, not indifference — something in between. Something that suggested she too had thoughts about something more between them.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Time crept toward midnight. The metro didn't run around the clock. Topics were running dry for both of them — each probably had enough to process alone.</p>
+
+    <p>They headed back to where they'd met. The meeting place became the parting place.</p>
+
+    <p>Grotter walked Veya to her stop and waited with her. When they said goodbye they simply hugged. Nothing extra — just an embrace and the cold air around them. Then they went their separate ways.</p>
+
+    <p>He took the metro home. From the station he had to walk — transport had stopped. The frost nipped at his cheeks, but he didn't want to think about the cold. Everything that had happened that evening kept turning over in his head — in circles, without stopping, the way it does when something inside hasn't yet decided what to make of it.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>After that meeting they started talking more than before. Spontaneous walks together, meeting at university and after — it all became routine. One day they went to a park on a hill dedicated to military equipment. Open air, city views from above — beautiful at any time of day. And a little quieter than the city below.</p>
+
+    <p>That meeting felt noticeably closer than the first. Something was changing — slowly, almost imperceptibly, but changing. Grotter felt it, but still couldn't bring himself to act. He was afraid of getting it wrong, afraid of breaking something. That moment stayed between them as something unfinished — and they'd come back to it later in conversations, half-laughing, half-regretting.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>The third proper meeting fell on the fourteenth of February. Grotter and Veya went to the cinema — together with Polo and Reya, who also had something budding at the time. In practice it turned into a double date: each with their own person, and everyone curious to see what that felt like.</p>
+
+    <p>The film was fitting — an irreverent superhero comedy about an immortal mercenary who takes revenge on those who wronged him and mocks every genre trope along the way, pausing now and then to speak directly to the audience. Deadpool.</p>
+
+    <p>For a while they all watched together — genuinely funny in places. But then Polo apparently either lost interest in the film or became considerably more interested in Reya. Grotter didn't think long — the decision arrived on its own. He followed suit with Veya. By that point there weren't many boundaries between them anyway. The hall was half empty. No one was in anyone's way.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>After the screening no one was in any hurry to go home. The first restaurant that didn't turn them away was where they stayed. He and Polo were splitting the bill for everyone, but they ordered whatever they wanted. The staff asked them to settle up in advance, closed the restaurant, and went home — leaving them alone inside. The scene from the cinema repeated.</p>
+
+    <p>Polo and Reya were the first to gather their things — they had an empty flat and a whole night ahead. Grotter didn't have that card to play. They said goodbye, hugged — Polo and Reya left, and the particular silence settled that comes when two people suddenly find themselves alone and both notice it.</p>
+
+    <p>In the same breath Grotter started talking about how Veya really ought to end the long-distance situation that still technically existed. He even offered to write to her guy himself if she found it hard. He didn't know where this decisiveness came from — but it was there.</p>
+
+    <p>He got a promise: tomorrow the past would be over. After that he moved into a more active approach. It was the first time of shared passion — the details don't need to be gone into. Everything was the way it should have been.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Then life threw them what might have been an absurd coincidence or a quiet gift from someone close. That same evening Rina called Grotter and said she was going out with guests and leaving the flat unattended.</p>
+
+    <p>He thought he'd hit the jackpot. Reality turned out to be harsher.</p>
+
+    <p>Veya agreed to come — though she kept wanting to go home afterwards. A taxi runs all night — not a problem. That's what they settled on.</p>
+
+    <p>On the way over Grotter already understood his mistake. This outcome hadn't been planned for at all. When they arrived they ran into a problem — neither he nor the flat had any protection, which at that particular moment was close to a necessity.</p>
+
+    <p>He left Veya with the cats and went to sort it out. Walked through the neighbourhood at night — everything closed. Going somewhere far away meant neither money nor time. He stood on the street, stared into the dark, and felt like a complete idiot.</p>
+
+    <p>He came back with his head held proudly low. Shrugged. Veya looked at him — and laughed. Not meanly, just like that. For some reason that was the worst part.</p>
+
+    <p>This was the second time they'd preserved a moment for memories and future references. They had a good time together. Grotter put Veya in a taxi as promised and went back to sit at his computer and relive the blunder with that particular bitterness that comes when everything was almost perfect.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>A little over a week later his father gave Grotter tickets to a wrestling event at the Sports Palace — he had no use for them himself. He insisted: take your girl and go. At first Grotter wasn't keen. But when he mentioned it to Veya and she turned out to be fine with it — he changed his mind. He was starting to understand that reasons to see each other were worth using.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>After the event started, having watched the show and then the people around him, Grotter felt it: time. Not here, not for the audience — but time. He suggested they leave and said there was something important to do. They went outside. He walked looking for the right spot — one he wouldn't be embarrassed by later as the backdrop to the moment. He found it quickly. Stopped. His heart beat a little louder than usual, though he held himself calmly — or so he thought.</p>
+
+    <p>Somewhere there, in early February, he asked whether Veya was willing to make things official.</p>
+
+    <p>She said yes almost immediately.</p>
+
+    <p>That was also their first real kiss. It felt a little foreign to Grotter — not unpleasant, just unfamiliar. Like hearing a word you know spoken aloud for the first time. The moment struck him as strange and at the same time very real. But a first is only a first once.</p>
+
+    <p>Their already close relationship lost its last restraining factor and began turning into something else. Something that had weight.</p>
+
+    <p>Grotter understood the goal had been reached — and largely relaxed. Maybe too much. He stopped watching the details, started just moving forward. Tried not to ruin anything — sometimes even at his own expense. Not to hurt anyone. That was his reality, and he wasn't going to change it.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">Work Again</div>
+    </div>
+
+    <p>All of Grotter's finances at that age rested on Rina. He wasn't drawn to working — but he rarely passed up what came his way. He was the kind of person you could hand a shovel and tell to dig, and he'd dig without questions.</p>
+
+    <p>To be fair, before eighteen there was one job. At some point Polo had pulled him along to apply together at a fast food chain — Pechena Kartoplya. That's what it was called, nothing to be done about it. The hiring process felt mysterious and slightly ominous, or at least that's what it felt like.</p>
+
+    <p>They got through all the stages tolerably well: a trial day, an interview, the formalities. Both got hired. Only at the end did it emerge that Polo was being sent to a different restaurant — in the city centre. Despite the fact that Polo had been the whole reason they applied, and the original restaurant was practically on their doorstep for both of them. Fate had played a dirty trick on him, but backing out was already too late — and not the done thing.</p>
+
+    <p>Grotter stayed at the same restaurant where he'd started. He even liked it at first. The first couple of days — interesting experience, real people around, the feeling of being part of something that worked. The fact that he was part of the service staff he hadn't particularly thought about, even though that was the reality.</p>
+
+    <p>That lasted right up until the staff started breaking the rules they'd been taught a few days earlier. When Grotter tried to stand up for the customers' rights, he unknowingly opened the door on his way out.</p>
+
+    <p>On one shift he was put on washing dishes. Neither management nor the team liked how long he was taking. Not that he was slow — more like too thorough. Why exactly that became grounds for dismissal is a separate question. But it did. Grotter packed his things and left without a word, with a feeling that couldn't be called either resentment or relief — more like quiet bewilderment at how the world works.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">Pass or Fail</div>
+    </div>
+
+    <p>Grotter treated university roughly the way you treat weather — something you have to account for, but not something worth rearranging your life around. He didn't study. He didn't prepare. He sat down for resits with the same expression you sit down on a bus — it'll take you somewhere.</p>
+
+    <p>Veya was different. She wasn't a star student, but she was there — with notes, with hints, with patience she had noticeably more of than he deserved. When Grotter asked for help, she helped. When he didn't ask — she helped anyway, because she could see what was needed. He accepted this as a given. Not with any bad intention — he simply didn't notice. Which, in some ways, was worse.</p>
+
+    <p>Money came from her sometimes too. Quietly, without keeping track — a friendly hand, not a handout. Grotter took it. Didn't always give it back. Thought about it rarely.</p>
+
+    <p>Exam sessions came in waves. Some went smoothly, others meant coming back two or three times to the same teacher with the same expression. It was funny. It was nerve-wracking. It was that particular state between the two where you can't tell anymore whether to laugh or not.</p>
+
+    <p>One resit stuck in memory particularly. A teacher — literature, probably, second year — asked a simple question. What's the English word for "small".</p>
+
+    <p>Grotter froze.</p>
+
+    <p>The only thing that came to mind was Tiny from Dota. The enormous stone giant who was called that precisely by irony. Small wasn't coming. Little wasn't coming. Nothing was coming except the stone colossus with the club.</p>
+
+    <p>The pause stretched.</p>
+
+    <div class="dialogue">Take your passing grade and go.</div>
+
+    <p>He went. Veya laughed for a long time after. Grotter laughed too — but a little quieter, because inside there was something like shame that he preferred not to look at too closely.</p>
+
+    <p>And so it went. Passing grades accumulated, credits got signed off, the course moved forward. Grotter moved with it — not particularly thinking about what was trailing behind him. Veya nearby. Help nearby. Everything seemingly sorting itself out.</p>
+
+    <p>What he didn't know was small in quantity but large in impact. His parents' connections had been tied to the university before he ever enrolled. The rear was covered — quietly, without announcements. He walked a road not knowing someone had removed the stones from it in advance.</p>
+
+    <p>Veya was removing something else — every day, with her own hands, without the thanks she deserved.</p>
+
+    <p>Grotter was wrong. Not a villain, not a monster — just a person who looked forward and didn't look back. And behind him she stood, holding what he kept dropping.</p>
+
+    <p>He didn't see it.</p>
+
+    <p>That's not an excuse.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>

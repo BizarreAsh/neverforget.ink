@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Сдано — Bizarre Ash</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #0f180f;
+    --paper: #f0f5f0;
+    --fade: #708070;
+    --accent: #205020;
+    --gold: #508050;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(60,140,60,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(32,80,32,0.05) 0%, transparent 60%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; }
+
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 6rem 0;
+    position: relative;
+  }
+
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+
+  .cover-eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 3rem;
+    opacity: 0.8;
+  }
+
+  .cover-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(56px, 12vw, 88px);
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    color: var(--ink);
+    line-height: 1.0;
+    margin-bottom: 0.4rem;
+  }
+
+  .cover-rule {
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    margin: 2.5rem auto;
+    opacity: 0.6;
+  }
+
+  .cover-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--fade);
+    letter-spacing: 0.2em;
+    margin-bottom: 5rem;
+  }
+
+  .cover-author {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--fade);
+    opacity: 0.7;
+  }
+
+  .toc {
+    padding: 7rem 0 5rem;
+    border-bottom: 1px solid rgba(80,128,80,0.2);
+    margin-bottom: 7rem;
+  }
+
+  .toc-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2.5rem;
+  }
+
+  .toc-item {
+    display: grid;
+    grid-template-columns: 2em 1fr 2em;
+    gap: 0.5rem;
+    align-items: baseline;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(80,128,80,0.12);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .toc-item:hover { color: var(--accent); }
+
+  .toc-roman {
+    font-style: normal;
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    padding-top: 0.3em;
+  }
+
+  .toc-num {
+    font-style: normal;
+    font-size: 11px;
+    color: var(--fade);
+    text-align: right;
+  }
+
+  .chapter { padding-top: 6rem; margin-bottom: 3rem; }
+  .chapter-header { margin-bottom: 3rem; }
+
+  .chapter-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 100px;
+    font-weight: 300;
+    color: var(--gold);
+    opacity: 0.18;
+    line-height: 0.85;
+    margin-bottom: -0.1em;
+    letter-spacing: -0.02em;
+    user-select: none;
+  }
+
+  .chapter-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--ink);
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(80,128,80,0.35);
+    line-height: 1.3;
+  }
+
+  p {
+    margin-bottom: 1.5em;
+    text-align: justify;
+    hyphens: auto;
+  }
+
+  .chapter > p:first-of-type::first-letter {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4.8em;
+    font-weight: 300;
+    float: left;
+    line-height: 0.72;
+    margin-right: 0.06em;
+    margin-top: 0.1em;
+    color: var(--accent);
+  }
+
+  .dialogue {
+    margin: 2em 0 2em 2.2em;
+    font-style: italic;
+    color: #1a2e1a;
+    position: relative;
+    font-size: 17.5px;
+  }
+
+  .dialogue::before {
+    content: '—';
+    position: absolute;
+    left: -1.5em;
+    color: var(--gold);
+    font-style: normal;
+  }
+
+  .break {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6em;
+    margin: 3rem 0;
+    color: var(--gold);
+    opacity: 0.5;
+    font-size: 8px;
+    letter-spacing: 0.6em;
+  }
+
+  .break::before, .break::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(80,128,80,0.3));
+  }
+
+  .break::after {
+    background: linear-gradient(to left, transparent, rgba(80,128,80,0.3));
+  }
+
+  .chapter-end {
+    margin: 6rem 0 0;
+    text-align: center;
+    color: var(--gold);
+    opacity: 0.3;
+    font-size: 20px;
+    letter-spacing: 0.6em;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">автобиографическая проза</div>
+    <div class="cover-title">Сдано</div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">о том, как побеждают без подготовки</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Содержание</div>
+    <a class="toc-item" href="#ch1">
+      <span class="toc-roman">I</span>
+      <span>Случайный автор</span>
+      <span class="toc-num">—</span>
+    </a>
+    <a class="toc-item" href="#ch2">
+      <span class="toc-roman">II</span>
+      <span>Сапёр вслепую</span>
+      <span class="toc-num">—</span>
+    </a>
+    <a class="toc-item" href="#ch3">
+      <span class="toc-roman">III</span>
+      <span>World of Warcraft спасает оценку</span>
+      <span class="toc-num">—</span>
+    </a>
+  </div>
+
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">Случайный автор</div>
+    </div>
+
+    <p>Государственные экзамены Март воспринимал примерно так же, как воспринимают неизбежное — без паники, но и без особой подготовки. Учить специально он не собирался. Это было соизмеримо капитуляции перед системой, а капитулировать было не в его характере. Логика, харизма, импровизация — вот три кита на которых держалось всё.</p>
+
+    <p>Первым шла украинская литература.</p>
+
+    <p>Тестовая часть прошла сносно — там хотя бы было из чего выбирать. Когда дошло до письменного задания, Март прочитал вопрос внимательно, отложил ручку и задумался.</p>
+
+    <p>Задание было простым до издевательства: назвать одного автора, одно его произведение — и либо поддержать его идею, либо опровергнуть. С обоснованием.</p>
+
+    <p>Проблема была в том, что кроме самого банального Март не знал ничего. Да и в банальном плавал. Сидеть и смотреть в пустой лист было не вариантом — он начал листать экзаменационный буклет в поисках хоть какой-то зацепки. Авторы, названия, ассоциации — всё что могло бы дать точку опоры.</p>
+
+    <p>Зацепка нашлась. Случайный автор, случайное произведение — выбор был сделан не головой, а интуицией. Март взял ручку и начал писать.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Он лил воду — много, уверенно, с умным видом. Это было отдельное искусство, которым он владел в совершенстве: когда не знаешь сути, говори об обёртке так убедительно, чтобы никто не заметил отсутствия содержимого. Предложения выстраивались в абзацы, абзацы в страницы. В какой-то момент он увлёкся по-настоящему — текст приобрёл ритм, появилась логика, и Март поймал себя на том, что почти гордится написанным.</p>
+
+    <p>После экзамена он сразу пошёл к учительнице — рассказать о подвиге. Та выслушала, улыбнулась и сказала спокойно:</p>
+
+    <div class="dialogue">Скорее всего, такую работу аннулируют. Или поставят очень мало.</div>
+
+    <p>Март был уверен в обратном.</p>
+
+    <p>Результаты подтвердили его правоту — четырнадцать из двадцати за письменное задание. Учительница больше ничего не комментировала. Он тоже.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">Сапёр вслепую</div>
+    </div>
+
+    <p>История была чужой территорией. Не в смысле что Март не знал ничего — он знал то, что его интересовало. Отдельные события, отдельные периоды, те фрагменты которые по какой-то причине зацепили. Школьная программа к этим фрагментам отношения почти не имела.</p>
+
+    <p>Экзамен по истории был сапёром вслепую — каждый вопрос мог оказаться чем угодно. Где-то повезло — попалось знакомое, что-то всплыло из памяти по ассоциации, что-то угадалось из логики событий. Где-то не повезло — и оставалось только выбрать наиболее правдоподобный вариант из предложенных и двигаться дальше.</p>
+
+    <p>Результат оказался не катастрофическим. Не блестящим — но вполне рабочим. Март сдал историю так же, как проходят через незнакомый район ночью: осторожно, без лишних движений, и в итоге добираются куда надо.</p>
+
+    <p>Следующим был английский.</p>
+
+    <p>Это было уже другое.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">World of Warcraft спасает оценку</div>
+    </div>
+
+    <p>Леон появился в жизни Марта в нужный момент — как появляются люди, которые знают своё дело и умеют передать его другому. Бывший директор, человек с выправкой и без лишних слов — он вложил в голову Марта основы английского так, как это должно быть сделано: чётко, без воды, с уважением к ученику.</p>
+
+    <p>Дальше Март занимался сам.</p>
+
+    <p>Игры учили его лучше любого учебника. Зарубежные проекты без русского перевода — а таких было большинство из тех, в которые хотелось играть — вынуждали читать, понимать, запоминать. Не зазубривать правила, а слышать язык живым. Словарный запас рос не из списков слов, а из диалогов, описаний, интерфейсов. Past Perfect он не знал — зато мог поддержать разговор на десятки тем и понимал написанное с первого прочтения.</p>
+
+    <p>Английский стал его языком задолго до того, как это потребовалось официально.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>На экзамене среди текстов для чтения и понимания попался один про World of Warcraft.</p>
+
+    <p>Март прочитал первое предложение и остановился.</p>
+
+    <p>Текст был про его мир — про механики, про историю игры, про то что он знал не из учебника, а из сотен часов за монитором. Вопросы к тексту были очевидны ещё до того, как он их прочитал. Ответы лежали в голове в готовом виде — оставалось только записать.</p>
+
+    <p>Ни одной ошибки.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Английский оказался одним из лучших результатов среди всех экзаменов. Не потому что повезло — а потому что годы самостоятельного погружения в язык дали то, чего не даёт ни один репетитор без желания самого ученика.</p>
+
+    <p>Система проверяла знания. Март принёс свои — просто добытые не так, как от него ожидали.</p>
+
+    <p>Леон, если бы узнал про World of Warcraft на экзамене, наверное улыбнулся бы. Он всегда понимал, что главное — чтобы язык работал. Неважно где его взяли.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>

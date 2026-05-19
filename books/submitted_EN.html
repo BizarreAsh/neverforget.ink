@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Submitted — Bizarre Ash</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #0f180f;
+    --paper: #f0f5f0;
+    --fade: #708070;
+    --accent: #205020;
+    --gold: #508050;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(60,140,60,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(32,80,32,0.05) 0%, transparent 60%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; }
+
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 6rem 0;
+    position: relative;
+  }
+
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+
+  .cover-eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 3rem;
+    opacity: 0.8;
+  }
+
+  .cover-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(56px, 12vw, 88px);
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    color: var(--ink);
+    line-height: 1.0;
+    margin-bottom: 0.4rem;
+  }
+
+  .cover-rule {
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    margin: 2.5rem auto;
+    opacity: 0.6;
+  }
+
+  .cover-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--fade);
+    letter-spacing: 0.2em;
+    margin-bottom: 5rem;
+  }
+
+  .cover-author {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--fade);
+    opacity: 0.7;
+  }
+
+  .toc {
+    padding: 7rem 0 5rem;
+    border-bottom: 1px solid rgba(80,128,80,0.2);
+    margin-bottom: 7rem;
+  }
+
+  .toc-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2.5rem;
+  }
+
+  .toc-item {
+    display: grid;
+    grid-template-columns: 2em 1fr 2em;
+    gap: 0.5rem;
+    align-items: baseline;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(80,128,80,0.12);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .toc-item:hover { color: var(--accent); }
+
+  .toc-roman {
+    font-style: normal;
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    padding-top: 0.3em;
+  }
+
+  .toc-num {
+    font-style: normal;
+    font-size: 11px;
+    color: var(--fade);
+    text-align: right;
+  }
+
+  .chapter { padding-top: 6rem; margin-bottom: 3rem; }
+  .chapter-header { margin-bottom: 3rem; }
+
+  .chapter-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 100px;
+    font-weight: 300;
+    color: var(--gold);
+    opacity: 0.18;
+    line-height: 0.85;
+    margin-bottom: -0.1em;
+    letter-spacing: -0.02em;
+    user-select: none;
+  }
+
+  .chapter-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--ink);
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(80,128,80,0.35);
+    line-height: 1.3;
+  }
+
+  p {
+    margin-bottom: 1.5em;
+    text-align: justify;
+    hyphens: auto;
+  }
+
+  .chapter > p:first-of-type::first-letter {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4.8em;
+    font-weight: 300;
+    float: left;
+    line-height: 0.72;
+    margin-right: 0.06em;
+    margin-top: 0.1em;
+    color: var(--accent);
+  }
+
+  .dialogue {
+    margin: 2em 0 2em 2.2em;
+    font-style: italic;
+    color: #1a2e1a;
+    position: relative;
+    font-size: 17.5px;
+  }
+
+  .dialogue::before {
+    content: '—';
+    position: absolute;
+    left: -1.5em;
+    color: var(--gold);
+    font-style: normal;
+  }
+
+  .break {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6em;
+    margin: 3rem 0;
+    color: var(--gold);
+    opacity: 0.5;
+    font-size: 8px;
+    letter-spacing: 0.6em;
+  }
+
+  .break::before, .break::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(80,128,80,0.3));
+  }
+
+  .break::after {
+    background: linear-gradient(to left, transparent, rgba(80,128,80,0.3));
+  }
+
+  .chapter-end {
+    margin: 6rem 0 0;
+    text-align: center;
+    color: var(--gold);
+    opacity: 0.3;
+    font-size: 20px;
+    letter-spacing: 0.6em;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">autobiographical prose</div>
+    <div class="cover-title">Submitted</div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">about winning without preparation</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Contents</div>
+    <a class="toc-item" href="#ch1">
+      <span class="toc-roman">I</span>
+      <span>A Random Author</span>
+      <span class="toc-num">—</span>
+    </a>
+    <a class="toc-item" href="#ch2">
+      <span class="toc-roman">II</span>
+      <span>Defusing Blind</span>
+      <span class="toc-num">—</span>
+    </a>
+    <a class="toc-item" href="#ch3">
+      <span class="toc-roman">III</span>
+      <span>World of Warcraft Saves the Grade</span>
+      <span class="toc-num">—</span>
+    </a>
+  </div>
+
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">A Random Author</div>
+    </div>
+
+    <p>Mart approached his state exams the way you approach something inevitable — without panic, but also without any real preparation. Studying on purpose wasn't something he planned to do. That would've been the same as surrendering to the system, and surrendering wasn't in his character. Logic, confidence, improvisation — those were the three pillars everything rested on.</p>
+
+    <p>First up was Ukrainian literature.</p>
+
+    <p>The multiple choice section went tolerably — at least there were options to pick from. When the written assignment came, Mart read the question carefully, set down his pen, and thought.</p>
+
+    <p>The task was almost offensively simple: name one author, one work — then either support the idea or argue against it. With reasoning.</p>
+
+    <p>The problem was that beyond the most obvious names, Mart knew nothing. And even the obvious ones were shaky. Staring at a blank page wasn't an option — he started flipping through the exam booklet looking for any kind of foothold. Authors, titles, associations — anything that could give him a starting point.</p>
+
+    <p>He found one. A random author, a random work — the choice was made by instinct rather than knowledge. Mart picked up his pen and started writing.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>He padded. A lot, confidently, with the air of someone who knows exactly what they're talking about. It was its own kind of art, and he'd mastered it: when you don't know the substance, talk about the wrapper so convincingly that no one notices there's nothing inside. Sentences built into paragraphs, paragraphs into pages. At some point he genuinely got into it — the text found a rhythm, a logic appeared, and Mart caught himself almost proud of what he'd written.</p>
+
+    <p>After the exam he went straight to the teacher — to report his achievement. She listened, smiled, and said calmly:</p>
+
+    <div class="dialogue">They'll most likely void that paper. Or give you almost nothing.</div>
+
+    <p>Mart was sure she was wrong.</p>
+
+    <p>The results proved him right — fourteen out of twenty for the written section. The teacher didn't comment further. Neither did he.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">Defusing Blind</div>
+    </div>
+
+    <p>History was foreign territory. Not in the sense that Mart knew nothing — he knew what interested him. Specific events, specific periods, fragments that had caught his attention for one reason or another. The school curriculum had almost nothing to do with those fragments.</p>
+
+    <p>The history exam was defusing a bomb blindfolded — every question could be anything. Some landed in familiar ground, something surfaced from memory through association, something was deduced from the logic of events. Some didn't, and all you could do was pick the most plausible option and keep moving.</p>
+
+    <p>The result wasn't catastrophic. Not brilliant — but functional. Mart passed history the way you navigate an unfamiliar neighbourhood at night: carefully, without unnecessary moves, and you get where you need to go.</p>
+
+    <p>English was next.</p>
+
+    <p>That was a different matter entirely.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">World of Warcraft Saves the Grade</div>
+    </div>
+
+    <p>Leon had come into Mart's life at the right moment — the way people do when they know their craft and know how to pass it on. A former school director, a man of few words and solid bearing — he put the foundations of English into Mart's head the way it should be done: clearly, without filler, with respect for the student.</p>
+
+    <p>After that Mart taught himself.</p>
+
+    <p>Games were better teachers than any textbook. Foreign titles with no translation — and most of the games worth playing had none — forced you to read, understand, retain. Not memorise rules, but hear the language alive. Vocabulary grew not from word lists but from dialogue, descriptions, interfaces. He didn't know Past Perfect — but he could hold a conversation on dozens of topics and understood written English on the first read.</p>
+
+    <p>English had become his language long before it was officially required.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>On the exam, among the reading comprehension texts, one was about World of Warcraft.</p>
+
+    <p>Mart read the first sentence and stopped.</p>
+
+    <p>The text was about his world — the mechanics, the history of the game, things he knew not from any book but from hundreds of hours at a monitor. The questions were obvious before he even read them. The answers were already sitting in his head, ready — all he had to do was write them down.</p>
+
+    <p>Not a single mistake.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>English turned out to be one of his best results across all the exams. Not because he got lucky — but because years of self-immersion in the language gave him something no tutor can provide without the student's own drive.</p>
+
+    <p>The system was testing knowledge. Mart brought his — just acquired differently than expected.</p>
+
+    <p>Leon, if he'd heard about World of Warcraft saving the grade, would probably have smiled. He always understood that what mattered was whether the language worked. It didn't matter where you got it from.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>
