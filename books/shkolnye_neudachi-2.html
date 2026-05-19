@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Школьные неудачи — Bizarre Ash</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #1a1008;
+    --paper: #f5f0e8;
+    --fade: #9a8a6e;
+    --accent: #8a3a10;
+    --gold: #c08040;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(200,120,40,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(138,58,16,0.05) 0%, transparent 60%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; }
+
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 6rem 0;
+    position: relative;
+  }
+
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+
+  .cover-eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 3rem;
+    opacity: 0.8;
+  }
+
+  .cover-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(40px, 9vw, 64px);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    line-height: 1.15;
+    margin-bottom: 0.4rem;
+  }
+
+  .cover-title em { font-style: italic; color: var(--accent); }
+
+  .cover-rule {
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    margin: 2.5rem auto;
+    opacity: 0.6;
+  }
+
+  .cover-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--fade);
+    letter-spacing: 0.2em;
+    margin-bottom: 5rem;
+  }
+
+  .cover-author {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--fade);
+    opacity: 0.7;
+  }
+
+  .toc {
+    padding: 7rem 0 5rem;
+    border-bottom: 1px solid rgba(192,128,64,0.2);
+    margin-bottom: 7rem;
+  }
+
+  .toc-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2.5rem;
+  }
+
+  .toc-item {
+    display: grid;
+    grid-template-columns: 2em 1fr 2em;
+    gap: 0.5rem;
+    align-items: baseline;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(192,128,64,0.12);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .toc-item:hover { color: var(--accent); }
+
+  .toc-roman {
+    font-style: normal;
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    padding-top: 0.3em;
+  }
+
+  .toc-num {
+    font-style: normal;
+    font-size: 11px;
+    color: var(--fade);
+    text-align: right;
+  }
+
+  .chapter { padding-top: 6rem; margin-bottom: 3rem; }
+  .chapter-header { margin-bottom: 3rem; }
+
+  .chapter-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 100px;
+    font-weight: 300;
+    color: var(--gold);
+    opacity: 0.18;
+    line-height: 0.85;
+    margin-bottom: -0.1em;
+    letter-spacing: -0.02em;
+    user-select: none;
+  }
+
+  .chapter-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--ink);
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(192,128,64,0.35);
+    line-height: 1.3;
+  }
+
+  p {
+    margin-bottom: 1.5em;
+    text-align: justify;
+    hyphens: auto;
+  }
+
+  .chapter > p:first-of-type::first-letter {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4.8em;
+    font-weight: 300;
+    float: left;
+    line-height: 0.72;
+    margin-right: 0.06em;
+    margin-top: 0.1em;
+    color: var(--accent);
+  }
+
+  .dialogue {
+    margin: 2em 0 2em 2.2em;
+    font-style: italic;
+    color: #2a1e16;
+    position: relative;
+    font-size: 17.5px;
+  }
+
+  .dialogue::before {
+    content: '—';
+    position: absolute;
+    left: -1.5em;
+    color: var(--gold);
+    font-style: normal;
+  }
+
+  .break {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6em;
+    margin: 3rem 0;
+    color: var(--gold);
+    opacity: 0.5;
+    font-size: 8px;
+    letter-spacing: 0.6em;
+  }
+
+  .break::before, .break::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(192,128,64,0.3));
+  }
+
+  .break::after {
+    background: linear-gradient(to left, transparent, rgba(192,128,64,0.3));
+  }
+
+  .chapter-end {
+    margin: 6rem 0 0;
+    text-align: center;
+    color: var(--gold);
+    opacity: 0.3;
+    font-size: 20px;
+    letter-spacing: 0.6em;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">автобиографическая проза</div>
+    <div class="cover-title">Школьные<br><em>неудачи</em></div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">о том, как система встретила не того</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Содержание</div>
+    <a class="toc-item" href="#ch1">
+      <span class="toc-roman">I</span>
+      <span>Третий вариант</span>
+      <span class="toc-num">—</span>
+    </a>
+    <a class="toc-item" href="#ch2">
+      <span class="toc-roman">II</span>
+      <span>На йуг</span>
+      <span class="toc-num">—</span>
+    </a>
+    <a class="toc-item" href="#ch3">
+      <span class="toc-roman">III</span>
+      <span>Рататуй и Афганистан</span>
+      <span class="toc-num">—</span>
+    </a>
+  </div>
+
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">Третий вариант</div>
+    </div>
+
+    <p>Система не была рассчитана на Клима. Она была рассчитана на среднее — на тех, кто укладывается в отведённое время, сидит тихо, ждёт звонка. Клим в это не укладывался — не из вредности, а просто потому что не мог иначе. Голова работала быстрее, чем предполагала программа.</p>
+
+    <p>С первых классов повторялось одно и то же. Контрольная — два варианта, у всех по одному. Клим делал первый, потом второй, потом смотрел в потолок и понимал, что впереди ещё половина урока, а делать совершенно нечего. Решение приходило само: он залезал под парту и начинал методично стучать линейкой — негромко, ритмично, с чувством выполненного долга.</p>
+
+    <p>Учителя вызывали Асю. Та приходила, выслушивала претензии и разводила руками.</p>
+
+    <div class="dialogue">Так дайте ему третий вариант. Что вы хотите от меня?</div>
+
+    <p>Третий вариант не давали. Линейка продолжала стучать.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>К седьмому классу Клим продавил систему окончательно. Был у него приятель — Тим — которому индивидуальное обучение полагалось по необходимости. Один на один с учителем, минимум уроков, никакого класса вокруг. Клим посмотрел на это и решил, что ему подходит.</p>
+
+    <p>Асе он сказал просто: либо так, либо никак.</p>
+
+    <p>Ася была женщиной умной и давно знала своего сына. Она пошла и сделала.</p>
+
+    <p>С седьмого класса Клим приходил в школу один на один с учителем — здоровый, никаких оснований, просто человек который знал чего хочет и умел это получить. Уроков было мало. Времени — много. Система проиграла молча.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">На йуг</div>
+    </div>
+
+    <p>Пятый класс. Урок русского языка. Клим сидел и скучал — это было его обычное состояние на большинстве уроков. Учительница это знала, Клим это знал, и между ними давно существовало негласное напряжение двух людей, которые не особо друг друга жалуют.</p>
+
+    <p>В тот день что-то пошло не так — то ли домашнее задание не было сделано, то ли просто настроение совпало. Учительница решила воспользоваться моментом. Перед всем классом начала вычитывать, давить, делать из него показательный пример того, каким не надо быть. Расчёт был понятен: публичный стыд, опущенная голова, молчание.</p>
+
+    <p>Клим не опустил голову.</p>
+
+    <p>Он посмотрел на неё, дождался паузы — и отправил её куда следует. Громко. На весь класс. Без колебаний и без сожаления.</p>
+
+    <p>Класс замер.</p>
+
+    <p>Дальше всё шло по стандартному сценарию — директор, разборки, Аса вызвана в школу. Клим сидел и ждал, пока взрослые решат что с ним делать. Внутри не было ни страха, ни раскаяния — только спокойное ощущение человека, который сказал то, что думал.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Странным образом эта история имела неожиданное продолжение. Та самая учительница — которую он послал, которая вызвала скандал на весь этаж — со временем стала одной из немногих в школе, кто его по-настоящему понимал. Что-то в этой прямолинейности её, видимо, зацепило. Уважение появляется в странных местах.</p>
+
+    <p>Клима это не удивило. Он давно заметил: люди которые пытаются тебя сломать публично, часто оказываются теми же, кто потом смотрит на тебя иначе. Главное — не сгибаться в нужный момент.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">Рататуй и Афганистан</div>
+    </div>
+
+    <p>Девятый класс принёс с собой ДПА — государственные экзамены, которые сдавались внутри школы. Биология входила в список. Это было само по себе неприятно — но не катастрофично. Катастрофой была учительница.</p>
+
+    <p>Они не ладили. Давно, стабильно, взаимно. Учительница была из тех людей, у которых в голове живёт целый зоопарк собственных убеждений, и любое несовпадение с ними воспринимается как личное оскорбление. Клим несовпадал с ней по всем параметрам.</p>
+
+    <p>Когда раздавали варианты, выяснилось следующее: весь класс получил первый и второй. Клим и ещё один невезучий одноклассник получили третий — собранный учительницей вручную, специально. Франкенштейн из самых неудобных вопросов, сшитый с одной целью: утопить.</p>
+
+    <p>Клим взял листок. Прочитал. Отложил.</p>
+
+    <p>Потом взял ручку и начал писать.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Последнее задание предполагало развёрнутый письменный ответ. Именно здесь учительница ждала провала — пустой лист, или несвязный набор слов, или жалкая попытка угадать правильный ответ.</p>
+
+    <p>Клим написал историю. Про войну в Афганистане. Про то, как он лично принимал в ней участие — в деталях, с географией, с хронологией. Про канализации, по которым пробирался под огнём. И про своего верного напарника — ручную крысу по имени Рататуй, которая шла рядом через все испытания и ни разу не подвела.</p>
+
+    <p>Писал от души. С подробностями. С характером.</p>
+
+    <p>Учительница читала это молча. Что именно происходило у неё в голове в тот момент — неизвестно. Но судя по всему, история про Афганистан разошлась по учительской довольно быстро.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Клим получил свою оценку и пошёл домой.</p>
+
+    <p>Система хотела его утопить. Он написал про крысу в канализации и вышел сухим.</p>
+
+    <p>Это был не бунт — это был почерк. Тот самый, который не меняется сколько ни пытайся его исправить.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>

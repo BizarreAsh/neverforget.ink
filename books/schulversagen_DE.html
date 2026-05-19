@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Schulversagen — Bizarre Ash</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #1a1008;
+    --paper: #f5f0e8;
+    --fade: #9a8a6e;
+    --accent: #8a3a10;
+    --gold: #c08040;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(200,120,40,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(138,58,16,0.05) 0%, transparent 60%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; }
+
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 6rem 0;
+    position: relative;
+  }
+
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+
+  .cover-eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 3rem;
+    opacity: 0.8;
+  }
+
+  .cover-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(40px, 9vw, 64px);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    line-height: 1.15;
+    margin-bottom: 0.4rem;
+  }
+
+  .cover-title em { font-style: italic; color: var(--accent); }
+
+  .cover-rule {
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    margin: 2.5rem auto;
+    opacity: 0.6;
+  }
+
+  .cover-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--fade);
+    letter-spacing: 0.2em;
+    margin-bottom: 5rem;
+  }
+
+  .cover-author {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--fade);
+    opacity: 0.7;
+  }
+
+  .toc {
+    padding: 7rem 0 5rem;
+    border-bottom: 1px solid rgba(192,128,64,0.2);
+    margin-bottom: 7rem;
+  }
+
+  .toc-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2.5rem;
+  }
+
+  .toc-item {
+    display: grid;
+    grid-template-columns: 2em 1fr 2em;
+    gap: 0.5rem;
+    align-items: baseline;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(192,128,64,0.12);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .toc-item:hover { color: var(--accent); }
+
+  .toc-roman {
+    font-style: normal;
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    padding-top: 0.3em;
+  }
+
+  .toc-num {
+    font-style: normal;
+    font-size: 11px;
+    color: var(--fade);
+    text-align: right;
+  }
+
+  .chapter { padding-top: 6rem; margin-bottom: 3rem; }
+  .chapter-header { margin-bottom: 3rem; }
+
+  .chapter-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 100px;
+    font-weight: 300;
+    color: var(--gold);
+    opacity: 0.18;
+    line-height: 0.85;
+    margin-bottom: -0.1em;
+    letter-spacing: -0.02em;
+    user-select: none;
+  }
+
+  .chapter-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--ink);
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(192,128,64,0.35);
+    line-height: 1.3;
+  }
+
+  p {
+    margin-bottom: 1.5em;
+    text-align: justify;
+    hyphens: auto;
+  }
+
+  .chapter > p:first-of-type::first-letter {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4.8em;
+    font-weight: 300;
+    float: left;
+    line-height: 0.72;
+    margin-right: 0.06em;
+    margin-top: 0.1em;
+    color: var(--accent);
+  }
+
+  .dialogue {
+    margin: 2em 0 2em 2.2em;
+    font-style: italic;
+    color: #2a1e16;
+    position: relative;
+    font-size: 17.5px;
+  }
+
+  .dialogue::before {
+    content: '—';
+    position: absolute;
+    left: -1.5em;
+    color: var(--gold);
+    font-style: normal;
+  }
+
+  .break {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6em;
+    margin: 3rem 0;
+    color: var(--gold);
+    opacity: 0.5;
+    font-size: 8px;
+    letter-spacing: 0.6em;
+  }
+
+  .break::before, .break::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(192,128,64,0.3));
+  }
+
+  .break::after {
+    background: linear-gradient(to left, transparent, rgba(192,128,64,0.3));
+  }
+
+  .chapter-end {
+    margin: 6rem 0 0;
+    text-align: center;
+    color: var(--gold);
+    opacity: 0.3;
+    font-size: 20px;
+    letter-spacing: 0.6em;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">autobiografische Prosa</div>
+    <div class="cover-title">Schul<br><em>versagen</em></div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">als das System den Falschen traf</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Inhalt</div>
+    <a class="toc-item" href="#ch1">
+      <span class="toc-roman">I</span>
+      <span>Die dritte Variante</span>
+      <span class="toc-num">—</span>
+    </a>
+    <a class="toc-item" href="#ch2">
+      <span class="toc-roman">II</span>
+      <span>Leck mich</span>
+      <span class="toc-num">—</span>
+    </a>
+    <a class="toc-item" href="#ch3">
+      <span class="toc-roman">III</span>
+      <span>Ratatouille und Afghanistan</span>
+      <span class="toc-num">—</span>
+    </a>
+  </div>
+
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">Die dritte Variante</div>
+    </div>
+
+    <p>Das System war nicht für Klim gemacht. Es war für den Durchschnitt gemacht — für die, die in die vorgesehene Zeit passen, still sitzen, auf die Glocke warten. Klim passte nicht hinein. Nicht aus Bosheit, einfach weil er nicht anders konnte. Sein Kopf arbeitete schneller als der Lehrplan vorgesehen hatte.</p>
+
+    <p>Von der ersten Klasse an wiederholte sich immer dasselbe. Eine Klassenarbeit — zwei Varianten, eine pro Schüler. Klim erledigte die erste, dann die zweite, dann starrte er an die Decke und merkte dass noch eine halbe Stunde Unterricht übrig war und er absolut nichts zu tun hatte. Die Lösung kam von selbst: er kroch unter die Bank und fing methodisch an mit dem Lineal zu klopfen — leise, rhythmisch, mit dem Gefühl seine Pflicht erfüllt zu haben.</p>
+
+    <p>Die Lehrer riefen Asya. Die kam, hörte sich die Beschwerden an und zuckte die Schultern.</p>
+
+    <div class="dialogue">Dann geben Sie ihm eine dritte Variante. Was wollen Sie von mir?</div>
+
+    <p>Eine dritte Variante gab es nie. Das Lineal klopfte weiter.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>In der siebten Klasse hatte Klim das System endgültig gebrochen. Er hatte einen Freund — Tim — dem Einzelunterricht aus der Not heraus zustand. Eins zu eins mit einem Lehrer, weniger Stunden, kein Klassenraum drum herum. Klim sah sich das an und beschloss dass es ihm gefiel.</p>
+
+    <p>Asya sagte er schlicht: entweder so oder gar nicht.</p>
+
+    <p>Asya war eine kluge Frau die ihren Sohn seit langem kannte. Sie ging und machte es möglich.</p>
+
+    <p>Ab der siebten Klasse kam Klim eins zu eins mit einem Lehrer in die Schule — kerngesund, kein Grund dafür, einfach ein Mensch der wusste was er wollte und wusste wie er es bekam. Weniger Stunden. Mehr Zeit. Das System verlor wortlos.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">Leck mich</div>
+    </div>
+
+    <p>Fünfte Klasse. Russischunterricht. Klim saß da und langweilte sich — sein Normalzustand in den meisten Stunden. Die Lehrerin wusste das, Klim wusste das, und zwischen ihnen existierte seit langem eine unausgesprochene Spannung zweier Menschen die sich gegenseitig nicht besonders mögen.</p>
+
+    <p>An jenem Tag lief etwas schief — entweder war die Hausaufgabe nicht gemacht oder die Stimmungen trafen sich einfach ungünstig. Die Lehrerin beschloss die Gelegenheit zu nutzen. Vor der ganzen Klasse fing sie an ihn herunter zu machen, Druck auszuüben, ein Paradebeispiel aus ihm zu machen was man nicht sein sollte. Das Kalkül war klar: öffentliche Beschämung, gesenkter Kopf, Schweigen.</p>
+
+    <p>Klim senkte den Kopf nicht.</p>
+
+    <p>Er schaute sie an, wartete auf eine Pause — und schickte sie dahin wo es ihr zustand. Laut. Vor allen. Ohne Zögern und ohne Reue.</p>
+
+    <p>Die Klasse erstarrte.</p>
+
+    <p>Was folgte war Standard — Direktorenbüro, Gespräch, Asya in die Schule bestellt. Klim saß da und wartete während die Erwachsenen entschieden was mit ihm zu tun war. Innen war weder Angst noch Reue — nur die Ruhe von jemandem der gesagt hat was er dachte.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Seltsamerweise hatte die Geschichte eine unerwartete Wendung. Dieselbe Lehrerin — die er beschimpft hatte, die den Skandal auf dem ganzen Stockwerk ausgelöst hatte — wurde mit der Zeit eine der wenigen in der Schule die ihn wirklich verstand. Etwas an dieser Direktheit hatte sie wohl getroffen. Respekt entsteht an seltsamen Orten.</p>
+
+    <p>Klim war nicht überrascht. Er hatte längst bemerkt: Menschen die versuchen dich öffentlich zu brechen sind oft dieselben die dich danach anders anschauen. Die Hauptsache ist im entscheidenden Moment nicht nachzugeben.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">Ratatouille und Afghanistan</div>
+    </div>
+
+    <p>Die neunte Klasse brachte die staatlichen Abschlussprüfungen mit sich — die innerhalb der Schule abgelegt wurden. Biologie stand auf der Liste. Unangenehm für sich genommen, aber keine Katastrophe. Die Katastrophe war die Lehrerin.</p>
+
+    <p>Sie kamen nicht miteinander aus. Schon lange, beständig, gegenseitig. Die Lehrerin war eine von denen bei denen der Kopf voller eigener Überzeugungen steckt, und jede Abweichung davon als persönliche Beleidigung aufgefasst wird. Klim wich von ihr in jeder Hinsicht ab.</p>
+
+    <p>Als die Prüfungsbögen verteilt wurden stellte sich heraus: die ganze Klasse bekam Variante eins und zwei. Klim und ein weiterer unglücklicher Mitschüler bekamen die dritte — von der Lehrerin persönlich zusammengestellt, mit Absicht. Ein Frankenstein aus den unbequemsten Fragen, mit einem einzigen Ziel: sie zu versenken.</p>
+
+    <p>Klim nahm das Blatt. Las es. Legte es hin.</p>
+
+    <p>Dann nahm er den Stift und fing an zu schreiben.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Die letzte Aufgabe verlangte eine ausführliche schriftliche Antwort. Genau hier erwartete die Lehrerin das Versagen — ein leeres Blatt, oder ein zusammenhangloses Gestammel, oder einen verzweifelten Versuch die richtige Antwort zu erraten.</p>
+
+    <p>Klim schrieb eine Geschichte. Über den Krieg in Afghanistan. Darüber wie er persönlich daran teilgenommen hatte — mit Details, mit Geografie, mit Chronologie. Über die Kanalisation durch die er sich unter Beschuss vorarbeitete. Und über seinen treuen Begleiter — eine zahme Ratte namens Ratatouille, die ihn durch alle Prüfungen begleitet hatte und ihn nie im Stich gelassen hatte.</p>
+
+    <p>Er schrieb von Herzen. Mit Einzelheiten. Mit Charakter.</p>
+
+    <p>Die Lehrerin las das schweigend. Was genau in ihrem Kopf vorging ist unbekannt. Aber allem Anschein nach machte die Afghanistan-Geschichte recht schnell die Runde im Lehrerzimmer.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Klim bekam seine Note und ging nach Hause.</p>
+
+    <p>Das System wollte ihn versenken. Er schrieb über eine Ratte in der Kanalisation und kam trocken raus.</p>
+
+    <p>Es war kein Aufstand — es war eine Handschrift. Eine die sich nicht ändert egal wie oft jemand versucht sie zu korrigieren.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>
