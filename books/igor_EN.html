@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Igor — Bizarre Ash</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #160f0a;
+    --paper: #f0ece4;
+    --fade: #8a7d6e;
+    --accent: #3a3a4a;
+    --gold: #8a9ab0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(100,110,140,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(58,58,74,0.05) 0%, transparent 60%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; }
+
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 6rem 0;
+    position: relative;
+  }
+
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+
+  .cover-eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 3rem;
+    opacity: 0.8;
+  }
+
+  .cover-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(56px, 12vw, 88px);
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    color: var(--ink);
+    line-height: 1.0;
+    margin-bottom: 0.4rem;
+  }
+
+  .cover-rule {
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    margin: 2.5rem auto;
+    opacity: 0.6;
+  }
+
+  .cover-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--fade);
+    letter-spacing: 0.2em;
+    margin-bottom: 5rem;
+  }
+
+  .cover-author {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--fade);
+    opacity: 0.7;
+  }
+
+  .toc {
+    padding: 7rem 0 5rem;
+    border-bottom: 1px solid rgba(138,154,176,0.2);
+    margin-bottom: 7rem;
+  }
+
+  .toc-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2.5rem;
+  }
+
+  .toc-item {
+    display: grid;
+    grid-template-columns: 2em 1fr 2em;
+    gap: 0.5rem;
+    align-items: baseline;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(138,154,176,0.12);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .toc-item:hover { color: var(--accent); }
+
+  .toc-roman {
+    font-style: normal;
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    padding-top: 0.3em;
+  }
+
+  .toc-num {
+    font-style: normal;
+    font-size: 11px;
+    color: var(--fade);
+    text-align: right;
+  }
+
+  .chapter { padding-top: 6rem; margin-bottom: 3rem; }
+  .chapter-header { margin-bottom: 3rem; }
+
+  .chapter-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 100px;
+    font-weight: 300;
+    color: var(--gold);
+    opacity: 0.18;
+    line-height: 0.85;
+    margin-bottom: -0.1em;
+    letter-spacing: -0.02em;
+    user-select: none;
+  }
+
+  .chapter-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--ink);
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(138,154,176,0.35);
+    line-height: 1.3;
+  }
+
+  p {
+    margin-bottom: 1.5em;
+    text-align: justify;
+    hyphens: auto;
+  }
+
+  .chapter > p:first-of-type::first-letter {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4.8em;
+    font-weight: 300;
+    float: left;
+    line-height: 0.72;
+    margin-right: 0.06em;
+    margin-top: 0.1em;
+    color: var(--accent);
+  }
+
+  .break {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6em;
+    margin: 3rem 0;
+    color: var(--gold);
+    opacity: 0.5;
+    font-size: 8px;
+    letter-spacing: 0.6em;
+  }
+
+  .break::before, .break::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(138,154,176,0.3));
+  }
+
+  .break::after {
+    background: linear-gradient(to left, transparent, rgba(138,154,176,0.3));
+  }
+
+  .chapter-end {
+    margin: 6rem 0 0;
+    text-align: center;
+    color: var(--gold);
+    opacity: 0.3;
+    font-size: 20px;
+    letter-spacing: 0.6em;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">autobiographical prose</div>
+    <div class="cover-title">Igor</div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">about someone who left too soon</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Contents</div>
+    <a class="toc-item" href="#ch1">
+      <span class="toc-roman">I</span>
+      <span>Part of the Sun</span>
+      <span class="toc-num">—</span>
+    </a>
+    <a class="toc-item" href="#ch2">
+      <span class="toc-roman">II</span>
+      <span>The Downpour</span>
+      <span class="toc-num">—</span>
+    </a>
+    <a class="toc-item" href="#ch3">
+      <span class="toc-roman">III</span>
+      <span>After</span>
+      <span class="toc-num">—</span>
+    </a>
+  </div>
+
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">Part of the Sun</div>
+    </div>
+
+    <p>Igor showed up at school the way some people do — without needing to prove anything. He transferred in, and that was that. A new face in an established system usually means an awkward settling-in period. With Igor it was different.</p>
+
+    <p>Dyaba noticed him quickly. Not because Igor was trying to stand out — but because there was something familiar about him. The same disregard for rules that seemed to exist only for the sake of existing. The same clear-eyed view of things most people took seriously. Neither of them had fear — not performed fearlessness, just the simple absence of that inner brake that keeps people from being fully themselves.</p>
+
+    <p>It was Yan who introduced them — a mutual friend, the third point of the triangle. The three of them caused trouble the way boys do: not out of malice, but out of that restless young energy that has nowhere to go and no reason to be contained. But if Yan was a participant, Dyaba and Igor were the core. They understood each other in half a word — and sometimes without words at all.</p>
+
+    <p>Igor looked up to Dyaba. Picked things up from him — the good and the bad, as always happens when one person becomes more than just a friend to another. Dyaba was proof that you could live differently. That you didn't have to go where someone else's hand was pulling you. That the world was wider than what they said at home.</p>
+
+    <p>At home they said their own things. Igor's mother was pulling him toward the Jehovah's Witnesses — persistently, with conviction, with the kind of faith you can't argue away with logic. Igor resisted as best he could. Dyaba was his quiet ally in that resistance — not preaching, just living alongside him and showing that life didn't end at the door of a meeting hall.</p>
+
+    <p>There was one more place where they were fully themselves — Galaxy 3. A server, pixels, usernames — but something real behind all of it. They built what they wanted there. Did what they wanted. Were themselves without reservation. The computer and the network kept them connected even when they were on opposite sides of the city. It was their shared home — chaotic, absurd, alive.</p>
+
+    <p>They were brothers. Without blood ties, without paperwork. Just brothers.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">The Downpour</div>
+    </div>
+
+    <p>That day started like any other weekend — bikes, the street, no route and no plans beyond moving. Dyaba, Igor, Joni. They rode like that every weekend — going wherever their legs took them, not worrying about getting lost, not thinking about anything serious.</p>
+
+    <p>By the end of the day something went wrong. A small conflict — the kind that happens between people who are close precisely because they're close. The reason was minor, but words were said, and everyone went their separate way. Dyaba got home first.</p>
+
+    <p>The weather had turned by then. The downpour came fast and without warning — the way only summer storms can.</p>
+
+    <p>Joni and Igor came to Dyaba's. Nora — the woman who ran that household — looked at the sky, looked at the boys, and said what any sensible person would say in that weather: stay. She even called Igor's mother — explained that it was pouring, that there was no point in him going out, that he could sleep here.</p>
+
+    <p>Igor's mother was firm. No means no. Home.</p>
+
+    <p>Igor walked Joni out. Then turned around and rode home himself — through the downpour, in the dark.</p>
+
+    <p>Dyaba didn't see it. He was already inside.</p>
+
+    <p>Then a silence settled — not a calm one, a strange one. The kind that doesn't happen for no reason. Something was wrong — everyone felt it. Nora. Dyaba. Igor's sister. Even his mother. Everyone assumed Igor had snuck off to sleep at someone's place and just wasn't admitting it. They demanded a confession. Igor stayed quiet — because he couldn't answer.</p>
+
+    <p>When the news finally came, the world stopped being itself for a moment.</p>
+
+    <p>At an intersection near two bridges, on a pedestrian crossing, a car hit him. The driver didn't mean it. He was just going home — an ordinary person, an ordinary evening. He didn't see Igor in time. By the time he did, it was too late.</p>
+
+    <p>There was a hospital. There was a coma. There was hope — real, almost solid hope — that he'd pull through. That he'd open his eyes. That this would turn out to be what these things are supposed to be in films — a trial with a way out.</p>
+
+    <p>There was no way out. The doctors had known that from the start. They said so only at the end.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">After</div>
+    </div>
+
+    <p>Dyaba doesn't remember the funeral in images — he remembers it in weight. The way the air presses down when you're saying goodbye to someone who won't be there anymore. When all that's left of the person you used to ride bikes with and shout things into a microphone on Galaxy 3 is smoke and memory.</p>
+
+    <p>Boys cry too. He cried.</p>
+
+    <p>Then came months of questions with no answers. If they hadn't argued. If he'd walked him home. If Nora had pushed harder. If Igor's mother had said — fine, stay. A billion ifs, and not one of them changed what had happened.</p>
+
+    <p>Dyaba carried it a long time. Quietly, without telling anyone — he just carried it.</p>
+
+    <p>Then the three of them went to the cemetery — Dyaba, Marko, Joni. To visit. To be close. Somewhere on the way back, Dyaba and Joni argued and came to blows. Neither of them could remember why — maybe over nothing, maybe over everything at once. Sometimes grief finds the wrong way out.</p>
+
+    <p>Igor's mother kept waiting for his return — the Bible said so, the congregation said so. She started pulling Dyaba toward her — into the meetings, into the faith, into a world where Igor could still come back. Dyaba listened. Read a little. Not because he believed — but because it was the last thing connecting him to someone who was gone.</p>
+
+    <p>Nora stopped it in time. She heard the conversations, shook it all out of him, and closed the door on something Dyaba shouldn't have walked into.</p>
+
+    <p>He never forgot Igor. Not in the sense of stopping to think about him — he just learned to carry it differently. Not as guilt, but as the memory of someone who was part of the sun, and who left too soon.</p>
+
+    <p>So much was conquered together.</p>
+
+    <p>So much more could have been.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>

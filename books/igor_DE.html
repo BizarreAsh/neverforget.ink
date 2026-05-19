@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Igor — Tinte nicht vergessen</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #160f0a;
+    --paper: #f7f2ea;
+    --warm: #b8924a;
+    --fade: #8a7d6e;
+    --accent: #6b3020;
+    --gold: #c9a96e;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(185,146,74,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(107,48,32,0.05) 0%, transparent 60%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; }
+
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 6rem 0;
+    position: relative;
+  }
+
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+
+  .cover-eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 3rem;
+    opacity: 0.8;
+  }
+
+  .cover-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(48px, 10vw, 72px);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    line-height: 1.1;
+    margin-bottom: 0.4rem;
+  }
+
+  .cover-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .cover-rule {
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    margin: 2.5rem auto;
+    opacity: 0.6;
+  }
+
+  .cover-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--fade);
+    letter-spacing: 0.2em;
+    margin-bottom: 5rem;
+  }
+
+  .cover-author {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--fade);
+    opacity: 0.7;
+  }
+
+  .chapter {
+    padding-top: 6rem;
+    margin-bottom: 3rem;
+  }
+
+  .chapter-header {
+    margin-bottom: 3rem;
+  }
+
+  .chapter-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 100px;
+    font-weight: 300;
+    color: var(--gold);
+    opacity: 0.18;
+    line-height: 0.85;
+    margin-bottom: -0.1em;
+    letter-spacing: -0.02em;
+    user-select: none;
+  }
+
+  .chapter-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--ink);
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(185,146,74,0.35);
+    line-height: 1.3;
+  }
+
+  p {
+    margin-bottom: 1.5em;
+    text-align: justify;
+    hyphens: auto;
+  }
+
+  .chapter > p:first-of-type::first-letter {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4.8em;
+    font-weight: 300;
+    float: left;
+    line-height: 0.72;
+    margin-right: 0.06em;
+    margin-top: 0.1em;
+    color: var(--accent);
+  }
+
+  .break {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6em;
+    margin: 3rem 0;
+    color: var(--gold);
+    opacity: 0.5;
+    font-size: 8px;
+    letter-spacing: 0.6em;
+  }
+
+  .break::before, .break::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(185,146,74,0.3));
+  }
+
+  .break::after {
+    background: linear-gradient(to left, transparent, rgba(185,146,74,0.3));
+  }
+
+  .chapter-end {
+    margin: 6rem 0 0;
+    text-align: center;
+    color: var(--gold);
+    opacity: 0.3;
+    font-size: 20px;
+    letter-spacing: 0.6em;
+  }
+
+  .pullquote {
+    margin: 2.5rem 0;
+    padding: 1.5rem 2rem 1.5rem 2.5rem;
+    border-left: 2px solid var(--gold);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--accent);
+    line-height: 1.6;
+    opacity: 0.85;
+  }
+
+  .standalone-line {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 19px;
+    font-style: italic;
+    color: var(--accent);
+    text-align: center;
+    margin: 2rem 0;
+    opacity: 0.75;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">Tinte nicht vergessen</div>
+    <div class="cover-title"><em>Igor</em></div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">aus dem autobiografischen Roman</div>
+    <div class="cover-author">Big Boss Bogi</div>
+  </div>
+
+  <div class="chapter">
+    <div class="chapter-header">
+      <div class="chapter-title">Ein Lichtstrahl</div>
+    </div>
+
+    <p>Igors Geschichte ist auch ziemlich ungewöhnlich, doch leider zu Ende gegangen. Er war ein ganz gewöhnlicher Junge, aber er hatte viele Probleme mit dem Verhalten — genau wie Djaba am Anfang seines Weges. Vielleicht könnte man sie als „von der System nicht anerkannte Genies" bezeichnen.</p>
+
+    <p>Er war sehr anständig — trank nicht, rauchte nicht, so anständig, dass er sich buchstäblich bei jedem Verlassen des Hauses und bei jeder Rückkehr umzog.</p>
+
+    <p>Für Djaba war das völlig unbegreiflich. Gut erzogen und gebildet, sogar mit Manieren. Ein ausgesprochen geselliger Kerl, mit einer guten Seele — für Djaba war er wie ein Bruder, ohne jede Übertreibung.</p>
+
+    <p>Nachdem Igor die Schule gewechselt hatte, hielten sie ständig Kontakt, trafen sich an den Wochenenden, bei jemandem im Viertel, wie sie es nannten.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Doch dann kam ein anderer Einfluss ins Spiel. Irgendwann trennten sich Igors Eltern — er hatte zu dem Zeitpunkt bereits eine ältere Schwester. Und obwohl der Autor das nicht mit Sicherheit behaupten möchte, begann die Mutter irgendwann zusammen mit Igor sonntags die Kirche zu besuchen.</p>
+
+    <p>Wie sich später herausstellte, besuchten sie nicht einfach die Kirche — seine Mutter gehörte zur Organisation der Zeugen Jehovas. Vielleicht nicht direkt, vielleicht über Mittelsmänner, vielleicht auch direkt — die Hierarchie dieser Kreise ist dem Autor unbekannt. Es ist eine geschlossene Gemeinschaft: hineinzukommen ist sehr leicht, aber wer einmal drin ist, gerät unter einen solchen Einfluss, dass es für einen gewöhnlichen Menschen kaum einen Weg zurück gibt.</p>
+
+    <p>Warum kaum? Weil sie an das Einfachste rühren — den menschlichen Glauben. Darin liegt wohl der Kern. Ein Mensch gerät unter schlechten Einfluss, man präsentiert ihm Gott als absoluten Herrn und Meister, und durch die Bibel beginnt man ihn so weit zu manipulieren, dass er nicht mehr bemerkt, wie er der Gemeinschaft buchstäblich das Letzte gibt, was er hat.</p>
+
+    <p>So jedenfalls nahm es Djaba wahr — und es entsprach der Wahrheit wohl in hohem Maße.</p>
+
+    <p>Alle verbotenen Themen weckten in Igor echtes Interesse und Wissensdurst nach Dingen, die man ihm mit allen Mitteln zu verbergen suchte. Und wenn seine Mutter bereits vollständig darin aufgegangen war, hatte er schlicht keine Möglichkeit, Nein zu sagen. Er sagte es, wenn er mit Freunden zusammen war, die ihm nahestanden.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Igor fuhr an den Wochenenden sehr oft mit Djaba Fahrrad — einer kam ins Viertel des anderen, was nebenbei bemerkt etwa eine Stunde endloser Pedalarbeit in eine Richtung bedeutete.</p>
+
+    <p>Es war egal, wohin sie fuhren und warum — sie rasten einfach durch ihre Stadt, amüsierten sich, ruhten sich aus, erkundeten neue Orte und verbrauchten auf diese Weise überschüssige Energie.</p>
+
+    <p>Igor war in jeder Hinsicht ein Lichtstrahl — ein großartiger Gefährte, ein ausgezeichneter Freund, der immer unterstützte, wo er nichts Schlechtes sah.</p>
+
+    <p>Mit der Zeit begann Djaba zu verstehen, dass Igor in ihm so etwas wie eine Autorität sah. Ihn interessierten alle Interessen von Djaba, sie spielten viel zusammen, gingen viel aus, und Igor wollte genauso „wild und frei" sein wie Djaba. Djaba zum Beispiel machte sich nie Gedanken über die Zeit, zu der er nach Hause kommen sollte, obwohl das für viele ein striktes Tabu war.</p>
+
+    <p>Igor wohnte in einem fünfstöckigen Haus — wie man das nannte, ob „Leninowka" oder „Stalinowka", dem Autor sind diese Ausdrücke fremd. Im dritten Stock, in einer Zweizimmerwohnung mit anständiger Renovierung, aber mit einem schauderlich knarrenden Parkett.</p>
+
+    <p>Sie hatten eine Katze, aber Djaba erlebte sie nicht mehr — wie sich herausstellte, hatte Igors Schwester eine Allergie gegen sie, und die Katze wurde durch einen Vogel ersetzt. Dieser Vogel war ein Papagei — ein wunderliches Wesen. Djaba war verblüfft, als er herausfand, dass man ihn zum Schweigen oder Schlafen bringen konnte, indem man den Käfig einfach mit etwas bedeckte und ihm so die Nacht erschuf.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>An einem der Wochenenden, als sie sich wie gewohnt zum Radfahren trafen, waren sie zu dritt — Djaba, Igor und Dschoni. Wenn sie die erste Tageshälfte noch in bekannter Umgebung fuhren, beschlossen sie diesmal aus irgendeinem Grund, weit wegzufahren. Wessen Idee das war — spielt keine Rolle mehr.</p>
+
+    <p>Da keiner von ihnen etwas Interessantem absagte, fuhren alle drei gemeinsam los. Sie fuhren lange, durch unbekannte Gegenden, an neuen und interessanten Orten vorbei.</p>
+
+    <p>Irgendwann fanden sie ein Stück einer halb fertigen oder im Bau befindlichen Straße — einen asphaltierten Abschnitt von etwa einem halben Kilometer, auf dem keine Autos fuhren. Eine fast perfekte Gerade, auf der man ein Rennen veranstalten konnte. Das taten sie auch. Wer gewann oder verlor, war unwichtig — die Atmosphäre war freundschaftlich, und das Wichtigste war das Erlebnis selbst, nicht sein Ausgang.</p>
+
+    <p>Irgendwann begann sich der Himmel zu beziehen, es war schon fast Abend, und man musste noch nach Hause und sich zumindest bis zu den Trennungspunkten begleiten.</p>
+
+    <p>Es wurde beschlossen, nach Hause zu fahren. So taten sie es auch.</p>
+
+    <p>Während sie sich aus den Tiefen herauswanden, in die sie geraten waren, begann der Regen allmählich zu nerven. Auf dem Weg fiel entweder ein misslungener Witz oder eine kränkende Bemerkung — der genaue Grund, warum sie sich trennten, ist leider auch unbekannt.</p>
+
+    <p>Djaba fuhr bei einer Weggabelung von Igor und Dschoni weg. Trotz des Grolls wartete er etwa fünf Minuten auf die Jungs, die jeden Moment auftauchen sollten — aber leider nicht auftauchten.</p>
+
+    <p>Die Regentropfen, die vom Himmel auf den Kopf fielen, halfen dem Warten nicht. Djaba brach entschlossen Richtung Heimat auf, in der festen Überzeugung, dass die Jungs zuerst zu ihm vorbeifahren oder ihn abholen würden.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Die Jungs trafen sich dann erst vor Djabas Haus — sie waren ein wenig früher angekommen. Djaba und Igor gingen hoch, um zuerst mit Djabas Mutter zu verhandeln, ob Igor bei ihnen übernachten könnte — sie war nie dagegen. Danach versuchten sie es mit Igors Mutter.</p>
+
+    <p>In diesem Fall bekam zuerst Igor eine Absage, dann Djaba, und am Ende bekam sogar Djabas Mutter eine Absage. Daraufhin war Igor gezwungen, nach Hause zu fahren, obwohl seine Mutter gar nicht zuhause war — sie war entweder auf dem Land oder auf der Datscha.</p>
+
+    <p>Djaba und Igor begleiteten zuerst Dschoni, der draußen auf sie gewartet hatte, mit den Fahrrädern. Danach begleitete Djaba Igor bis zu den Brücken — das war etwa die Hälfte des Gesamtweges — und kehrte nach Hause zurück, zog sich um, duschte und trat dem Chat bei, in dem Igor immer noch nicht war.</p>
+
+    <p>Djaba kamen alberne Gedanken, aber in diesem Moment überdeckte eine innere Kränkung jeden Verdacht, dass etwas nicht stimmte. Er kämpfte noch mit dem Gefühl des Grolls, aber je mehr Zeit verging, desto erschreckender und beklemmender wurde es. Es lief nicht so, wie es sonst immer lief. Viele zeitliche Rahmenbedingungen für den Heimweg waren überschritten worden. Aber alles wurde auf Regen, Dunkelheit und irgendwas anderes geschoben.</p>
+
+    <p>Igor war nicht erreichbar — alle drei hatten völlig leere Handyakkus.</p>
+
+    <p>Die Zeit verging, Igor erschien nicht, die Nacht rückte näher, und es gab keine Informationen.</p>
+
+    <p>Irgendwann rief Igors Schwester Djaba an und fragte, ob Igor bei ihm sei oder vielleicht zu ihm gefahren war. Djaba antwortete natürlich, dass nein — und er selbst nicht verstand, was passiert war.</p>
+
+    <p>In diesem Moment begann langsam die Angst. Djaba verstand, dass etwas passiert war, aber was genau — das war ein Rätsel. Dass es nichts Gutes war, stand bereits fest.</p>
+
+    <p>Irgendwann gesellte sich zu den Anrufen der Schwester auch noch Igors Mutter. Sie glaubten, man veralberte sie, und die Jungs schliefen bei Djaba. Sie wollten es glauben. Auch Djaba wollte, dass es so war.</p>
+
+    <p>Aber leider war die Wirklichkeit eine andere.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Igor erschien weder später noch am nächsten Tag. Er konnte nicht mehr zurückkommen.</p>
+
+    <p>Als er eine der großen Kreuzungen hinter den zwei Brücken überquerte, wurde er auf einem Fußgängerüberweg von einem Auto erfasst.</p>
+
+    <p>Dem Fahrer, dem die Schuld an der Situation zukam, seien an dieser Stelle ein paar Worte gewidmet, ebenso einem Detail, das erst später bekannt wurde. Es war offenbar ein gewöhnlicher Arbeiter, der einfach nach Hause fuhr. Er war in einem klaren Zustand. Auch er wollte nicht, dass es so kommt — er behauptete, er habe Igor schlicht nicht bemerkt, und als er ihn bemerkte, war es bereits zu spät.</p>
+
+    <p>Das Gericht sprach ihn frei, da Igor die Verkehrsregeln nicht eingehalten hatte und zum größten Teil der Verursacher des Unfalls war.</p>
+
+    <p>Wie sich später herausstellte, hatte die Behandlung Igors keinen Sinn gehabt — die Ärzte wussten von Anfang an, dass er keine Chance hatte. Warum das alles noch mehrere Tage im Krankenhaus weiterging, ist bis heute unverständlich. Diese Wahrheit kam erst am Ende heraus — ob aus Versehen oder absichtlich, das Ergebnis stand für sie bereits im Moment der Einlieferung fest.</p>
+
+    <p>Wenn er nicht gefahren wäre, sondern das Fahrrad über den Fußgängerüberweg geschoben hätte, wäre das Ergebnis vielleicht ein anderes gewesen. Aber sie schoben ihre Fahrräder so gut wie nie über die Straße.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Das war ein sehr schwerer Schlag für Djaba — dieser Verlust war ihm zu kostbar. Denn damals hätte alles anders verlaufen können, und in diesem Fall trug Djaba eine Menge Schuld.</p>
+
+    <div class="standalone-line">Jungs weinen auch.</div>
+
+    <p>Djaba wollte alles ändern, aber es ließ sich nichts mehr ändern.</p>
+
+    <p>Die Geschichte bewegt sich weiter, und wenn man auf der Stelle steht, bedeutet das nicht, dass die Geschichte auf einen wartet.</p>
+
+    <p>Djaba besuchte den Friedhof noch ein paarmal, einmal in Begleitung von Dschoni und Nikita. Sie waren gemeinsame Freunde gewesen.</p>
+
+    <p>Nach einiger Zeit hatte Djaba ihn wohl loslassen können. Nein, verwechseln Sie das auf keinen Fall mit „vergessen" — so etwas vergisst man nicht. Es ist ein verdammt schwerer Moment, aber das Wichtigste ist: loslassen.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Noch einige Monate danach glaubte Igors Mutter, er würde zurückkehren, weil die Bibel und ihre „Bruderschaft" das so vorhergesagt hatten. Djaba begann sie fast wie einen Sohn zu betrachten, und sie versuchte sogar, ihn in ihre Gemeinschaft hineinzuziehen.</p>
+
+    <p>Es interessierte ihn, zuzuhören, zu lesen, zu verstehen — aber im Kopf wusste er, was für ein Unsinn das war. Selbst wenn die ganze Welt eine Matrix wäre, steckt in dieser „Bruderschaft" nichts von Gott. Es ist durchaus möglich, dass ihre Bibel ein für sie in die richtige Richtung umgeschriebenes Buch ist — mehr nicht.</p>
+
+    <p>Djaba lauschte diesen Erzählungen, las ein wenig selbst — genau bis zu dem Moment, als seine Mutter ihn eines Tages beim Telefongespräch über diesen „Unsinn" erwischte.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>

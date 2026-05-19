@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Игорь — Bizarre Ash</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #160f0a;
+    --paper: #f0ece4;
+    --fade: #8a7d6e;
+    --accent: #3a3a4a;
+    --gold: #8a9ab0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(100,110,140,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(58,58,74,0.05) 0%, transparent 60%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; }
+
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 6rem 0;
+    position: relative;
+  }
+
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+
+  .cover-eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 3rem;
+    opacity: 0.8;
+  }
+
+  .cover-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(56px, 12vw, 88px);
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    color: var(--ink);
+    line-height: 1.0;
+    margin-bottom: 0.4rem;
+  }
+
+  .cover-rule {
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    margin: 2.5rem auto;
+    opacity: 0.6;
+  }
+
+  .cover-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--fade);
+    letter-spacing: 0.2em;
+    margin-bottom: 5rem;
+  }
+
+  .cover-author {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--fade);
+    opacity: 0.7;
+  }
+
+  .toc {
+    padding: 7rem 0 5rem;
+    border-bottom: 1px solid rgba(138,154,176,0.2);
+    margin-bottom: 7rem;
+  }
+
+  .toc-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2.5rem;
+  }
+
+  .toc-item {
+    display: grid;
+    grid-template-columns: 2em 1fr 2em;
+    gap: 0.5rem;
+    align-items: baseline;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(138,154,176,0.12);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .toc-item:hover { color: var(--accent); }
+
+  .toc-roman {
+    font-style: normal;
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    padding-top: 0.3em;
+  }
+
+  .toc-num {
+    font-style: normal;
+    font-size: 11px;
+    color: var(--fade);
+    text-align: right;
+  }
+
+  .chapter { padding-top: 6rem; margin-bottom: 3rem; }
+  .chapter-header { margin-bottom: 3rem; }
+
+  .chapter-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 100px;
+    font-weight: 300;
+    color: var(--gold);
+    opacity: 0.18;
+    line-height: 0.85;
+    margin-bottom: -0.1em;
+    letter-spacing: -0.02em;
+    user-select: none;
+  }
+
+  .chapter-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--ink);
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(138,154,176,0.35);
+    line-height: 1.3;
+  }
+
+  p {
+    margin-bottom: 1.5em;
+    text-align: justify;
+    hyphens: auto;
+  }
+
+  .chapter > p:first-of-type::first-letter {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4.8em;
+    font-weight: 300;
+    float: left;
+    line-height: 0.72;
+    margin-right: 0.06em;
+    margin-top: 0.1em;
+    color: var(--accent);
+  }
+
+  .break {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6em;
+    margin: 3rem 0;
+    color: var(--gold);
+    opacity: 0.5;
+    font-size: 8px;
+    letter-spacing: 0.6em;
+  }
+
+  .break::before, .break::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(138,154,176,0.3));
+  }
+
+  .break::after {
+    background: linear-gradient(to left, transparent, rgba(138,154,176,0.3));
+  }
+
+  .chapter-end {
+    margin: 6rem 0 0;
+    text-align: center;
+    color: var(--gold);
+    opacity: 0.3;
+    font-size: 20px;
+    letter-spacing: 0.6em;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">автобиографическая проза</div>
+    <div class="cover-title">Игорь</div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">о том, кого не стало слишком рано</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Содержание</div>
+    <a class="toc-item" href="#ch1">
+      <span class="toc-roman">I</span>
+      <span>Часть солнца</span>
+      <span class="toc-num">—</span>
+    </a>
+    <a class="toc-item" href="#ch2">
+      <span class="toc-roman">II</span>
+      <span>Ливень</span>
+      <span class="toc-num">—</span>
+    </a>
+    <a class="toc-item" href="#ch3">
+      <span class="toc-roman">III</span>
+      <span>После</span>
+      <span class="toc-num">—</span>
+    </a>
+  </div>
+
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">Часть солнца</div>
+    </div>
+
+    <p>Игорь появился в школе так, как появляются люди, которым не нужно ничего доказывать — просто вошёл и стал частью пространства. Его перевели, и этим всё сказано. Новый человек в устоявшейся системе — обычно это неловко, обычно это период притирки. С Игорем было иначе.</p>
+
+    <p>Дяба заметил его быстро. Не потому что тот выделялся специально — а потому что в нём было что-то знакомое. Та же степень наплевательства на правила, которые казались придуманными ради самих правил. Тот же незамутнённый взгляд на вещи, которые большинство принимало всерьёз. Страха не было ни у одного, ни у другого — не наигранного бесстрашия, а просто отсутствия того внутреннего тормоза, который мешает людям быть собой в полную силу.</p>
+
+    <p>Познакомил их Ян — общий друг, третья точка в треугольнике. Втроём они буянили как умели: не со злобой, а с той молодой энергией, которую некуда деть и незачем сдерживать. Но если Ян был участником, то Дяба с Игорем были ядром. Они друг друга понимали с полуслова — а иногда и без слов вовсе.</p>
+
+    <p>Игорь тянулся к Дябе. Перенимал — и хорошее, и плохое, как это всегда бывает, когда один человек становится для другого чем-то большим, чем просто приятелем. Дяба был для него примером того, что можно жить иначе. Что не обязательно ходить туда, куда тебя тянут за руку. Что мир шире, чем говорят дома.</p>
+
+    <p>Дома у Игоря говорили своё. Мама тащила его в Свидетелей Иеговы — настойчиво, убеждённо, с той верой, которую невозможно переспорить логикой. Игорь сопротивлялся как мог. Дяба в этом сопротивлении был молчаливым союзником — он не читал лекций, просто жил рядом и показывал, что жизнь не заканчивается за порогом собрания.</p>
+
+    <p>Была ещё одна территория, где они были по-настоящему собой — Galaxy 3. Сервер, пиксели, ники — но за этим стояло что-то настоящее. Они строили там то, что хотели. Делали что хотели. Были собой без оговорок. Компьютер и сеть соединяли их даже когда физически они были в разных точках города. Это был их общий дом — шумный, нелепый, живой.</p>
+
+    <p>Они были братьями. Без семейных уз, без бумаг. Просто братьями.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">Ливень</div>
+    </div>
+
+    <p>Тот день начинался как любой другой выходной — велики, улица, никакого маршрута и никаких планов кроме движения. Дяба, Игорь, Джони. Они катались так каждые выходные — ехали куда несли ноги, не думая о том, что заблудятся, не думая вообще ни о чём серьёзном.</p>
+
+    <p>К концу дня что-то пошло не так. Мелкий конфликт — из тех, что случаются между близкими людьми именно потому что они близкие. Повод был незначительным, но слова были сказаны, и каждый поехал в свою сторону. Дяба оказался дома раньше.</p>
+
+    <p>Погода к тому времени испортилась. Ливень пришёл быстро и без предупреждения — как умеют только летние ливни.</p>
+
+    <p>Джони и Игорь приехали к Дябе. Нора — так звали женщину, которая вела этот дом — посмотрела на небо, посмотрела на мальчишек и сказала то, что говорит любой здравомыслящий человек в такую погоду: оставайтесь. Она даже позвонила маме Игоря — объяснила, что на улице ливень, что незачем ехать, что мальчик переночует здесь.</p>
+
+    <p>Мама Игоря была непреклонна. Нет — значит нет. Домой.</p>
+
+    <p>Джони Игорь проводил. Потом развернулся и поехал сам — под ливнем, в темноте, домой.</p>
+
+    <p>Дяба этого не видел. Он был уже дома.</p>
+
+    <p>Потом наступила тишина — не спокойная, а странная. Такая, какой не бывает просто так. Что-то было не так — это чувствовали все. Нора. Дяба. Сестра Игоря. Даже его мама. Каждый думал, что Игорь тайком остался у кого-то ночевать и просто не признаётся. Требовали признания. Игорь молчал — потому что не мог ответить.</p>
+
+    <p>Когда появилась информация о том, что произошло — мир на секунду перестал быть собой.</p>
+
+    <p>На одном из перекрёстков, там где два моста, на пешеходном переходе его сбила машина. Водитель не хотел. Он просто ехал домой — обычный человек, обычный вечер. Он не увидел Игоря вовремя. Когда увидел — было поздно.</p>
+
+    <p>Была больница. Была кома. Была надежда — живая, почти настоящая — что он выберется. Что откроет глаза. Что всё это окажется тем, чем таким вещам положено оказываться в кино — испытанием с выходом.</p>
+
+    <p>Выхода не было. Врачи знали это с самого начала. Сказали только в конце.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">После</div>
+    </div>
+
+    <p>Похороны Дяба помнит не картинками — а весом. Тем, как давит воздух когда прощаешься с человеком, которого больше не будет. Когда от того, с кем ещё недавно гонял на велике и орал что-то в микрофон в Galaxy 3 — остаётся только дым и память.</p>
+
+    <p>Мальчики тоже плачут. Он плакал.</p>
+
+    <p>Потом были месяцы с вопросами, на которые нет ответа. Если бы не поссорились. Если бы проводил. Если бы Нора настояла сильнее. Если бы мама Игоря сказала — ладно, оставайся. Миллиард если, и ни одно из них не меняло того, что было.</p>
+
+    <p>Дяба нёс это в себе долго. Тихо, без огласки — просто нёс.</p>
+
+    <p>Потом они поехали на кладбище втроём — Дяба, Марко, Джони. Проведать. Побыть рядом. Там же, на обратном пути или около того, Дяба с Джони повздорили и подрались. Уже не вспомнить из-за чего — может из-за ничего, может из-за всего сразу. Бывает, что горе ищет выход не туда куда нужно.</p>
+
+    <p>Мама Игоря продолжала ждать его возвращения — так говорила Библия, так говорило братство. Она начала тянуть Дябу к себе — в собрания, в веру, в тот мир где Игорь ещё мог вернуться. Дяба слушал. Читал немного. Не потому что верил — а потому что это было последнее, что связывало его с тем, кого больше не было.</p>
+
+    <p>Нора остановила это вовремя. Услышала разговор, вытрясла всё и закрыла дверь перед тем, во что Дяба не должен был войти.</p>
+
+    <p>Игоря он не забыл. Не отпустил в смысле — перестал думать. Просто научился нести это иначе. Не как вину, а как память о человеке, который был частью солнца — и которого не стало слишком рано.</p>
+
+    <p>Сколько всего было покорено вместе.</p>
+
+    <p>Сколько всего ещё могло быть.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>
