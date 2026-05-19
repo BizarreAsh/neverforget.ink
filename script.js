@@ -235,28 +235,6 @@ const bookPool = [
   { title: 'Любовь Внутри',    author: 'Bizarre Ash', genre: 'genre_romance', book: 'books/lyubov_vnutri-2.html'       },
   { title: 'Love Within',      author: 'Bizarre Ash', genre: 'genre_romance', book: 'books/love_within_EN.html'        },
   { title: 'Liebe von Innen',  author: 'Bizarre Ash', genre: 'genre_romance', book: 'books/liebe_von_innen_DE-1.html'  },
-  { title: 'Стив Джобс',                          author: 'Уолтер Айзексон',            genre: 'genre_bio'     },
-  { title: 'Дневник Анны Франк',                   author: 'Анна Франк',                 genre: 'genre_bio'     },
-  { title: 'Long Walk to Freedom',                 author: 'Nelson Mandela',             genre: 'genre_bio'     },
-  { title: 'I Know Why the Caged Bird Sings',      author: 'Maya Angelou',               genre: 'genre_bio'     },
-  { title: 'Маленький принц',                      author: 'Антуан де Сент-Экзюпери',   genre: 'genre_romance' },
-  { title: 'Pride and Prejudice',                  author: 'Jane Austen',                genre: 'genre_romance' },
-  { title: 'Анна Каренина',                        author: 'Лев Толстой',                genre: 'genre_romance' },
-  { title: 'Jane Eyre',                            author: 'Charlotte Brontë',           genre: 'genre_romance' },
-  { title: 'Мастер и Маргарита',                   author: 'Михаил Булгаков',            genre: 'genre_mystic'  },
-  { title: 'Die Verwandlung',                      author: 'Franz Kafka',                genre: 'genre_mystic'  },
-  { title: 'Faust',                                author: 'Johann Wolfgang von Goethe', genre: 'genre_mystic'  },
-  { title: 'Der Steppenwolf',                      author: 'Hermann Hesse',              genre: 'genre_mystic'  },
-  { title: 'Преступление и наказание',             author: 'Фёдор Достоевский',          genre: 'genre_inspire' },
-  { title: 'To Kill a Mockingbird',                author: 'Harper Lee',                 genre: 'genre_inspire' },
-  { title: 'The Old Man and the Sea',              author: 'Ernest Hemingway',           genre: 'genre_inspire' },
-  { title: 'Война и мир',                          author: 'Лев Толстой',                genre: 'genre_inspire' },
-  { title: 'Der Zauberberg',                       author: 'Thomas Mann',                genre: 'genre_inspire' },
-  { title: 'Ready Player One',                     author: 'Ernest Cline',               genre: 'genre_tech'    },
-  { title: 'Neuromancer',                          author: 'William Gibson',             genre: 'genre_tech'    },
-  { title: "Ender's Game",                         author: 'Orson Scott Card',           genre: 'genre_tech'    },
-  { title: 'Do Androids Dream of Electric Sheep?', author: 'Philip K. Dick',            genre: 'genre_tech'    },
-  { title: '1984',                                 author: 'George Orwell',              genre: 'genre_tech'    },
 ];
 
 function shuffleArray(arr) {
@@ -268,15 +246,16 @@ function shuffleArray(arr) {
   return a;
 }
 
-// Guarantees all 5 genres are represented: 1 book per genre + 1 bonus random
+// 1 book per non-empty genre + 1 bonus random
 function getCatalogPicks() {
   const genres = ['genre_bio', 'genre_romance', 'genre_mystic', 'genre_inspire', 'genre_tech'];
-  const picks  = genres.map(g => {
+  const picks  = [];
+  genres.forEach(g => {
     const group = bookPool.filter(b => b.genre === g);
-    return group[Math.floor(Math.random() * group.length)];
+    if (group.length) picks.push(group[Math.floor(Math.random() * group.length)]);
   });
   const bonus = bookPool.filter(b => !picks.includes(b));
-  picks.push(bonus[Math.floor(Math.random() * bonus.length)]);
+  if (bonus.length) picks.push(bonus[Math.floor(Math.random() * bonus.length)]);
   return shuffleArray(picks);
 }
 
