@@ -34,6 +34,7 @@ const translations = {
     fav_empty_hint:     'Нажми ♡ на любой книге, чтобы сохранить её здесь',
     catalog_title:      'Каталог',
     shuffle_btn:        'Перемешать',
+    genre_back:         'Все жанры',
     nav_contacts:       'Контакты',
     contacts_title:     'Контакты',
   },
@@ -72,6 +73,7 @@ const translations = {
     fav_empty_hint:     'Tap ♡ on any book to save it here',
     catalog_title:      'Catalog',
     shuffle_btn:        'Shuffle',
+    genre_back:         'All Genres',
     nav_contacts:       'Contacts',
     contacts_title:     'Contacts',
   },
@@ -110,6 +112,7 @@ const translations = {
     fav_empty_hint:     'Tippe ♡ auf ein Buch, um es hier zu speichern',
     catalog_title:      'Katalog',
     shuffle_btn:        'Mischen',
+    genre_back:         'Alle Genres',
     nav_contacts:       'Kontakt',
     contacts_title:     'Kontakt',
   },
@@ -314,19 +317,32 @@ function makeCatalogCard({ title, author, genre, book }) {
 
 const catalogGrid = document.getElementById('catalog-grid');
 const shuffleBtn  = document.getElementById('shuffle-btn');
+const genreBack   = document.getElementById('genre-back');
 
 if (catalogGrid) {
-  function renderCatalog() {
-    catalogGrid.style.opacity = '0';
-    setTimeout(() => {
-      catalogGrid.innerHTML = '';
-      getCatalogPicks().forEach(book => catalogGrid.appendChild(makeCatalogCard(book)));
-      catalogGrid.style.opacity = '1';
-    }, 180);
-  }
+  const genreFilter = new URLSearchParams(window.location.search).get('genre');
 
-  renderCatalog();
-  shuffleBtn.addEventListener('click', renderCatalog);
+  if (genreFilter) {
+    const h1 = document.querySelector('.catalog-section h1');
+    h1.dataset.i18n  = genreFilter;
+    h1.textContent   = translations[currentLang][genreFilter] ?? genreFilter;
+    shuffleBtn.hidden = true;
+    genreBack.removeAttribute('hidden');
+    bookPool
+      .filter(b => b.genre === genreFilter)
+      .forEach(book => catalogGrid.appendChild(makeCatalogCard(book)));
+  } else {
+    function renderCatalog() {
+      catalogGrid.style.opacity = '0';
+      setTimeout(() => {
+        catalogGrid.innerHTML = '';
+        getCatalogPicks().forEach(book => catalogGrid.appendChild(makeCatalogCard(book)));
+        catalogGrid.style.opacity = '1';
+      }, 180);
+    }
+    renderCatalog();
+    shuffleBtn.addEventListener('click', renderCatalog);
+  }
 }
 
 // --- Favorites page ---

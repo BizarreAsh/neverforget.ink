@@ -241,6 +241,19 @@ nav a:hover {
   color: #b0a898;
 }
 
+.genre-back {
+  display: inline-block;
+  margin-bottom: 20px;
+  color: #b0a898;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+
+.genre-back:hover {
+  color: #c9a84c;
+}
+
 .shuffle-wrap {
   text-align: center;
   margin-top: 44px;
@@ -323,6 +336,9 @@ nav a:hover {
   text-align: center;
   cursor: pointer;
   transition: transform 0.3s, border-color 0.3s;
+  text-decoration: none;
+  color: inherit;
+  display: block;
 }
 
 .genre-card:hover {
