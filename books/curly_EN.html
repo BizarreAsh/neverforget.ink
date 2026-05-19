@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Curly — Bizarre Ash</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #1a0f18;
+    --paper: #f5eef5;
+    --fade: #9a7a9a;
+    --accent: #7a2a7a;
+    --gold: #b060b0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(180,80,180,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(122,42,122,0.05) 0%, transparent 60%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; }
+
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 6rem 0;
+    position: relative;
+  }
+
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+
+  .cover-eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 3rem;
+    opacity: 0.8;
+  }
+
+  .cover-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(52px, 11vw, 80px);
+    font-weight: 300;
+    letter-spacing: 0.06em;
+    color: var(--ink);
+    line-height: 1.1;
+    margin-bottom: 0.4rem;
+    font-style: italic;
+  }
+
+  .cover-rule {
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    margin: 2.5rem auto;
+    opacity: 0.6;
+  }
+
+  .cover-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--fade);
+    letter-spacing: 0.2em;
+    margin-bottom: 5rem;
+  }
+
+  .cover-author {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--fade);
+    opacity: 0.7;
+  }
+
+  .toc {
+    padding: 7rem 0 5rem;
+    border-bottom: 1px solid rgba(176,96,176,0.2);
+    margin-bottom: 7rem;
+  }
+
+  .toc-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2.5rem;
+  }
+
+  .toc-item {
+    display: grid;
+    grid-template-columns: 2em 1fr 2em;
+    gap: 0.5rem;
+    align-items: baseline;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(176,96,176,0.12);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .toc-item:hover { color: var(--accent); }
+
+  .toc-roman {
+    font-style: normal;
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    padding-top: 0.3em;
+  }
+
+  .toc-num {
+    font-style: normal;
+    font-size: 11px;
+    color: var(--fade);
+    text-align: right;
+  }
+
+  .chapter { padding-top: 6rem; margin-bottom: 3rem; }
+  .chapter-header { margin-bottom: 3rem; }
+
+  .chapter-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 100px;
+    font-weight: 300;
+    color: var(--gold);
+    opacity: 0.18;
+    line-height: 0.85;
+    margin-bottom: -0.1em;
+    letter-spacing: -0.02em;
+    user-select: none;
+  }
+
+  .chapter-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--ink);
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(176,96,176,0.35);
+    line-height: 1.3;
+  }
+
+  p {
+    margin-bottom: 1.5em;
+    text-align: justify;
+    hyphens: auto;
+  }
+
+  .chapter > p:first-of-type::first-letter {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4.8em;
+    font-weight: 300;
+    float: left;
+    line-height: 0.72;
+    margin-right: 0.06em;
+    margin-top: 0.1em;
+    color: var(--accent);
+  }
+
+  .dialogue {
+    margin: 2em 0 2em 2.2em;
+    font-style: italic;
+    color: #2a1a2e;
+    position: relative;
+    font-size: 17.5px;
+  }
+
+  .dialogue::before {
+    content: '—';
+    position: absolute;
+    left: -1.5em;
+    color: var(--gold);
+    font-style: normal;
+  }
+
+  .break {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6em;
+    margin: 3rem 0;
+    color: var(--gold);
+    opacity: 0.5;
+    font-size: 8px;
+    letter-spacing: 0.6em;
+  }
+
+  .break::before, .break::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(176,96,176,0.3));
+  }
+
+  .break::after {
+    background: linear-gradient(to left, transparent, rgba(176,96,176,0.3));
+  }
+
+  .chapter-end {
+    margin: 6rem 0 0;
+    text-align: center;
+    color: var(--gold);
+    opacity: 0.3;
+    font-size: 20px;
+    letter-spacing: 0.6em;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">autobiographical prose</div>
+    <div class="cover-title">Curly</div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">about what could not be undone</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Contents</div>
+    <a class="toc-item" href="#ch1">
+      <span class="toc-roman">I</span>
+      <span>Wrong Number</span>
+      <span class="toc-num">—</span>
+    </a>
+    <a class="toc-item" href="#ch2">
+      <span class="toc-roman">II</span>
+      <span>Curly</span>
+      <span class="toc-num">—</span>
+    </a>
+    <a class="toc-item" href="#ch3">
+      <span class="toc-roman">III</span>
+      <span>Shoes by the Door</span>
+      <span class="toc-num">—</span>
+    </a>
+  </div>
+
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">Wrong Number</div>
+    </div>
+
+    <p>Rey arrived at school the way people do when they know how to make an entrance — loud, confident, full of stories that sounded too good to be true. He was charming. He knew how to talk. He quickly became one of the crowd, at least for those who weren't paying close attention.</p>
+
+    <p>El was paying attention. From the very first days there was friction between them — Rey had gone after Sol, quiet and unguarded, someone El considered his own. They nearly came to blows. Rey backed down. But he didn't leave — he stayed, gradually worked his way into the same circle, and eventually something between them settled. Or seemed to.</p>
+
+    <p>One afternoon Rey's phone kept ringing and ringing. El picked it up at some point — out of boredom, out of irritation, because Rey clearly had no intention of answering. He introduced himself as Rey's personal secretary. Asked how he could help.</p>
+
+    <p>On the other end was a girl. Her name was Leya.</p>
+
+    <p>She was looking for Rey. She found El. The conversation stretched — first a few minutes, then an hour, then into messages that didn't seem to end. They both noticed. Both pretended not to. Then they stopped pretending.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">Curly</div>
+    </div>
+
+    <p>Leya showed up on a weekend — early, no preamble. She knew the neighbourhood, knew the streets — she'd gone to a nearby school before transferring. She didn't get lost. She rarely did.</p>
+
+    <p>The first meeting surprised them both — not badly, just differently than expected. They walked around. Talked about everything. Looked at each other the way people do when they're trying to figure out if this is serious or not. It turned out to be serious.</p>
+
+    <p>Then she came up to his place. She met his mother — who asked a couple of questions and quietly disappeared into the kitchen. El showed her his world — the computer, the games, all the things that made up his days. She watched, listened, laughed. She took him as he was, no conditions, no corrections.</p>
+
+    <p>He loved her curls. She loved him — the little fool who thought he'd already grown up.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>They were kids who had decided they were adults. Every weekend together — quietly, at home, just the two of them. Messing around. Getting to know each other. Building something fragile and real at the same time.</p>
+
+    <p>It was the first — and that made it something else entirely. You don't forget a first. You carry it long after everything is over.</p>
+
+    <p>Rey knew about them. Stayed quiet. Kept smiling. Was always around — as a friend, as someone you trust. El believed him.</p>
+
+    <p>That was his biggest mistake.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">Shoes by the Door</div>
+    </div>
+
+    <p>That day a few people came over — Rey and two others El barely knew. Leya was there too. Everything felt normal — voices, noise, the usual atmosphere of people filling someone else's space.</p>
+
+    <p>Then something shifted. Hard to say exactly when — just at some point the quiet became the wrong kind of quiet. They told him Leya had stepped out. He nodded. Then looked down.</p>
+
+    <p>Her shoes were still by the door.</p>
+
+    <p>You can't leave without your shoes. Simple logic — so simple the mind refuses it at first. Then accepts it. And then everything else falls into place — the silence behind the door, the voices that had been too calm, the two who kept looking away.</p>
+
+    <p>He tried to open the door. They stopped him.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>When Leya came out she started explaining right away. Said he'd misread it. That it wasn't what he thought. El listened and heard nothing. There was no room left inside for words. Only rage — steady and hot, filling everything else out.</p>
+
+    <p>Rey said the same things. Looked him in the eye — calm, steady, the way he always did. El believed him. Because he wanted to believe him. Because the truth would have hurt more than the lie.</p>
+
+    <p>The other two stayed quiet — or said things that didn't matter. They were there. They knew. That wasn't forgotten either.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>What followed was rage — long, blind, misdirected. At her. At a photo of some guy he found and couldn't let go of. At anything that moved nearby. He was getting back at something — not quite sure what, just getting back at it, because something inside was broken and needed somewhere to go.</p>
+
+    <p>They tried again once. It didn't work. For her, those walls were different now — she carried what he hadn't understood. The little fool couldn't figure out why she looked at him differently. Why she went quiet where she used to laugh. Why her eyes slipped away.</p>
+
+    <p>He figured it out later. When it was already too late.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Rey paid his price. The life he chose was the life he got. That's not comfort and it's not judgment. It's just what happened.</p>
+
+    <p>El is still here. Came close to walking the same road — but didn't. He made it.</p>
+
+    <p>Leya — this one's for you. You deserved better. That day, and after — when he couldn't see past his own rage. He was wrong. Not partially. Completely.</p>
+
+    <p>Forgive him or don't. But know this — he remembers your curls. And who you were when you took him as he was, no questions asked.</p>
+
+    <p>That was never forgotten.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>
