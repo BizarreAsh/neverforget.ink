@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Верните 2007-ой — Bizarre Ash</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #0a0a18;
+    --paper: #eaeaf5;
+    --fade: #7070a0;
+    --accent: #303080;
+    --gold: #6060c0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(80,80,200,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(48,48,128,0.05) 0%, transparent 60%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; }
+
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 6rem 0;
+    position: relative;
+  }
+
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+
+  .cover-eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 3rem;
+    opacity: 0.8;
+  }
+
+  .cover-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 8vw, 60px);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    line-height: 1.15;
+    margin-bottom: 0.4rem;
+  }
+
+  .cover-title em { font-style: italic; color: var(--accent); }
+
+  .cover-rule {
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    margin: 2.5rem auto;
+    opacity: 0.6;
+  }
+
+  .cover-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--fade);
+    letter-spacing: 0.2em;
+    margin-bottom: 5rem;
+  }
+
+  .cover-author {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--fade);
+    opacity: 0.7;
+  }
+
+  .toc {
+    padding: 7rem 0 5rem;
+    border-bottom: 1px solid rgba(96,96,192,0.2);
+    margin-bottom: 7rem;
+  }
+
+  .toc-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2.5rem;
+  }
+
+  .toc-item {
+    display: grid;
+    grid-template-columns: 2em 1fr 2em;
+    gap: 0.5rem;
+    align-items: baseline;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(96,96,192,0.12);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .toc-item:hover { color: var(--accent); }
+
+  .toc-roman {
+    font-style: normal;
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    padding-top: 0.3em;
+  }
+
+  .toc-num {
+    font-style: normal;
+    font-size: 11px;
+    color: var(--fade);
+    text-align: right;
+  }
+
+  .chapter { padding-top: 6rem; margin-bottom: 3rem; }
+  .chapter-header { margin-bottom: 3rem; }
+
+  .chapter-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 100px;
+    font-weight: 300;
+    color: var(--gold);
+    opacity: 0.18;
+    line-height: 0.85;
+    margin-bottom: -0.1em;
+    letter-spacing: -0.02em;
+    user-select: none;
+  }
+
+  .chapter-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--ink);
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(96,96,192,0.35);
+    line-height: 1.3;
+  }
+
+  p {
+    margin-bottom: 1.5em;
+    text-align: justify;
+    hyphens: auto;
+  }
+
+  .chapter > p:first-of-type::first-letter {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4.8em;
+    font-weight: 300;
+    float: left;
+    line-height: 0.72;
+    margin-right: 0.06em;
+    margin-top: 0.1em;
+    color: var(--accent);
+  }
+
+  .dialogue {
+    margin: 2em 0 2em 2.2em;
+    font-style: italic;
+    color: #1a1a2e;
+    position: relative;
+    font-size: 17.5px;
+  }
+
+  .dialogue::before {
+    content: '—';
+    position: absolute;
+    left: -1.5em;
+    color: var(--gold);
+    font-style: normal;
+  }
+
+  .break {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6em;
+    margin: 3rem 0;
+    color: var(--gold);
+    opacity: 0.5;
+    font-size: 8px;
+    letter-spacing: 0.6em;
+  }
+
+  .break::before, .break::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(96,96,192,0.3));
+  }
+
+  .break::after {
+    background: linear-gradient(to left, transparent, rgba(96,96,192,0.3));
+  }
+
+  .chapter-end {
+    margin: 6rem 0 0;
+    text-align: center;
+    color: var(--gold);
+    opacity: 0.3;
+    font-size: 20px;
+    letter-spacing: 0.6em;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">автобиографическая проза</div>
+    <div class="cover-title">Верните<br><em>2007-ой</em></div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">о мире который был настоящим</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Содержание</div>
+    <a class="toc-item" href="#ch1">
+      <span class="toc-roman">I</span>
+      <span>Точка входа</span>
+      <span class="toc-num">—</span>
+    </a>
+    <a class="toc-item" href="#ch2">
+      <span class="toc-roman">II</span>
+      <span>Galaxy и компания</span>
+      <span class="toc-num">—</span>
+    </a>
+    <a class="toc-item" href="#ch3">
+      <span class="toc-roman">III</span>
+      <span>Infernus</span>
+      <span class="toc-num">—</span>
+    </a>
+  </div>
+
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">Точка входа</div>
+    </div>
+
+    <p>Интернет пришёл в жизнь Коса так, как приходит всё важное — без объявления. Просто однажды он появился, и мир за монитором перестал быть одиночной игрой. Там были люди. Живые, в реальном времени, по другую сторону экрана. Это меняло всё.</p>
+
+    <p>GTA: San Andreas к тому моменту уже была своей — пройденной, изученной, исхоженной вдоль и поперёк. Кос знал её карту лучше, чем карту своего района. Но San Andreas в одиночку и San Andreas в SAMP — это были две разные игры. Две разные реальности.</p>
+
+    <p>SAMP — San Andreas Multiplayer. Модификация, которая превращала одиночную песочницу в целый город с населением. Ты появлялся на вокзале с минимальной суммой в кармане — без подсказок, без мамы с папой, сам себе хозяин. Дальше всё зависело от тебя: кем стать, куда пойти, с кем и против кого.</p>
+
+    <p>Кос не долго думал над выбором.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">Galaxy и компания</div>
+    </div>
+
+    <p>Galaxy RPG был не жёстким ролевым сервером с экзаменами и белыми листами — он был свободным. Конструктор персонажа, набор ролей по желанию, анархия с лёгким налётом порядка. Можно было стать полицейским, врачом, армейцем, просто работягой. Кос и компания каждый раз выбирали одно и то же — преступный синдикат. Никаких сомнений, никаких обсуждений.</p>
+
+    <p>Их было много — Лек, Рик, Вэл, Нэш, и ещё кто придётся. Все свои, все на одном сервере, все с одной целью. Зарабатывали виртуальную валюту, копили на недвижимость, на машины, на то что казалось важным в тот конкретный момент. Но когда рутина начинала давить — переключались на любимое развлечение.</p>
+
+    <p>Схема была простой и проверенной. Брали быструю машину, находили патруль, подъезжали вплотную. Дальше — пара оскорблений в чат, адресованных конкретному сотруднику. Тот реагировал как положено: выдавал звёзды розыска. Три звезды в 90% случаев — это уже серьёзно, это уже не отпускают.</p>
+
+    <p>Сразу после — газ в пол. С обеих сторон. Начиналась погоня.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Каждая звезда — десять минут реального времени в камере. Шесть звёзд — час за решёткой, пока все остальные гуляют на воле и периодически заглядывают в чат чтобы поиздеваться. Это было частью игры — и частью удовольствия.</p>
+
+    <p>Когда кого-то всё-таки ловили, в дело вступал ПрЫнц. Артём ПрЫнц — администратор сервера, человек который был одновременно судьёй, адвокатом, стороной обвинения и стороной защиты. Все конфликты, все баны, все апелляции проходили через него. Он прекрасно понимал, что перед ним сидят ребятишки которые просто заигрались — и решал всё с той особой иронией человека, которому смешно но который всё равно сделает как надо.</p>
+
+    <p>Сервер был домом. Не метафорически — буквально. Там было понятно как устроен мир, там были свои, там каждое действие имело последствие и каждое последствие было честным.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">Infernus</div>
+    </div>
+
+    <p>На сервере периодически проводились мероприятия — МП, как их называли. Забеги, соревнования, гонки. В один из таких периодов прошло три дисциплины подряд: сначала пеший забег, потом велосипедная гонка, потом автомобильная.</p>
+
+    <p>В первых двух Косу не везло. Не катастрофически — просто не его день, не его дистанция. Он финишировал, смотрел на результат и ждал третьего.</p>
+
+    <p>Третьим была гонка на машинах.</p>
+
+    <p>Кос выиграл.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Призом был Infernus — один из самых быстрых автомобилей San Andreas. Не просто быстрый — редкий. Такой был у единиц на всём сервере. Когда Кос выехал на нём в первый раз, в чате начали появляться сообщения. Люди спрашивали, предлагали, торговались. Он не продавал.</p>
+
+    <p>Infernus стал его — и точка. Сколько бы ни предлагали, ответ был один. Это была не жадность — это было что-то другое. Ощущение что вещь заслужена, что она на своём месте, что отдавать её незачем.</p>
+
+    <p>Потом всё-таки поменял. На хорошую сумму и Bullet — прототип Ford GT, другую любовь, другую скорость. Но Infernus помнился дольше.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Хорошее заканчивается так же как начинается — незаметно. Сначала заходили реже. Потом ещё реже. Компания понемногу рассыпалась — у каждого появлялось своё, другое, не связанное с сервером.</p>
+
+    <p>Рика не стало.</p>
+
+    <p>После этого Galaxy уже не был тем же Galaxy. Сервер стоял на месте — ПрЫнц никуда не делся, правила не изменились, машины ездили по тем же улицам. Но чего-то главного больше не было.</p>
+
+    <p>Осталась только память — о том как ждали друг друга пока срок отсидки подойдёт к концу. Как сидели в камере и смотрели на таймер. Как выходили и сразу ехали искать следующий патруль.</p>
+
+    <p>Верните 2007-ой.</p>
+
+    <p>Не вернут.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>

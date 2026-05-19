@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bring Back 2007 — Bizarre Ash</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #0a0a18;
+    --paper: #eaeaf5;
+    --fade: #7070a0;
+    --accent: #303080;
+    --gold: #6060c0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(80,80,200,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(48,48,128,0.05) 0%, transparent 60%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; }
+
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 6rem 0;
+    position: relative;
+  }
+
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+
+  .cover-eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 3rem;
+    opacity: 0.8;
+  }
+
+  .cover-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 8vw, 58px);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    line-height: 1.15;
+    margin-bottom: 0.4rem;
+  }
+
+  .cover-title em { font-style: italic; color: var(--accent); }
+
+  .cover-rule {
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    margin: 2.5rem auto;
+    opacity: 0.6;
+  }
+
+  .cover-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--fade);
+    letter-spacing: 0.2em;
+    margin-bottom: 5rem;
+  }
+
+  .cover-author {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--fade);
+    opacity: 0.7;
+  }
+
+  .toc {
+    padding: 7rem 0 5rem;
+    border-bottom: 1px solid rgba(96,96,192,0.2);
+    margin-bottom: 7rem;
+  }
+
+  .toc-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2.5rem;
+  }
+
+  .toc-item {
+    display: grid;
+    grid-template-columns: 2em 1fr 2em;
+    gap: 0.5rem;
+    align-items: baseline;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(96,96,192,0.12);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .toc-item:hover { color: var(--accent); }
+
+  .toc-roman {
+    font-style: normal;
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    padding-top: 0.3em;
+  }
+
+  .toc-num {
+    font-style: normal;
+    font-size: 11px;
+    color: var(--fade);
+    text-align: right;
+  }
+
+  .chapter { padding-top: 6rem; margin-bottom: 3rem; }
+  .chapter-header { margin-bottom: 3rem; }
+
+  .chapter-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 100px;
+    font-weight: 300;
+    color: var(--gold);
+    opacity: 0.18;
+    line-height: 0.85;
+    margin-bottom: -0.1em;
+    letter-spacing: -0.02em;
+    user-select: none;
+  }
+
+  .chapter-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--ink);
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(96,96,192,0.35);
+    line-height: 1.3;
+  }
+
+  p {
+    margin-bottom: 1.5em;
+    text-align: justify;
+    hyphens: auto;
+  }
+
+  .chapter > p:first-of-type::first-letter {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4.8em;
+    font-weight: 300;
+    float: left;
+    line-height: 0.72;
+    margin-right: 0.06em;
+    margin-top: 0.1em;
+    color: var(--accent);
+  }
+
+  .break {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6em;
+    margin: 3rem 0;
+    color: var(--gold);
+    opacity: 0.5;
+    font-size: 8px;
+    letter-spacing: 0.6em;
+  }
+
+  .break::before, .break::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(96,96,192,0.3));
+  }
+
+  .break::after {
+    background: linear-gradient(to left, transparent, rgba(96,96,192,0.3));
+  }
+
+  .chapter-end {
+    margin: 6rem 0 0;
+    text-align: center;
+    color: var(--gold);
+    opacity: 0.3;
+    font-size: 20px;
+    letter-spacing: 0.6em;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">autobiographical prose</div>
+    <div class="cover-title">Bring Back<br><em>2007</em></div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">about a world that was real</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Contents</div>
+    <a class="toc-item" href="#ch1">
+      <span class="toc-roman">I</span>
+      <span>The Entry Point</span>
+      <span class="toc-num">—</span>
+    </a>
+    <a class="toc-item" href="#ch2">
+      <span class="toc-roman">II</span>
+      <span>Galaxy and the Crew</span>
+      <span class="toc-num">—</span>
+    </a>
+    <a class="toc-item" href="#ch3">
+      <span class="toc-roman">III</span>
+      <span>Infernus</span>
+      <span class="toc-num">—</span>
+    </a>
+  </div>
+
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">The Entry Point</div>
+    </div>
+
+    <p>The internet arrived in Kos's life the way everything important does — without announcement. One day it was just there, and the world behind the monitor stopped being a solo game. There were people. Real ones, in real time, on the other side of the screen. That changed everything.</p>
+
+    <p>GTA: San Andreas was already familiar territory by then — completed, studied, walked end to end. Kos knew its map better than the map of his own neighbourhood. But San Andreas alone and San Andreas in SAMP were two completely different games. Two different realities.</p>
+
+    <p>SAMP — San Andreas Multiplayer. A mod that turned a solo sandbox into a city full of people. You spawned at the train station with next to nothing in your pocket — no hints, no hand-holding, nobody to answer to. Everything after that was up to you: who to become, where to go, with whom and against whom.</p>
+
+    <p>Kos didn't take long to decide.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">Galaxy and the Crew</div>
+    </div>
+
+    <p>Galaxy RPG wasn't a strict roleplay server with written applications and white sheets — it was open. A character builder, roles by preference, anarchy with a thin coat of order. You could be a cop, a doctor, a soldier, a working man. Kos and his crew picked the same thing every time — the criminal syndicate. No discussion, no hesitation.</p>
+
+    <p>There were many of them — Lek, Rik, Val, Nash, and whoever else showed up. All familiar, all on the same server, all with the same idea. They earned virtual currency, saved up for property, for cars, for whatever felt important at that particular moment. But when the routine started pressing down — they switched to their favourite pastime.</p>
+
+    <p>The method was simple and proven. Get a fast car, find a patrol, pull up close. Then drop a few choice words in chat at a specific officer. He'd respond as required: wanted stars handed out. Three stars in ninety percent of cases meant it was already serious — they weren't letting you go.</p>
+
+    <p>Right after — floor it. From both sides. The chase began.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Each star was ten real minutes in a cell. Six stars — an hour behind bars while everyone else ran free and dropped into chat now and then just to mock you. It was part of the game — and part of the pleasure.</p>
+
+    <p>When someone finally got caught, PrYnts stepped in. Artyom PrYnts — the server admin, a man who was simultaneously judge, lawyer, prosecution and defence. Every conflict, every ban, every appeal went through him. He understood perfectly well that he was dealing with kids who had gotten carried away — and he handled everything with that particular irony of someone who finds it funny but will do what needs to be done regardless.</p>
+
+    <p>The server was home. Not metaphorically — literally. The world made sense there, the crew was there, every action had a consequence and every consequence was fair.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">Infernus</div>
+    </div>
+
+    <p>The server ran events from time to time — MPs, as they called them. Races, competitions, challenges. In one stretch three disciplines ran back to back: first a foot race, then a bicycle race, then a car race.</p>
+
+    <p>Kos didn't have luck in the first two. Not badly — just not his day, not his distance. He crossed the finish line, looked at the result, and waited for the third.</p>
+
+    <p>The third was the car race.</p>
+
+    <p>Kos won.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>The prize was an Infernus — one of the fastest cars in San Andreas. Not just fast — rare. Only a handful of people on the whole server had one. When Kos drove it out for the first time, messages started appearing in chat. People asked, offered, negotiated. He didn't sell.</p>
+
+    <p>The Infernus was his — full stop. No matter what anyone offered, the answer was the same. It wasn't greed — it was something else. The feeling that the thing had been earned, that it belonged where it was, that there was no reason to give it up.</p>
+
+    <p>Eventually he did trade it. For a good sum and a Bullet — a Ford GT prototype, a different love, a different kind of speed. But the Infernus stayed in memory longer.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Good things end the same way they begin — quietly. At first they logged on less often. Then even less. The crew gradually scattered — everyone had their own thing now, something separate from the server.</p>
+
+    <p>Rik was gone.</p>
+
+    <p>After that Galaxy wasn't the same Galaxy anymore. The server was still there — PrYnts hadn't gone anywhere, the rules hadn't changed, the cars still drove the same streets. But something essential was missing.</p>
+
+    <p>Only the memory remained — of waiting for each other until the sentence ran out. Of sitting in a cell watching the timer. Of stepping out and immediately going to find the next patrol.</p>
+
+    <p>Bring back 2007.</p>
+
+    <p>It won't come back.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>
