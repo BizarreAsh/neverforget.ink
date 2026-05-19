@@ -214,9 +214,12 @@ if (searchButton) {
 // --- Catalog page ---
 
 const bookPool = [
-  { title: 'Кудряшка', author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/kudryashka.html' },
-  { title: 'Curly',    author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/curly_EN.html'   },
-  { title: 'Locken',   author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/locken_DE.html'  },
+  { title: 'Кудряшка',        author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/kudryashka.html'        },
+  { title: 'Curly',           author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/curly_EN.html'           },
+  { title: 'Locken',          author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/locken_DE.html'          },
+  { title: 'Иной мир',        author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/inoy_mir.html'           },
+  { title: 'Another World',   author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/another_world_EN.html'   },
+  { title: 'Eine andere Welt',author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/eine_andere_welt_DE.html'},
   { title: 'Стив Джобс',                          author: 'Уолтер Айзексон',            genre: 'genre_bio'     },
   { title: 'Дневник Анны Франк',                   author: 'Анна Франк',                 genre: 'genre_bio'     },
   { title: 'Long Walk to Freedom',                 author: 'Nelson Mandela',             genre: 'genre_bio'     },
