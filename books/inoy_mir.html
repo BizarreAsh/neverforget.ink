@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Иной мир — Bizarre Ash</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #0f1a0f;
+    --paper: #eef2e8;
+    --fade: #7a8a72;
+    --accent: #2a4a2a;
+    --gold: #7a9a5a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(100,140,80,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(42,74,42,0.05) 0%, transparent 60%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; }
+
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 6rem 0;
+    position: relative;
+  }
+
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+
+  .cover-eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 3rem;
+    opacity: 0.8;
+  }
+
+  .cover-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(48px, 10vw, 72px);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    line-height: 1.1;
+    margin-bottom: 0.4rem;
+  }
+
+  .cover-title em { font-style: italic; color: var(--accent); }
+
+  .cover-rule {
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    margin: 2.5rem auto;
+    opacity: 0.6;
+  }
+
+  .cover-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--fade);
+    letter-spacing: 0.2em;
+    margin-bottom: 5rem;
+  }
+
+  .cover-author {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--fade);
+    opacity: 0.7;
+  }
+
+  .toc {
+    padding: 7rem 0 5rem;
+    border-bottom: 1px solid rgba(122,154,90,0.2);
+    margin-bottom: 7rem;
+  }
+
+  .toc-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2.5rem;
+  }
+
+  .toc-item {
+    display: grid;
+    grid-template-columns: 2em 1fr 2em;
+    gap: 0.5rem;
+    align-items: baseline;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(122,154,90,0.12);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .toc-item:hover { color: var(--accent); }
+
+  .toc-roman {
+    font-style: normal;
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    padding-top: 0.3em;
+  }
+
+  .toc-num {
+    font-style: normal;
+    font-size: 11px;
+    color: var(--fade);
+    text-align: right;
+  }
+
+  .chapter { padding-top: 6rem; margin-bottom: 3rem; }
+  .chapter-header { margin-bottom: 3rem; }
+
+  .chapter-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 100px;
+    font-weight: 300;
+    color: var(--gold);
+    opacity: 0.18;
+    line-height: 0.85;
+    margin-bottom: -0.1em;
+    letter-spacing: -0.02em;
+    user-select: none;
+  }
+
+  .chapter-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--ink);
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(122,154,90,0.35);
+    line-height: 1.3;
+  }
+
+  p {
+    margin-bottom: 1.5em;
+    text-align: justify;
+    hyphens: auto;
+  }
+
+  .chapter > p:first-of-type::first-letter {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4.8em;
+    font-weight: 300;
+    float: left;
+    line-height: 0.72;
+    margin-right: 0.06em;
+    margin-top: 0.1em;
+    color: var(--accent);
+  }
+
+  .break {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6em;
+    margin: 3rem 0;
+    color: var(--gold);
+    opacity: 0.5;
+    font-size: 8px;
+    letter-spacing: 0.6em;
+  }
+
+  .break::before, .break::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(122,154,90,0.3));
+  }
+
+  .break::after {
+    background: linear-gradient(to left, transparent, rgba(122,154,90,0.3));
+  }
+
+  .chapter-end {
+    margin: 6rem 0 0;
+    text-align: center;
+    color: var(--gold);
+    opacity: 0.3;
+    font-size: 20px;
+    letter-spacing: 0.6em;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">автобиографическая проза</div>
+    <div class="cover-title">Иной<br><em>мир</em></div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">о том, где он был по-настоящему собой</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Содержание</div>
+    <a class="toc-item" href="#ch1">
+      <span class="toc-roman">I</span>
+      <span>Белая коробка</span>
+      <span class="toc-num">—</span>
+    </a>
+    <a class="toc-item" href="#ch2">
+      <span class="toc-roman">II</span>
+      <span>Рога и копыта</span>
+      <span class="toc-num">—</span>
+    </a>
+    <a class="toc-item" href="#ch3">
+      <span class="toc-roman">III</span>
+      <span>Рексар</span>
+      <span class="toc-num">—</span>
+    </a>
+  </div>
+
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">Белая коробка</div>
+    </div>
+
+    <p>Отчим притащил её домой без особых предисловий — большую белую коробку с наклейкой Energy Star на боку. Толстая, неуклюжая, с выпуклым экраном который занимал половину стола. Windows 98. Зеву было около семи лет, и он понятия не имел, что это такое — но почувствовал сразу: это важно.</p>
+
+    <p>Первой игрой стал Looney Tunes. По возрасту — самое оно. По факту — катастрофа. Зев не справлялся. Не с какими-то сложными уровнями — с базовыми задачами, с теми вещами, которые игра считала само собой разумеющимися. Руки не слушались, экран не реагировал так, как он хотел, персонаж делал не то. Это доводило его почти до истерики — той детской, неуправляемой, когда злость и беспомощность смешиваются в одно и выхода из этого нет.</p>
+
+    <p>Он не бросал. Садился снова. Пробовал снова. Проигрывал снова.</p>
+
+    <p>Лада смотрела на это со стороны и, вероятно, не понимала — зачем мучиться ради каких-то мультяшек на экране. Родители вообще редко понимали, что происходит по ту сторону монитора. Для них это были игрушки. Трата времени. Лучше бы вышел на улицу.</p>
+
+    <p>Улица, впрочем, заканчивалась примерно одинаково — Зев возвращался либо с ссадиной, либо без чего-то ценного, либо значительно позже обещанного. Компьютер по крайней мере был предсказуем. Он стоял на месте. Он никуда не девался. И с каждым разом поддавался чуть больше.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">Рога и копыта</div>
+    </div>
+
+    <p>Спустя несколько лет Лада подарила новый компьютер. Уже другой — тоньше, современнее, со специальным выдвижным отделом под клавиатуру и мышку. Зев воспринял это как само собой разумеющееся и немедленно погрузился.</p>
+
+    <p>На этом компьютере его ждала игра с названием «Рога и копыта». Очередная мини-игра, очередная задача, которая не давалась. Механика была простой — но именно это и бесило сильнее всего. Когда не можешь справиться с чем-то простым, злость удваивается. Зев сидел, пробовал, злился, пробовал снова.</p>
+
+    <p>В один из таких моментов что-то внутри переключилось не туда. Он потянул за выдвижную полку — резко, со всей силой — и сломал её. Просто сломал, одним движением, не думая.</p>
+
+    <p>Лада была очень недовольна. Это мягко сказано.</p>
+
+    <p>Но компьютер никуда не делся. И Зев никуда не делся от компьютера.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Примерно в то же время в его жизни появились Sims. И вот здесь что-то встало на своё место. Не злость, не истерика — а тихое, почти медитативное погружение. Зев играл по правилам. Не искал читы, не срезал углы — строил жизнь своих персонажей так, как было задумано. Медленно, методично, с удовольствием от процесса.</p>
+
+    <p>За дисками он ездил на рынок сам. Каждая новая версия, каждое дополнение — отдельная экспедиция. Он знал, что ищет, находил, тащил домой и устанавливал с той серьёзностью, с которой другие дети собирают конструктор. Это был его мир — и в нём он знал правила лучше, чем в любом другом.</p>
+
+    <p>Родители продолжали говорить своё. Бесполезная трата времени. Игрушки. Лучше бы книжку почитал. Зев слышал это — и садился играть дальше. Не из упрямства. Просто потому что там, внутри экрана, всё имело смысл. Каждое действие давало результат. Каждая попытка чему-то учила. Этого не нужно было объяснять — это просто было так.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">Рексар</div>
+    </div>
+
+    <p>У Тeи — крёстной — был старший сын по имени Рой. Зев приезжал к ним, и Рой иногда подпускал его к своему компьютеру. Не всегда, не надолго — но подпускал. И именно там, за чужим столом, на чужом стуле, Зев впервые запустил Warcraft 3: The Frozen Throne.</p>
+
+    <p>Это была дополнительная кампания — про Рексара. Повелитель зверей, полуорк-полуогр, который скитался по миру в одиночку. У него не было армии, не было крепости, не было союзников которым можно было доверять безоговорочно. Только он, кабан, медведь Миша и Storm Bolt — удар молнией, который оглушал врага в самый нужный момент.</p>
+
+    <p>Его главная реплика звучала просто: «Я всегда один».</p>
+
+    <p>Зев проходил эту кампанию снова и снова. Не потому что не мог пройти — а потому что не хотел заканчивать. Там было что-то, что не давало уйти. Может, сам Рексар — угрюмый, немногословный, но живой. Может, то ощущение когда идёшь вперёд и знаешь: справишься, потому что выбора нет. Может, просто музыка и лес на экране, пока за окном шумел чужой двор.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Интернета тогда ещё не было. Не было форумов, гайдов, подсказок — только игра и ты. Зев разбирался сам. Пробовал тактики, проигрывал, начинал заново. Это не казалось ему трудом — это казалось ему нормой. Единственной нормой, которая имела смысл.</p>
+
+    <p>Компьютер никогда не был для него просто развлечением. Это была отдельная реальность — со своими законами, своими победами, своим языком. Реальность, которую он понимал лучше, чем ту, что была снаружи. Там, снаружи, правила менялись без предупреждения, люди делали не то что говорили, а улица заканчивалась ссадиной или потерей.</p>
+
+    <p>Здесь всё было честно. Проиграл — понятно почему. Выиграл — заслужил. Ни больше ни меньше.</p>
+
+    <p>Родители этого так и не поняли. Они видели экран, видели время которое уходило, видели мальчика который сидит и смотрит в монитор вместо того чтобы делать что-то настоящее.</p>
+
+    <p>Они не видели, что настоящее — было именно там.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>

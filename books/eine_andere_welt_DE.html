@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eine andere Welt — Bizarre Ash</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #0f180f;
+    --paper: #eff5ee;
+    --fade: #6a8a6a;
+    --accent: #2a5a2a;
+    --gold: #5a8a5a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(80,160,80,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(42,90,42,0.05) 0%, transparent 60%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; }
+
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 6rem 0;
+    position: relative;
+  }
+
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+
+  .cover-eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 3rem;
+    opacity: 0.8;
+  }
+
+  .cover-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(40px, 9vw, 64px);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    line-height: 1.15;
+    margin-bottom: 0.4rem;
+  }
+
+  .cover-title em { font-style: italic; color: var(--accent); }
+
+  .cover-rule {
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    margin: 2.5rem auto;
+    opacity: 0.6;
+  }
+
+  .cover-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--fade);
+    letter-spacing: 0.2em;
+    margin-bottom: 5rem;
+  }
+
+  .cover-author {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--fade);
+    opacity: 0.7;
+  }
+
+  .toc {
+    padding: 7rem 0 5rem;
+    border-bottom: 1px solid rgba(90,138,90,0.2);
+    margin-bottom: 7rem;
+  }
+
+  .toc-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2.5rem;
+  }
+
+  .toc-item {
+    display: grid;
+    grid-template-columns: 2em 1fr 2em;
+    gap: 0.5rem;
+    align-items: baseline;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(90,138,90,0.12);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .toc-item:hover { color: var(--accent); }
+
+  .toc-roman {
+    font-style: normal;
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    padding-top: 0.3em;
+  }
+
+  .toc-num {
+    font-style: normal;
+    font-size: 11px;
+    color: var(--fade);
+    text-align: right;
+  }
+
+  .chapter { padding-top: 6rem; margin-bottom: 3rem; }
+  .chapter-header { margin-bottom: 3rem; }
+
+  .chapter-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 100px;
+    font-weight: 300;
+    color: var(--gold);
+    opacity: 0.18;
+    line-height: 0.85;
+    margin-bottom: -0.1em;
+    letter-spacing: -0.02em;
+    user-select: none;
+  }
+
+  .chapter-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--ink);
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(90,138,90,0.35);
+    line-height: 1.3;
+  }
+
+  p {
+    margin-bottom: 1.5em;
+    text-align: justify;
+    hyphens: auto;
+  }
+
+  .chapter > p:first-of-type::first-letter {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4.8em;
+    font-weight: 300;
+    float: left;
+    line-height: 0.72;
+    margin-right: 0.06em;
+    margin-top: 0.1em;
+    color: var(--accent);
+  }
+
+  .break {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6em;
+    margin: 3rem 0;
+    color: var(--gold);
+    opacity: 0.5;
+    font-size: 8px;
+    letter-spacing: 0.6em;
+  }
+
+  .break::before, .break::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(90,138,90,0.3));
+  }
+
+  .break::after {
+    background: linear-gradient(to left, transparent, rgba(90,138,90,0.3));
+  }
+
+  .chapter-end {
+    margin: 6rem 0 0;
+    text-align: center;
+    color: var(--gold);
+    opacity: 0.3;
+    font-size: 20px;
+    letter-spacing: 0.6em;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">autobiografische Prosa</div>
+    <div class="cover-title">Eine andere<br><em>Welt</em></div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">wo er wirklich er selbst war</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Inhalt</div>
+    <a class="toc-item" href="#ch1">
+      <span class="toc-roman">I</span>
+      <span>Die weiße Kiste</span>
+      <span class="toc-num">—</span>
+    </a>
+    <a class="toc-item" href="#ch2">
+      <span class="toc-roman">II</span>
+      <span>Hörner und Hufe</span>
+      <span class="toc-num">—</span>
+    </a>
+    <a class="toc-item" href="#ch3">
+      <span class="toc-roman">III</span>
+      <span>Rexxar</span>
+      <span class="toc-num">—</span>
+    </a>
+  </div>
+
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">Die weiße Kiste</div>
+    </div>
+
+    <p>Sein Stiefvater schleppte sie ohne große Worte nach Hause — eine große weiße Kiste mit einem Energy Star Aufkleber an der Seite. Klobig, unförmig, mit einem gewölbten Bildschirm der die halbe Schreibtischfläche einnahm. Windows 98. Zev war ungefähr sieben, und er hatte keine Ahnung was das war — aber er spürte es sofort: das ist wichtig.</p>
+
+    <p>Das erste Spiel war Looney Tunes. Vom Alter her passend, theoretisch. In der Praxis — eine Katastrophe. Zev kam nicht zurecht. Nicht mit irgendwelchen schwierigen Leveln — mit den grundlegenden Dingen, die das Spiel als selbstverständlich voraussetzte. Seine Hände gehorchten nicht, der Bildschirm reagierte nicht so wie er wollte, die Figur tat das Falsche. Es brachte ihn fast zum Weinen — diese kindliche, unkontrollierbare Art, wo Frust und Hilflosigkeit sich zu einem einzigen Ding vermischen, aus dem es keinen Ausweg gibt.</p>
+
+    <p>Er hörte nicht auf. Setzte sich wieder hin. Versuchte es nochmal. Scheiterte nochmal.</p>
+
+    <p>Lada schaute von der Seite zu und verstand vermutlich nicht — warum man sich das für irgendwelche Zeichentrickfiguren auf einem Bildschirm antut. Eltern verstanden selten was auf der anderen Seite des Monitors passierte. Für sie waren es Spielzeuge. Zeitverschwendung. Er wäre besser dran draußen zu spielen.</p>
+
+    <p>Draußen endete es jedoch meistens gleich — Zev kam zurück mit einer Schürfwunde, oder ohne etwas Wertvolles, oder deutlich später als versprochen. Der Computer war wenigstens berechenbar. Er stand auf seinem Platz. Er ging nirgendwo hin. Und jedes Mal gab er ein bisschen mehr nach.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">Hörner und Hufe</div>
+    </div>
+
+    <p>Ein paar Jahre später schenkte Lada ihm einen neuen Computer. Schlanker, moderner, mit einem ausziehbaren Fach unter der Tastatur und Maus. Zev nahm das als selbstverständlich hin und versank sofort darin.</p>
+
+    <p>Auf diesem Rechner wartete ein Spiel namens Hörner und Hufe. Wieder ein Mini-Spiel, wieder eine Aufgabe die nicht funktionieren wollte. Die Mechanik war einfach — was es noch schlimmer machte. Wenn man mit etwas Einfachem nicht zurechtkommt, verdoppelt sich die Frustration. Zev saß da, versuchte es, ärgerte sich, versuchte es nochmal.</p>
+
+    <p>In einem dieser Momente schaltete etwas in ihm falsch um. Er griff nach dem ausziehbaren Fach — ruckartig, mit voller Kraft — und brach es ab. Einfach so, eine Bewegung, ohne nachzudenken.</p>
+
+    <p>Lada war sehr ungehalten. Das ist noch freundlich ausgedrückt.</p>
+
+    <p>Aber der Computer blieb. Und Zev blieb beim Computer.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Ungefähr zur gleichen Zeit kamen die Sims in sein Leben. Und hier fiel endlich etwas an seinen Platz. Kein Frust, keine Hysterie — sondern ein stilles, fast meditatives Eintauchen. Zev spielte nach den Regeln. Keine Cheats, keine Abkürzungen — er baute das Leben seiner Charaktere so auf wie es gedacht war. Langsam, methodisch, mit echter Freude am Prozess.</p>
+
+    <p>Die Discs holte er sich selbst vom Markt. Jede neue Version, jede Erweiterung — eine eigene Expedition. Er wusste was er suchte, fand es, schleppte es nach Hause und installierte es mit dem Ernst mit dem andere Kinder Bausätze zusammensetzten. Das war seine Welt — und darin kannte er die Regeln besser als irgendwo sonst.</p>
+
+    <p>Seine Eltern sagten weiterhin was sie immer sagten. Nutzlose Zeitverschwendung. Spielzeug. Er wäre besser dran ein Buch zu lesen. Zev hörte es — und setzte sich wieder hin um zu spielen. Nicht aus Sturheit. Einfach weil drinnen, hinter dem Bildschirm, alles einen Sinn ergab. Jede Handlung hatte ein Ergebnis. Jeder Versuch lehrte etwas. Das musste nicht erklärt werden — es war einfach so.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">Rexxar</div>
+    </div>
+
+    <p>Teia — seine Patentante — hatte einen älteren Sohn namens Roy. Zev besuchte sie öfter, und Roy ließ ihn manchmal an seinen Computer. Nicht immer, nicht lange — aber er ließ ihn. Und genau dort, an einem fremden Schreibtisch, auf einem fremden Stuhl, startete Zev zum ersten Mal Warcraft 3: The Frozen Throne.</p>
+
+    <p>Es war die Bonus-Kampagne — über Rexxar. Den Tierbeherrschter, halb Ork halb Oger, der allein durch die Welt streifte. Keine Armee, keine Festung, keine Verbündeten denen er bedingungslos vertrauen konnte. Nur er, ein Eber, ein Bär namens Misha und Storm Bolt — ein Blitzschlag der Feinde im genau richtigen Moment betäubte.</p>
+
+    <p>Sein Erkennungsspruch war schlicht: "Ich bin immer allein."</p>
+
+    <p>Zev spielte diese Kampagne immer wieder durch. Nicht weil er sie nicht beenden konnte — weil er nicht wollte dass sie endet. Etwas darin ließ ihn nicht loslassen. Vielleicht Rexxar selbst — finster, wortkarg, aber lebendig. Vielleicht das Gefühl vorwärts zu gehen und zu wissen: du schaffst es, weil es keine andere Möglichkeit gibt. Vielleicht nur die Musik und der Wald auf dem Bildschirm, während draußen ein fremder Hof lärmte.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Internet gab es damals noch nicht. Keine Foren, keine Guides, keine Hinweise — nur das Spiel und du. Zev fand selbst heraus. Probierte Taktiken aus, verlor, fing von vorne an. Es fühlte sich nicht wie Arbeit an — es fühlte sich wie die normale Vorgehensweise an. Die einzige Normalität die irgendeinen Sinn ergab.</p>
+
+    <p>Der Computer war für ihn niemals nur Unterhaltung. Er war eine eigene Realität — mit eigenen Regeln, eigenen Siegen, einer eigenen Sprache. Eine Realität die er besser verstand als die da draußen. Dort draußen änderten sich die Regeln ohne Vorwarnung, Menschen taten das Gegenteil von dem was sie sagten, und die Straße endete mit einer Schürfwunde oder einem Verlust.</p>
+
+    <p>Hier war alles fair. Verloren — man wusste warum. Gewonnen — man hatte es verdient. Nicht mehr, nicht weniger.</p>
+
+    <p>Seine Eltern verstanden das nie. Sie sahen einen Bildschirm, sahen die Zeit die verging, sahen einen Jungen der vor einem Monitor saß anstatt etwas Richtiges zu tun.</p>
+
+    <p>Sie sahen nicht, dass das Richtige genau dort war.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>

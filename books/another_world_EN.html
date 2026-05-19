@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Another World — Bizarre Ash</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #0f180f;
+    --paper: #eff5ee;
+    --fade: #6a8a6a;
+    --accent: #2a5a2a;
+    --gold: #5a8a5a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(80,160,80,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(42,90,42,0.05) 0%, transparent 60%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; }
+
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 6rem 0;
+    position: relative;
+  }
+
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+
+  .cover-eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 3rem;
+    opacity: 0.8;
+  }
+
+  .cover-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(48px, 10vw, 72px);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    line-height: 1.1;
+    margin-bottom: 0.4rem;
+  }
+
+  .cover-title em { font-style: italic; color: var(--accent); }
+
+  .cover-rule {
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    margin: 2.5rem auto;
+    opacity: 0.6;
+  }
+
+  .cover-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--fade);
+    letter-spacing: 0.2em;
+    margin-bottom: 5rem;
+  }
+
+  .cover-author {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--fade);
+    opacity: 0.7;
+  }
+
+  .toc {
+    padding: 7rem 0 5rem;
+    border-bottom: 1px solid rgba(90,138,90,0.2);
+    margin-bottom: 7rem;
+  }
+
+  .toc-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2.5rem;
+  }
+
+  .toc-item {
+    display: grid;
+    grid-template-columns: 2em 1fr 2em;
+    gap: 0.5rem;
+    align-items: baseline;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(90,138,90,0.12);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .toc-item:hover { color: var(--accent); }
+
+  .toc-roman {
+    font-style: normal;
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    padding-top: 0.3em;
+  }
+
+  .toc-num {
+    font-style: normal;
+    font-size: 11px;
+    color: var(--fade);
+    text-align: right;
+  }
+
+  .chapter { padding-top: 6rem; margin-bottom: 3rem; }
+  .chapter-header { margin-bottom: 3rem; }
+
+  .chapter-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 100px;
+    font-weight: 300;
+    color: var(--gold);
+    opacity: 0.18;
+    line-height: 0.85;
+    margin-bottom: -0.1em;
+    letter-spacing: -0.02em;
+    user-select: none;
+  }
+
+  .chapter-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--ink);
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(90,138,90,0.35);
+    line-height: 1.3;
+  }
+
+  p {
+    margin-bottom: 1.5em;
+    text-align: justify;
+    hyphens: auto;
+  }
+
+  .chapter > p:first-of-type::first-letter {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4.8em;
+    font-weight: 300;
+    float: left;
+    line-height: 0.72;
+    margin-right: 0.06em;
+    margin-top: 0.1em;
+    color: var(--accent);
+  }
+
+  .break {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6em;
+    margin: 3rem 0;
+    color: var(--gold);
+    opacity: 0.5;
+    font-size: 8px;
+    letter-spacing: 0.6em;
+  }
+
+  .break::before, .break::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(90,138,90,0.3));
+  }
+
+  .break::after {
+    background: linear-gradient(to left, transparent, rgba(90,138,90,0.3));
+  }
+
+  .chapter-end {
+    margin: 6rem 0 0;
+    text-align: center;
+    color: var(--gold);
+    opacity: 0.3;
+    font-size: 20px;
+    letter-spacing: 0.6em;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">autobiographical prose</div>
+    <div class="cover-title">Another<br><em>World</em></div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">where he was truly himself</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Contents</div>
+    <a class="toc-item" href="#ch1">
+      <span class="toc-roman">I</span>
+      <span>The White Box</span>
+      <span class="toc-num">—</span>
+    </a>
+    <a class="toc-item" href="#ch2">
+      <span class="toc-roman">II</span>
+      <span>Horns and Hooves</span>
+      <span class="toc-num">—</span>
+    </a>
+    <a class="toc-item" href="#ch3">
+      <span class="toc-roman">III</span>
+      <span>Rexxar</span>
+      <span class="toc-num">—</span>
+    </a>
+  </div>
+
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">The White Box</div>
+    </div>
+
+    <p>His stepfather hauled it home without much ceremony — a big white box with an Energy Star sticker on the side. Bulky, awkward, with a curved screen that took up half the desk. Windows 98. Zev was around seven, and he had no idea what it was — but he felt it immediately: this matters.</p>
+
+    <p>The first game was Looney Tunes. Age-appropriate, supposedly. In practice — a disaster. Zev couldn't manage it. Not the hard levels — the basic ones, the things the game took for granted. His hands wouldn't cooperate, the screen didn't respond the way he wanted, the character kept doing the wrong thing. It drove him nearly to tears — that particular childhood kind, uncontrollable, where frustration and helplessness merge into one thing with no way out.</p>
+
+    <p>He didn't quit. He sat back down. Tried again. Failed again.</p>
+
+    <p>Lada watched from the side and probably didn't understand why anyone would put themselves through this for some cartoon on a screen. Parents rarely understood what was happening on the other side of the monitor. To them it was toys. A waste of time. He'd be better off going outside.</p>
+
+    <p>Outside, however, tended to end the same way — Zev came back with a scrape, or missing something valuable, or significantly later than promised. The computer at least was predictable. It stayed where it was. It didn't go anywhere. And each time, it gave a little more.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">Horns and Hooves</div>
+    </div>
+
+    <p>A few years later Lada got him a new computer. Slimmer, newer, with a sliding tray under the keyboard and mouse. Zev accepted this as the natural order of things and immediately disappeared into it.</p>
+
+    <p>On this machine he found a game called Horns and Hooves. Another mini-game, another task that wouldn't cooperate. The mechanics were simple — which made it worse. When you can't manage something simple, the frustration doubles. Zev sat there, tried, got angry, tried again.</p>
+
+    <p>At some point something inside him flipped the wrong way. He grabbed the sliding tray and yanked — hard, all at once — and snapped it off. Just like that, one motion, without thinking.</p>
+
+    <p>Lada was very unhappy. That's putting it gently.</p>
+
+    <p>But the computer stayed. And Zev stayed with the computer.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Around that same time The Sims entered his life. And here something finally clicked into place. Not frustration, not hysteria — a quiet, almost meditative absorption. Zev played by the rules. No cheats, no shortcuts — he built his characters' lives the way they were meant to be built. Slowly, methodically, with genuine pleasure in the process.</p>
+
+    <p>He went to the market himself for the discs. Every new version, every expansion — a separate expedition. He knew what he was looking for, found it, brought it home and installed it with the kind of seriousness other kids reserved for building sets. This was his world — and in it he understood the rules better than anywhere else.</p>
+
+    <p>His parents kept saying what they'd always said. Useless waste of time. Toys. He'd be better off reading a book. Zev heard it — and sat back down to play. Not out of stubbornness. Simply because inside the screen everything made sense. Every action had a result. Every attempt taught something. It didn't need to be explained — it just was.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">Rexxar</div>
+    </div>
+
+    <p>Teia — his godmother — had an older son named Roy. Zev used to visit them, and Roy would sometimes let him use his computer. Not always, not for long — but he let him. And it was there, at someone else's desk, in someone else's chair, that Zev first launched Warcraft 3: The Frozen Throne.</p>
+
+    <p>It was the bonus campaign — about Rexxar. The Beastmaster, half-orc half-ogre, wandering the world alone. No army, no fortress, no allies he could trust without reservation. Just him, a boar, a bear named Misha, and Storm Bolt — a lightning strike that stunned enemies at exactly the right moment.</p>
+
+    <p>His signature line was simple: "I am always alone."</p>
+
+    <p>Zev played through that campaign again and again. Not because he couldn't finish it — because he didn't want to. There was something in it that wouldn't let him go. Maybe Rexxar himself — grim, quiet, but alive. Maybe the feeling of moving forward knowing you'll manage, because there's no other option. Maybe just the music and the trees on screen while someone else's courtyard hummed outside the window.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>There was no internet then. No forums, no guides, no hints — just the game and you. Zev figured it out himself. Tried tactics, lost, started over. It didn't feel like work — it felt like the normal way things went. The only normal that made any sense.</p>
+
+    <p>The computer was never just entertainment for him. It was a separate reality — with its own rules, its own victories, its own language. A reality he understood better than the one outside. Out there, rules changed without warning, people did the opposite of what they said, and the street ended in a bruise or a loss.</p>
+
+    <p>In here everything was fair. You lost — you knew why. You won — you earned it. Nothing more, nothing less.</p>
+
+    <p>His parents never understood that. They saw a screen, saw time disappearing, saw a boy sitting in front of a monitor instead of doing something real.</p>
+
+    <p>They didn't see that the real thing was right there.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>
