@@ -202,7 +202,7 @@ if (searchButton) {
   searchInput.addEventListener('keydown', e => { if (e.key === 'Enter') runSearch(); });
   cardData.forEach(({ el, displayTitle }) => {
     el.addEventListener('click', () => {
-      if (el.dataset.pdf) window.open(el.dataset.pdf, '_blank');
+      if (el.dataset.book) window.open(el.dataset.book, '_blank');
       else alert(`${translations[currentLang].book_open}: "${displayTitle}"`);
     });
   });
@@ -211,9 +211,9 @@ if (searchButton) {
 // --- Catalog page ---
 
 const bookPool = [
-  { title: 'Кудряшка', author: 'Bizarre Ash', genre: 'genre_bio', pdf: 'books/Кудряшка.pdf' },
-  { title: 'Curly',    author: 'Bizarre Ash', genre: 'genre_bio', pdf: 'books/Curly.pdf'    },
-  { title: 'Locken',   author: 'Bizarre Ash', genre: 'genre_bio', pdf: 'books/Locken.pdf'   },
+  { title: 'Кудряшка', author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/kudryashka.html' },
+  { title: 'Curly',    author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/curly_EN.html'   },
+  { title: 'Locken',   author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/locken_DE.html'  },
   { title: 'Стив Джобс',                          author: 'Уолтер Айзексон',            genre: 'genre_bio'     },
   { title: 'Дневник Анны Франк',                   author: 'Анна Франк',                 genre: 'genre_bio'     },
   { title: 'Long Walk to Freedom',                 author: 'Nelson Mandela',             genre: 'genre_bio'     },
@@ -259,11 +259,11 @@ function getCatalogPicks() {
   return shuffleArray(picks);
 }
 
-function makeCatalogCard({ title, author, genre, pdf }) {
+function makeCatalogCard({ title, author, genre, book }) {
   const card = document.createElement('div');
   card.className = 'book-card';
-  if (pdf) {
-    card.dataset.pdf = pdf;
+  if (book) {
+    card.dataset.book = book;
     card.classList.add('book-card--original');
   }
 
@@ -306,7 +306,7 @@ function makeCatalogCard({ title, author, genre, pdf }) {
   }
 
   card.addEventListener('click', () => {
-    if (card.dataset.pdf) window.open(card.dataset.pdf, '_blank');
+    if (card.dataset.book) window.open(card.dataset.book, '_blank');
   });
 
   return card;
