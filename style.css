@@ -398,6 +398,30 @@ a.logo {
   color: #e8c96d;
 }
 
+.contacts-card {
+  text-align: center;
+  padding: 50px 44px 44px;
+}
+
+.contacts-card h2 {
+  font-size: 1.4rem;
+  color: #c9a84c;
+  margin-bottom: 24px;
+}
+
+.contact-email {
+  font-size: 1.1rem;
+  color: #e8e0d0;
+  text-decoration: none;
+  border-bottom: 1px solid #c9a84c;
+  padding-bottom: 3px;
+  transition: color 0.2s;
+}
+
+.contact-email:hover {
+  color: #c9a84c;
+}
+
 /* MOBILE */
 @media (max-width: 768px) {
   header {

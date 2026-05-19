@@ -34,6 +34,8 @@ const translations = {
     fav_empty_hint:     'Нажми ♡ на любой книге, чтобы сохранить её здесь',
     catalog_title:      'Каталог',
     shuffle_btn:        'Перемешать',
+    nav_contacts:       'Контакты',
+    contacts_title:     'Контакты',
   },
   en: {
     nav_catalog:        'Catalog',
@@ -70,6 +72,8 @@ const translations = {
     fav_empty_hint:     'Tap ♡ on any book to save it here',
     catalog_title:      'Catalog',
     shuffle_btn:        'Shuffle',
+    nav_contacts:       'Contacts',
+    contacts_title:     'Contacts',
   },
   de: {
     nav_catalog:        'Katalog',
@@ -106,6 +110,8 @@ const translations = {
     fav_empty_hint:     'Tippe ♡ auf ein Buch, um es hier zu speichern',
     catalog_title:      'Katalog',
     shuffle_btn:        'Mischen',
+    nav_contacts:       'Kontakt',
+    contacts_title:     'Kontakt',
   },
 };
 
@@ -345,22 +351,22 @@ if (favGrid) {
   renderFavorites();
 }
 
-// --- About modal (index.html only) ---
+// --- Modals ---
 
-const aboutModal = document.getElementById('about-modal');
-
-if (aboutModal) {
-  document.querySelector('[data-i18n="nav_about"]').addEventListener('click', e => {
-    e.preventDefault();
-    aboutModal.classList.add('open');
-  });
-  aboutModal.addEventListener('click', e => {
-    if (e.target === aboutModal) aboutModal.classList.remove('open');
-  });
-  document.querySelector('.modal-close').addEventListener('click', () => {
-    aboutModal.classList.remove('open');
-  });
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') aboutModal.classList.remove('open');
-  });
+function bindModal(id, triggerSel) {
+  const modal = document.getElementById(id);
+  if (!modal) return;
+  const trigger = document.querySelector(triggerSel);
+  if (trigger) trigger.addEventListener('click', e => { e.preventDefault(); modal.classList.add('open'); });
+  modal.addEventListener('click', e => { if (e.target === modal) modal.classList.remove('open'); });
+  modal.querySelector('.modal-close').addEventListener('click', () => modal.classList.remove('open'));
 }
+
+bindModal('about-modal',    '[data-i18n="nav_about"]');
+bindModal('contacts-modal', '[data-i18n="nav_contacts"]');
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-overlay.open').forEach(m => m.classList.remove('open'));
+  }
+});
