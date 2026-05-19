@@ -184,6 +184,21 @@ nav a:hover {
   border-color: #c9a84c;
 }
 
+.book-card--original {
+  border-color: #c9a84c;
+}
+
+.book-badge {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 0.7rem;
+  color: #c9a84c;
+  border: 1px solid #c9a84c;
+  border-radius: 20px;
+  padding: 2px 9px;
+  letter-spacing: 0.04em;
+}
+
 .book-cover {
   font-size: 4rem;
   margin-bottom: 15px;

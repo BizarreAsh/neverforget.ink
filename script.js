@@ -201,13 +201,19 @@ if (searchButton) {
   searchButton.addEventListener('click', runSearch);
   searchInput.addEventListener('keydown', e => { if (e.key === 'Enter') runSearch(); });
   cardData.forEach(({ el, displayTitle }) => {
-    el.addEventListener('click', () => alert(`${translations[currentLang].book_open}: "${displayTitle}"`));
+    el.addEventListener('click', () => {
+      if (el.dataset.pdf) window.open(el.dataset.pdf, '_blank');
+      else alert(`${translations[currentLang].book_open}: "${displayTitle}"`);
+    });
   });
 }
 
 // --- Catalog page ---
 
 const bookPool = [
+  { title: 'Кудряшка', author: 'Bizarre Ash', genre: 'genre_bio', pdf: 'books/Кудряшка.pdf' },
+  { title: 'Curly',    author: 'Bizarre Ash', genre: 'genre_bio', pdf: 'books/Curly.pdf'    },
+  { title: 'Locken',   author: 'Bizarre Ash', genre: 'genre_bio', pdf: 'books/Locken.pdf'   },
   { title: 'Стив Джобс',                          author: 'Уолтер Айзексон',            genre: 'genre_bio'     },
   { title: 'Дневник Анны Франк',                   author: 'Анна Франк',                 genre: 'genre_bio'     },
   { title: 'Long Walk to Freedom',                 author: 'Nelson Mandela',             genre: 'genre_bio'     },
@@ -253,9 +259,13 @@ function getCatalogPicks() {
   return shuffleArray(picks);
 }
 
-function makeCatalogCard({ title, author, genre }) {
+function makeCatalogCard({ title, author, genre, pdf }) {
   const card = document.createElement('div');
   card.className = 'book-card';
+  if (pdf) {
+    card.dataset.pdf = pdf;
+    card.classList.add('book-card--original');
+  }
 
   const favBtn = document.createElement('button');
   favBtn.className = 'fav-btn';
@@ -286,7 +296,19 @@ function makeCatalogCard({ title, author, genre }) {
   pill.dataset.genre  = genre;
   pill.textContent    = translations[currentLang][genre] ?? genre;
 
-  card.append(favBtn, cover, h3, p, pill);
+  if (pdf) {
+    const badge = document.createElement('span');
+    badge.className   = 'book-badge';
+    badge.textContent = 'NeverForget Original';
+    card.append(favBtn, cover, h3, p, badge, pill);
+  } else {
+    card.append(favBtn, cover, h3, p, pill);
+  }
+
+  card.addEventListener('click', () => {
+    if (card.dataset.pdf) window.open(card.dataset.pdf, '_blank');
+  });
+
   return card;
 }
 
