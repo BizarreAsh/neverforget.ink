@@ -157,10 +157,10 @@ function isFavorite(title) {
   return loadFavorites().some(f => f.title === title);
 }
 
-function toggleFavorite(title, author) {
+function toggleFavorite(title, author, book) {
   const favs = loadFavorites();
   const idx  = favs.findIndex(f => f.title === title);
-  if (idx === -1) favs.push({ title, author });
+  if (idx === -1) favs.push({ title, author, book: book || '' });
   else            favs.splice(idx, 1);
   saveFavorites(favs);
   return idx === -1;
@@ -175,10 +175,11 @@ const bookCards    = document.querySelectorAll('.book-card');
 const cardData = Array.from(bookCards).map(card => {
   const displayTitle  = card.querySelector('h3').textContent;
   const displayAuthor = card.querySelector('p').textContent;
-  return { el: card, title: displayTitle.toLowerCase(), author: displayAuthor.toLowerCase(), displayTitle, displayAuthor };
+  const book          = card.dataset.book || '';
+  return { el: card, title: displayTitle.toLowerCase(), author: displayAuthor.toLowerCase(), displayTitle, displayAuthor, book };
 });
 
-cardData.forEach(({ el, displayTitle, displayAuthor }) => {
+cardData.forEach(({ el, displayTitle, displayAuthor, book }) => {
   const favBtn = el.querySelector('.fav-btn');
   if (!favBtn) return;
   const sync = () => {
@@ -189,7 +190,7 @@ cardData.forEach(({ el, displayTitle, displayAuthor }) => {
   sync();
   favBtn.addEventListener('click', e => {
     e.stopPropagation();
-    toggleFavorite(displayTitle, displayAuthor);
+    toggleFavorite(displayTitle, displayAuthor, book);
     sync();
   });
 });
@@ -289,7 +290,7 @@ function makeCatalogCard({ title, author, genre, book }) {
   syncHeart();
   favBtn.addEventListener('click', e => {
     e.stopPropagation();
-    toggleFavorite(title, author);
+    toggleFavorite(title, author, book);
     syncHeart();
   });
 
@@ -308,7 +309,7 @@ function makeCatalogCard({ title, author, genre, book }) {
   pill.dataset.genre  = genre;
   pill.textContent    = translations[currentLang][genre] ?? genre;
 
-  if (pdf) {
+  if (book) {
     const badge = document.createElement('span');
     badge.className   = 'book-badge';
     badge.textContent = 'NeverForget Original';
@@ -368,11 +369,14 @@ if (favGrid) {
       return;
     }
     favEmpty.setAttribute('hidden', '');
-    favs.forEach(({ title, author }) => {
-      const card  = document.createElement('div');
-      card.className = 'book-card';
+    favs.forEach(({ title, author, book }) => {
+      const bookUrl = book || (bookPool.find(b => b.title === title) || {}).book || '';
 
-      const btn   = document.createElement('button');
+      const card = document.createElement('div');
+      card.className = 'book-card' + (bookUrl ? ' book-card--original' : '');
+      if (bookUrl) card.dataset.book = bookUrl;
+
+      const btn = document.createElement('button');
       btn.className   = 'fav-btn active';
       btn.textContent = '♥';
 
@@ -386,10 +390,21 @@ if (favGrid) {
       const p = document.createElement('p');
       p.textContent = author;
 
-      card.append(btn, cover, h3, p);
+      if (bookUrl) {
+        const badge = document.createElement('span');
+        badge.className   = 'book-badge';
+        badge.textContent = 'NeverForget Original';
+        card.append(btn, cover, h3, p, badge);
+      } else {
+        card.append(btn, cover, h3, p);
+      }
+
+      card.addEventListener('click', () => {
+        if (card.dataset.book) window.open(card.dataset.book, '_blank');
+      });
       btn.addEventListener('click', e => {
         e.stopPropagation();
-        toggleFavorite(title, author);
+        toggleFavorite(title, author, bookUrl);
         renderFavorites();
       });
       favGrid.appendChild(card);
