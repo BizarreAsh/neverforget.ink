@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hardcore — Bizarre Ash</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #180808;
+    --paper: #f5eaea;
+    --fade: #a06060;
+    --accent: #800000;
+    --gold: #c04040;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(192,64,64,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(128,0,0,0.05) 0%, transparent 60%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; }
+
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 6rem 0;
+    position: relative;
+  }
+
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+
+  .cover-eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 3rem;
+    opacity: 0.8;
+  }
+
+  .cover-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(56px, 12vw, 88px);
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    color: var(--ink);
+    line-height: 1.0;
+    margin-bottom: 0.4rem;
+  }
+
+  .cover-rule {
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    margin: 2.5rem auto;
+    opacity: 0.6;
+  }
+
+  .cover-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--fade);
+    letter-spacing: 0.2em;
+    margin-bottom: 5rem;
+  }
+
+  .cover-author {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--fade);
+    opacity: 0.7;
+  }
+
+  .toc {
+    padding: 7rem 0 5rem;
+    border-bottom: 1px solid rgba(192,64,64,0.2);
+    margin-bottom: 7rem;
+  }
+
+  .toc-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2.5rem;
+  }
+
+  .toc-item {
+    display: grid;
+    grid-template-columns: 2em 1fr 2em;
+    gap: 0.5rem;
+    align-items: baseline;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(192,64,64,0.12);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .toc-item:hover { color: var(--accent); }
+
+  .toc-roman {
+    font-style: normal;
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    padding-top: 0.3em;
+  }
+
+  .toc-num {
+    font-style: normal;
+    font-size: 11px;
+    color: var(--fade);
+    text-align: right;
+  }
+
+  .chapter { padding-top: 6rem; margin-bottom: 3rem; }
+  .chapter-header { margin-bottom: 3rem; }
+
+  .chapter-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 100px;
+    font-weight: 300;
+    color: var(--gold);
+    opacity: 0.18;
+    line-height: 0.85;
+    margin-bottom: -0.1em;
+    letter-spacing: -0.02em;
+    user-select: none;
+  }
+
+  .chapter-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--ink);
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(192,64,64,0.35);
+    line-height: 1.3;
+  }
+
+  p {
+    margin-bottom: 1.5em;
+    text-align: justify;
+    hyphens: auto;
+  }
+
+  .chapter > p:first-of-type::first-letter {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4.8em;
+    font-weight: 300;
+    float: left;
+    line-height: 0.72;
+    margin-right: 0.06em;
+    margin-top: 0.1em;
+    color: var(--accent);
+  }
+
+  .dialogue {
+    margin: 2em 0 2em 2.2em;
+    font-style: italic;
+    color: #2a0808;
+    position: relative;
+    font-size: 17.5px;
+  }
+
+  .dialogue::before {
+    content: '—';
+    position: absolute;
+    left: -1.5em;
+    color: var(--gold);
+    font-style: normal;
+  }
+
+  .break {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6em;
+    margin: 3rem 0;
+    color: var(--gold);
+    opacity: 0.5;
+    font-size: 8px;
+    letter-spacing: 0.6em;
+  }
+
+  .break::before, .break::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(192,64,64,0.3));
+  }
+
+  .break::after {
+    background: linear-gradient(to left, transparent, rgba(192,64,64,0.3));
+  }
+
+  .chapter-end {
+    margin: 6rem 0 0;
+    text-align: center;
+    color: var(--gold);
+    opacity: 0.3;
+    font-size: 20px;
+    letter-spacing: 0.6em;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">автобиографическая проза</div>
+    <div class="cover-title">Hardcore</div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">о том, что страх сильнее любви</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Содержание</div>
+    <a class="toc-item" href="#ch1">
+      <span class="toc-roman">I</span>
+      <span>Пять лет качелей</span>
+      <span class="toc-num">—</span>
+    </a>
+    <a class="toc-item" href="#ch2">
+      <span class="toc-roman">II</span>
+      <span>Железная логика</span>
+      <span class="toc-num">—</span>
+    </a>
+    <a class="toc-item" href="#ch3">
+      <span class="toc-roman">III</span>
+      <span>Роддом</span>
+      <span class="toc-num">—</span>
+    </a>
+  </div>
+
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">Пять лет качелей</div>
+    </div>
+
+    <p>Нельзя сказать что у них были нормальные отношения. Это было бы неточно. Точнее было бы сказать — у них были их отношения. Со своей логикой, своим ритмом, своей особой системой равновесия которая не поддавалась объяснению извне но каким-то образом работала изнутри.</p>
+
+    <p>Ссоры были постоянными — от мелких до тех которые казались финальными. Вера хотела внимания — всегда, много, в центре. Арт уставал от претензий которые повторялись по кругу без изменений. Он делал по-своему — она видела в этом игнорирование. Она требовала — он замолкал. Потом примирялись. Потом снова.</p>
+
+    <p>Методы примирения со временем вырабатывались и переставали работать — как любой инструмент который используют слишком часто. Если отношения держатся только на методах примирения и больше ни на чём — рано или поздно этого перестаёт хватать. Они оба это чувствовали. Оба не останавливались.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Нора всегда была на стороне Веры. Не потому что была против Арта — а потому что Вера умела выстраивать нужную сторону заранее. Приходила раньше конфликта, выкладывала свою версию, создавала фундамент. К моменту когда Арт приходил объяснять — приговор уже был вынесен.</p>
+
+    <p>Арт принимал правила игры. Брал и делал то чего от него хотели — по-своему, с личными поправками, но брал и делал. Выбора особого не было. Или он так думал.</p>
+
+    <p>Мягкотелость его была настоящей — не слабостью, а природой. Он давал людям шансы. Последние шансы, потом ещё одни последние, потом ещё. Это было его и его проблемой одновременно. Те кто это понимал — пользовались. Он это знал. И всё равно давал.</p>
+
+    <p>Почему отношения продолжались — внятного ответа не было. Привязанность, привычка, что-то сторонние что держало их вместе несмотря ни на что. Они расходились и сходились снова. Всегда приходили к выводу что вместе лучше чем по отдельности. Так и шло — пять лет, от скандала к скандалу, от примирения к примирению.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">Железная логика</div>
+    </div>
+
+    <p>Вера вернулась от врача с новостью. Диагноз звучал однозначно — что-то связанное с невозможностью иметь детей. Арт выслушал. Доказательств не просил — у него никогда не было привычки проверять слова близкого человека которому доверяешь.</p>
+
+    <p>Опыт предыдущих отношений лёг поверх этой новости и создал свою логику. Арт сложил одно с другим и пришёл к выводу — детей у него не будет. Не от страха, не от желания избежать — просто уравнение казалось решённым.</p>
+
+    <p>Они обсудили. Решили не предохраняться.</p>
+
+    <p>Логика была железной с любой стороны. Только одну вещь она не учла — диагнозы работают в статистике, а не в конкретных случаях. Любой диагноз имеет свои исключения, свои если, свои звёзды которые сходятся именно тогда когда этого никто не ждёт.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Звёзды сошлись спустя полгода. Нужный день, нужный момент — и всё что казалось невозможным стало фактом. Вера была беременна.</p>
+
+    <p>Железная логика рассыпалась в секунду.</p>
+
+    <p>Арт смотрел на это и понимал что ни одно из его уравнений не работало так как он думал. Оба оказались вполне плодными. Оба оказались в ситуации которую не планировали — или не позволяли себе планировать.</p>
+
+    <p>Аборт не рассматривался — ни с его стороны, ни со стороны его семьи. Там в детях видели только благо. Ресурсы были, поддержка была, решение казалось очевидным.</p>
+
+    <p>Со стороны семьи Веры всё было иначе. Её мама была категорична — жёстко, без объяснений которые Арт мог бы принять. Вера оказалась между двух берегов. Арт видел это и думал что понимает ситуацию.</p>
+
+    <p>Он не понимал.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">Роддом</div>
+    </div>
+
+    <p>Вера родила. Это случилось — как случается всё неизбежное, без спроса и без паузы. Арт стоял перед фактом который больше нельзя было переложить на потом, переосмыслить, отложить до лучшего момента.</p>
+
+    <p>Лучшего момента не было. Был этот.</p>
+
+    <p>И в этот момент в нём сработало что-то что он не ожидал от себя — страх. Не маленький, не тот который можно переждать. Большой, парализующий, тот который заливает всё остальное и не оставляет места ни для чего кроме одного желания — уйти.</p>
+
+    <p>Он ушёл.</p>
+
+    <p>Прямо из роддома. Прямо тогда. Оставив Веру с ребёнком — одну, без объяснений которые могли бы что-то изменить. Объяснений не было. Был только страх который оказался сильнее всего остального.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Нора в тот раз встала не на сторону Веры. Впервые за всё время. Она видела сына — и видела что он делает — и не нашла в себе сил защищать это. Это был момент когда дороги двух семей разошлись. Тихо, без скандала, просто разошлись — и обратно уже не сошлись.</p>
+
+    <p>Арт жил с этим дальше. Страх прошёл — как проходит всё что не имеет под собой настоящей причины кроме самого страха. Прошёл и оставил после себя то с чем живут долго — осознание того что сделал и чего уже не исправить.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Это не оправдание. Здесь не может быть оправдания — и он это знает лучше кого угодно.</p>
+
+    <p>Пять лет качелей, железная логика, роддом. Вера которая тянула эти отношения столько же сколько он. Ребёнок которому досталось то что досталось — не по своей воле, просто потому что двое взрослых людей не смогли разобраться ни в себе, ни друг в друге вовремя.</p>
+
+    <p>Горечь есть. Признание есть. Осознание — тоже.</p>
+
+    <p>Желание исправить — есть. Возможность — вопрос открытый.</p>
+
+    <p>Но начинать всегда нужно с того чтобы назвать вещи своими именами.</p>
+
+    <p>Он испугался. Он ушёл. Это было неправильно.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>

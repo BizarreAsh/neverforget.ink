@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nur sie und die kubische Welt — Bizarre Ash</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #081008;
+    --paper: #e8f0e8;
+    --fade: #507050;
+    --accent: #184018;
+    --gold: #386838;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(40,120,40,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(24,64,24,0.05) 0%, transparent 60%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; }
+  .cover { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 6rem 0; position: relative; }
+  .cover::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); }
+  .cover-eyebrow { font-family: 'Cormorant Garamond', serif; font-size: 11px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 3rem; opacity: 0.8; }
+  .cover-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(30px, 7vw, 50px); font-weight: 300; letter-spacing: 0.04em; color: var(--ink); line-height: 1.2; margin-bottom: 0.4rem; }
+  .cover-title em { font-style: italic; color: var(--accent); }
+  .cover-rule { width: 40px; height: 1px; background: var(--gold); margin: 2.5rem auto; opacity: 0.6; }
+  .cover-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-style: italic; color: var(--fade); letter-spacing: 0.2em; margin-bottom: 5rem; }
+  .cover-author { font-family: 'Cormorant Garamond', serif; font-size: 13px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--fade); opacity: 0.7; }
+  .toc { padding: 7rem 0 5rem; border-bottom: 1px solid rgba(56,104,56,0.2); margin-bottom: 7rem; }
+  .toc-label { font-family: 'Cormorant Garamond', serif; font-size: 10px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 2.5rem; }
+  .toc-item { display: grid; grid-template-columns: 2em 1fr 2em; gap: 0.5rem; align-items: baseline; padding: 0.75rem 0; border-bottom: 1px solid rgba(56,104,56,0.12); font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; color: var(--ink); text-decoration: none; transition: color 0.2s; }
+  .toc-item:hover { color: var(--accent); }
+  .toc-roman { font-style: normal; font-size: 11px; color: var(--gold); letter-spacing: 0.1em; padding-top: 0.3em; }
+  .toc-num { font-style: normal; font-size: 11px; color: var(--fade); text-align: right; }
+  .chapter { padding-top: 6rem; margin-bottom: 3rem; }
+  .chapter-header { margin-bottom: 3rem; }
+  .chapter-number { font-family: 'Cormorant Garamond', serif; font-size: 100px; font-weight: 300; color: var(--gold); opacity: 0.18; line-height: 0.85; margin-bottom: -0.1em; letter-spacing: -0.02em; user-select: none; }
+  .chapter-title { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 300; font-style: italic; color: var(--ink); padding-bottom: 1.5rem; border-bottom: 1px solid rgba(56,104,56,0.35); line-height: 1.3; }
+  p { margin-bottom: 1.5em; text-align: justify; hyphens: auto; }
+  .chapter > p:first-of-type::first-letter { font-family: 'Cormorant Garamond', serif; font-size: 4.8em; font-weight: 300; float: left; line-height: 0.72; margin-right: 0.06em; margin-top: 0.1em; color: var(--accent); }
+  .dialogue { margin: 2em 0 2em 2.2em; font-style: italic; color: #081008; position: relative; font-size: 17.5px; }
+  .dialogue::before { content: '—'; position: absolute; left: -1.5em; color: var(--gold); font-style: normal; }
+  .break { display: flex; align-items: center; justify-content: center; gap: 0.6em; margin: 3rem 0; color: var(--gold); opacity: 0.5; font-size: 8px; letter-spacing: 0.6em; }
+  .break::before, .break::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, transparent, rgba(56,104,56,0.3)); }
+  .break::after { background: linear-gradient(to left, transparent, rgba(56,104,56,0.3)); }
+  .chapter-end { margin: 6rem 0 0; text-align: center; color: var(--gold); opacity: 0.3; font-size: 20px; letter-spacing: 0.6em; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">autobiografische Prosa</div>
+    <div class="cover-title">Nur sie<br><em>und die kubische Welt</em></div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">über das was sie bauten und was sie sprengten</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Inhalt</div>
+    <a class="toc-item" href="#ch1"><span class="toc-roman">I</span><span>Zhor</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch2"><span class="toc-roman">II</span><span>Av aus dem Dorf</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch3"><span class="toc-roman">III</span><span>Der vierte Reaktorblock</span><span class="toc-num">—</span></a>
+  </div>
+
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">Zhor</div>
+    </div>
+
+    <p>Zhor kam in Dens Leben so wie Menschen kommen die eine Spur hinterlassen — nicht laut, nicht mit Ankündigung, sondern eines Tages einfach da und alles verändert sich. Sie lernten sich in einem Spiel kennen, fanden eine gemeinsame Sprache schneller als üblich, und die kubische Welt wurde ihr gemeinsames Territorium.</p>
+
+    <p>Zhor war anders. Rauchte nicht, trank nicht, war gut in der Schule — und hatte dabei eine Vorstellungskraft die man selten findet. Er erfand ständig — Ideen, Projekte, Konstruktionen, Geschichten. Nicht alles davon wurde gebaut, aber der Erfindungsprozess selbst war lebendig und ansteckend. Neben Zhor wollte man bauen — nicht weil man musste, sondern weil er zeigen konnte wie es aussehen könnte.</p>
+
+    <p>Sie brachten einander voran. Kamen gemeinsam zu Dingen — jeder brachte sein eigenes mit, und daraus entstand etwas Drittes, Gemeinsames. Den zog in eine Richtung, Zhor in die andere, und irgendwo in der Mitte landeten beide dort wo sie nicht hinzuplanen hatten — aber genau dort war es interessant.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Zuhause war es bei Zhor schwer. Seine Mutter verlor sich langsam — nicht plötzlich, nicht abrupt, sondern so wie Menschen sich verlieren wenn etwas innen ohne Pause schiefläuft. Anfangs dachte Den es seien nur Erzählungen — Übertreibungen, eine Art sich zu beklagen. Aber das Mikrofon nimmt alles auf, und eines Tages hörte er es selbst. Verstand dass Zhor nicht übertrieben hatte. Dass es genau so war wie er sagte. Und dass es mit der Zeit schlimmer wurde.</p>
+
+    <p>Zhor kam zurecht so gut er konnte. Er kam in die kubische Welt — und dort war alles anders. Dort baute er was er wollte, sagte was er dachte, war er selbst ohne Vorbehalte.</p>
+
+    <p>Dann verschwand er. Hörte einfach auf aufzutauchen — ohne Erklärung, ohne Abschied. Es gab Theorien, die Wahrheit blieb unbekannt. Den suchte keine Antwort — manche Dinge lässt man besser dort wo sie sind.</p>
+
+    <p>Zhor war und ist eine Legende. Solche Menschen begegnet man selten — und wenn man ihnen begegnet, vergisst man sie nicht.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">Av aus dem Dorf</div>
+    </div>
+
+    <p>Av lebte in einem Dorf. Er nannte es einen Ort städtischen Typs — sprach es mit Würde aus, als würde das irgendetwas ändern. Die Stadtjungs fanden das komisch. Av war schon immer vom Dorf — und das war Teil seines Charmes, ob er es wollte oder nicht.</p>
+
+    <p>In Minecraft lebte er separat. Während Den und Zhor zu zweit bauten, fand Av einen Brunnen am Rand eines fremden Dorfes und machte ihn zum Eingang einer unterirdischen Basis. Den Schacht hinunter — und man war in einer anderen Welt, still, seiner eigenen, mit Ressourcen an den Wänden und Redstone wo man auch hinschaute. Niemand wusste dass dort ein Mensch lebte. Das passte ihm gut.</p>
+
+    <p>Er war clever — wusste was er wollte und wie er es erreichte. Konnte einen Witz machen, konnte klug argumentieren, konnte genau dann zur Stelle sein wenn es gebraucht wurde. Was Den allein nicht schaffte — zu zweit mit Av schon. Es war eine Synergie die niemand geplant hatte — sie war einfach da.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Zunächst waren sie zu zweit — Den und Zhor. Ein ganzes Jahr nur sie und die kubische Welt. Dann kam Av — mit seinem Dorf, seinem Brunnen, seiner Energie. Zu dritt war anders — breiter, mit einem anderen Gefühl.</p>
+
+    <p>Dann verschwand Zhor. Und es blieben zwei — aber andere zwei. Den und Av. Die Leere nach Zhor schloss sich nicht — sie wurde einfach Teil des Hintergrundes. Av ersetzte ihn nicht und versuchte es nicht. Er blieb einfach — und das reichte.</p>
+
+    <p>Av aus dem Dorf. Der Ort städtischen Typs. Der Brunnen mit der unterirdischen Basis. Sein Lieblingsspruch für jeden Anlass:</p>
+
+    <div class="dialogue">Soll ich dir auch noch Geld geben?</div>
+
+    <p>Er war mehr als ein Freund. Das war nicht sofort klar — aber klar.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">Der vierte Reaktorblock</div>
+    </div>
+
+    <p>Sie bauten den Turm Saurons. Nicht irgendeinen Turm — genau diesen, mit der Monumentalität die Zeit, Ressourcen und Geduld erfordert. Den und Zhor arbeiteten zusammen — jeder Block an seinem Platz, die Konstruktion wuchs nach oben, und irgendwann war sie von allen Ecken der Karte aus sichtbar.</p>
+
+    <p>Im Inneren des Turms lief ein Atomreaktor. Ein Technologiemod ermöglichte den Bau einer echten Energieinfrastruktur — der Reaktor erzeugte Strom, der Strom speiste alles andere. Das war kein Dekor — das war ein System. Lebendig, funktionierend, wartungsbedürftig.</p>
+
+    <p>Dann passierte etwas zwischen ihnen. Ein kleiner Konflikt — die Art die zwischen engen Menschen ohne ernsthaften Grund entsteht. Worte, Verletzung, Schweigen. Was genau — lässt sich nicht mehr erinnern. Wichtig ist nur was Den fühlte.</p>
+
+    <p>Und welche Entscheidung er traf.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Er wusste wie der Reaktor funktionierte. Wusste was passieren würde wenn er die Kühlung unterbräche — nicht versehentlich, sondern absichtlich, methodisch, Schritt für Schritt alles entfernend was das System im Gleichgewicht hielt. Das war keine Explosion durch einen Fehler. Das war der vierte Reaktorblock — bewusst, kaltblütig, mit vollem Verständnis der Konsequenzen.</p>
+
+    <p>Der Reaktor detonierte.</p>
+
+    <p>Der Turm Saurons — alles was so lange gebaut worden war — verschwand im Explosionsradius. Zusammen mit der Umgebung, zusammen mit den umliegenden Bauten. Die Druckwelle erreichte Avs Dorf — seine unterirdische Basis unter dem Brunnen bekam auch ihren Teil. Der Ort städtischen Typs litt.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Av reagierte zurückhaltend — soweit möglich wenn das eigene Dorf gerade von einer nuklearen Explosion vom Nachbarserver getroffen wurde. Zhor schwieg. Den betrachtete was vom Turm übrig war und spürte diese seltsame Leere die danach kommt — wenn man getan hat was man wollte und es nicht besser wurde, nur stiller.</p>
+
+    <p>Der Groll verging. Den Turm konnte man nicht zurückbringen. Den Reaktor nicht zurückspulen.</p>
+
+    <p>Sie fingen wieder an zu bauen — weil es keine andere Möglichkeit gab, und weil die kubische Welt nicht mit einer Explosion endet. Das ist ihre wichtigste Eigenschaft. Egal wie viel man zerstört — den nächsten Block kann man immer setzen.</p>
+
+    <p>Nur sie und die kubische Welt.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Just Them and the Cubic World — Bizarre Ash</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #081008;
+    --paper: #e8f0e8;
+    --fade: #507050;
+    --accent: #184018;
+    --gold: #386838;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(40,120,40,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(24,64,24,0.05) 0%, transparent 60%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; }
+  .cover { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 6rem 0; position: relative; }
+  .cover::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); }
+  .cover-eyebrow { font-family: 'Cormorant Garamond', serif; font-size: 11px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 3rem; opacity: 0.8; }
+  .cover-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(32px, 7vw, 52px); font-weight: 300; letter-spacing: 0.04em; color: var(--ink); line-height: 1.2; margin-bottom: 0.4rem; }
+  .cover-title em { font-style: italic; color: var(--accent); }
+  .cover-rule { width: 40px; height: 1px; background: var(--gold); margin: 2.5rem auto; opacity: 0.6; }
+  .cover-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-style: italic; color: var(--fade); letter-spacing: 0.2em; margin-bottom: 5rem; }
+  .cover-author { font-family: 'Cormorant Garamond', serif; font-size: 13px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--fade); opacity: 0.7; }
+  .toc { padding: 7rem 0 5rem; border-bottom: 1px solid rgba(56,104,56,0.2); margin-bottom: 7rem; }
+  .toc-label { font-family: 'Cormorant Garamond', serif; font-size: 10px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 2.5rem; }
+  .toc-item { display: grid; grid-template-columns: 2em 1fr 2em; gap: 0.5rem; align-items: baseline; padding: 0.75rem 0; border-bottom: 1px solid rgba(56,104,56,0.12); font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; color: var(--ink); text-decoration: none; transition: color 0.2s; }
+  .toc-item:hover { color: var(--accent); }
+  .toc-roman { font-style: normal; font-size: 11px; color: var(--gold); letter-spacing: 0.1em; padding-top: 0.3em; }
+  .toc-num { font-style: normal; font-size: 11px; color: var(--fade); text-align: right; }
+  .chapter { padding-top: 6rem; margin-bottom: 3rem; }
+  .chapter-header { margin-bottom: 3rem; }
+  .chapter-number { font-family: 'Cormorant Garamond', serif; font-size: 100px; font-weight: 300; color: var(--gold); opacity: 0.18; line-height: 0.85; margin-bottom: -0.1em; letter-spacing: -0.02em; user-select: none; }
+  .chapter-title { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 300; font-style: italic; color: var(--ink); padding-bottom: 1.5rem; border-bottom: 1px solid rgba(56,104,56,0.35); line-height: 1.3; }
+  p { margin-bottom: 1.5em; text-align: justify; hyphens: auto; }
+  .chapter > p:first-of-type::first-letter { font-family: 'Cormorant Garamond', serif; font-size: 4.8em; font-weight: 300; float: left; line-height: 0.72; margin-right: 0.06em; margin-top: 0.1em; color: var(--accent); }
+  .dialogue { margin: 2em 0 2em 2.2em; font-style: italic; color: #081008; position: relative; font-size: 17.5px; }
+  .dialogue::before { content: '—'; position: absolute; left: -1.5em; color: var(--gold); font-style: normal; }
+  .break { display: flex; align-items: center; justify-content: center; gap: 0.6em; margin: 3rem 0; color: var(--gold); opacity: 0.5; font-size: 8px; letter-spacing: 0.6em; }
+  .break::before, .break::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, transparent, rgba(56,104,56,0.3)); }
+  .break::after { background: linear-gradient(to left, transparent, rgba(56,104,56,0.3)); }
+  .chapter-end { margin: 6rem 0 0; text-align: center; color: var(--gold); opacity: 0.3; font-size: 20px; letter-spacing: 0.6em; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">autobiographical prose</div>
+    <div class="cover-title">Just Them<br><em>and the Cubic World</em></div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">about what they built and what they blew up</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Contents</div>
+    <a class="toc-item" href="#ch1"><span class="toc-roman">I</span><span>Zhor</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch2"><span class="toc-roman">II</span><span>Av from the Village</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch3"><span class="toc-roman">III</span><span>The Fourth Reactor</span><span class="toc-num">—</span></a>
+  </div>
+
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">Zhor</div>
+    </div>
+
+    <p>Zhor came into Den's life the way people do when they leave a mark — not loudly, not with an announcement, but simply one day they're there and everything shifts. They met in a game, found a common language faster than usual, and the cubic world became their shared territory.</p>
+
+    <p>Zhor was different. Didn't smoke, didn't drink, did well in school — and on top of that had the kind of imagination you rarely encounter. He was always inventing — ideas, projects, structures, stories. Not all of it got built, but the act of inventing was alive and contagious. When you were with Zhor you wanted to build — not because you had to, but because he could show you what it might look like.</p>
+
+    <p>They pushed each other forward. Arrived at things together — each bringing their own, and from that something third emerged, something shared. Den pulled in one direction, Zhor in another, and somewhere in the middle they both ended up somewhere they hadn't planned — but that's exactly where it was interesting.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>At home Zhor's situation was hard. His mother was slowly losing herself — not suddenly, not sharply, but the way people lose themselves when something inside keeps going wrong without stopping. At first Den thought it was just stories — exaggeration, a way of venting. But the microphone picks up everything, and one day he heard it himself. Understood that Zhor hadn't been exaggerating. That it was exactly as he'd said. And that it was getting worse.</p>
+
+    <p>Zhor managed the way he knew how. He'd come into the cubic world — and there everything was different. There he built what he wanted, said what he thought, was himself without reservation.</p>
+
+    <p>Then he disappeared. Just stopped showing up — no explanation, no goodbye. There were theories, the truth stayed unknown. Den didn't look for an answer — some things are better left where they are.</p>
+
+    <p>Zhor was and remains a legend. People like that are rare — and when you meet them, you don't forget them.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">Av from the Village</div>
+    </div>
+
+    <p>Av lived in a village. He called it a township — pronounced it with dignity, as if that changed anything. The city guys found it funny. Av was always from the village — and that was part of his charm, whether he wanted it to be or not.</p>
+
+    <p>In Minecraft he lived separately. While Den and Zhor built together, Av found a well on the edge of someone else's village and turned it into an entrance to an underground base. Down the shaft — and you were in a different world, quiet, his own, with resources along the walls and redstone wherever you looked. Nobody knew a person lived down there. That suited him fine.</p>
+
+    <p>He was sharp — knew what he wanted and how to get there. Could crack a joke, could hold his own in an argument, could show up exactly when he was needed. What Den couldn't manage alone — the two of them could. It was a synergy nobody planned for — it just was.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>At first there were two of them — Den and Zhor. A whole year just them and the cubic world. Then Av appeared — with his village, his well, his energy. Three became a different thing — wider, with a different feel.</p>
+
+    <p>Then Zhor disappeared. And two were left — but a different two. Den and Av. The gap Zhor left didn't close — it just became part of the background. Av didn't replace him and didn't try to. He simply stayed — and that was enough.</p>
+
+    <p>Av from the village. The township. The well with the underground base. His signature phrase for any occasion:</p>
+
+    <div class="dialogue">You want me to give you money too while I'm at it?</div>
+
+    <p>He was more than a friend. That wasn't obvious right away — but it was obvious.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">The Fourth Reactor</div>
+    </div>
+
+    <p>They were building the Tower of Sauron. Not just any tower — that one specifically, with the monumentality that demands time, resources and patience. Den and Zhor worked together — every block in its place, the structure rose upward, and at some point it was visible from every corner of the map.</p>
+
+    <p>Inside the tower ran a nuclear reactor. A technology mod made it possible to build a real energy infrastructure — the reactor generated power, and that power ran everything else. It wasn't decoration — it was a system. Alive, operational, requiring upkeep.</p>
+
+    <p>Then something happened between them. A small conflict — the kind that happens between close people for no serious reason. Words, hurt feelings, silence. What exactly — impossible to remember now. All that matters is what Den felt.</p>
+
+    <p>And what he decided.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>He knew how the reactor worked. He knew what would happen if he disrupted the cooling — not by accident, but deliberately, methodically, removing one by one everything that kept the system in balance. This wasn't an explosion from a mistake. This was the fourth reactor — conscious, cold-blooded, with full awareness of the consequences.</p>
+
+    <p>The reactor detonated.</p>
+
+    <p>The Tower of Sauron — everything built over so much time — disappeared in the blast radius. Along with the surroundings, along with the nearby structures. The shockwave reached Av's village — his underground base under the well took its share too. The township suffered.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Av reacted with restraint — as much as possible when your village has just been hit by a nuclear explosion from a neighbouring server. Zhor was silent. Den looked at what remained of the tower and felt that strange emptiness that comes after — when you did what you wanted and it didn't get better, just quieter.</p>
+
+    <p>The grudge passed. The tower couldn't be brought back. The reactor couldn't be rewound.</p>
+
+    <p>They started building again — because there was no other option, and because the cubic world doesn't end with one explosion. That's its main quality. No matter how much you destroy — you can always place the next block.</p>
+
+    <p>Just them and the cubic world.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>

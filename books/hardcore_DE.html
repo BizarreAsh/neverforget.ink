@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hardcore — Bizarre Ash</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #180808;
+    --paper: #f5eaea;
+    --fade: #a06060;
+    --accent: #800000;
+    --gold: #c04040;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(192,64,64,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(128,0,0,0.05) 0%, transparent 60%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; }
+  .cover { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 6rem 0; position: relative; }
+  .cover::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); }
+  .cover-eyebrow { font-family: 'Cormorant Garamond', serif; font-size: 11px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 3rem; opacity: 0.8; }
+  .cover-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(56px, 12vw, 88px); font-weight: 300; letter-spacing: 0.1em; color: var(--ink); line-height: 1.0; margin-bottom: 0.4rem; }
+  .cover-rule { width: 40px; height: 1px; background: var(--gold); margin: 2.5rem auto; opacity: 0.6; }
+  .cover-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-style: italic; color: var(--fade); letter-spacing: 0.2em; margin-bottom: 5rem; }
+  .cover-author { font-family: 'Cormorant Garamond', serif; font-size: 13px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--fade); opacity: 0.7; }
+  .toc { padding: 7rem 0 5rem; border-bottom: 1px solid rgba(192,64,64,0.2); margin-bottom: 7rem; }
+  .toc-label { font-family: 'Cormorant Garamond', serif; font-size: 10px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 2.5rem; }
+  .toc-item { display: grid; grid-template-columns: 2em 1fr 2em; gap: 0.5rem; align-items: baseline; padding: 0.75rem 0; border-bottom: 1px solid rgba(192,64,64,0.12); font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; color: var(--ink); text-decoration: none; transition: color 0.2s; }
+  .toc-item:hover { color: var(--accent); }
+  .toc-roman { font-style: normal; font-size: 11px; color: var(--gold); letter-spacing: 0.1em; padding-top: 0.3em; }
+  .toc-num { font-style: normal; font-size: 11px; color: var(--fade); text-align: right; }
+  .chapter { padding-top: 6rem; margin-bottom: 3rem; }
+  .chapter-header { margin-bottom: 3rem; }
+  .chapter-number { font-family: 'Cormorant Garamond', serif; font-size: 100px; font-weight: 300; color: var(--gold); opacity: 0.18; line-height: 0.85; margin-bottom: -0.1em; letter-spacing: -0.02em; user-select: none; }
+  .chapter-title { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 300; font-style: italic; color: var(--ink); padding-bottom: 1.5rem; border-bottom: 1px solid rgba(192,64,64,0.35); line-height: 1.3; }
+  p { margin-bottom: 1.5em; text-align: justify; hyphens: auto; }
+  .chapter > p:first-of-type::first-letter { font-family: 'Cormorant Garamond', serif; font-size: 4.8em; font-weight: 300; float: left; line-height: 0.72; margin-right: 0.06em; margin-top: 0.1em; color: var(--accent); }
+  .break { display: flex; align-items: center; justify-content: center; gap: 0.6em; margin: 3rem 0; color: var(--gold); opacity: 0.5; font-size: 8px; letter-spacing: 0.6em; }
+  .break::before, .break::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, transparent, rgba(192,64,64,0.3)); }
+  .break::after { background: linear-gradient(to left, transparent, rgba(192,64,64,0.3)); }
+  .chapter-end { margin: 6rem 0 0; text-align: center; color: var(--gold); opacity: 0.3; font-size: 20px; letter-spacing: 0.6em; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">autobiografische Prosa</div>
+    <div class="cover-title">Hardcore</div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">darüber dass Angst stärker ist als Liebe</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Inhalt</div>
+    <a class="toc-item" href="#ch1"><span class="toc-roman">I</span><span>Fünf Jahre auf der Schaukel</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch2"><span class="toc-roman">II</span><span>Eiserne Logik</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch3"><span class="toc-roman">III</span><span>Die Entbindungsstation</span><span class="toc-num">—</span></a>
+  </div>
+
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">Fünf Jahre auf der Schaukel</div>
+    </div>
+
+    <p>Man konnte nicht sagen dass sie eine normale Beziehung hatten. Das wäre ungenau. Genauer wäre zu sagen — sie hatten ihre Beziehung. Mit ihrer eigenen Logik, ihrem eigenen Rhythmus, ihrem besonderen Gleichgewichtssystem das sich von außen nicht erklären ließ aber irgendwie von innen funktionierte.</p>
+
+    <p>Die Streitereien waren ständig — von kleinen bis zu solchen die endgültig wirkten. Vera wollte Aufmerksamkeit — immer, viel, im Mittelpunkt. Art wurde müde von Vorwürfen die sich im Kreis wiederholten ohne sich zu verändern. Er machte es auf seine Weise — sie sah darin Ignoranz. Sie verlangte — er verstummte. Dann versöhnten sie sich. Dann wieder.</p>
+
+    <p>Versöhnungsmethoden nutzten sich mit der Zeit ab — wie jedes Werkzeug das zu oft benutzt wird. Wenn eine Beziehung nur durch Versöhnungen zusammengehalten wird und sonst durch nichts — reicht das früher oder später nicht mehr. Beide spürten das. Beide hörten nicht auf.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Nora stand immer auf Veras Seite. Nicht weil sie gegen Art war — sondern weil Vera es verstand ihre Version im Voraus aufzubauen. Sie kam vor dem Konflikt, legte ihre Darstellung vor, schuf das Fundament. Wenn Art zum Erklären kam — war das Urteil bereits gefällt.</p>
+
+    <p>Art akzeptierte die Spielregeln. Nahm was von ihm verlangt wurde und tat es — auf seine Weise, mit persönlichen Korrekturen, aber er nahm es und tat es. Eine andere Wahl sah er nicht. Oder dachte es.</p>
+
+    <p>Seine Weichheit war echt — keine Schwäche, einfach seine Natur. Er gab Menschen Chancen. Letzte Chancen, dann noch eine letzte, dann noch eine. Das war gleichzeitig seine Stärke und sein Problem. Wer das verstand — nutzte es. Er wusste das. Und gab trotzdem.</p>
+
+    <p>Warum die Beziehung weiterging — es gab keine klare Antwort. Anhänglichkeit, Gewohnheit, irgendetwas anderes das sie trotz allem zusammenhielt. Sie trennten sich und kamen wieder zusammen. Kamen immer zu demselben Schluss — zusammen war besser als getrennt. So ging es — fünf Jahre, von Streit zu Streit, von Versöhnung zu Versöhnung.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">Eiserne Logik</div>
+    </div>
+
+    <p>Vera kam mit einer Nachricht vom Arzt zurück. Die Diagnose klang eindeutig — etwas im Zusammenhang mit der Unmöglichkeit Kinder zu bekommen. Art hörte zu. Er bat nicht um Belege — er hatte nie die Gewohnheit gehabt die Worte eines nahestehenden Menschen dem er vertraute zu überprüfen.</p>
+
+    <p>Die Erfahrung aus einer früheren Beziehung legte sich über diese Nachricht und schuf ihre eigene Logik. Art fügte eins und eins zusammen und kam zu einem Schluss — er würde keine Kinder haben. Nicht aus Angst, nicht aus dem Wunsch es zu vermeiden — die Gleichung schien einfach gelöst.</p>
+
+    <p>Sie besprachen es. Beschlossen auf Verhütung zu verzichten.</p>
+
+    <p>Die Logik war von jeder Seite eisern. Sie berücksichtigte nur eine Sache nicht — Diagnosen funktionieren in der Statistik, nicht in konkreten Fällen. Jede Diagnose hat ihre Ausnahmen, ihre Wenns, ihre Sterne die sich genau dann ausrichten wenn niemand damit rechnet.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Die Sterne richteten sich ein halbes Jahr später aus. Der richtige Tag, der richtige Moment — und alles was unmöglich schien wurde zur Tatsache. Vera war schwanger.</p>
+
+    <p>Die eiserne Logik zerfiel in einer Sekunde.</p>
+
+    <p>Art sah das und verstand dass keine seiner Gleichungen so funktioniert hatte wie er gedacht hatte. Beide erwiesen sich als völlig fruchtbar. Beide befanden sich in einer Situation die sie nicht geplant hatten — oder sich nicht erlaubt hatten zu planen.</p>
+
+    <p>Abtreibung kam nicht in Frage — weder von seiner Seite noch von seiner Familie. Die sahen in Kindern nur etwas Gutes. Die Mittel waren da, die Unterstützung war da, die Entscheidung schien offensichtlich.</p>
+
+    <p>Von Veras Familie her war alles anders. Ihre Mutter war kategorisch — hart, ohne Erklärungen die Art hätte akzeptieren können. Vera war zwischen zwei Ufern gefangen. Art sah das und glaubte die Situation zu verstehen.</p>
+
+    <p>Er verstand sie nicht.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">Die Entbindungsstation</div>
+    </div>
+
+    <p>Vera brachte ein Kind zur Welt. Es passierte — so wie alles Unvermeidliche passiert, ohne zu fragen, ohne eine Pause. Art stand vor einer Tatsache die sich nicht mehr auf später verschieben, umdeuten, auf einen besseren Moment vertagen ließ.</p>
+
+    <p>Es gab keinen besseren Moment. Es gab diesen.</p>
+
+    <p>Und in diesem Moment löste in ihm etwas aus das er nicht von sich erwartet hatte — Angst. Nicht klein, nicht die Art die man aussitzen kann. Groß, lähmend, die Art die alles andere überflutet und keinen Platz für irgendetwas lässt außer einem einzigen Wunsch — zu gehen.</p>
+
+    <p>Er ging.</p>
+
+    <p>Direkt von der Entbindungsstation. Genau dann. Vera mit dem Kind zurücklassend — allein, ohne Erklärungen die irgendetwas hätten ändern können. Es gab keine Erklärungen. Es gab nur die Angst die sich als stärker erwiesen hatte als alles andere.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Nora stand dieses Mal nicht auf Veras Seite. Zum ersten Mal überhaupt. Sie sah ihren Sohn — und sah was er tat — und fand nicht die Kraft das zu verteidigen. Das war der Moment als die Wege zweier Familien auseinandergingen. Still, ohne Szene, sie gingen einfach auseinander — und kamen nie mehr zusammen.</p>
+
+    <p>Art lebte danach damit weiter. Die Angst verging — so wie alles vergeht das keinen echten Grund hat außer der Angst selbst. Sie verging und hinterließ das womit man lange lebt — das Bewusstsein was man getan hat und was sich nicht mehr korrigieren lässt.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Das ist keine Rechtfertigung. Es kann keine geben — und er weiß das besser als irgendjemand.</p>
+
+    <p>Fünf Jahre auf der Schaukel, eiserne Logik, die Entbindungsstation. Vera die die Beziehung genauso lange getragen hat wie er. Ein Kind das bekam was es bekam — nicht aus eigenem Willen, einfach weil zwei Erwachsene sich selbst und einander nicht rechtzeitig verstehen konnten.</p>
+
+    <p>Die Bitterkeit ist da. Das Eingeständnis ist da. Das Bewusstsein auch.</p>
+
+    <p>Der Wunsch es richtigzustellen — da. Die Möglichkeit — eine offene Frage.</p>
+
+    <p>Aber anfangen muss man immer damit die Dinge beim Namen zu nennen.</p>
+
+    <p>Er hatte Angst. Er ging. Das war falsch.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>

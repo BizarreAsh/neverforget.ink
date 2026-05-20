@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hardcore — Bizarre Ash</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #180808;
+    --paper: #f5eaea;
+    --fade: #a06060;
+    --accent: #800000;
+    --gold: #c04040;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(192,64,64,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(128,0,0,0.05) 0%, transparent 60%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; }
+  .cover { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 6rem 0; position: relative; }
+  .cover::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); }
+  .cover-eyebrow { font-family: 'Cormorant Garamond', serif; font-size: 11px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 3rem; opacity: 0.8; }
+  .cover-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(56px, 12vw, 88px); font-weight: 300; letter-spacing: 0.1em; color: var(--ink); line-height: 1.0; margin-bottom: 0.4rem; }
+  .cover-rule { width: 40px; height: 1px; background: var(--gold); margin: 2.5rem auto; opacity: 0.6; }
+  .cover-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-style: italic; color: var(--fade); letter-spacing: 0.2em; margin-bottom: 5rem; }
+  .cover-author { font-family: 'Cormorant Garamond', serif; font-size: 13px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--fade); opacity: 0.7; }
+  .toc { padding: 7rem 0 5rem; border-bottom: 1px solid rgba(192,64,64,0.2); margin-bottom: 7rem; }
+  .toc-label { font-family: 'Cormorant Garamond', serif; font-size: 10px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 2.5rem; }
+  .toc-item { display: grid; grid-template-columns: 2em 1fr 2em; gap: 0.5rem; align-items: baseline; padding: 0.75rem 0; border-bottom: 1px solid rgba(192,64,64,0.12); font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; color: var(--ink); text-decoration: none; transition: color 0.2s; }
+  .toc-item:hover { color: var(--accent); }
+  .toc-roman { font-style: normal; font-size: 11px; color: var(--gold); letter-spacing: 0.1em; padding-top: 0.3em; }
+  .toc-num { font-style: normal; font-size: 11px; color: var(--fade); text-align: right; }
+  .chapter { padding-top: 6rem; margin-bottom: 3rem; }
+  .chapter-header { margin-bottom: 3rem; }
+  .chapter-number { font-family: 'Cormorant Garamond', serif; font-size: 100px; font-weight: 300; color: var(--gold); opacity: 0.18; line-height: 0.85; margin-bottom: -0.1em; letter-spacing: -0.02em; user-select: none; }
+  .chapter-title { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 300; font-style: italic; color: var(--ink); padding-bottom: 1.5rem; border-bottom: 1px solid rgba(192,64,64,0.35); line-height: 1.3; }
+  p { margin-bottom: 1.5em; text-align: justify; hyphens: auto; }
+  .chapter > p:first-of-type::first-letter { font-family: 'Cormorant Garamond', serif; font-size: 4.8em; font-weight: 300; float: left; line-height: 0.72; margin-right: 0.06em; margin-top: 0.1em; color: var(--accent); }
+  .break { display: flex; align-items: center; justify-content: center; gap: 0.6em; margin: 3rem 0; color: var(--gold); opacity: 0.5; font-size: 8px; letter-spacing: 0.6em; }
+  .break::before, .break::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, transparent, rgba(192,64,64,0.3)); }
+  .break::after { background: linear-gradient(to left, transparent, rgba(192,64,64,0.3)); }
+  .chapter-end { margin: 6rem 0 0; text-align: center; color: var(--gold); opacity: 0.3; font-size: 20px; letter-spacing: 0.6em; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">autobiographical prose</div>
+    <div class="cover-title">Hardcore</div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">about fear being stronger than love</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Contents</div>
+    <a class="toc-item" href="#ch1"><span class="toc-roman">I</span><span>Five Years on a Swing</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch2"><span class="toc-roman">II</span><span>Ironclad Logic</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch3"><span class="toc-roman">III</span><span>The Maternity Ward</span><span class="toc-num">—</span></a>
+  </div>
+
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">Five Years on a Swing</div>
+    </div>
+
+    <p>You couldn't call what they had a normal relationship. That would be inaccurate. More accurately — they had their relationship. With its own logic, its own rhythm, its own particular balance that couldn't be explained from the outside but somehow worked from within.</p>
+
+    <p>The arguments were constant — from minor to the kind that seemed final. Vera wanted attention — always, a lot, at the centre. Art got tired of the same complaints cycling without change. He did things his way — she read that as being ignored. She demanded — he went quiet. Then they made up. Then again.</p>
+
+    <p>Reconciliation methods wore out over time — like any tool used too often. If a relationship holds together only through reconciliation and nothing else — sooner or later that stops being enough. Both felt it. Neither stopped.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Nora always took Vera's side. Not because she was against Art — but because Vera knew how to build her case in advance. She'd arrive before the conflict, lay out her version, set the foundation. By the time Art came to explain — the verdict had already been reached.</p>
+
+    <p>Art accepted the rules of the game. Took what was asked of him and did it — in his own way, with personal adjustments, but took it and did it. He didn't see much choice. Or thought he didn't.</p>
+
+    <p>His softness was genuine — not weakness, just nature. He gave people chances. Last chances, then one more last chance, then another. It was his strength and his problem simultaneously. Those who understood it used it. He knew. And gave chances anyway.</p>
+
+    <p>Why the relationship continued — there was no clear answer. Attachment, habit, something else that held them together regardless. They split and came back together. Always arrived at the same conclusion — together was better than apart. So it went — five years, from argument to argument, from reconciliation to reconciliation.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">Ironclad Logic</div>
+    </div>
+
+    <p>Vera came back from the doctor with news. The diagnosis was unambiguous — something to do with the impossibility of having children. Art listened. He didn't ask for evidence — he never had the habit of verifying what someone close to him said.</p>
+
+    <p>The experience of a previous relationship lay over this news and created its own logic. Art put one thing together with another and arrived at a conclusion — he wouldn't have children. Not from fear, not from wanting to avoid it — the equation simply seemed solved.</p>
+
+    <p>They discussed it. Decided not to use protection.</p>
+
+    <p>The logic was ironclad from every angle. It only failed to account for one thing — diagnoses work in statistics, not in specific cases. Every diagnosis has its exceptions, its ifs, its stars that align precisely when nobody expects them to.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>The stars aligned six months later. The right day, the right moment — and everything that had seemed impossible became fact. Vera was pregnant.</p>
+
+    <p>The ironclad logic collapsed in a second.</p>
+
+    <p>Art looked at this and understood that none of his equations had worked the way he'd thought. Both of them turned out to be perfectly fertile. Both found themselves in a situation they hadn't planned — or hadn't allowed themselves to plan.</p>
+
+    <p>Abortion wasn't considered — not from his side, not from his family's. They saw children only as a good thing. Resources were there, support was there, the decision seemed obvious.</p>
+
+    <p>From Vera's family's side everything was different. Her mother was categorical — hard, without explanations Art could have accepted. Vera was caught between two shores. Art saw this and thought he understood the situation.</p>
+
+    <p>He didn't understand.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">The Maternity Ward</div>
+    </div>
+
+    <p>Vera gave birth. It happened — the way everything inevitable happens, without asking, without a pause. Art stood before a fact that could no longer be pushed to later, reframed, postponed until a better moment.</p>
+
+    <p>There was no better moment. There was this one.</p>
+
+    <p>And in this moment something fired in him that he hadn't expected from himself — fear. Not small, not the kind you can wait out. Big, paralyzing, the kind that floods everything else and leaves no room for anything except one desire — to leave.</p>
+
+    <p>He left.</p>
+
+    <p>Straight from the maternity ward. Right then. Leaving Vera with the child — alone, without explanations that might have changed anything. There were no explanations. There was only the fear that turned out to be stronger than everything else.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Nora that time didn't take Vera's side. For the first time ever. She saw her son — and saw what he was doing — and couldn't find it in herself to defend it. That was the moment when the paths of two families diverged. Quietly, without a scene, they simply diverged — and never came back together.</p>
+
+    <p>Art lived with it after that. The fear passed — the way everything passes when it has no real cause except the fear itself. It passed and left behind what stays for a long time — the awareness of what he'd done and what couldn't be undone.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>There's no justification for this. There can't be — and he knows that better than anyone.</p>
+
+    <p>Five years on a swing, ironclad logic, the maternity ward. Vera who carried the relationship just as long as he did. A child who got what they got — not by their own choice, simply because two adults couldn't figure themselves out or each other in time.</p>
+
+    <p>The bitterness is there. The acknowledgement is there. The awareness too.</p>
+
+    <p>The desire to make it right — there. The possibility — an open question.</p>
+
+    <p>But you always have to start by calling things by their names.</p>
+
+    <p>He was afraid. He left. That was wrong.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>

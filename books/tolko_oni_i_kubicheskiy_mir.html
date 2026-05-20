@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Только они и кубический мир — Bizarre Ash</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #081008;
+    --paper: #e8f0e8;
+    --fade: #507050;
+    --accent: #184018;
+    --gold: #386838;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(40,120,40,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(24,64,24,0.05) 0%, transparent 60%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; }
+
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 6rem 0;
+    position: relative;
+  }
+
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+
+  .cover-eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 3rem;
+    opacity: 0.8;
+  }
+
+  .cover-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 8vw, 58px);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    line-height: 1.2;
+    margin-bottom: 0.4rem;
+  }
+
+  .cover-title em { font-style: italic; color: var(--accent); }
+
+  .cover-rule {
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    margin: 2.5rem auto;
+    opacity: 0.6;
+  }
+
+  .cover-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--fade);
+    letter-spacing: 0.2em;
+    margin-bottom: 5rem;
+  }
+
+  .cover-author {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--fade);
+    opacity: 0.7;
+  }
+
+  .toc {
+    padding: 7rem 0 5rem;
+    border-bottom: 1px solid rgba(56,104,56,0.2);
+    margin-bottom: 7rem;
+  }
+
+  .toc-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2.5rem;
+  }
+
+  .toc-item {
+    display: grid;
+    grid-template-columns: 2em 1fr 2em;
+    gap: 0.5rem;
+    align-items: baseline;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(56,104,56,0.12);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .toc-item:hover { color: var(--accent); }
+
+  .toc-roman {
+    font-style: normal;
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    padding-top: 0.3em;
+  }
+
+  .toc-num {
+    font-style: normal;
+    font-size: 11px;
+    color: var(--fade);
+    text-align: right;
+  }
+
+  .chapter { padding-top: 6rem; margin-bottom: 3rem; }
+  .chapter-header { margin-bottom: 3rem; }
+
+  .chapter-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 100px;
+    font-weight: 300;
+    color: var(--gold);
+    opacity: 0.18;
+    line-height: 0.85;
+    margin-bottom: -0.1em;
+    letter-spacing: -0.02em;
+    user-select: none;
+  }
+
+  .chapter-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--ink);
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(56,104,56,0.35);
+    line-height: 1.3;
+  }
+
+  p {
+    margin-bottom: 1.5em;
+    text-align: justify;
+    hyphens: auto;
+  }
+
+  .chapter > p:first-of-type::first-letter {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4.8em;
+    font-weight: 300;
+    float: left;
+    line-height: 0.72;
+    margin-right: 0.06em;
+    margin-top: 0.1em;
+    color: var(--accent);
+  }
+
+  .dialogue {
+    margin: 2em 0 2em 2.2em;
+    font-style: italic;
+    color: #081008;
+    position: relative;
+    font-size: 17.5px;
+  }
+
+  .dialogue::before {
+    content: '—';
+    position: absolute;
+    left: -1.5em;
+    color: var(--gold);
+    font-style: normal;
+  }
+
+  .break {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6em;
+    margin: 3rem 0;
+    color: var(--gold);
+    opacity: 0.5;
+    font-size: 8px;
+    letter-spacing: 0.6em;
+  }
+
+  .break::before, .break::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(56,104,56,0.3));
+  }
+
+  .break::after {
+    background: linear-gradient(to left, transparent, rgba(56,104,56,0.3));
+  }
+
+  .chapter-end {
+    margin: 6rem 0 0;
+    text-align: center;
+    color: var(--gold);
+    opacity: 0.3;
+    font-size: 20px;
+    letter-spacing: 0.6em;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">автобиографическая проза</div>
+    <div class="cover-title">Только они<br><em>и кубический мир</em></div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">о том, что строили и что взрывали</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Содержание</div>
+    <a class="toc-item" href="#ch1">
+      <span class="toc-roman">I</span>
+      <span>Жор</span>
+      <span class="toc-num">—</span>
+    </a>
+    <a class="toc-item" href="#ch2">
+      <span class="toc-roman">II</span>
+      <span>Ав из деревни</span>
+      <span class="toc-num">—</span>
+    </a>
+    <a class="toc-item" href="#ch3">
+      <span class="toc-roman">III</span>
+      <span>Четвёртый энергоблок</span>
+      <span class="toc-num">—</span>
+    </a>
+  </div>
+
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">Жор</div>
+    </div>
+
+    <p>Жор появился в жизни Дена так, как появляются люди которые оставляют след — не шумно, не с объявлением, а просто однажды оказываются рядом и всё меняется. Они познакомились в игре, нашли общий язык быстрее чем обычно находят, и кубический мир стал их общей территорией.</p>
+
+    <p>Жор был другим. Не курил, не пил, хорошо учился — и при этом обладал такой фантазией которая встречается у единиц. Он придумывал постоянно — идеи, проекты, конструкции, истории. Не всё из этого воплощалось, но сам процесс придумывания был живым и заразительным. Рядом с Жором хотелось строить — не потому что надо, а потому что он умел показать как это может выглядеть.</p>
+
+    <p>Они развивали друг друга. Приходили к вещам вместе — каждый приносил своё, и из этого складывалось что-то третье, общее. Ден тянул его в одну сторону, Жор тянул в другую, и где-то посередине они оба оказывались там где не планировали — но именно там было интересно.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Дома у Жора было тяжело. Мама медленно терялась — не сразу, не резко, а так как теряются люди когда что-то внутри идёт не так без остановки. Первое время Ден думал что это просто рассказы — преувеличение, способ пожаловаться. Но микрофон улавливал всё, и однажды он услышал сам. Понял что Жор не преувеличивал. Что всё именно так как тот говорил. И что со временем становилось хуже.</p>
+
+    <p>Жор справлялся как умел. Приходил в кубический мир — и там всё было иначе. Там он строил что хотел, говорил что думал, был собой без оговорок.</p>
+
+    <p>Потом он исчез. Просто перестал появляться — без объяснений, без прощания. Версий было несколько, правда осталась неизвестной. Ден не искал ответа — некоторые вещи лучше оставить там где они есть.</p>
+
+    <p>Жор был и есть легенда. Такие люди встречаются редко — и когда встречаются, не забываются.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">Ав из деревни</div>
+    </div>
+
+    <p>Ав жил в деревне. Он называл её посёлком городского типа — ПГТ, произносил с достоинством, как будто это меняло суть. Городским парням было смешно. Саня всегда был из деревни — и это было частью его обаяния, хотел он того или нет.</p>
+
+    <p>В Minecraft он жил отдельно. Пока Ден с Жором строили вдвоём, Ав нашёл колодец на краю чужой деревни и сделал из него вход в подземную базу. Вниз по шахте — и ты в другом мире, тихом, своём, с ресурсами по стенам и редстоуном везде куда ни посмотришь. Никто не знал что там живёт человек. Это его устраивало.</p>
+
+    <p>Он был смышлёным — знал чего хочет и как до этого добраться. Умел пошутить, умел поумничать, умел прийти на выручку в тот момент когда это было нужно. То что не получалось у Дена одного — получалось вдвоём с Авом. Это была синергия которую не планировали — она просто была.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Сначала их было двое — Ден и Жор. Целый год только они и кубический мир. Потом появился Ав — со своей деревней, своим колодцем, своей энергией. Стало трое, и это было отдельное время — другое по ощущению, шире.</p>
+
+    <p>Потом Жор исчез. И остались двое — но уже другие двое. Ден и Ав. Пустота после Жора не закрылась — она просто стала частью фона. Ав не заменил его и не пытался. Просто остался рядом — и этого было достаточно.</p>
+
+    <p>Ав из деревни. ПГТ. Колодец с подземной базой. Своя любимая фраза на любой случай:</p>
+
+    <div class="dialogue">Может тебе ещё денег дать?</div>
+
+    <p>Он был больше чем друг. Это было понятно не сразу — но понятно.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">Четвёртый энергоблок</div>
+    </div>
+
+    <p>Они строили Башню Саурона. Не просто башню — именно её, с той монументальностью которая требует времени, ресурсов и терпения. Ден и Жор работали вместе — каждый блок на своём месте, конструкция росла вверх, и в какой-то момент она уже была видна со всех концов карты.</p>
+
+    <p>Внутри башни работал ядерный реактор. Технологический мод давал возможность строить настоящую энергетическую инфраструктуру — реактор вырабатывал энергию, энергия питала всё остальное. Это была не декорация — это была система. Живая, работающая, требующая обслуживания.</p>
+
+    <p>Потом что-то произошло между ними. Мелкий конфликт — из тех которые случаются между близкими людьми без серьёзной причины. Слова, обида, молчание. Что именно — уже не вспомнить. Важно только то что Ден почувствовал.</p>
+
+    <p>И принял решение.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Он знал как работает реактор. Знал что будет если нарушить охлаждение — не случайно, а намеренно, методично, шаг за шагом убирая всё что держало систему в равновесии. Это был не взрыв из-за ошибки. Это был четвёртый энергоблок — сознательный, хладнокровный, с пониманием последствий.</p>
+
+    <p>Реактор сдетонировал.</p>
+
+    <p>Башня Саурона — всё то что строилось столько времени — исчезла в радиусе взрыва. Вместе с окружением, вместе с постройками рядом. Ударная волна дошла до деревни Ава — его подземная база под колодцем тоже получила своё. ПГТ пострадало.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Ав отреагировал сдержанно — насколько возможно когда твою деревню накрыло ядерным взрывом из соседнего сервера. Жор молчал. Ден смотрел на то что осталось от башни и чувствовал то странное опустошение которое бывает после — когда сделал что хотел, и стало не лучше, а просто тихо.</p>
+
+    <p>Обида прошла. Башню не вернуть. Реактор не отмотать назад.</p>
+
+    <p>Они начали строить снова — потому что других вариантов не было, и потому что кубический мир не заканчивается на одном взрыве. Это его главное свойство. Сколько бы ты ни разрушил — следующий блок всегда можно поставить.</p>
+
+    <p>Только они и кубический мир.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>
