@@ -315,6 +315,12 @@ const bookPool = [
   { title: 'Дань пикселям',               author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/dan_pikselyam.html'                        },
   { title: 'A Tribute to Pixels',         author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/tribute_to_pixels_EN.html'                 },
   { title: 'Tribut an die Pixel',         author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/tribut_an_die_pixel_DE.html'               },
+  { title: 'Диспетчер',                   author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/dispetcher.html'                           },
+  { title: 'The Dispatcher',              author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/the_dispatcher_EN.html'                    },
+  { title: 'Der Disponent',               author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/disponent_DE.html'                         },
+  { title: 'Свеб, Лео и ангар',          author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/sveb_leo_i_angar.html'                     },
+  { title: 'Sveb, Leo and the Hangar',   author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/sveb_leo_and_hangar_EN.html'               },
+  { title: 'Sveb, Leo und der Hangar',   author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/sveb_leo_und_hangar_DE.html'               },
 ];
 
 function shuffleArray(arr) {
