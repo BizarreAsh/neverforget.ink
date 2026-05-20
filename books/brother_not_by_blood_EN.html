@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brother Not by Blood — Bizarre Ash</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #0a1020;
+    --paper: #eaecf5;
+    --fade: #607090;
+    --accent: #203060;
+    --gold: #405080;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(60,80,160,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(32,48,96,0.05) 0%, transparent 60%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; }
+  .cover { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 6rem 0; position: relative; }
+  .cover::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); }
+  .cover-eyebrow { font-family: 'Cormorant Garamond', serif; font-size: 11px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 3rem; opacity: 0.8; }
+  .cover-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(36px, 8vw, 58px); font-weight: 300; letter-spacing: 0.04em; color: var(--ink); line-height: 1.15; margin-bottom: 0.4rem; }
+  .cover-title em { font-style: italic; color: var(--accent); }
+  .cover-rule { width: 40px; height: 1px; background: var(--gold); margin: 2.5rem auto; opacity: 0.6; }
+  .cover-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-style: italic; color: var(--fade); letter-spacing: 0.2em; margin-bottom: 5rem; }
+  .cover-author { font-family: 'Cormorant Garamond', serif; font-size: 13px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--fade); opacity: 0.7; }
+  .toc { padding: 7rem 0 5rem; border-bottom: 1px solid rgba(64,80,128,0.2); margin-bottom: 7rem; }
+  .toc-label { font-family: 'Cormorant Garamond', serif; font-size: 10px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 2.5rem; }
+  .toc-item { display: grid; grid-template-columns: 2em 1fr 2em; gap: 0.5rem; align-items: baseline; padding: 0.75rem 0; border-bottom: 1px solid rgba(64,80,128,0.12); font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; color: var(--ink); text-decoration: none; transition: color 0.2s; }
+  .toc-item:hover { color: var(--accent); }
+  .toc-roman { font-style: normal; font-size: 11px; color: var(--gold); letter-spacing: 0.1em; padding-top: 0.3em; }
+  .toc-num { font-style: normal; font-size: 11px; color: var(--fade); text-align: right; }
+  .chapter { padding-top: 6rem; margin-bottom: 3rem; }
+  .chapter-header { margin-bottom: 3rem; }
+  .chapter-number { font-family: 'Cormorant Garamond', serif; font-size: 100px; font-weight: 300; color: var(--gold); opacity: 0.18; line-height: 0.85; margin-bottom: -0.1em; letter-spacing: -0.02em; user-select: none; }
+  .chapter-title { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 300; font-style: italic; color: var(--ink); padding-bottom: 1.5rem; border-bottom: 1px solid rgba(64,80,128,0.35); line-height: 1.3; }
+  p { margin-bottom: 1.5em; text-align: justify; hyphens: auto; }
+  .chapter > p:first-of-type::first-letter { font-family: 'Cormorant Garamond', serif; font-size: 4.8em; font-weight: 300; float: left; line-height: 0.72; margin-right: 0.06em; margin-top: 0.1em; color: var(--accent); }
+  .dialogue { margin: 2em 0 2em 2.2em; font-style: italic; color: #0a1020; position: relative; font-size: 17.5px; }
+  .dialogue::before { content: '—'; position: absolute; left: -1.5em; color: var(--gold); font-style: normal; }
+  .break { display: flex; align-items: center; justify-content: center; gap: 0.6em; margin: 3rem 0; color: var(--gold); opacity: 0.5; font-size: 8px; letter-spacing: 0.6em; }
+  .break::before, .break::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, transparent, rgba(64,80,128,0.3)); }
+  .break::after { background: linear-gradient(to left, transparent, rgba(64,80,128,0.3)); }
+  .chapter-end { margin: 6rem 0 0; text-align: center; color: var(--gold); opacity: 0.3; font-size: 20px; letter-spacing: 0.6em; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">autobiographical prose</div>
+    <div class="cover-title">Brother<br><em>Not by Blood</em></div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">about those who stay no matter what</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Contents</div>
+    <a class="toc-item" href="#ch1"><span class="toc-roman">I</span><span>Where People Like This Come From</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch2"><span class="toc-roman">II</span><span>Together Against Everything</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch3"><span class="toc-roman">III</span><span>The Shack</span><span class="toc-num">—</span></a>
+  </div>
+
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">Where People Like This Come From</div>
+    </div>
+
+    <p>Their mothers were best friends — that was the foundation, everything else grew from it on its own. Sol and Nik entered each other's lives not because they chose to, but because that's how it worked out. At first they were simply around — at holidays, at gatherings, in apartments where the adults drank tea and talked and the children did what they wanted.</p>
+
+    <p>Nik was different — well-mannered, proper, didn't smoke, didn't drink, listened to his mother. Where Sol went against the system out of habit, Nik carefully stepped around it. They were opposites — and that's exactly why they were drawn to each other. Not because of the difference, but because in something essential they matched.</p>
+
+    <p>There was also football. Nik took it seriously — training, a team, away games. It was his separate life, running in parallel. Their paths diverged and came back together — always finding a common point. Most often that point was a monitor screen.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>There was a third — Igor. The one who had been with Sol before Nik. All three crossed paths, played together, lived in the same city with the same streets. Igor was with Sol first — Nik appeared later, when groups formed on their own.</p>
+
+    <p>When Igor was gone — something redistributed. Not immediately, not consciously. Nik just became closer. The way it happens when life removes one person and shows you — look, here's who's actually alongside you.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">Together Against Everything</div>
+    </div>
+
+    <p>The list of games they'd played through together was long — SAMP, Minecraft, CSS, CS:GO, Half-Life, Dota 2, Warcraft 3. Each was its own chapter, its own era, its own set of memories. Each had their thing — something one liked and the other didn't, something Sol discovered, something Nik brought.</p>
+
+    <p>Nik had skills Sol didn't have. Not experience — talent. Shooters came differently to him, his reaction was different, his aim was the kind that only develops in people who genuinely can. He tried esports — seriously, not as a hobby. It worked.</p>
+
+    <p>Sol watched this with the kind of respect that doesn't always get spoken aloud. He might have reached something similar through years of practice — maybe. For Nik it was just there.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>But Nik had another story with games too. Problem gambling didn't arrive all at once — first just interest, then habit, then something more. Sol watched from the side and said nothing — not because he didn't want to, but because he knew: some things a person has to understand for themselves. Intervention doesn't work here.</p>
+
+    <p>Despite all of this — or because of all of it — they stayed close. Two completely different people with one common denominator: trust that didn't need to be explained.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">The Shack</div>
+    </div>
+
+    <p>They got raided while everyone was offline. It happens — in Rust it's part of the cycle. But that time the demoralisation was real. Sol decided to drop the wipe and move to another game — Divinity Original Sin 2, which Sokol had shown him. A new world, new mechanics, he just wanted to switch off.</p>
+
+    <p>Nik had a different idea.</p>
+
+    <div class="dialogue">Fine, bastards, I'll farm everything myself — and you're coming back to finish the wipe.</div>
+
+    <p>There was no refusing — not because you couldn't, but because people don't say that when they don't mean it. Nik started climbing from nothing. Alone, no team, no base. Half a day — and he was practically back where they'd all been before the raid. That was something else entirely.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Then he had to step away for a while. Everything he'd farmed sat in a small shack — two metal doors, eight charges or a couple of rockets to get in. Inside: resources worth a hundred rockets. He asked Sol to log on and secure it — upgrade it, watch it, just make sure it didn't disappear.</p>
+
+    <p>Sol said he'd log on. Literally just exiting the other game and jumping into Rust.</p>
+
+    <p>Nik asked again. Sol confirmed again.</p>
+
+    <p>Then he went and dealt with his business.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Sol didn't log on. He got absorbed in the new game and forgot — just forgot, no bad intent, it just happened. In a field in the middle of the map stood a shack worth two rockets with resources worth a hundred inside — and no one was watching it.</p>
+
+    <p>When Nik came back and asked — Sol understood everything in that same second. Before answering, before loading the server. He just knew — and felt the kind of shame that only comes when you let down someone who didn't deserve it.</p>
+
+    <p>Nik logged onto the server. No shack. No resources. Nothing.</p>
+
+    <p>He stopped choosing his words.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Sol stayed quiet and listened — because he knew what for. It was pure cringe shame — not the kind where you're embarrassed because you got caught, but the kind where you understand exactly how badly you messed up. Nik lost his temper and went to play solo.</p>
+
+    <p>But he came back. The way he always came back — without announcement, just there again one day. Because that's how people are when they're genuinely yours. They get angry, they leave, they go quiet — and they come back.</p>
+
+    <p>Not by blood. By life.</p>
+
+    <p>That's stronger.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>

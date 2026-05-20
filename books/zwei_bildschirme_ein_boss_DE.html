@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zwei Bildschirme, ein Boss — Bizarre Ash</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #100a18;
+    --paper: #f0ecf8;
+    --fade: #806890;
+    --accent: #502870;
+    --gold: #8050a0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(140,80,180,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(80,40,112,0.05) 0%, transparent 60%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; }
+  .cover { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 6rem 0; position: relative; }
+  .cover::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); }
+  .cover-eyebrow { font-family: 'Cormorant Garamond', serif; font-size: 11px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 3rem; opacity: 0.8; }
+  .cover-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(34px, 7vw, 54px); font-weight: 300; letter-spacing: 0.04em; color: var(--ink); line-height: 1.2; margin-bottom: 0.4rem; }
+  .cover-title em { font-style: italic; color: var(--accent); }
+  .cover-rule { width: 40px; height: 1px; background: var(--gold); margin: 2.5rem auto; opacity: 0.6; }
+  .cover-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-style: italic; color: var(--fade); letter-spacing: 0.2em; margin-bottom: 5rem; }
+  .cover-author { font-family: 'Cormorant Garamond', serif; font-size: 13px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--fade); opacity: 0.7; }
+  .toc { padding: 7rem 0 5rem; border-bottom: 1px solid rgba(128,80,160,0.2); margin-bottom: 7rem; }
+  .toc-label { font-family: 'Cormorant Garamond', serif; font-size: 10px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 2.5rem; }
+  .toc-item { display: grid; grid-template-columns: 2em 1fr 2em; gap: 0.5rem; align-items: baseline; padding: 0.75rem 0; border-bottom: 1px solid rgba(128,80,160,0.12); font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; color: var(--ink); text-decoration: none; transition: color 0.2s; }
+  .toc-item:hover { color: var(--accent); }
+  .toc-roman { font-style: normal; font-size: 11px; color: var(--gold); letter-spacing: 0.1em; padding-top: 0.3em; }
+  .toc-num { font-style: normal; font-size: 11px; color: var(--fade); text-align: right; }
+  .chapter { padding-top: 6rem; margin-bottom: 3rem; }
+  .chapter-header { margin-bottom: 3rem; }
+  .chapter-number { font-family: 'Cormorant Garamond', serif; font-size: 100px; font-weight: 300; color: var(--gold); opacity: 0.18; line-height: 0.85; margin-bottom: -0.1em; letter-spacing: -0.02em; user-select: none; }
+  .chapter-title { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 300; font-style: italic; color: var(--ink); padding-bottom: 1.5rem; border-bottom: 1px solid rgba(128,80,160,0.35); line-height: 1.3; }
+  p { margin-bottom: 1.5em; text-align: justify; hyphens: auto; }
+  .chapter > p:first-of-type::first-letter { font-family: 'Cormorant Garamond', serif; font-size: 4.8em; font-weight: 300; float: left; line-height: 0.72; margin-right: 0.06em; margin-top: 0.1em; color: var(--accent); }
+  .break { display: flex; align-items: center; justify-content: center; gap: 0.6em; margin: 3rem 0; color: var(--gold); opacity: 0.5; font-size: 8px; letter-spacing: 0.6em; }
+  .break::before, .break::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, transparent, rgba(128,80,160,0.3)); }
+  .break::after { background: linear-gradient(to left, transparent, rgba(128,80,160,0.3)); }
+  .chapter-end { margin: 6rem 0 0; text-align: center; color: var(--gold); opacity: 0.3; font-size: 20px; letter-spacing: 0.6em; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">autobiografische Prosa</div>
+    <div class="cover-title">Zwei Bildschirme,<br><em>ein Boss</em></div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">über das was bei einem funktioniert und beim anderen nicht</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Inhalt</div>
+    <a class="toc-item" href="#ch1"><span class="toc-roman">I</span><span>Far Cry 2</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch2"><span class="toc-roman">II</span><span>Genau dieses Auto</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch3"><span class="toc-roman">III</span><span>Nullkontostand</span><span class="toc-num">—</span></a>
+  </div>
+
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">Far Cry 2</div>
+    </div>
+
+    <p>Kai war die Art Freund der ohne Ankündigung auftaucht und lange bleibt. Nicht weil es so geplant war — es ergab sich einfach so. Er und Ren waren verschiedene Menschen mit demselben Interesse an einem Bildschirm, und das reichte um unglaublich viel Zeit miteinander zu verbringen.</p>
+
+    <p>Far Cry 2 erschien bei Kai früher als bei Ren. Der kam zu Besuch, setzte sich hin — und stand lange nicht mehr auf. Das Spiel handelte von Afrika, von Hitze, von einer Savanne wo alles versucht dich zu töten und du versuchst alles andere zu töten. Offene Welt, Waffen die im denkbar schlechtesten Moment rosteten und klemmten, Feinde die sich an dich erinnerten und auf dich reagierten. Es fühlte sich lebendig an — nicht im Sinne von Grafik, sondern im Sinne von Erfahrung.</p>
+
+    <p>Sie spielten abwechselnd — einer steuert, der andere schaut zu und gibt Ratschläge. Dann tauschten sie. Dann stritten sie darüber wie man ein Lager am besten säubert und wer es besser gemacht hatte. Dann spielten sie wieder. Stunden vergingen so wie Stunden nur vergehen wenn man sie mit einem guten Spiel verbringt — unmerklich und mit Bedauern wenn man es bemerkt.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Jeder hatte seinen eigenen Stil — Ren plante Taktiken, berechnete Annäherungswege, suchte nach Möglichkeiten einzudringen ohne in den ersten fünf Sekunden eine Kugel zu bekommen. Kai handelte anders — mit Enthusiasmus und wenig Nachdenken, was manchmal besser funktionierte als jede Taktik, und manchmal in einem schnellen Neustart endete.</p>
+
+    <p>Far Cry 2 wurde ihre gemeinsame Legende — eines jener Spiele an die man Jahre später nicht deshalb denkt weil es perfekt war, sondern weil man es zusammen erlebt hat. Diese Gefechte, diese Situationen, diese Momente wo alles schief ging und genau deshalb blieben — all das blieb im Gedächtnis mit jener besonderen Wärme die nur Dinge aus der Kindheit haben.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">Genau dieses Auto</div>
+    </div>
+
+    <p>Need for Speed Carbon kam später — ein anderes Spiel, ein anderes Genre, eine andere Logik. Rennen, Territorien, Bosse die man besiegen musste um weiterzukommen. Kai steckte bei einem von ihnen fest. Nicht dem finalen, nicht einem der besonders schwer konzipiert war — einfach einem bestimmten Boss der sich nicht bezwingen lassen wollte.</p>
+
+    <p>Versuch nach Versuch. Immer wieder. Der Boss gewann beständig und ohne sichtbare Anstrengung.</p>
+
+    <p>Ren beobachtete eine Weile. Dann bat er selbst zu versuchen — einfach um zu sehen wo das Problem lag. Setzte sich, wählte sein Auto, stellte es so ein wie er es gewohnt war, und besiegte den Boss. Nicht beim ersten Versuch — aber er besiegte ihn. Mit einem bestimmten Auto, einem bestimmten Teileset, einer bestimmten Herangehensweise.</p>
+
+    <p>Kai sah schweigend zu.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Ren erklärte alles ausführlich — welches Auto, welche Teile, warum genau das. Die Logik war einfach: dieses Auto auf dieser Strecke gegen diesen Boss funktioniert am besten. Nicht weil es generell das beste ist — sondern weil es hier, jetzt, gegen genau diesen passt.</p>
+
+    <p>Kai hörte aufmerksam zu. Nickte. Stimmte zu.</p>
+
+    <p>Dann öffneten sie seine Garage im Spiel und fingen an genau dasselbe Auto zusammenzustellen.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">Nullkontostand</div>
+    </div>
+
+    <p>In Need for Speed Carbon wurde die Spielwährung durch Rennen verdient und für Autos und Teile ausgegeben. Kai hatte ein Guthaben — nicht riesig, aber ausreichend um voranzukommen. Ren sah sich die Liste der benötigten Teile an, dann das Guthaben, und fing an zu arbeiten.</p>
+
+    <p>Das Auto wurde exakt nach Vorlage zusammengestellt. Dasselbe Modell. Derselbe Motor. Dieselben Teile in denselben Slots. Ren verglich mit seiner eigenen Konfiguration und übertrug sie eins zu eins — keine Abweichungen, keine Ersetzungen, strikt nach Liste.</p>
+
+    <p>Das Guthaben schmolz methodisch dahin. Teil für Teil, Position für Position. Kai betrachtete die Zahlen mit dem Ausdruck von jemandem der versteht was passiert aber schweigt weil er selbst darum gebeten hat.</p>
+
+    <p>Als das letzte Teil eingebaut war — war das Guthaben praktisch bei null. Das Auto stand in der Garage, vollständig identisch mit dem mit dem Ren den Boss besiegt hatte. Dasselbe Modell, dieselben Teile, dieselben Einstellungen.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Kai setzte sich ans Steuer. Startete das Rennen gegen den Boss. Ren saß daneben mit dem Blick von jemandem der des Ergebnisses sicher ist — er hatte ihn ja besiegt, die Logik war hieb- und stichfest.</p>
+
+    <p>Der Boss gewann.</p>
+
+    <p>Nicht sofort — Kai versuchte es mehrmals. Mit demselben Auto, denselben Teilen, null Guthaben in der Tasche. Der Boss gewann jedes Mal — beständig, methodisch, mit derselben Leichtigkeit wie vor dem Kauf.</p>
+
+    <p>Ren sah auf den Bildschirm. Dann auf Kai. Dann wieder auf den Bildschirm.</p>
+
+    <p>Es gab nichts zu sagen — die Logik war hieb- und stichfest gewesen, das Auto war identisch, und das Ergebnis war völlig anders. Manche Dinge funktionieren bei einem Menschen und nicht beim anderen — ohne Erklärung, ohne Grund, einfach so.</p>
+
+    <p>Guthaben bei null. Boss ungeschlagen. Kai sah auf den Bildschirm mit jenem besonderen Ausdruck der entsteht wenn man gleichzeitig geärgert und amüsiert ist.</p>
+
+    <p>Ren lachte als Erster.</p>
+
+    <p>Dann lachten beide.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>

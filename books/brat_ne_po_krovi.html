@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Брат не по крови — Bizarre Ash</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #0a1020;
+    --paper: #eaecf5;
+    --fade: #607090;
+    --accent: #203060;
+    --gold: #405080;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(60,80,160,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(32,48,96,0.05) 0%, transparent 60%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; }
+
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 6rem 0;
+    position: relative;
+  }
+
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+
+  .cover-eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 3rem;
+    opacity: 0.8;
+  }
+
+  .cover-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(40px, 9vw, 64px);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    line-height: 1.15;
+    margin-bottom: 0.4rem;
+  }
+
+  .cover-title em { font-style: italic; color: var(--accent); }
+
+  .cover-rule {
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    margin: 2.5rem auto;
+    opacity: 0.6;
+  }
+
+  .cover-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--fade);
+    letter-spacing: 0.2em;
+    margin-bottom: 5rem;
+  }
+
+  .cover-author {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--fade);
+    opacity: 0.7;
+  }
+
+  .toc {
+    padding: 7rem 0 5rem;
+    border-bottom: 1px solid rgba(64,80,128,0.2);
+    margin-bottom: 7rem;
+  }
+
+  .toc-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2.5rem;
+  }
+
+  .toc-item {
+    display: grid;
+    grid-template-columns: 2em 1fr 2em;
+    gap: 0.5rem;
+    align-items: baseline;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(64,80,128,0.12);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .toc-item:hover { color: var(--accent); }
+
+  .toc-roman {
+    font-style: normal;
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    padding-top: 0.3em;
+  }
+
+  .toc-num {
+    font-style: normal;
+    font-size: 11px;
+    color: var(--fade);
+    text-align: right;
+  }
+
+  .chapter { padding-top: 6rem; margin-bottom: 3rem; }
+  .chapter-header { margin-bottom: 3rem; }
+
+  .chapter-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 100px;
+    font-weight: 300;
+    color: var(--gold);
+    opacity: 0.18;
+    line-height: 0.85;
+    margin-bottom: -0.1em;
+    letter-spacing: -0.02em;
+    user-select: none;
+  }
+
+  .chapter-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--ink);
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(64,80,128,0.35);
+    line-height: 1.3;
+  }
+
+  p {
+    margin-bottom: 1.5em;
+    text-align: justify;
+    hyphens: auto;
+  }
+
+  .chapter > p:first-of-type::first-letter {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4.8em;
+    font-weight: 300;
+    float: left;
+    line-height: 0.72;
+    margin-right: 0.06em;
+    margin-top: 0.1em;
+    color: var(--accent);
+  }
+
+  .dialogue {
+    margin: 2em 0 2em 2.2em;
+    font-style: italic;
+    color: #0a1020;
+    position: relative;
+    font-size: 17.5px;
+  }
+
+  .dialogue::before {
+    content: '—';
+    position: absolute;
+    left: -1.5em;
+    color: var(--gold);
+    font-style: normal;
+  }
+
+  .break {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6em;
+    margin: 3rem 0;
+    color: var(--gold);
+    opacity: 0.5;
+    font-size: 8px;
+    letter-spacing: 0.6em;
+  }
+
+  .break::before, .break::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(64,80,128,0.3));
+  }
+
+  .break::after {
+    background: linear-gradient(to left, transparent, rgba(64,80,128,0.3));
+  }
+
+  .chapter-end {
+    margin: 6rem 0 0;
+    text-align: center;
+    color: var(--gold);
+    opacity: 0.3;
+    font-size: 20px;
+    letter-spacing: 0.6em;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">автобиографическая проза</div>
+    <div class="cover-title">Брат<br><em>не по крови</em></div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">о тех кто остаётся несмотря ни на что</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Содержание</div>
+    <a class="toc-item" href="#ch1">
+      <span class="toc-roman">I</span>
+      <span>Откуда берутся такие</span>
+      <span class="toc-num">—</span>
+    </a>
+    <a class="toc-item" href="#ch2">
+      <span class="toc-roman">II</span>
+      <span>Вместе против всего</span>
+      <span class="toc-num">—</span>
+    </a>
+    <a class="toc-item" href="#ch3">
+      <span class="toc-roman">III</span>
+      <span>Кибитка</span>
+      <span class="toc-num">—</span>
+    </a>
+  </div>
+
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">Откуда берутся такие</div>
+    </div>
+
+    <p>Их мамы были лучшими подругами — это было фундаментом, всё остальное выросло из него само. Сол и Ник появились в жизни друг друга не потому что выбрали, а потому что так сложилось. Сначала просто были рядом — на праздниках, на встречах, в квартирах где взрослые пили чай и разговаривали, а дети делали что хотели.</p>
+
+    <p>Ник был другим — воспитанным, правильным, не курил, не пил, слушался маму. Там где Сол шёл против системы по привычке, Ник аккуратно обходил её стороной. Они были противоположностями — и именно поэтому притягивались. Не из-за разницы, а потому что в чём-то главном совпадали.</p>
+
+    <p>Был ещё футбол. Ник занимался им серьёзно — тренировки, команда, выезды. Это была его отдельная жизнь, которая шла параллельно. Их пути расходились и сходились снова — каждый раз находя общую точку. Чаще всего этой точкой был экран монитора.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Был и третий — Игорь. Тот самый, который был с Солом раньше чем Ник. Все трое пересекались, играли вместе, жили в одном городе с одними и теми же улицами. Игорь был с Солом в первую очередь — Ник появлялся рядом позже, когда компании складывались сами собой.</p>
+
+    <p>Когда Игоря не стало — что-то перераспределилось. Не сразу, не осознанно. Просто Ник стал ближе. Как бывает когда жизнь убирает одного человека и показывает — вот, смотри, кто рядом по-настоящему.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">Вместе против всего</div>
+    </div>
+
+    <p>Список игр которые они прошли вместе был длинным — SAMP, Minecraft, CSS, CS:GO, Half-Life, Dota 2, Warcraft 3. Каждая из них была отдельной главой, отдельным временем, отдельным набором воспоминаний. У каждого было своё — что-то нравилось одному и не заходило другому, что-то открывал Сол, что-то приносил Ник.</p>
+
+    <p>У Ника были навыки которых у Сола не было. Не в смысле опыта — в смысле таланта. Шутеры давались ему иначе, реакция была другой, рука была поставлена так как ставится только у тех кто и правда может. Он пробовал себя в киберспорте — серьёзно, не как хобби. Получалось.</p>
+
+    <p>Сол смотрел на это с уважением которое не всегда произносится вслух. Он мог бы добиться чего-то похожего только через годы тренировок — и то не факт. У Ника это было просто.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Но с играми у Ника была и другая история. Лудомания пришла не сразу — сначала просто интерес, потом привычка, потом что-то большее. Сол видел это со стороны и молчал — не потому что не хотел говорить, а потому что знал: некоторые вещи человек должен понять сам. Вмешательство здесь не работает.</p>
+
+    <p>Несмотря на всё это — или благодаря всему этому — они оставались рядом. Абсолютно разные люди с одним общим знаменателем: доверие которое не нужно было объяснять.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">Кибитка</div>
+    </div>
+
+    <p>Их зарейдили пока все были офлайн. Это случается — в Rust это часть жизни, часть цикла. Но в тот раз дезмораль накрыла по-настоящему. Сол решил бросить вайп и уйти в другую игру — Divinity Original Sin 2, которую ему показал Сокол. Новый мир, новые механики, хотелось просто переключиться.</p>
+
+    <p>Ник решил иначе.</p>
+
+    <div class="dialogue">Ладно, суки, я сам всё отфармлю — и вы возвращаетесь доигрывать вайп.</div>
+
+    <p>Отказаться было невозможно — не потому что нельзя, а потому что так не говорят когда не собираются делать. Ник пошёл подниматься с нуля. Один, без команды, без базы. Полдня — и он был практически там же где они все были до рейда. Это было что-то из ряда вон.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Потом ему нужно было уйти по делам. Всё что он добыл лежало в небольшой кибитке — две металлические двери, восемь зарядов или пара ракет чтобы войти. Внутри ресурсов было на сотню ракет. Он попросил Сола зайти и сохранить — улучшить, присмотреть, просто не дать этому пропасть.</p>
+
+    <p>Сол сказал что зайдёт. Буквально уже выходит из игры и заходит в Rust.</p>
+
+    <p>Ник попросил ещё раз. Сол снова подтвердил.</p>
+
+    <p>Потом ушёл по делам.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Сол не зашёл. Увлёкся новой игрой и забыл — просто забыл, без злого умысла, просто так получилось. В поле посреди карты стояла будка на две ракеты с ресурсами на сотню — и никто за ней не присматривал.</p>
+
+    <p>Когда Ник вернулся и спросил — Сол осознал всё в ту же секунду. Ещё до ответа, ещё до загрузки сервера. Просто понял — и ему стало стыдно так, как бывает только когда подводишь того кто этого не заслуживал.</p>
+
+    <p>Ник загрузился на сервер. Кибитки не было. Ресурсов не было. Ничего не было.</p>
+
+    <p>Он перестал подбирать выражения.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Сол молчал и слушал — потому что знал за что. Это был испанский стыд в чистом виде — когда тебе стыдно не потому что тебя поймали, а потому что ты сам понимаешь насколько облажался. Ник психанул и ушёл играть в одиночку.</p>
+
+    <p>Но он вернулся. Как всегда возвращался — без объявлений, просто однажды снова был рядом. Потому что так устроены люди которые по-настоящему свои. Они злятся, уходят, молчат — и возвращаются.</p>
+
+    <p>Не по крови. По жизни.</p>
+
+    <p>Это крепче.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>
