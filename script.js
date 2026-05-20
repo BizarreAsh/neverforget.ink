@@ -222,9 +222,7 @@ function makeReadBtn(title, author, book) {
 
 // --- Book cards on index.html (static) ---
 
-const bookCards = document.querySelectorAll('.book-card');
-
-Array.from(bookCards).forEach(card => {
+document.querySelectorAll('.book-card').forEach(card => {
   const displayTitle  = card.querySelector('h3').textContent;
   const displayAuthor = card.querySelector('p').textContent;
   const book          = card.dataset.book || '';
@@ -245,10 +243,13 @@ Array.from(bookCards).forEach(card => {
   }
 
   card.appendChild(makeReadBtn(displayTitle, displayAuthor, book));
+});
 
-  card.addEventListener('click', () => {
-    if (book) window.open(book, '_blank');
-  });
+// Single delegated handler for opening books — works for static and dynamic cards
+document.addEventListener('click', e => {
+  if (e.target.closest('.fav-btn, .read-btn')) return;
+  const card = e.target.closest('[data-book]');
+  if (card) window.location.href = card.dataset.book;
 });
 
 // --- Catalog page ---
@@ -373,7 +374,6 @@ function makeCatalogCard({ title, author, book }) {
   badge.textContent = 'NeverForget Original';
 
   card.append(favBtn, makeReadBtn(title, author, book), cover, h3, p, badge);
-  card.addEventListener('click', () => window.open(book, '_blank'));
 
   return card;
 }
@@ -438,9 +438,6 @@ if (favGrid) {
         card.append(btn, makeReadBtn(title, author, bookUrl), cover, h3, p);
       }
 
-      card.addEventListener('click', () => {
-        if (card.dataset.book) window.open(card.dataset.book, '_blank');
-      });
       btn.addEventListener('click', e => {
         e.stopPropagation();
         toggleFavorite(title, author, bookUrl);
@@ -515,9 +512,6 @@ if (historyGrid) {
         card.append(favBtn, readBtn, cover, h3, p);
       }
 
-      card.addEventListener('click', () => {
-        if (card.dataset.book) window.open(card.dataset.book, '_blank');
-      });
       historyGrid.appendChild(card);
     });
   }
