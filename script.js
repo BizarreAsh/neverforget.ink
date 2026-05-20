@@ -241,6 +241,12 @@ const bookPool = [
   { title: 'Ренессанс на двоих',  author: 'Bizarre Ash', genre: 'genre_bio',     book: 'books/renessans_na_dvoikh.html'      },
   { title: 'Renaissance for Two', author: 'Bizarre Ash', genre: 'genre_bio',     book: 'books/renaissance_for_two_EN.html'   },
   { title: 'Renaissance zu zweit',author: 'Bizarre Ash', genre: 'genre_bio',     book: 'books/renaissance_zu_zweit_DE.html'  },
+  { title: 'Лучшее Трио',         author: 'Bizarre Ash', genre: 'genre_bio',     book: 'books/luchshee_trio-1.html'          },
+  { title: 'The Best Trio',       author: 'Bizarre Ash', genre: 'genre_bio',     book: 'books/the_best_trio_EN.html'         },
+  { title: 'Das beste Trio',      author: 'Bizarre Ash', genre: 'genre_bio',     book: 'books/das_beste_trio_DE.html'        },
+  { title: 'Санрайз на троих',    author: 'Bizarre Ash', genre: 'genre_bio',     book: 'books/sunrise_na_troikh-1.html'      },
+  { title: 'Sunrise for Three',   author: 'Bizarre Ash', genre: 'genre_bio',     book: 'books/sunrise_for_three_EN.html'     },
+  { title: 'Sunrise zu dritt',    author: 'Bizarre Ash', genre: 'genre_bio',     book: 'books/sunrise_zu_dritt_DE.html'      },
 ];
 
 function shuffleArray(arr) {
