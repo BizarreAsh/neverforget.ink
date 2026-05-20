@@ -222,51 +222,34 @@ function makeReadBtn(title, author, book) {
 
 // --- Book cards on index.html (static) ---
 
-const searchInput  = document.querySelector('.hero input');
-const searchButton = document.querySelector('.hero button');
-const bookCards    = document.querySelectorAll('.book-card');
+const bookCards = document.querySelectorAll('.book-card');
 
-const cardData = Array.from(bookCards).map(card => {
+Array.from(bookCards).forEach(card => {
   const displayTitle  = card.querySelector('h3').textContent;
   const displayAuthor = card.querySelector('p').textContent;
   const book          = card.dataset.book || '';
-  return { el: card, title: displayTitle.toLowerCase(), author: displayAuthor.toLowerCase(), displayTitle, displayAuthor, book };
-});
 
-cardData.forEach(({ el, displayTitle, displayAuthor, book }) => {
-  const favBtn = el.querySelector('.fav-btn');
-  if (!favBtn) return;
-  const sync = () => {
-    const on = isFavorite(displayTitle);
-    favBtn.classList.toggle('active', on);
-    favBtn.textContent = on ? '♥' : '♡';
-  };
-  sync();
-  favBtn.addEventListener('click', e => {
-    e.stopPropagation();
-    toggleFavorite(displayTitle, displayAuthor, book);
+  const favBtn = card.querySelector('.fav-btn');
+  if (favBtn) {
+    const sync = () => {
+      const on = isFavorite(displayTitle);
+      favBtn.classList.toggle('active', on);
+      favBtn.textContent = on ? '♥' : '♡';
+    };
     sync();
-  });
-
-  el.appendChild(makeReadBtn(displayTitle, displayAuthor, book));
-});
-
-if (searchButton) {
-  function runSearch() {
-    const query = searchInput.value.toLowerCase().trim();
-    cardData.forEach(({ el, title, author }) => {
-      el.style.display = (!query || title.includes(query) || author.includes(query)) ? 'block' : 'none';
+    favBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      toggleFavorite(displayTitle, displayAuthor, book);
+      sync();
     });
   }
-  searchButton.addEventListener('click', runSearch);
-  searchInput.addEventListener('keydown', e => { if (e.key === 'Enter') runSearch(); });
-  cardData.forEach(({ el, displayTitle }) => {
-    el.addEventListener('click', () => {
-      if (el.dataset.book) window.open(el.dataset.book, '_blank');
-      else alert(`${translations[currentLang].book_open}: "${displayTitle}"`);
-    });
+
+  card.appendChild(makeReadBtn(displayTitle, displayAuthor, book));
+
+  card.addEventListener('click', () => {
+    if (book) window.open(book, '_blank');
   });
-}
+});
 
 // --- Catalog page ---
 

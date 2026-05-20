@@ -80,33 +80,6 @@ nav a:hover {
   color: #b0a898;
 }
 
-.hero input {
-  padding: 12px 20px;
-  width: 350px;
-  max-width: 80%;
-  border: 2px solid #c9a84c;
-  border-radius: 25px 0 0 25px;
-  background: #0f0f1a;
-  color: #e8e0d0;
-  font-size: 1rem;
-  outline: none;
-}
-
-.hero button {
-  padding: 12px 25px;
-  background: #c9a84c;
-  color: #0f0f1a;
-  border: none;
-  border-radius: 0 25px 25px 0;
-  font-size: 1rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.hero button:hover {
-  background: #e8c96d;
-}
 
 /* FEATURED */
 .featured {
@@ -494,12 +467,6 @@ a.logo {
 
   .hero h1 {
     font-size: 1.8rem;
-  }
-
-  .hero input {
-    width: 65%;
-    max-width: none;
-    border-radius: 25px 0 0 25px;
   }
 
   .featured {
