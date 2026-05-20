@@ -320,8 +320,8 @@ const bookPool = [
   { title: 'Just Them and Cubic World',    author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/just_them_and_cubic_world_EN.html'         },
   { title: 'Nur sie und kubische Welt',    author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/nur_sie_und_kubische_welt_DE.html'         },
   { title: 'Хардкор',                      author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/хардкор.html'                              },
-  { title: 'Hardcore (EN)',                author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/hardcore_EN.html'                          },
-  { title: 'Hardcore (DE)',                author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/hardcore_DE.html'                          },
+  { title: 'Hardcore',                     author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/hardcore_EN.html'                          },
+  { title: 'Hardcore',                     author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/hardcore_DE.html'                          },
 ];
 
 function shuffleArray(arr) {
