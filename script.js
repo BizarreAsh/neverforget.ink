@@ -316,6 +316,12 @@ const bookPool = [
   { title: 'Два экрана один босс',          author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/dva_ekrana_odin_boss.html'               },
   { title: 'Two Screens One Boss',          author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/two_screens_one_boss_EN.html'            },
   { title: 'Zwei Bildschirme ein Boss',     author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/zwei_bildschirme_ein_boss_DE.html'       },
+  { title: 'Только они и кубический мир',  author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/tolko_oni_i_kubicheskiy_mir.html'          },
+  { title: 'Just Them and Cubic World',    author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/just_them_and_cubic_world_EN.html'         },
+  { title: 'Nur sie und kubische Welt',    author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/nur_sie_und_kubische_welt_DE.html'         },
+  { title: 'Хардкор',                      author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/хардкор.html'                              },
+  { title: 'Hardcore (EN)',                author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/hardcore_EN.html'                          },
+  { title: 'Hardcore (DE)',                author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/hardcore_DE.html'                          },
 ];
 
 function shuffleArray(arr) {
