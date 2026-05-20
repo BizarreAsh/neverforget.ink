@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Turkish Coffee Tangerine — Bizarre Ash</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #1a0f00;
+    --paper: #fdf5e8;
+    --fade: #b08040;
+    --accent: #c04800;
+    --gold: #e07820;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(240,140,30,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(192,72,0,0.05) 0%, transparent 60%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; }
+  .cover { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 6rem 0; position: relative; }
+  .cover::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); }
+  .cover-eyebrow { font-family: 'Cormorant Garamond', serif; font-size: 11px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 3rem; opacity: 0.8; }
+  .cover-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(32px, 7vw, 52px); font-weight: 300; letter-spacing: 0.04em; color: var(--ink); line-height: 1.2; margin-bottom: 0.4rem; }
+  .cover-title em { font-style: italic; color: var(--accent); }
+  .cover-rule { width: 40px; height: 1px; background: var(--gold); margin: 2.5rem auto; opacity: 0.6; }
+  .cover-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-style: italic; color: var(--fade); letter-spacing: 0.2em; margin-bottom: 5rem; }
+  .cover-author { font-family: 'Cormorant Garamond', serif; font-size: 13px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--fade); opacity: 0.7; }
+  .toc { padding: 7rem 0 5rem; border-bottom: 1px solid rgba(224,120,32,0.2); margin-bottom: 7rem; }
+  .toc-label { font-family: 'Cormorant Garamond', serif; font-size: 10px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 2.5rem; }
+  .toc-item { display: grid; grid-template-columns: 2em 1fr 2em; gap: 0.5rem; align-items: baseline; padding: 0.75rem 0; border-bottom: 1px solid rgba(224,120,32,0.12); font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; color: var(--ink); text-decoration: none; transition: color 0.2s; }
+  .toc-item:hover { color: var(--accent); }
+  .toc-roman { font-style: normal; font-size: 11px; color: var(--gold); letter-spacing: 0.1em; padding-top: 0.3em; }
+  .toc-num { font-style: normal; font-size: 11px; color: var(--fade); text-align: right; }
+  .chapter { padding-top: 6rem; margin-bottom: 3rem; }
+  .chapter-header { margin-bottom: 3rem; }
+  .chapter-number { font-family: 'Cormorant Garamond', serif; font-size: 100px; font-weight: 300; color: var(--gold); opacity: 0.18; line-height: 0.85; margin-bottom: -0.1em; letter-spacing: -0.02em; user-select: none; }
+  .chapter-title { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 300; font-style: italic; color: var(--ink); padding-bottom: 1.5rem; border-bottom: 1px solid rgba(224,120,32,0.35); line-height: 1.3; }
+  p { margin-bottom: 1.5em; text-align: justify; hyphens: auto; }
+  .chapter > p:first-of-type::first-letter { font-family: 'Cormorant Garamond', serif; font-size: 4.8em; font-weight: 300; float: left; line-height: 0.72; margin-right: 0.06em; margin-top: 0.1em; color: var(--accent); }
+  .dialogue { margin: 2em 0 2em 2.2em; font-style: italic; color: #2a1000; position: relative; font-size: 17.5px; }
+  .dialogue::before { content: '—'; position: absolute; left: -1.5em; color: var(--gold); font-style: normal; }
+  .break { display: flex; align-items: center; justify-content: center; gap: 0.6em; margin: 3rem 0; color: var(--gold); opacity: 0.5; font-size: 8px; letter-spacing: 0.6em; }
+  .break::before, .break::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, transparent, rgba(224,120,32,0.3)); }
+  .break::after { background: linear-gradient(to left, transparent, rgba(224,120,32,0.3)); }
+  .chapter-end { margin: 6rem 0 0; text-align: center; color: var(--gold); opacity: 0.3; font-size: 20px; letter-spacing: 0.6em; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">autobiographical prose</div>
+    <div class="cover-title">Turkish<br><em>Coffee</em><br>Tangerine</div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">about the warmth that stays after</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Contents</div>
+    <a class="toc-item" href="#ch1"><span class="toc-roman">I</span><span>Orange County</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch2"><span class="toc-roman">II</span><span>She Got Lost</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch3"><span class="toc-roman">III</span><span>No Use to Me Anymore</span><span class="toc-num">—</span></a>
+  </div>
+
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">Orange County</div>
+    </div>
+
+    <p>Orange County Resort received them the way good hotels do — quietly and with confidence. Turkey was a different country, different air, different sea — slightly darker than Egypt's, slightly warmer to the touch. Roy, Iva and Leo checked in, looked around, and each fell into their own rhythm.</p>
+
+    <p>Leo disappeared almost immediately. Not lost — just gone about his business, the way only he could. The hotel grounds were large, there were plenty of surfaces, and each of them had potential that Leo couldn't ignore. He wandered where he wanted, drew what he wanted, and came back satisfied — with the look of someone who'd done good work.</p>
+
+    <p>Roy watched this with the same mix of recognition and helplessness as in Egypt. Leo was Leo — nobody was going to change that. And why would they. The hotel staff apparently held the same view — or simply couldn't keep up with him.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>The days passed easily. Sea, food, sun, evenings with nowhere to be in a hurry. Iva was in her element — active, alive, constantly coming up with something. Roy kept pace with varying success. Leo would materialize periodically from nowhere, eat something, look at them both with the air of an older brother who understands everything, and disappear again.</p>
+
+    <p>Turkey was good. Not like Egypt — differently. Its food, its character, its way of being beautiful without trying.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">She Got Lost</div>
+    </div>
+
+    <p>On one of the evenings Iva disappeared.</p>
+
+    <p>Not sharply — gradually. First she just wasn't nearby, then she wasn't answering, then enough time had passed to make it noticeable. Roy started looking — across the grounds, along the beach, everywhere she might be. Nothing.</p>
+
+    <p>He couldn't get through to her. That was more serious. Roy wrote to her parents — they started calling from their end. Several people were simultaneously trying to find one person within the grounds of one hotel.</p>
+
+    <p>Iva found herself. She simply walked out of the sea — calm, content, completely baffled by why everyone was worked up. She'd been swimming. Just swimming in the sea — nothing unusual, an ordinary evening dip.</p>
+
+    <p>Her phone was in the room.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Roy exhaled. Then explained. Then exhaled again. Iva listened with the expression of someone who feels a little embarrassed but fundamentally doesn't understand what for — she was just swimming.</p>
+
+    <p>Leo appeared out of the dark at some point during this, graffiti on his hands, completely unruffled. Looked at both of them. Said nothing. Disappeared again.</p>
+
+    <p>The evening ended peacefully. Like almost everything on this trip.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">No Use to Me Anymore</div>
+    </div>
+
+    <p>The last evening started with a small problem — the cigarettes had run out. Everything around was closed, nowhere to get any, and it might have put a dent in the end of the trip if Roy hadn't decided to take the simple approach: ask someone.</p>
+
+    <p>A young couple was smoking outside. Roy went up and asked for a cigarette. The guy looked at him, then at his pack — and handed it over entirely, lighter included.</p>
+
+    <div class="dialogue">Take it, I've got no more use for it.</div>
+
+    <p>Roy was taken aback. He hadn't expected that kind of generosity — from a stranger, on the last evening, with no explanation. He thanked him — and almost immediately invited them to join the group. They looked at each other, talked it over briefly, and agreed.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Artyom and Nastya turned out to be good company — slightly older, slightly calmer, with that particular feeling of a couple who already know each other well enough. They reminded Roy of himself and Iva — just a few years further along, as if the same two people but later. Roy noticed this quickly and said nothing.</p>
+
+    <p>The evening turned out unexpectedly well. Conversation, laughter, warm air all around, the sea somewhere nearby in the dark. Leo sat with the air of someone who's enjoying everything but has no intention of admitting it.</p>
+
+    <p>The walk back to the room stretched until dawn — unnoticeably, the way only good evenings stretch. Artyom and Nastya left earlier. Said goodbye warmly — with the feeling of having spent good time with people they wouldn't see again. That's what happened. They stayed in touch a little after, then it quietly faded — everyone has their own life, their own road.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Turkey was remembered for the people. Leo and his graffiti on the walls of Orange County. Iva who was just swimming while everyone looked for her. The stranger who handed over a whole pack — no use to me anymore. Artyom and Nastya who showed up on the last evening and made it better.</p>
+
+    <p>That's always how it is — a holiday isn't the place, it's the people who happen in it.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Турецкая Кофейная Апельсинка — Bizarre Ash</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #1a0f00;
+    --paper: #fdf5e8;
+    --fade: #b08040;
+    --accent: #c04800;
+    --gold: #e07820;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(240,140,30,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(192,72,0,0.05) 0%, transparent 60%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; }
+
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 6rem 0;
+    position: relative;
+  }
+
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+
+  .cover-eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 3rem;
+    opacity: 0.8;
+  }
+
+  .cover-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 8vw, 58px);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    line-height: 1.2;
+    margin-bottom: 0.4rem;
+  }
+
+  .cover-title em { font-style: italic; color: var(--accent); }
+
+  .cover-rule {
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    margin: 2.5rem auto;
+    opacity: 0.6;
+  }
+
+  .cover-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--fade);
+    letter-spacing: 0.2em;
+    margin-bottom: 5rem;
+  }
+
+  .cover-author {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--fade);
+    opacity: 0.7;
+  }
+
+  .toc {
+    padding: 7rem 0 5rem;
+    border-bottom: 1px solid rgba(224,120,32,0.2);
+    margin-bottom: 7rem;
+  }
+
+  .toc-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2.5rem;
+  }
+
+  .toc-item {
+    display: grid;
+    grid-template-columns: 2em 1fr 2em;
+    gap: 0.5rem;
+    align-items: baseline;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(224,120,32,0.12);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .toc-item:hover { color: var(--accent); }
+
+  .toc-roman {
+    font-style: normal;
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    padding-top: 0.3em;
+  }
+
+  .toc-num {
+    font-style: normal;
+    font-size: 11px;
+    color: var(--fade);
+    text-align: right;
+  }
+
+  .chapter { padding-top: 6rem; margin-bottom: 3rem; }
+  .chapter-header { margin-bottom: 3rem; }
+
+  .chapter-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 100px;
+    font-weight: 300;
+    color: var(--gold);
+    opacity: 0.18;
+    line-height: 0.85;
+    margin-bottom: -0.1em;
+    letter-spacing: -0.02em;
+    user-select: none;
+  }
+
+  .chapter-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--ink);
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(224,120,32,0.35);
+    line-height: 1.3;
+  }
+
+  p {
+    margin-bottom: 1.5em;
+    text-align: justify;
+    hyphens: auto;
+  }
+
+  .chapter > p:first-of-type::first-letter {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4.8em;
+    font-weight: 300;
+    float: left;
+    line-height: 0.72;
+    margin-right: 0.06em;
+    margin-top: 0.1em;
+    color: var(--accent);
+  }
+
+  .dialogue {
+    margin: 2em 0 2em 2.2em;
+    font-style: italic;
+    color: #2a1000;
+    position: relative;
+    font-size: 17.5px;
+  }
+
+  .dialogue::before {
+    content: '—';
+    position: absolute;
+    left: -1.5em;
+    color: var(--gold);
+    font-style: normal;
+  }
+
+  .break {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6em;
+    margin: 3rem 0;
+    color: var(--gold);
+    opacity: 0.5;
+    font-size: 8px;
+    letter-spacing: 0.6em;
+  }
+
+  .break::before, .break::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(224,120,32,0.3));
+  }
+
+  .break::after {
+    background: linear-gradient(to left, transparent, rgba(224,120,32,0.3));
+  }
+
+  .chapter-end {
+    margin: 6rem 0 0;
+    text-align: center;
+    color: var(--gold);
+    opacity: 0.3;
+    font-size: 20px;
+    letter-spacing: 0.6em;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">автобиографическая проза</div>
+    <div class="cover-title">Турецкая<br><em>Кофейная</em><br>Апельсинка</div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">о тепле которое остаётся после</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Содержание</div>
+    <a class="toc-item" href="#ch1">
+      <span class="toc-roman">I</span>
+      <span>Orange County</span>
+      <span class="toc-num">—</span>
+    </a>
+    <a class="toc-item" href="#ch2">
+      <span class="toc-roman">II</span>
+      <span>Потерялась</span>
+      <span class="toc-num">—</span>
+    </a>
+    <a class="toc-item" href="#ch3">
+      <span class="toc-roman">III</span>
+      <span>Мне уже без надобности</span>
+      <span class="toc-num">—</span>
+    </a>
+  </div>
+
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">Orange County</div>
+    </div>
+
+    <p>Orange County Resort встретил их так, как встречают хорошие отели — тихо и уверенно. Турция была другой страной, другим воздухом, другим морем — чуть темнее египетского, чуть теплее на ощупь. Рой, Ива и Лео заселились, осмотрелись и разошлись каждый в свой ритм.</p>
+
+    <p>Лео исчез почти сразу. Не потерялся — просто ушёл по своим делам, как умел только он. Территория отеля была большой, поверхностей много, и у каждой из них был потенциал который Лео не мог игнорировать. Он бродил где хотел, рисовал что хотел и возвращался довольным — с видом человека который хорошо поработал.</p>
+
+    <p>Рой смотрел на это с той же смесью узнавания и беспомощности что и в Египте. Лео был Лео — переделывать его никто не собирался. Да и зачем. Персонал отеля, судя по всему, придерживался того же мнения — или просто не успевал за ним.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Дни шли легко. Море, еда, солнце, вечера когда никуда не нужно торопиться. Ива была в своей стихии — активная, живая, постоянно что-то придумывающая. Рой успевал за ней с переменным успехом. Лео периодически возникал из ниоткуда, съедал что-то, смотрел на них с видом старшего брата который всё понимает, и снова исчезал.</p>
+
+    <p>Турция нравилась. Не так как Египет — иначе. Своей едой, своим характером, своим способом быть красивой без лишних усилий.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">Потерялась</div>
+    </div>
+
+    <p>В один из вечеров Ива пропала.</p>
+
+    <p>Не резко — постепенно. Сначала просто не было рядом, потом она не брала трубку, потом прошло достаточно времени чтобы это стало заметным. Рой начал искать — по территории, по пляжу, по всем местам где она могла быть. Нигде.</p>
+
+    <p>Дозвониться не получалось. Это уже было серьёзнее. Рой написал её родителям — они начали звонить со своей стороны. Общими усилиями несколько человек одновременно пытались найти одного человека на территории одного отеля.</p>
+
+    <p>Ива нашлась сама. Просто вышла из моря — спокойная, довольная, с полным непониманием почему все такие взволнованные. Она плавала. Просто плавала в море — ничего особенного, обычное вечернее купание.</p>
+
+    <p>Телефон остался в номере.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Рой выдохнул. Потом объяснил. Потом выдохнул ещё раз. Ива слушала с выражением человека которому немного стыдно но который в целом не понимает за что — она же просто плавала.</p>
+
+    <p>Лео где-то в этот момент появился из темноты с граффити на руках и невозмутимым видом. Посмотрел на обоих. Ничего не сказал. Снова исчез.</p>
+
+    <p>Вечер закончился мирно. Как почти всё в этой поездке.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">Мне уже без надобности</div>
+    </div>
+
+    <p>Последний вечер начался с маленькой проблемы — сигареты закончились. Всё вокруг было закрыто, раздобыть негде, и это могло бы испортить финал поездки если бы Рой не решил действовать просто: попросить у кого-нибудь.</p>
+
+    <p>На улице курила молодая пара. Рой подошёл, попросил сигарету. Парень посмотрел на него, потом на свою пачку — и протянул её целиком вместе с зажигалкой.</p>
+
+    <div class="dialogue">Забирай, мне уже без надобности.</div>
+
+    <p>Рой оторопел. Такой щедрости он не ожидал — от незнакомца, в последний вечер, без объяснений. Он поблагодарил — и почти сразу пригласил их присоединиться к компании. Те переглянулись, недолго посовещались и согласились.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Артём и Настя оказались приятными людьми — чуть старше, чуть спокойнее, с тем особым ощущением пары которая уже знает друг друга достаточно хорошо. Они были похожи на Роя с Ивой — только постарше, как будто те же двое но несколько лет спустя. Рой заметил это быстро и ничего не сказал вслух.</p>
+
+    <p>Вечер получился неожиданно хорошим. Разговоры, смех, тёплый воздух вокруг, море где-то рядом в темноте. Лео сидел с видом человека которому всё нравится но который не намерен это признавать.</p>
+
+    <p>Дорога назад в номер растянулась до самого рассвета — незаметно, как растягиваются только хорошие вечера. Артём и Настя ушли раньше. Попрощались тепло — с тем ощущением что хорошо провели время с людьми которых больше не увидят. Так и вышло. Пообщались ещё немного после, и всё затихло — у каждого своя жизнь, своя дорога.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Турция запомнилась именно людьми. Лео и его граффити на стенах Orange County. Ива которая просто плавала пока все её искали. Незнакомец который отдал целую пачку — мне уже без надобности. Артём и Настя которые появились в последний вечер и сделали его лучше.</p>
+
+    <p>Так всегда и бывает — отдых это не место, это люди которые в нём случаются.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>

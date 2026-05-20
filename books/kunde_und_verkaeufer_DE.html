@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Der Kunde und die Verkäuferin — Bizarre Ash</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #0f180f;
+    --paper: #eff5ee;
+    --fade: #6a8a6a;
+    --accent: #2a5a2a;
+    --gold: #5a8a5a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(80,160,80,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(42,90,42,0.05) 0%, transparent 60%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; }
+  .cover { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 6rem 0; position: relative; }
+  .cover::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); }
+  .cover-eyebrow { font-family: 'Cormorant Garamond', serif; font-size: 11px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 3rem; opacity: 0.8; }
+  .cover-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(32px, 7vw, 54px); font-weight: 300; letter-spacing: 0.04em; color: var(--ink); line-height: 1.2; margin-bottom: 0.4rem; }
+  .cover-title em { font-style: italic; color: var(--accent); }
+  .cover-rule { width: 40px; height: 1px; background: var(--gold); margin: 2.5rem auto; opacity: 0.6; }
+  .cover-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-style: italic; color: var(--fade); letter-spacing: 0.2em; margin-bottom: 5rem; }
+  .cover-author { font-family: 'Cormorant Garamond', serif; font-size: 13px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--fade); opacity: 0.7; }
+  .toc { padding: 7rem 0 5rem; border-bottom: 1px solid rgba(90,138,90,0.2); margin-bottom: 7rem; }
+  .toc-label { font-family: 'Cormorant Garamond', serif; font-size: 10px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 2.5rem; }
+  .toc-item { display: grid; grid-template-columns: 2em 1fr 2em; gap: 0.5rem; align-items: baseline; padding: 0.75rem 0; border-bottom: 1px solid rgba(90,138,90,0.12); font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; color: var(--ink); text-decoration: none; transition: color 0.2s; }
+  .toc-item:hover { color: var(--accent); }
+  .toc-roman { font-style: normal; font-size: 11px; color: var(--gold); letter-spacing: 0.1em; padding-top: 0.3em; }
+  .toc-num { font-style: normal; font-size: 11px; color: var(--fade); text-align: right; }
+  .chapter { padding-top: 6rem; margin-bottom: 3rem; }
+  .chapter-header { margin-bottom: 3rem; }
+  .chapter-number { font-family: 'Cormorant Garamond', serif; font-size: 100px; font-weight: 300; color: var(--gold); opacity: 0.18; line-height: 0.85; margin-bottom: -0.1em; letter-spacing: -0.02em; user-select: none; }
+  .chapter-title { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 300; font-style: italic; color: var(--ink); padding-bottom: 1.5rem; border-bottom: 1px solid rgba(90,138,90,0.35); line-height: 1.3; }
+  p { margin-bottom: 1.5em; text-align: justify; hyphens: auto; }
+  .chapter > p:first-of-type::first-letter { font-family: 'Cormorant Garamond', serif; font-size: 4.8em; font-weight: 300; float: left; line-height: 0.72; margin-right: 0.06em; margin-top: 0.1em; color: var(--accent); }
+  .break { display: flex; align-items: center; justify-content: center; gap: 0.6em; margin: 3rem 0; color: var(--gold); opacity: 0.5; font-size: 8px; letter-spacing: 0.6em; }
+  .break::before, .break::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, transparent, rgba(90,138,90,0.3)); }
+  .break::after { background: linear-gradient(to left, transparent, rgba(90,138,90,0.3)); }
+  .chapter-end { margin: 6rem 0 0; text-align: center; color: var(--gold); opacity: 0.3; font-size: 20px; letter-spacing: 0.6em; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">autobiografische Prosa</div>
+    <div class="cover-title">Der Kunde<br><em>und die Verkäuferin</em></div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">über das was mit einem Geschäft beginnt</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Inhalt</div>
+    <a class="toc-item" href="#ch1"><span class="toc-roman">I</span><span>Infestation</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch2"><span class="toc-roman">II</span><span>Wie man auf jedes Gebäude kommt</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch3"><span class="toc-roman">III</span><span>Die Uferpromenade bis zur Dämmerung</span><span class="toc-num">—</span></a>
+  </div>
+
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">Infestation</div>
+    </div>
+
+    <p>Infestation — später umbenannt in WarZ — war ein Spiel mit Ruf. Überleben, Zombies, Postapokalypse, offene Welt. Aber das Wichtigste darin waren Menschen. Echte, auf der anderen Seite des Bildschirms, jeder mit seinem eigenen Ziel und seiner eigenen Verhaltenslogik. Ren und Emil spielten dort zusammen — wie immer, nebeneinander, auf einer Wellenlänge.</p>
+
+    <p>Anna kam von dort. Nicht zufällig — sie und ihr Mann betrieben einen Spielshop. Echtes Geld im Tausch gegen Spielgegenstände — Waffen, Ausrüstung, alles wofür andere stundenlang farmten, hier einfach zu kaufen. Ren wurde Kunde. Sie wurde Verkäuferin. Klar und sachlich.</p>
+
+    <p>Anfangs waren die Gespräche kurz — Bestellung, Zahlung, Übergabe, Dank. Standardmechanik einer Transaktion. Aber dann verschob sich etwas — unmerklich, so wie es immer passiert. Nachrichten wurden länger. Pausen zwischen Antworten kürzer. Themen breiter.</p>
+
+    <p>Emil beobachtete das mit dem Verständnis von jemandem der alles sieht und schweigt. Er war die ganze Zeit dabei — nah, so wie es sich für einen guten Partner gehört.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">Wie man auf jedes Gebäude kommt</div>
+    </div>
+
+    <p>Irgendwann fing Anna an mit ihnen zu spielen. Nicht als Verkäuferin — als Spielerin. Sie kannte das Spiel von innen besser als die meisten — nicht weil sie viel darüber gelesen hatte, sondern weil sie lange genug darin gelebt hatte um alle Risse zu finden.</p>
+
+    <p>Einer dieser Risse war die Sprungmechanik. In Infestation war sie genau so kaputt dass man beim richtigen Winkel und richtigen Timing auf jedes Gebäude klettern konnte. Nicht über eine Leiter, nicht durch den offensichtlichen Eingang — buchstäblich über eine Wandecke, wenn man wusste wie.</p>
+
+    <p>Anna lehrte sie methodisch — zeigte den Winkel, erklärte das Timing, schaute zu wie sie es versuchten. Ren fiel. Emil fiel. Beide fielen mehrmals hintereinander, und das war lustig auf jene besondere Art wenn man über sich selbst lacht weil die Situation es verlangt.</p>
+
+    <p>Dann klappte es. Emil zuerst, dann Ren. Sie standen auf dem Dach eines Gebäudes das noch vor einer Minute unerreichbar schien — und schauten nach unten mit dem Gefühl eines kleinen aber echten Sieges.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Anna lachte im Sprachchat. Nicht über sie — mit ihnen. Ein kleiner Unterschied, aber er existiert — und Ren spürte ihn.</p>
+
+    <p>Das war der Moment als die Kunde-Verkäuferin-Beziehung aufhörte das Einzige zu sein was zwischen ihnen war. Es entstand etwas anderes — ohne Namen, ohne Definition. Einfach etwas anderes.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">Die Uferpromenade bis zur Dämmerung</div>
+    </div>
+
+    <p>Sie verabredeten sich an der Uferpromenade. Einfach spazieren — nicht mehr und nicht weniger, so nannte man das. Ren kam früher, wie immer. Stand am Wasser und wartete.</p>
+
+    <p>Als er sie sah verliebte er sich ein bisschen mehr. Klein, rothaarig, voller Sommersprossen. Ungefähr dreiundzwanzig — spürbar älter als er, sie wusste es, er wusste es, und beide taten so als wäre das einfach eine Tatsache und kein Gesprächsthema. Sie gingen am Fluss entlang und fingen an zu reden.</p>
+
+    <p>Sie redeten über alles — Themen wechselten leicht, ohne Pausen, ohne das unbeholfene Schweigen das entsteht wenn zwei Menschen noch keinen gemeinsamen Rhythmus gefunden haben. Ihr Rhythmus war früher gefunden worden — dort im Spiel, im Sprachchat, in Hunderten von Nachrichten die nichts mit Transaktionen zu tun hatten. Hier machten sie einfach weiter.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Irgendwo in der Mitte des Spaziergangs begann Ren leicht zu hinken. Eine wundgeriebene Ferse — die Schuhe versagten im denkbar schlechtesten Moment. Er lief und sagte nichts, weil er erstens ein Mann war und es zweitens wirklich nicht schlimm war.</p>
+
+    <p>Anna bemerkte es selbst. Bot ein Pflaster an — sie hatte eines dabei, sie studierte Medizin und das war einfach Teil ihrer Art zu sein. Ren lehnte ab. Sie bot es nochmal an. Er lehnte wieder ab — mit dem Blick von jemandem dem überhaupt nicht weh tut.</p>
+
+    <p>Dann gab er nach.</p>
+
+    <p>Sie hockte sich neben ihn und versorgte die Ferse sorgfältig — schnell, ohne überflüssige Kommentare, wie jemand der weiß was er tut. Ren sah ihre roten Haare an und dachte dass das ein gutes Date war. Auch wenn beide so taten als wäre es kein Date.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Sie liefen bis zur ersten Dämmerung. Der Fluss dunkelte ab, Laternen gingen eine nach der anderen an, die Stadt schaltete auf Abendmodus. Beiden ging es gut — das war ohne Worte sichtbar.</p>
+
+    <p>Irgendwann verstand Ren dass es besser war mit dem zu leben was tatsächlich da war als Illusionen aufzubauen die keine Chance hatten wahr zu werden. Der Altersunterschied, ihr Leben das bereits anders eingerichtet war, alles andere — das waren Tatsachen die nirgendwo hingingen. Er hörte einfach auf mit ihnen zu streiten und fing an einfach neben ihr herzugehen.</p>
+
+    <p>Nach jenem Abend begannen ihre Wege sich zu trennen — still, ohne Erklärung. Anna meldete sich nicht mehr. Ihr Freund antwortete manchmal an ihrer Stelle — kurz, sachlich. Ren verstand.</p>
+
+    <p>Innen war eine kleine Leere. Nicht katastrophal — einfach klein. So wie es ist wenn etwas Gutes früher endet als man möchte, aber richtig endet.</p>
+
+    <p>Emil war da — wie immer. Die Spiele hörten nicht auf. Das Leben ging weiter.</p>
+
+    <p>Anna blieb als rothaarige Mädchen in Erinnerung die wusste wie man auf jedes Gebäude kommt und einem Fremden der länger stur war als nötig ein Pflaster nicht verweigerte.</p>
+
+    <p>Das war genug.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>

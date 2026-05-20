@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Клиент и продавец — Bizarre Ash</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #0f180f;
+    --paper: #eff5ee;
+    --fade: #6a8a6a;
+    --accent: #2a5a2a;
+    --gold: #5a8a5a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(80,160,80,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(42,90,42,0.05) 0%, transparent 60%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; }
+
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 6rem 0;
+    position: relative;
+  }
+
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+
+  .cover-eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 3rem;
+    opacity: 0.8;
+  }
+
+  .cover-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(40px, 9vw, 64px);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    line-height: 1.15;
+    margin-bottom: 0.4rem;
+  }
+
+  .cover-title em { font-style: italic; color: var(--accent); }
+
+  .cover-rule {
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    margin: 2.5rem auto;
+    opacity: 0.6;
+  }
+
+  .cover-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--fade);
+    letter-spacing: 0.2em;
+    margin-bottom: 5rem;
+  }
+
+  .cover-author {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--fade);
+    opacity: 0.7;
+  }
+
+  .toc {
+    padding: 7rem 0 5rem;
+    border-bottom: 1px solid rgba(90,138,90,0.2);
+    margin-bottom: 7rem;
+  }
+
+  .toc-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2.5rem;
+  }
+
+  .toc-item {
+    display: grid;
+    grid-template-columns: 2em 1fr 2em;
+    gap: 0.5rem;
+    align-items: baseline;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(90,138,90,0.12);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .toc-item:hover { color: var(--accent); }
+
+  .toc-roman {
+    font-style: normal;
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    padding-top: 0.3em;
+  }
+
+  .toc-num {
+    font-style: normal;
+    font-size: 11px;
+    color: var(--fade);
+    text-align: right;
+  }
+
+  .chapter { padding-top: 6rem; margin-bottom: 3rem; }
+  .chapter-header { margin-bottom: 3rem; }
+
+  .chapter-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 100px;
+    font-weight: 300;
+    color: var(--gold);
+    opacity: 0.18;
+    line-height: 0.85;
+    margin-bottom: -0.1em;
+    letter-spacing: -0.02em;
+    user-select: none;
+  }
+
+  .chapter-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--ink);
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(90,138,90,0.35);
+    line-height: 1.3;
+  }
+
+  p {
+    margin-bottom: 1.5em;
+    text-align: justify;
+    hyphens: auto;
+  }
+
+  .chapter > p:first-of-type::first-letter {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4.8em;
+    font-weight: 300;
+    float: left;
+    line-height: 0.72;
+    margin-right: 0.06em;
+    margin-top: 0.1em;
+    color: var(--accent);
+  }
+
+  .dialogue {
+    margin: 2em 0 2em 2.2em;
+    font-style: italic;
+    color: #1a2e1a;
+    position: relative;
+    font-size: 17.5px;
+  }
+
+  .dialogue::before {
+    content: '—';
+    position: absolute;
+    left: -1.5em;
+    color: var(--gold);
+    font-style: normal;
+  }
+
+  .break {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6em;
+    margin: 3rem 0;
+    color: var(--gold);
+    opacity: 0.5;
+    font-size: 8px;
+    letter-spacing: 0.6em;
+  }
+
+  .break::before, .break::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(90,138,90,0.3));
+  }
+
+  .break::after {
+    background: linear-gradient(to left, transparent, rgba(90,138,90,0.3));
+  }
+
+  .chapter-end {
+    margin: 6rem 0 0;
+    text-align: center;
+    color: var(--gold);
+    opacity: 0.3;
+    font-size: 20px;
+    letter-spacing: 0.6em;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">автобиографическая проза</div>
+    <div class="cover-title">Клиент<br><em>и продавец</em></div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">о том, что начинается со сделки</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Содержание</div>
+    <a class="toc-item" href="#ch1">
+      <span class="toc-roman">I</span>
+      <span>Infestation</span>
+      <span class="toc-num">—</span>
+    </a>
+    <a class="toc-item" href="#ch2">
+      <span class="toc-roman">II</span>
+      <span>Как залезть на любое здание</span>
+      <span class="toc-num">—</span>
+    </a>
+    <a class="toc-item" href="#ch3">
+      <span class="toc-roman">III</span>
+      <span>Набережная до сумерек</span>
+      <span class="toc-num">—</span>
+    </a>
+  </div>
+
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">Infestation</div>
+    </div>
+
+    <p>Infestation — впоследствии переименованная в WarZ — была игрой с репутацией. Выживание, зомби, постапокалипсис, открытый мир. Но главное что в ней было — это люди. Живые, по ту сторону экрана, каждый со своей целью и своей логикой поведения. Рэн и Эмиль играли там вместе — как всегда, рядом, на одной волне.</p>
+
+    <p>Анна появилась оттуда же. Не случайно — у неё с мужем был игровой магазин. Реальные деньги в обмен на игровые предметы — оружие, снаряжение, всё то, за чем другие охотились часами, а здесь можно было просто купить. Рэн стал клиентом. Она стала продавцом. Всё было чётко и по делу.</p>
+
+    <p>Первое время разговоры были короткими — заказ, оплата, передача, благодарность. Стандартная механика сделки. Но потом что-то сдвинулось — незаметно, как это всегда бывает. Переписка стала длиннее. Паузы между сообщениями — короче. Темы — шире.</p>
+
+    <p>Эмиль наблюдал за этим с пониманием человека который всё видит но молчит. Он был там всю дорогу — рядом, как и положено лучшему напарнику.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">Как залезть на любое здание</div>
+    </div>
+
+    <p>В какой-то момент Анна начала играть с ними. Не как продавец — как игрок. Она знала игру изнутри лучше большинства — не потому что много читала о ней, а потому что жила в ней достаточно долго чтобы найти все её трещины.</p>
+
+    <p>Одной из таких трещин была механика прыжков. В Infestation она была сломана ровно настолько, чтобы при правильном угле и правильном моменте можно было взобраться на любое здание. Не через лестницу, не через очевидный вход — а буквально через угол стены, если знаешь как.</p>
+
+    <p>Анна учила их методично — показывала угол, объясняла тайминг, смотрела как они пробуют. Рэн падал. Эмиль падал. Оба падали по несколько раз подряд, и это было смешно в той особой манере когда смеёшься над собой потому что ситуация того требует.</p>
+
+    <p>Потом получилось. Сначала у Эмиля, потом у Рэна. Они стояли на крыше здания которое минуту назад казалось недостижимым — и смотрели вниз с тем ощущением маленькой но настоящей победы.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Анна смеялась в голосовом. Не над ними — вместе с ними. Разница небольшая, но она есть — и Рэн её почувствовал.</p>
+
+    <p>Это был момент когда отношения клиент-продавец перестали быть единственным что между ними было. Стало что-то ещё — без названия, без определения. Просто что-то ещё.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">Набережная до сумерек</div>
+    </div>
+
+    <p>Они договорились встретиться на набережной. Просто погулять — ни больше ни меньше, так это и называлось. Рэн приехал заранее, как всегда. Стоял у воды и ждал.</p>
+
+    <p>Когда он увидел её — влюбился сильнее. Небольшого роста, рыжеволосая, вся в веснушках. Около двадцати трёх лет — старше его заметно, и она это знала, и он это знал, и оба сделали вид что это просто факт а не тема для разговора. Они пошли вдоль реки и начали говорить.</p>
+
+    <p>Говорили обо всём — темы сменялись легко, без пауз, без того неловкого молчания которое бывает когда двое ещё не нашли общий ритм. Их ритм был найден раньше — там, в игре, в голосовом чате, в сотнях сообщений которые шли не по делу. Здесь просто продолжили.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Где-то в середине прогулки Рэн начал прихрамывать. Натёртая пятка — обувь подвела в самый неподходящий момент. Он шёл и не говорил об этом, потому что мужик в первую очередь и вообще ничего страшного.</p>
+
+    <p>Анна заметила сама. Предложила пластырь — у неё был с собой, она училась на медицинском и это было просто частью того как она устроена. Рэн отказался. Она предложила снова. Он снова отказал — с видом человека которому совсем не больно.</p>
+
+    <p>Потом сдался.</p>
+
+    <p>Она присела рядом и обработала пятку аккуратно — быстро, без лишних комментариев, как человек который знает что делает. Рэн смотрел на её рыжие волосы и думал о том что это хорошее свидание. Даже если оба делали вид что это не свидание.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Они гуляли до первых сумерек. Река темнела, фонари зажигались один за другим, город переходил в вечерний режим. Им обоим было хорошо — это было видно без слов.</p>
+
+    <p>Рэн понял в какой-то момент что лучше жить тем что есть прямо сейчас, чем строить иллюзии которым не суждено сбыться. Разница в возрасте, её жизнь которая уже была устроена иначе, всё остальное — это были факты которые никуда не девались. Он просто перестал с ними спорить и начал просто идти рядом.</p>
+
+    <p>После того вечера их пути начали расходиться — тихо, без объяснений. Анна перестала выходить на связь. Её парень иногда отвечал вместо неё — коротко, по делу. Рэн понял.</p>
+
+    <p>Внутри было немного пусто. Не катастрофически — просто немного. Как бывает когда что-то хорошее заканчивается раньше чем хотелось бы, но заканчивается правильно.</p>
+
+    <p>Эмиль был рядом — как всегда. Игры не останавливались. Жизнь шла дальше.</p>
+
+    <p>Анна осталась в памяти как рыжеволосая девушка которая знала как залезть на любое здание и не пожалела пластырь для незнакомца который упрямился дольше чем стоило.</p>
+
+    <p>Этого было достаточно.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>
