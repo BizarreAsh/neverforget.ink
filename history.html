@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NeverForget — Избранное</title>
+  <title>NeverForget — История</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -12,8 +12,8 @@
     <a class="logo" href="index.html">📚 NeverForget</a>
     <nav>
       <a href="catalog.html" data-i18n="nav_catalog">Каталог</a>
-      <a href="favorites.html" data-i18n="nav_favorites" class="nav-active">Избранное</a>
-      <a href="history.html" data-i18n="nav_history">История</a>
+      <a href="favorites.html" data-i18n="nav_favorites">Избранное</a>
+      <a href="history.html" data-i18n="nav_history" class="nav-active">История</a>
       <a href="#" data-i18n="nav_about">О нас</a>
       <a href="#" data-i18n="nav_contacts">Контакты</a>
     </nav>
@@ -24,13 +24,13 @@
     </div>
   </header>
 
-  <section class="favorites-section">
-    <h1 data-i18n="fav_title">Избранное</h1>
-    <div id="favorites-grid" class="books-grid"></div>
-    <div id="fav-empty" class="fav-empty" hidden>
-      <div class="fav-empty-icon">📚</div>
-      <p data-i18n="fav_empty_title">Здесь пока пусто</p>
-      <p data-i18n="fav_empty_hint">Нажми ♡ на любой книге, чтобы сохранить её здесь</p>
+  <section class="history-section">
+    <h1 data-i18n="history_title">История</h1>
+    <div id="history-grid" class="books-grid"></div>
+    <div id="history-empty" class="fav-empty" hidden>
+      <div class="fav-empty-icon">📖</div>
+      <p data-i18n="history_empty_title">Ещё ничего не прочитано</p>
+      <p data-i18n="history_empty_hint">Нажми ○ на любой книге, чтобы отметить её прочитанной</p>
     </div>
   </section>
 

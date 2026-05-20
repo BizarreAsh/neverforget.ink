@@ -37,6 +37,10 @@ const translations = {
     genre_back:         'Все жанры',
     nav_contacts:       'Контакты',
     contacts_title:     'Контакты',
+    nav_history:        'История',
+    history_title:      'История',
+    history_empty_title:'Ещё ничего не прочитано',
+    history_empty_hint: 'Нажми ○ на любой книге, чтобы отметить её прочитанной',
   },
   en: {
     nav_catalog:        'Catalog',
@@ -76,6 +80,10 @@ const translations = {
     genre_back:         'All Genres',
     nav_contacts:       'Contacts',
     contacts_title:     'Contacts',
+    nav_history:        'History',
+    history_title:      'History',
+    history_empty_title:'Nothing read yet',
+    history_empty_hint: 'Tap ○ on any book to mark it as read',
   },
   de: {
     nav_catalog:        'Katalog',
@@ -115,6 +123,10 @@ const translations = {
     genre_back:         'Alle Genres',
     nav_contacts:       'Kontakt',
     contacts_title:     'Kontakt',
+    nav_history:        'Verlauf',
+    history_title:      'Verlauf',
+    history_empty_title:'Noch nichts gelesen',
+    history_empty_hint: 'Tippe ○ auf ein Buch, um es als gelesen zu markieren',
   },
 };
 
@@ -166,6 +178,46 @@ function toggleFavorite(title, author, book) {
   return idx === -1;
 }
 
+// --- Read history (localStorage) ---
+
+const READ_KEY = 'nf_read';
+
+function loadRead() {
+  try { return JSON.parse(localStorage.getItem(READ_KEY)) || []; }
+  catch { return []; }
+}
+
+function isRead(title) {
+  return loadRead().some(r => r.title === title);
+}
+
+function toggleRead(title, author, book) {
+  const list = loadRead();
+  const idx  = list.findIndex(r => r.title === title);
+  if (idx === -1) list.push({ title, author, book: book || '' });
+  else            list.splice(idx, 1);
+  localStorage.setItem(READ_KEY, JSON.stringify(list));
+  return idx === -1;
+}
+
+function makeReadBtn(title, author, book) {
+  const btn = document.createElement('button');
+  btn.className = 'read-btn';
+  const sync = () => {
+    const on = isRead(title);
+    btn.classList.toggle('active', on);
+    btn.textContent = on ? '✓' : '○';
+    btn.title = on ? '' : '';
+  };
+  sync();
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    toggleRead(title, author, book);
+    sync();
+  });
+  return btn;
+}
+
 // --- Book cards on index.html (static) ---
 
 const searchInput  = document.querySelector('.hero input');
@@ -193,6 +245,8 @@ cardData.forEach(({ el, displayTitle, displayAuthor, book }) => {
     toggleFavorite(displayTitle, displayAuthor, book);
     sync();
   });
+
+  el.appendChild(makeReadBtn(displayTitle, displayAuthor, book));
 });
 
 if (searchButton) {
@@ -327,7 +381,7 @@ function makeCatalogCard({ title, author, book }) {
   badge.className   = 'book-badge';
   badge.textContent = 'NeverForget Original';
 
-  card.append(favBtn, cover, h3, p, badge);
+  card.append(favBtn, makeReadBtn(title, author, book), cover, h3, p, badge);
   card.addEventListener('click', () => window.open(book, '_blank'));
 
   return card;
@@ -388,9 +442,9 @@ if (favGrid) {
         const badge = document.createElement('span');
         badge.className   = 'book-badge';
         badge.textContent = 'NeverForget Original';
-        card.append(btn, cover, h3, p, badge);
+        card.append(btn, makeReadBtn(title, author, bookUrl), cover, h3, p, badge);
       } else {
-        card.append(btn, cover, h3, p);
+        card.append(btn, makeReadBtn(title, author, bookUrl), cover, h3, p);
       }
 
       card.addEventListener('click', () => {
@@ -405,6 +459,78 @@ if (favGrid) {
     });
   }
   renderFavorites();
+}
+
+// --- History page ---
+
+const historyGrid  = document.getElementById('history-grid');
+const historyEmpty = document.getElementById('history-empty');
+
+if (historyGrid) {
+  function renderHistory() {
+    const list = loadRead();
+    historyGrid.innerHTML = '';
+    if (list.length === 0) {
+      historyEmpty.removeAttribute('hidden');
+      return;
+    }
+    historyEmpty.setAttribute('hidden', '');
+    list.forEach(({ title, author, book }) => {
+      const bookUrl = book || (bookPool.find(b => b.title === title) || {}).book || '';
+
+      const card = document.createElement('div');
+      card.className = 'book-card' + (bookUrl ? ' book-card--original' : '');
+      if (bookUrl) card.dataset.book = bookUrl;
+
+      const favBtn = document.createElement('button');
+      favBtn.className   = 'fav-btn';
+      const syncHeart = () => {
+        const on = isFavorite(title);
+        favBtn.classList.toggle('active', on);
+        favBtn.textContent = on ? '♥' : '♡';
+      };
+      syncHeart();
+      favBtn.addEventListener('click', e => {
+        e.stopPropagation();
+        toggleFavorite(title, author, bookUrl);
+        syncHeart();
+      });
+
+      const readBtn = document.createElement('button');
+      readBtn.className   = 'read-btn active';
+      readBtn.textContent = '✓';
+      readBtn.addEventListener('click', e => {
+        e.stopPropagation();
+        toggleRead(title, author, bookUrl);
+        renderHistory();
+      });
+
+      const cover = document.createElement('div');
+      cover.className   = 'book-cover';
+      cover.textContent = '📖';
+
+      const h3 = document.createElement('h3');
+      h3.textContent = title;
+
+      const p = document.createElement('p');
+      p.textContent = author;
+
+      if (bookUrl) {
+        const badge = document.createElement('span');
+        badge.className   = 'book-badge';
+        badge.textContent = 'NeverForget Original';
+        card.append(favBtn, readBtn, cover, h3, p, badge);
+      } else {
+        card.append(favBtn, readBtn, cover, h3, p);
+      }
+
+      card.addEventListener('click', () => {
+        if (card.dataset.book) window.open(card.dataset.book, '_blank');
+      });
+      historyGrid.appendChild(card);
+    });
+  }
+  renderHistory();
 }
 
 // --- Modals ---
