@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Erster Flug — Bizarre Ash</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #0f1018;
+    --paper: #eef0f8;
+    --fade: #7080a0;
+    --accent: #203060;
+    --gold: #4060a0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(60,100,200,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(32,48,96,0.05) 0%, transparent 60%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; }
+
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 6rem 0;
+    position: relative;
+  }
+
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+
+  .cover-eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 3rem;
+    opacity: 0.8;
+  }
+
+  .cover-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(44px, 10vw, 70px);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    line-height: 1.15;
+    margin-bottom: 0.4rem;
+  }
+
+  .cover-title em { font-style: italic; color: var(--accent); }
+
+  .cover-rule {
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    margin: 2.5rem auto;
+    opacity: 0.6;
+  }
+
+  .cover-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--fade);
+    letter-spacing: 0.2em;
+    margin-bottom: 5rem;
+  }
+
+  .cover-author {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--fade);
+    opacity: 0.7;
+  }
+
+  .toc {
+    padding: 7rem 0 5rem;
+    border-bottom: 1px solid rgba(64,96,160,0.2);
+    margin-bottom: 7rem;
+  }
+
+  .toc-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2.5rem;
+  }
+
+  .toc-item {
+    display: grid;
+    grid-template-columns: 2em 1fr 2em;
+    gap: 0.5rem;
+    align-items: baseline;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(64,96,160,0.12);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .toc-item:hover { color: var(--accent); }
+
+  .toc-roman {
+    font-style: normal;
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    padding-top: 0.3em;
+  }
+
+  .toc-num {
+    font-style: normal;
+    font-size: 11px;
+    color: var(--fade);
+    text-align: right;
+  }
+
+  .chapter { padding-top: 6rem; margin-bottom: 3rem; }
+  .chapter-header { margin-bottom: 3rem; }
+
+  .chapter-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 100px;
+    font-weight: 300;
+    color: var(--gold);
+    opacity: 0.18;
+    line-height: 0.85;
+    margin-bottom: -0.1em;
+    letter-spacing: -0.02em;
+    user-select: none;
+  }
+
+  .chapter-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--ink);
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(64,96,160,0.35);
+    line-height: 1.3;
+  }
+
+  p {
+    margin-bottom: 1.5em;
+    text-align: justify;
+    hyphens: auto;
+  }
+
+  .chapter > p:first-of-type::first-letter {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4.8em;
+    font-weight: 300;
+    float: left;
+    line-height: 0.72;
+    margin-right: 0.06em;
+    margin-top: 0.1em;
+    color: var(--accent);
+  }
+
+  .dialogue {
+    margin: 2em 0 2em 2.2em;
+    font-style: italic;
+    color: #1a1a2e;
+    position: relative;
+    font-size: 17.5px;
+  }
+
+  .dialogue::before {
+    content: '—';
+    position: absolute;
+    left: -1.5em;
+    color: var(--gold);
+    font-style: normal;
+  }
+
+  .break {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6em;
+    margin: 3rem 0;
+    color: var(--gold);
+    opacity: 0.5;
+    font-size: 8px;
+    letter-spacing: 0.6em;
+  }
+
+  .break::before, .break::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(64,96,160,0.3));
+  }
+
+  .break::after {
+    background: linear-gradient(to left, transparent, rgba(64,96,160,0.3));
+  }
+
+  .chapter-end {
+    margin: 6rem 0 0;
+    text-align: center;
+    color: var(--gold);
+    opacity: 0.3;
+    font-size: 20px;
+    letter-spacing: 0.6em;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">autobiografische Prosa</div>
+    <div class="cover-title">Erster<br><em>Flug</em></div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">über das Landen wo man nicht hingeplant hatte</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Inhalt</div>
+    <a class="toc-item" href="#ch1">
+      <span class="toc-roman">I</span>
+      <span>Vier Stunden ohne Zigarette</span>
+      <span class="toc-num">—</span>
+    </a>
+    <a class="toc-item" href="#ch2">
+      <span class="toc-roman">II</span>
+      <span>Andy, Onkel Lev und der George-Clooney-Laden</span>
+      <span class="toc-num">—</span>
+    </a>
+    <a class="toc-item" href="#ch3">
+      <span class="toc-roman">III</span>
+      <span>Budapest aus Versehen</span>
+      <span class="toc-num">—</span>
+    </a>
+  </div>
+
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">Vier Stunden ohne Zigarette</div>
+    </div>
+
+    <p>Sein Vater schenkte ihm die Reise — nach Ägypten, zu zweit, nach den Winterprüfungen im zweiten Studienjahr. Roy hatte an solche Geschenke nicht wirklich geglaubt bis die Unterlagen in seinen Händen lagen. Dana — die Tochter einer Freundin seiner Mutter, die in einem Reisebüro arbeitete — übernahm den ganzen Papierkram und war für jede Frage erreichbar. Es blieb nur noch hinzufliegen.</p>
+
+    <p>Es gab ein Problem. Es hieß Iva.</p>
+
+    <p>Iva hatte Angst vor Flugzeugen. Ernsthaft, wirklich — nicht die vage Beklommenheit die die meisten kennen, sondern echte Angst mit einer detaillierten Liste von Gründen. Roy hörte sich die Liste an und beschloss zu helfen auf seine eigene Art: er fing an ihr Absturzvideos zu zeigen, erzählte von Katastrophen, nannte Statistiken — allerdings nannte er Statistiken die eigentlich für ihn sprachen, Flugzeuge sind sicherer als Autos, das ist Tatsache. Aber die Präsentation war so dass Iva fast in Panik geriet bevor sie zum Kern des Arguments kam.</p>
+
+    <p>Sie flogen. Vier Stunden — und Roy rauchte die ganze Zeit nicht, weil es an Bord verboten war und damit basta. Es war seine private Qual, die er niemandem gegenüber laut erwähnte, die aber während des gesamten Fluges in der Luft hing.</p>
+
+    <p>Scharm el-Scheich empfing sie mit Hitze, Grenzkontrolle und einem Transferbus. Das Hotel lag in der ersten Reihe — fünf Minuten Fußweg zum Meer. Das Personal brachte das Gepäck direkt ins Zimmer und deutete dezent auf Trinkgeld hin. Roy gab welches — nicht weil man das so macht, sondern weil ihm gefiel wie das funktionierte.</p>
+
+    <p>Sie waren allein in einem geräumigen Zimmer mit einem riesigen Bett. Draußen war Ägypten. Zum ersten Mal im Leben — für beide.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">Andy, Onkel Lev und der George-Clooney-Laden</div>
+    </div>
+
+    <p>Andy tauchte von selbst auf — einheimisch, jung, mit gutem Russisch und einem noch besseren Verständnis dafür was Erstbesucher brauchen. Er gab ihnen zwei SIM-Karten mit bezahltem Internet — mit der einzigen Bedingung sie am letzten Tag zurückzugeben. Er fuhr sie in einen normalen Supermarkt, zeigte ihnen wo man ohne fünffachen Aufschlag einkauft, führte sie an Orte die in keinem Reiseführer stehen.</p>
+
+    <p>In demselben Supermarkt entdeckte Roy seine Lieblingschips zu einem Preis der wie ein Tippfehler aussah — und kaufte eine ganze Kiste. Andy sah das mit dem Gesichtsausdruck von jemandem der vieles gesehen hat, aber das noch nicht.</p>
+
+    <p>Sie verbrachten einen Großteil der Zeit mit ihm — zu dritt, jeden Tag etwas Neues. Andy wusste alles und erklärte ohne Herablassung, einfach direkt.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Am zweiten oder dritten Tag tauchte im Hotel ein älteres Paar auf — Onkel Lev und Tante Maya. Ihre eigenen Kinder hatten sie in den Urlaub geschickt, und sie hatten das als selbstverständlich hingenommen. Zusammen hatten sie mehr Reiseerfahrung als Roy und Iva zusammen, und sie teilten sie gerne — nicht belehrend, einfach erzählend.</p>
+
+    <p>Onkel Lev sprach in Geschichten. Jede war wie ein eigenes Leben — ob ausgeschmückt oder genau stimmte nichts, was stimmte war dass man ihnen endlos zuhören konnte. Bei einem Frühstück holte er einen ordentlichen Instantkaffee aus einem Serviceschrank und reichte ihn Roy mit dem Kommentar:</p>
+
+    <div class="dialogue">Wir haben bezahlt — also warum sich etwas verweigern?</div>
+
+    <p>Roy fand das ungeheuerlich und gleichzeitig absolut richtig.</p>
+
+    <p>Tante Maya und Iva fanden ihre eigene Beschäftigung — irgend etwas mit Karten oder Wahrsagen, nicht zu stören, sonst würde alles auseinanderfallen. Die männliche Runde mischte sich nicht ein und fand selbst Beschäftigung.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Der George-Clooney-Laden — der Name änderte sich aber so nannten sie ihn — war eine eigene Entdeckung. Zufällige Hotelgäste hatten von einem Ort erzählt wo alles dasselbe wie überall ist, aber ohne Aufschlag und mit kostenlosem Transfer von überall am Resort. Sie fuhren hin. Roy kaufte ein als würde er nicht vorhaben zurückzukommen.</p>
+
+    <p>Die Tage flogen. Meer, Sonne, Andy mit der nächsten Route, Abende mit Onkel Lev. Das alles wirkte leicht unwirklich — nicht weil es zu gut war, sondern weil es einfach anders war. Andere Luft, anderes Tempo, andere Menschen um einen herum.</p>
+
+    <p>Auf dem Rückweg stiegen sie in bester Stimmung ins Flugzeug.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">Budapest aus Versehen</div>
+    </div>
+
+    <p>Noch etwa zehn Minuten bis zur Landung. Das Navigationsmonitor zeigte ihre Position — sie waren nah am Flughafen, der Anflug sollte jeden Moment beginnen. Stattdessen flog das Flugzeug geradeaus weiter.</p>
+
+    <p>Dann fing es an Kreise zu drehen.</p>
+
+    <p>Keine Durchsagen. Keine Erklärungen. Passagiere schauten aus den Fenstern und auf die Monitore und stellten leise Theorien auf. Roy schwieg und beobachtete die Anzeigen.</p>
+
+    <p>Nach etwa zwanzig Minuten nahm das Flugzeug Kurs weg vom Flughafen. Wohin — unklar. Noch eine Stunde Schweigen. Dann beschloss der Pilot endlich mit den Menschen zu reden die schon seit mehreren extra Stunden hinter ihm saßen: kein Landeslot verfügbar, wir suchen einen anderen Flughafen, wir fliegen nach Budapest, übernachten dort, morgen nach Hause.</p>
+
+    <p>Roy erinnerte sich wie er während der Wüstensafari mehrmals das Wort Budapest über den Lärm von zehn Motoren hinausgerufen hatte — einfach weil er guter Stimmung war. Einfach auf verschiedene Weisen verformt, an niemanden gerichtet. Iva hatte gelacht. Jetzt flogen sie genau dorthin.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Am Flughafen stellte sich heraus dass es zwei Arten von Reisepässen gibt — biometrische und normale. Sein Vater hatte einst entschieden dass sie keine biometrischen brauchten. In dieser Nacht hatte diese Entscheidung Konsequenzen: biometrischer Pass — Hotel in der Stadt und ein freier Abend. Normaler Pass — willkommen im Wartesaalstuhl bis zum Morgen.</p>
+
+    <p>Roy blieb am Flughafen. Iva hätte ins Hotel gehen können — wollte aber nicht allein. Sie verbrachten die Nacht zusammen, schliefen abwechselnd, einer döste während der andere auf das Gepäck und die Zeit achtete.</p>
+
+    <p>Alles war geschlossen. Nirgends zu rauchen. Dann irgendwann kurz vor dem Morgen wurden sie nach draußen geführt — für frische Luft, um sich zu strecken. Es war Winter. Roy ging im T-Shirt hinaus — ihm war nicht kalt, oder er dachte es zumindest — und stand die gesamte Raucherpause im Frost.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Gegen Mittag war das Flugzeug bereit. Sie kamen abends nach Hause — fast ein zusätzlicher Tag, ein Flughafen in einem fremden Land, eine Nacht im Stuhl.</p>
+
+    <p>Am nächsten Morgen wachte Roy mit einer Lungenentzündung auf.</p>
+
+    <p>Das änderte nichts an seiner Einstellung zur Kälte. Wenn ihm nicht kalt war — unternahm er nichts dagegen. Diese Anweisung ließ sich damals nicht korrigieren und danach auch nicht.</p>
+
+    <p>Die erste Reise endete mit Krankenstand. Aber Budapest haben sie doch gesehen — auch wenn nur den Flughafen, auch wenn nachts, auch wenn aus Versehen.</p>
+
+    <p>Manchmal sind die besten Geschichten genau solche.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>
