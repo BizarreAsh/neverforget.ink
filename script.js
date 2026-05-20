@@ -232,9 +232,15 @@ const bookPool = [
   { title: 'Сдано',            author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/sdano-1.html'             },
   { title: 'Submitted',        author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/submitted_EN.html'        },
   { title: 'Abgegeben',        author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/abgegeben_DE.html'        },
-  { title: 'Любовь Внутри',    author: 'Bizarre Ash', genre: 'genre_romance', book: 'books/lyubov_vnutri-2.html'       },
-  { title: 'Love Within',      author: 'Bizarre Ash', genre: 'genre_romance', book: 'books/love_within_EN.html'        },
-  { title: 'Liebe von Innen',  author: 'Bizarre Ash', genre: 'genre_romance', book: 'books/liebe_von_innen_DE-1.html'  },
+  { title: 'Любовь Внутри',       author: 'Bizarre Ash', genre: 'genre_romance', book: 'books/lyubov_vnutri-2.html'          },
+  { title: 'Love Within',         author: 'Bizarre Ash', genre: 'genre_romance', book: 'books/love_within_EN.html'           },
+  { title: 'Liebe von Innen',     author: 'Bizarre Ash', genre: 'genre_romance', book: 'books/liebe_von_innen_DE-1.html'     },
+  { title: 'Первый полёт',        author: 'Bizarre Ash', genre: 'genre_bio',     book: 'books/pervyy_polyot-1.html'          },
+  { title: 'First Flight',        author: 'Bizarre Ash', genre: 'genre_bio',     book: 'books/first_flight_EN.html'          },
+  { title: 'Erster Flug',         author: 'Bizarre Ash', genre: 'genre_bio',     book: 'books/erster_flug_DE.html'           },
+  { title: 'Ренессанс на двоих',  author: 'Bizarre Ash', genre: 'genre_bio',     book: 'books/renessans_na_dvoikh.html'      },
+  { title: 'Renaissance for Two', author: 'Bizarre Ash', genre: 'genre_bio',     book: 'books/renaissance_for_two_EN.html'   },
+  { title: 'Renaissance zu zweit',author: 'Bizarre Ash', genre: 'genre_bio',     book: 'books/renaissance_zu_zweit_DE.html'  },
 ];
 
 function shuffleArray(arr) {
