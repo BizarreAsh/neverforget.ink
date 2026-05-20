@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sveb, Leo und der Hangar — Bizarre Ash</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #0a1010;
+    --paper: #e8f2f0;
+    --fade: #507068;
+    --accent: #1a4838;
+    --gold: #306858;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(48,104,88,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(26,72,56,0.05) 0%, transparent 60%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; }
+  .cover { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 6rem 0; position: relative; }
+  .cover::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); }
+  .cover-eyebrow { font-family: 'Cormorant Garamond', serif; font-size: 11px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 3rem; opacity: 0.8; }
+  .cover-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(32px, 7vw, 52px); font-weight: 300; letter-spacing: 0.04em; color: var(--ink); line-height: 1.2; margin-bottom: 0.4rem; }
+  .cover-title em { font-style: italic; color: var(--accent); }
+  .cover-rule { width: 40px; height: 1px; background: var(--gold); margin: 2.5rem auto; opacity: 0.6; }
+  .cover-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-style: italic; color: var(--fade); letter-spacing: 0.2em; margin-bottom: 5rem; }
+  .cover-author { font-family: 'Cormorant Garamond', serif; font-size: 13px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--fade); opacity: 0.7; }
+  .toc { padding: 7rem 0 5rem; border-bottom: 1px solid rgba(48,104,88,0.2); margin-bottom: 7rem; }
+  .toc-label { font-family: 'Cormorant Garamond', serif; font-size: 10px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 2.5rem; }
+  .toc-item { display: grid; grid-template-columns: 2em 1fr 2em; gap: 0.5rem; align-items: baseline; padding: 0.75rem 0; border-bottom: 1px solid rgba(48,104,88,0.12); font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; color: var(--ink); text-decoration: none; transition: color 0.2s; }
+  .toc-item:hover { color: var(--accent); }
+  .toc-roman { font-style: normal; font-size: 11px; color: var(--gold); letter-spacing: 0.1em; padding-top: 0.3em; }
+  .toc-num { font-style: normal; font-size: 11px; color: var(--fade); text-align: right; }
+  .chapter { padding-top: 6rem; margin-bottom: 3rem; }
+  .chapter-header { margin-bottom: 3rem; }
+  .chapter-number { font-family: 'Cormorant Garamond', serif; font-size: 100px; font-weight: 300; color: var(--gold); opacity: 0.18; line-height: 0.85; margin-bottom: -0.1em; letter-spacing: -0.02em; user-select: none; }
+  .chapter-title { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 300; font-style: italic; color: var(--ink); padding-bottom: 1.5rem; border-bottom: 1px solid rgba(48,104,88,0.35); line-height: 1.3; }
+  p { margin-bottom: 1.5em; text-align: justify; hyphens: auto; }
+  .chapter > p:first-of-type::first-letter { font-family: 'Cormorant Garamond', serif; font-size: 4.8em; font-weight: 300; float: left; line-height: 0.72; margin-right: 0.06em; margin-top: 0.1em; color: var(--accent); }
+  .dialogue { margin: 2em 0 2em 2.2em; font-style: italic; color: #0a1810; position: relative; font-size: 17.5px; }
+  .dialogue::before { content: '—'; position: absolute; left: -1.5em; color: var(--gold); font-style: normal; }
+  .break { display: flex; align-items: center; justify-content: center; gap: 0.6em; margin: 3rem 0; color: var(--gold); opacity: 0.5; font-size: 8px; letter-spacing: 0.6em; }
+  .break::before, .break::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, transparent, rgba(48,104,88,0.3)); }
+  .break::after { background: linear-gradient(to left, transparent, rgba(48,104,88,0.3)); }
+  .chapter-end { margin: 6rem 0 0; text-align: center; color: var(--gold); opacity: 0.3; font-size: 20px; letter-spacing: 0.6em; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">autobiografische Prosa</div>
+    <div class="cover-title">Sveb, Leo<br><em>und der Hangar</em></div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">über die die zu denen führten die blieben</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Inhalt</div>
+    <a class="toc-item" href="#ch1"><span class="toc-roman">I</span><span>Sveb</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch2"><span class="toc-roman">II</span><span>Leo</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch3"><span class="toc-roman">III</span><span>Der Hangar</span><span class="toc-num">—</span></a>
+  </div>
+
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">Sveb</div>
+    </div>
+
+    <p>Sveb war ein paar Jahre jünger — und das merkte man an genau einer Stelle: seiner Stimme. Ein charakteristischer hoher Klang den man mit niemandem anderen im Call verwechseln konnte. Er öffnete den Mund und man wusste sofort wer spricht, ohne Rückfragen. Bis wusste das und nutzte es gelegentlich — Sveb in den Chat holen, und die Atmosphäre änderte sich.</p>
+
+    <p>Keine schlechten Gewohnheiten — was die Stimme zum Teil erklärte. Clever, konnte ein Gespräch am Laufen halten, fand das Gute in Situationen wo andere nur das Schlechte sahen. Eine Mission verloren — "wow, nochmal" — null Negativität. Das war seine Art zu sein, kein gespielter Optimismus sondern einfach sein Charakter.</p>
+
+    <p>Sveb war das Bindeglied. Nicht im Sinne dass er absichtlich alle verband — es ergab sich einfach so. Kannte viele Menschen, kreuzte sich mit vielen, verstand es dort zu sein wo er gebraucht wurde. Durch ihn lernte Bis Menschen kennen die lange blieben — nicht alle auf einmal, allmählich, einen nach dem anderen.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Hunderte Stunden zusammen — in MTA, in anderen Spielen, in Calls wo sie über alles und nichts gleichzeitig sprachen. Sveb verstand es da zu sein ohne viel Lärm zu machen — er war einfach dabei, und das reichte.</p>
+
+    <p>Dann begannen sich seine Interessen zu verschieben — DayZ, Arma 2, andere Richtungen. Bis beobachtete diese Bewegung von der Seite bis er ihr eines Tages folgte. So wie es meistens bei denen ist die als Erste gehen — sie wissen nicht immer dass sie einen Weg bahnen.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">Leo</div>
+    </div>
+
+    <p>Sveb brachte Leo. Vollkommenes Gegenteil — ruhig, besonnen, sprach langsamer und überlegter. Wo Sveb das emotionale Zentrum war, war Leo der stabilisierende Faktor. Sie ergänzten sich so präzise dass es absichtlich wirkte — obwohl niemand irgendetwas absichtlich arrangiert hatte.</p>
+
+    <p>Leos Familiensituation war kompliziert — mal bei der Mutter, mal beim Vater. Trank nicht, rauchte nicht. Ein ziemlich gewöhnlicher Typ mit Eigenheiten die sich nicht sofort zeigten.</p>
+
+    <p>Leos wichtigste Eigenheit war eine — er war der Erste in der Gruppe der verstand dass man Geld für Erlebnisse ausgeben sollte. Nicht für Dinge, nicht für Status — für gemeinsame Erinnerungen, für das was man sich merkt. In MTA hatten sie immer die besten Basen und die coolsten Autos genau weil Leo dabei nicht knauserte. Sein Standardsatz wenn es um einen teuren Kauf ging war kurz:</p>
+
+    <div class="dialogue">Macht euch keinen Stress, ich zahl das.</div>
+
+    <p>Und er zahlte. Ohne Bedingungen, ohne Rechnung, einfach weil er konnte und wollte dass alle eine gute Zeit haben. Manchmal verpasste er selbst das wofür er bezahlt hatte — aber das hielt ihn nie auf.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Bis beobachtete das und prägte es sich ein. Nicht absichtlich — so funktioniert Beobachtung eben wenn jemand etwas richtig macht. Leo pflanzte in ihm ein Verhaltensmuster das lange blieb: den Eigenen gegenüber nicht geizen, auch wenn man selbst die gemeinsame Freude verpasst.</p>
+
+    <p>Ihre Verbindung war besonders — enger als mit den anderen. Dima brachte Energie, Leo Pragmatismus und Ressourcen. Das Duo funktionierte. Hunderte Stunden zusammen, Entscheidungen gemeinsam getroffen, und bis heute gibt es gelegentlich Kontakt — in der Kategorie "wir sind in Verbindung aber jeder hat sein eigenes Leben". Damals war alles anders.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">Der Hangar</div>
+    </div>
+
+    <p>Sveb wechselte die Richtung — DayZ, Arma 2, Server wo alles ernster und rauer war als in MTA. Bis folgte. Nicht sofort — erst beobachtete er, dann probierte er selbst, dann konnte er nicht mehr aufhören zu spielen.</p>
+
+    <p>DayZ war damals roh — konzeptuell interessant, voller Lücken in allem anderen. Cheater bewegten sich frei, Anticheat gab es kaum. Die Einfallsreichsten erschufen die beste Ausrüstung aus dem Nichts und verkauften sie für ein paar Dollar. Bis nutzte das wenn ihm die Lust fehlte — rüstete sich und Sveb aus, und sie gingen kämpfen gegen wen auch immer.</p>
+
+    <p>Bei einem solchen Ausflug gerieten sie mitten in einen großen Feuerkampf in der Stadt. Ein Scharfschütze arbeitete alle ab — unbekannte Zugehörigkeit, unbekannte Position. Treffer kamen chaotisch aber präzise. Bis und Sveb hielten sich an den Wänden, bewegten sich in kurzen Sprints — und irgendwann merkten sie dass sie dieselben Menschen von verschiedenen Seiten beschossen.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Sie hörten gleichzeitig auf zu schießen. Es war eine fremde Gruppe. Sie trafen sich im Hangar, tauschten Kontakte aus, trennten sich.</p>
+
+    <p>Sveb brachte Leo. Leo lehrte Geld für Erlebnisse auszugeben. Ein Scharfschütze in DayZ führte zu den Menschen die blieben.</p>
+
+    <p>So funktioniert das — manche Menschen führen zu anderen, und niemand weiß vorher welche das sein werden.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>

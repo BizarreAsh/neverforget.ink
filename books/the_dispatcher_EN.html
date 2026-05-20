@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Dispatcher — Bizarre Ash</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #12121a;
+    --paper: #eeeef8;
+    --fade: #707088;
+    --accent: #303058;
+    --gold: #505080;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(80,80,128,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(48,48,88,0.05) 0%, transparent 60%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; }
+  .cover { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 6rem 0; position: relative; }
+  .cover::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); }
+  .cover-eyebrow { font-family: 'Cormorant Garamond', serif; font-size: 11px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 3rem; opacity: 0.8; }
+  .cover-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(44px, 10vw, 70px); font-weight: 300; letter-spacing: 0.08em; color: var(--ink); line-height: 1.0; margin-bottom: 0.4rem; }
+  .cover-rule { width: 40px; height: 1px; background: var(--gold); margin: 2.5rem auto; opacity: 0.6; }
+  .cover-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-style: italic; color: var(--fade); letter-spacing: 0.2em; margin-bottom: 5rem; }
+  .cover-author { font-family: 'Cormorant Garamond', serif; font-size: 13px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--fade); opacity: 0.7; }
+  .toc { padding: 7rem 0 5rem; border-bottom: 1px solid rgba(80,80,128,0.2); margin-bottom: 7rem; }
+  .toc-label { font-family: 'Cormorant Garamond', serif; font-size: 10px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 2.5rem; }
+  .toc-item { display: grid; grid-template-columns: 2em 1fr 2em; gap: 0.5rem; align-items: baseline; padding: 0.75rem 0; border-bottom: 1px solid rgba(80,80,128,0.12); font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; color: var(--ink); text-decoration: none; transition: color 0.2s; }
+  .toc-item:hover { color: var(--accent); }
+  .toc-roman { font-style: normal; font-size: 11px; color: var(--gold); letter-spacing: 0.1em; padding-top: 0.3em; }
+  .toc-num { font-style: normal; font-size: 11px; color: var(--fade); text-align: right; }
+  .chapter { padding-top: 6rem; margin-bottom: 3rem; }
+  .chapter-header { margin-bottom: 3rem; }
+  .chapter-number { font-family: 'Cormorant Garamond', serif; font-size: 100px; font-weight: 300; color: var(--gold); opacity: 0.18; line-height: 0.85; margin-bottom: -0.1em; letter-spacing: -0.02em; user-select: none; }
+  .chapter-title { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 300; font-style: italic; color: var(--ink); padding-bottom: 1.5rem; border-bottom: 1px solid rgba(80,80,128,0.35); line-height: 1.3; }
+  p { margin-bottom: 1.5em; text-align: justify; hyphens: auto; }
+  .chapter > p:first-of-type::first-letter { font-family: 'Cormorant Garamond', serif; font-size: 4.8em; font-weight: 300; float: left; line-height: 0.72; margin-right: 0.06em; margin-top: 0.1em; color: var(--accent); }
+  .dialogue { margin: 2em 0 2em 2.2em; font-style: italic; color: #12121a; position: relative; font-size: 17.5px; }
+  .dialogue::before { content: '—'; position: absolute; left: -1.5em; color: var(--gold); font-style: normal; }
+  .break { display: flex; align-items: center; justify-content: center; gap: 0.6em; margin: 3rem 0; color: var(--gold); opacity: 0.5; font-size: 8px; letter-spacing: 0.6em; }
+  .break::before, .break::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, transparent, rgba(80,80,128,0.3)); }
+  .break::after { background: linear-gradient(to left, transparent, rgba(80,80,128,0.3)); }
+  .chapter-end { margin: 6rem 0 0; text-align: center; color: var(--gold); opacity: 0.3; font-size: 20px; letter-spacing: 0.6em; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">autobiographical prose</div>
+    <div class="cover-title">The Dispatcher</div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">about letting go of what gets in the way</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Contents</div>
+    <a class="toc-item" href="#ch1"><span class="toc-roman">I</span><span>The Cross</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch2"><span class="toc-roman">II</span><span>Two Thousand Bucks for a Cigarette</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch3"><span class="toc-roman">III</span><span>A Cigarette and a Lighter</span><span class="toc-num">—</span></a>
+  </div>
+
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">The Cross</div>
+    </div>
+
+    <p>His father gave him the cross. Not the father who was there — the one who wasn't. Biological, distant, almost abstract. A gift from someone he barely knew — but a real gift, gold, with a weight felt beyond the physical.</p>
+
+    <p>Ash wore it as a talisman. Not from religion, not from tradition — it simply became that. The cross was his. Not anyone else's, specifically his — in the way things become part of a person not because they're valuable but because they carry something inside. A story, a person, a moment.</p>
+
+    <p>It seemed to Ash that it was needed by everyone. Protection, luck, something that holds. But it belonged only to him. That mattered — having something that was only yours, when so much around was shared or foreign or undefined.</p>
+
+    <p>The cross hung on his neck for a long time. Through good and bad, through years that changed, through people who came and went. It stayed — as a reminder that someone, somewhere, once gave something real.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">Two Thousand Bucks for a Cigarette</div>
+    </div>
+
+    <p>There's a song about a dispatcher who gives two thousand dollars for a cigarette. Not because the cigarette is worth that. But because in a specific moment, in a specific state — that's exactly what was needed, and the price stopped mattering.</p>
+
+    <p>Ash made it real. Not metaphorically — literally.</p>
+
+    <p>The state was what it's like when your head stops working the way it should — without warning, without logic, without the inner dispatcher who usually says stop. Psychosis isn't the drama from films. It's a quiet loss of bearings — when you don't know which way is up, which is down, what matters and what doesn't. Everything merges into one thing and movement starts on its own.</p>
+
+    <p>He was alone. Outside. Things were flying — not in a burst of anger, but in that particular state where getting rid of objects feels like getting rid of weight. Phone, documents, money — everything he had on him was going somewhere. Not thrown intentionally — simply released. His hands were doing their thing, his head wasn't stopping them.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>A person walked by. Random, ordinary — just going about their business. Ash stopped them.</p>
+
+    <p>Asked for a cigarette.</p>
+
+    <p>They gave one.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">A Cigarette and a Lighter</div>
+    </div>
+
+    <p>The cross came off his neck by itself — or it felt that way. Ash held it out to the stranger. Gold in exchange for a cigarette and a lighter. No negotiation, no explanation, no pause to think it over.</p>
+
+    <p>The stranger took it. Handed over the cigarette. Handed over the lighter. Left.</p>
+
+    <p>Ash lit up.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Then his head started coming back — slowly, the way everything comes back that didn't leave all at once. And with it came the understanding of what had happened. The cross was gone. A gift from a father who hadn't been there. A talisman that had been only his.</p>
+
+    <p>And — nothing.</p>
+
+    <p>Not emptiness, not pain. Simply nothing — the way it is when you let go of something heavy and realise it was heavier than it seemed. The cross didn't only carry protection — it carried a question without an answer. A person who wasn't there. A relationship that didn't fully exist.</p>
+
+    <p>The cigarette burned down. The lighter stayed in his pocket.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Everything that holds you back — you can let go. In different ways. Sometimes consciously, with ceremony and the right words. Sometimes like this — alone outside, in a state where the head doesn't filter, and gold goes for a cigarette.</p>
+
+    <p>The result is the same. It gets lighter.</p>
+
+    <p>Not immediately — but it does.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>

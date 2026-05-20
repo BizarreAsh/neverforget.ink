@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Der Disponent</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #0e1520;
+    --paper: #eef0f5;
+    --accent: #2b3a6e;
+    --gold: #7a8ab5;
+    --fade: #6b7490;
+    --rule: rgba(122,138,181,0.25);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(43,58,110,0.06) 0%, transparent 55%),
+      radial-gradient(ellipse at 80% 100%, rgba(122,138,181,0.07) 0%, transparent 55%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.95;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 620px; margin: 0 auto; }
+
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 6rem 0;
+    position: relative;
+  }
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 60px; height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+  .cover-eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10.5px;
+    letter-spacing: 0.55em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 3.5rem;
+    opacity: 0.8;
+  }
+  .cover-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(50px, 10vw, 74px);
+    font-weight: 300;
+    color: var(--ink);
+    line-height: 1.05;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.3rem;
+  }
+  .cover-rule {
+    width: 36px; height: 1px;
+    background: var(--gold);
+    margin: 2.5rem auto;
+    opacity: 0.5;
+  }
+  .cover-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14.5px;
+    font-style: italic;
+    color: var(--fade);
+    letter-spacing: 0.06em;
+    line-height: 1.6;
+    max-width: 320px;
+    margin: 0 auto 5rem;
+  }
+  .cover-author {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 12px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--fade);
+    opacity: 0.65;
+  }
+
+  .toc {
+    padding: 7rem 0 5rem;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 7rem;
+  }
+  .toc-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10px;
+    letter-spacing: 0.55em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2.5rem;
+  }
+  .toc-item {
+    display: grid;
+    grid-template-columns: 2em 1fr 2em;
+    gap: 0.5rem;
+    align-items: baseline;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid rgba(122,138,181,0.12);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 19px;
+    font-style: italic;
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .toc-item:hover { color: var(--accent); }
+  .toc-roman { font-style: normal; font-size: 10.5px; color: var(--gold); letter-spacing: 0.1em; padding-top: 0.35em; }
+  .toc-dash { font-style: normal; font-size: 11px; color: var(--fade); text-align: right; }
+
+  .chapter { padding-top: 6rem; margin-bottom: 2rem; }
+  .chapter-header { margin-bottom: 3rem; }
+  .chapter-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 110px;
+    font-weight: 300;
+    color: var(--accent);
+    opacity: 0.1;
+    line-height: 0.82;
+    margin-bottom: -0.08em;
+    user-select: none;
+  }
+  .chapter-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--ink);
+    padding-bottom: 1.4rem;
+    border-bottom: 1px solid var(--rule);
+    line-height: 1.3;
+  }
+
+  p { margin-bottom: 1.6em; text-align: justify; hyphens: auto; }
+
+  .chapter > p:first-of-type::first-letter {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 5em;
+    font-weight: 300;
+    float: left;
+    line-height: 0.7;
+    margin-right: 0.07em;
+    margin-top: 0.12em;
+    color: var(--accent);
+  }
+
+  .break {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+    margin: 3rem 0;
+    color: var(--gold);
+    opacity: 0.45;
+    font-size: 7.5px;
+    letter-spacing: 0.7em;
+  }
+  .break::before, .break::after {
+    content: ''; flex: 1; height: 1px;
+    background: linear-gradient(to right, transparent, rgba(122,138,181,0.28));
+  }
+  .break::after { background: linear-gradient(to left, transparent, rgba(122,138,181,0.28)); }
+
+  .chapter-end {
+    margin: 6rem 0 0;
+    text-align: center;
+    color: var(--gold);
+    opacity: 0.28;
+    font-size: 18px;
+    letter-spacing: 0.7em;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">autobiografische Prosa</div>
+    <div class="cover-title">Der Disponent</div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">darüber, wie man loslässt, was aufhält</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Inhalt</div>
+    <a class="toc-item" href="#ch1">
+      <span class="toc-roman">I</span>
+      <span>Das Kreuz</span>
+      <span class="toc-dash">—</span>
+    </a>
+    <a class="toc-item" href="#ch2">
+      <span class="toc-roman">II</span>
+      <span>2000 Dollar für eine Zigarette</span>
+      <span class="toc-dash">—</span>
+    </a>
+    <a class="toc-item" href="#ch3">
+      <span class="toc-roman">III</span>
+      <span>Zigarette und Feuerzeug</span>
+      <span class="toc-dash">—</span>
+    </a>
+  </div>
+
+  <!-- KAPITEL I -->
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">Das Kreuz</div>
+    </div>
+
+    <p>Das Kreuz hatte der Vater geschenkt. Nicht derjenige, der dabei war — derjenige, den es nicht gab. Der biologische, der ferne, der beinahe abstrakte. Ein Geschenk von einem Menschen, den er kaum kannte — aber ein echtes Geschenk, golden, mit einem Gewicht, das sich nicht nur körperlich spürte.</p>
+
+    <p>Ash trug es wie einen Talisman. Nicht aus Religion, nicht aus Tradition — so hatte es sich eben ergeben. Das Kreuz gehörte ihm. Nicht irgendjemand sonst, genau ihm — in dem Sinne, in dem Dinge Teil eines Menschen werden nicht weil sie wertvoll sind, sondern weil sie etwas in sich tragen. Eine Geschichte, einen Menschen, einen Moment.</p>
+
+    <p>Es schien allen zu gehören — so schien es Ash zumindest. Schutz, Glück, etwas das hält. Aber es gehörte nur ihm. Das war wichtig — etwas zu haben, das ausschließlich das eigene ist, wenn vieles um einen herum gemeinsam war oder fremd oder unbestimmt wessen.</p>
+
+    <p>Das Kreuz hing lange am Hals. Durch Gutes und Schlechtes, durch Jahre die sich veränderten, durch Menschen die kamen und gingen. Es blieb — wie eine Erinnerung daran, dass jemand irgendwann doch etwas Echtes gegeben hatte.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <!-- KAPITEL II -->
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">2000 Dollar für eine Zigarette</div>
+    </div>
+
+    <p>Es gibt ein Lied über einen Disponenten, der zweitausend Dollar für eine Zigarette gibt. Nicht weil die Zigarette so viel wert ist. Sondern weil in einem bestimmten Moment, in einem bestimmten Zustand — genau das gebraucht wurde, und der Preis aufhörte, eine Rolle zu spielen.</p>
+
+    <p>Ash setzte das in die Wirklichkeit um. Nicht metaphorisch — buchstäblich.</p>
+
+    <p>Der Zustand war jener, der entsteht, wenn der Kopf aufhört zu funktionieren wie er soll — ohne Vorwarnung, ohne Logik, ohne den inneren Disponenten, der sonst Stopp sagt. Psychose ist kein Drama aus dem Kino. Es ist ein stilles Verlieren der Orientierung — wenn man nicht mehr versteht, was oben ist und was unten, was wichtig ist und was nicht. Alles vermischt sich zu einem, und die Bewegung beginnt von selbst.</p>
+
+    <p>Er war allein. Auf der Straße. Dinge flogen — nicht in einem Wutausbruch, sondern in jenem besonderen Zustand, in dem das Loswerden von Gegenständen wie das Loswerden von Last erscheint. Telefon, Dokumente, Geld — alles, was er bei sich hatte, verschwand irgendwohin. Nicht mit Absicht weggeworfen — einfach losgelassen. Die Hände taten ihr Werk, der Kopf hielt sie nicht an.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Ein Mensch kam vorbei. Zufällig, gewöhnlich — er ging einfach seinen eigenen Dingen nach. Ash hielt ihn an.</p>
+
+    <p>Bat um eine Zigarette.</p>
+
+    <p>Der Fremde gab sie.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <!-- KAPITEL III -->
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">Zigarette und Feuerzeug</div>
+    </div>
+
+    <p>Das Kreuz löste sich vom Hals von selbst — oder es schien, als wäre es von selbst gewesen. Ash streckte es dem Fremden entgegen. Gold im Tausch gegen eine Zigarette und ein Feuerzeug. Ohne Verhandeln, ohne Erklärungen, ohne eine Pause zum Nachdenken.</p>
+
+    <p>Der Fremde nahm es. Gab die Zigarette. Gab das Feuerzeug. Ging.</p>
+
+    <p>Ash rauchte.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Dann begann der Kopf langsam zurückzukehren — langsam, so wie alles zurückkehrt, was nicht sofort gegangen war. Und zusammen mit ihm kehrte das Verstehen zurück, was geschehen war. Das Kreuz war fort. Das Geschenk des Vaters, den es nicht gab. Der Talisman, der nur ihm gehört hatte.</p>
+
+    <p>Und — nichts.</p>
+
+    <p>Keine Leere, kein Schmerz. Einfach nichts — so wie es ist, wenn man etwas Schweres loslässt und bemerkt, dass es schwerer war als es schien. Das Kreuz hatte nicht nur Schutz getragen — es hatte eine Frage getragen, auf die es keine Antwort gab. Einen Menschen, der nicht dabei war. Eine Beziehung, die in einem vollständigen Sinne nicht existiert hatte.</p>
+
+    <p>Die Zigarette brannte herunter. Das Feuerzeug blieb in der Tasche.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Alles, was aufhält — kann man loslassen. Auf verschiedene Arten. Manchmal bewusst, mit Zeremonie und den richtigen Worten. Manchmal so — allein auf der Straße, in einem Zustand, in dem der Kopf nicht filtert, und das Gold geht für eine Zigarette.</p>
+
+    <p>Das Ergebnis ist dasselbe. Es wird leichter.</p>
+
+    <p>Nicht sofort — aber es wird.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Свеб, Лео и ангар — Bizarre Ash</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #0a1010;
+    --paper: #e8f2f0;
+    --fade: #507068;
+    --accent: #1a4838;
+    --gold: #306858;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(48,104,88,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(26,72,56,0.05) 0%, transparent 60%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; }
+
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 6rem 0;
+    position: relative;
+  }
+
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+
+  .cover-eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 3rem;
+    opacity: 0.8;
+  }
+
+  .cover-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 8vw, 58px);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    line-height: 1.2;
+    margin-bottom: 0.4rem;
+  }
+
+  .cover-title em { font-style: italic; color: var(--accent); }
+
+  .cover-rule {
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    margin: 2.5rem auto;
+    opacity: 0.6;
+  }
+
+  .cover-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--fade);
+    letter-spacing: 0.2em;
+    margin-bottom: 5rem;
+  }
+
+  .cover-author {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--fade);
+    opacity: 0.7;
+  }
+
+  .toc {
+    padding: 7rem 0 5rem;
+    border-bottom: 1px solid rgba(48,104,88,0.2);
+    margin-bottom: 7rem;
+  }
+
+  .toc-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2.5rem;
+  }
+
+  .toc-item {
+    display: grid;
+    grid-template-columns: 2em 1fr 2em;
+    gap: 0.5rem;
+    align-items: baseline;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(48,104,88,0.12);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .toc-item:hover { color: var(--accent); }
+
+  .toc-roman {
+    font-style: normal;
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    padding-top: 0.3em;
+  }
+
+  .toc-num {
+    font-style: normal;
+    font-size: 11px;
+    color: var(--fade);
+    text-align: right;
+  }
+
+  .chapter { padding-top: 6rem; margin-bottom: 3rem; }
+  .chapter-header { margin-bottom: 3rem; }
+
+  .chapter-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 100px;
+    font-weight: 300;
+    color: var(--gold);
+    opacity: 0.18;
+    line-height: 0.85;
+    margin-bottom: -0.1em;
+    letter-spacing: -0.02em;
+    user-select: none;
+  }
+
+  .chapter-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--ink);
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(48,104,88,0.35);
+    line-height: 1.3;
+  }
+
+  p {
+    margin-bottom: 1.5em;
+    text-align: justify;
+    hyphens: auto;
+  }
+
+  .chapter > p:first-of-type::first-letter {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4.8em;
+    font-weight: 300;
+    float: left;
+    line-height: 0.72;
+    margin-right: 0.06em;
+    margin-top: 0.1em;
+    color: var(--accent);
+  }
+
+  .dialogue {
+    margin: 2em 0 2em 2.2em;
+    font-style: italic;
+    color: #0a1810;
+    position: relative;
+    font-size: 17.5px;
+  }
+
+  .dialogue::before {
+    content: '—';
+    position: absolute;
+    left: -1.5em;
+    color: var(--gold);
+    font-style: normal;
+  }
+
+  .break {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6em;
+    margin: 3rem 0;
+    color: var(--gold);
+    opacity: 0.5;
+    font-size: 8px;
+    letter-spacing: 0.6em;
+  }
+
+  .break::before, .break::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(48,104,88,0.3));
+  }
+
+  .break::after {
+    background: linear-gradient(to left, transparent, rgba(48,104,88,0.3));
+  }
+
+  .chapter-end {
+    margin: 6rem 0 0;
+    text-align: center;
+    color: var(--gold);
+    opacity: 0.3;
+    font-size: 20px;
+    letter-spacing: 0.6em;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">автобиографическая проза</div>
+    <div class="cover-title">Свеб, Лео<br><em>и ангар</em></div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">о тех кто привёл к тем кто остался</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Содержание</div>
+    <a class="toc-item" href="#ch1">
+      <span class="toc-roman">I</span>
+      <span>Свеб</span>
+      <span class="toc-num">—</span>
+    </a>
+    <a class="toc-item" href="#ch2">
+      <span class="toc-roman">II</span>
+      <span>Лео</span>
+      <span class="toc-num">—</span>
+    </a>
+    <a class="toc-item" href="#ch3">
+      <span class="toc-roman">III</span>
+      <span>Ангар</span>
+      <span class="toc-num">—</span>
+    </a>
+  </div>
+
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">Свеб</div>
+    </div>
+
+    <p>Свеб был на несколько лет младше — и это чувствовалось ровно в одном месте: в голосе. Характерный писклявый тембр, который невозможно было спутать ни с кем в конференции. Открывал рот — и сразу понятно кто говорит, без вопросов и уточнений. Бис это знал и иногда пользовался — позвал Свеба в чат, и атмосфера уже другая.</p>
+
+    <p>Вредных привычек не было — отсюда отчасти и голос. Умный, умел поддержать беседу, находил хорошее там где другие видели только плохое. Проиграли миссию — «ого, давайте ещё раз» — и никакого негатива. Это был его способ существования, не наигранный оптимизм а просто характер.</p>
+
+    <p>Свеб был связующим звеном. Не в смысле что специально всех соединял — просто так складывалось. Знал многих, со многими пересекался, умел быть там где нужен. Через него Бис познакомился с людьми которые остались надолго — не со всеми сразу, постепенно, по одному.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Сотни часов вместе — в MTA, в других играх, в конференциях где говорили обо всём и ни о чём одновременно. Свеб умел быть рядом без лишнего шума — просто присутствовал, и это было достаточно.</p>
+
+    <p>Потом его интересы начали смещаться — DayZ, Arma 2, другие направления. Бис следил за этим движением со стороны, пока однажды не последовал за ним. Как это обычно и бывает с теми кто идёт первым — они не всегда знают что прокладывают дорогу.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">Лео</div>
+    </div>
+
+    <p>Лео привёл Свеб. Полная противоположность — спокойный, рассудительный, говорил медленнее и обдуманнее. Там где Свеб был эмоциональным центром, Лео был стабилизирующим фактором. Они дополняли друг друга так точно, что казалось специально подобранными — хотя никто ничего специально не подбирал.</p>
+
+    <p>У Лео в семье была непростая ситуация — то у мамы, то у отца. Не пил, не курил. Вполне обычный парень со своими особенностями которые проявлялись не сразу.</p>
+
+    <p>Главная особенность Лео была одна — он первым в компании понял что деньги стоит тратить на эмоции. Не на вещи, не на статус — на общий опыт, на то что будут помнить. В MTA у них всегда были лучшие базы и самые крутые машины именно потому что Лео не жалел на это средств. Его стандартная фраза когда речь заходила о дорогой покупке была короткой:</p>
+
+    <div class="dialogue">Да не парьтесь, оплачу.</div>
+
+    <p>И оплачивал. Без условий, без счётов, просто потому что мог и хотел чтобы всем было хорошо. Иногда сам пропускал то за что заплатил — но это его не останавливало.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Бис смотрел на это и запоминал. Не специально — просто так работает наблюдение когда человек делает что-то правильно. Лео зародил в нём модель поведения которая осталась надолго: своим не жалеть, даже если сам остаёшься без участия в общей радости.</p>
+
+    <p>Их связь с Бисом была особенной — тесней чем с остальными. Дима привносил энергию, Лео — практичность и ресурсы. Дуэт работал. Сотни часов вместе, решения принимались сообща, и по сей день иногда поддерживается связь — уже из разряда «на связи но у каждого свои дела». Тогда же всё было иначе.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">Ангар</div>
+    </div>
+
+    <p>Свеб сменил направление — DayZ, Arma 2, серверы где всё было серьёзнее и грубее чем в MTA. Бис последовал. Не сразу — сначала наблюдал, потом попробовал сам, потом уже не мог не играть.</p>
+
+    <p>DayZ тогда был сырым — интересным концептуально, но дырявым во всём остальном. Читеры чувствовали себя вольготно, античита почти не было. Самые предприимчивые создавали из воздуха лучшее снаряжение и продавали за несколько долларов. Бис пользовался этим когда было лень — снаряжал себя и Свеба, и они шли воевать с кем попало.</p>
+
+    <p>В один из таких выходов они попали в середину большой перестрелки в городе. Снайпер работал по всем подряд — непонятно чей, непонятно откуда. Прилетало хаотично, точно и без разбора. Бис со Свебом держались у стен, двигались короткими перебежками — и в какой-то момент поняли что стреляют в одних и тех же людей с разных сторон.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Прекратили огонь одновременно. Это была чужая группа. Сошлись в ангаре, обменялись контактами, разошлись.</p>
+
+    <p>Свеб привёл Лео. Лео научил тратить деньги на эмоции. Снайпер в DayZ привёл к тем кто остался надолго.</p>
+
+    <p>Так это и работает — одни люди приводят к другим, и никто заранее не знает каких именно.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>
