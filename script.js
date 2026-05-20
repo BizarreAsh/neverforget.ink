@@ -247,7 +247,13 @@ const bookPool = [
   { title: 'Das beste Trio',      author: 'Bizarre Ash', genre: 'genre_bio',     book: 'books/das_beste_trio_DE.html'        },
   { title: 'Санрайз на троих',    author: 'Bizarre Ash', genre: 'genre_bio',     book: 'books/sunrise_na_troikh-1.html'      },
   { title: 'Sunrise for Three',   author: 'Bizarre Ash', genre: 'genre_bio',     book: 'books/sunrise_for_three_EN.html'     },
-  { title: 'Sunrise zu dritt',    author: 'Bizarre Ash', genre: 'genre_bio',     book: 'books/sunrise_zu_dritt_DE.html'      },
+  { title: 'Sunrise zu dritt',              author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/sunrise_zu_dritt_DE.html'              },
+  { title: 'Клиент и продавец',             author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/klient_i_prodavets-1.html'             },
+  { title: 'Client and Seller',             author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/client_and_seller_EN.html'             },
+  { title: 'Kunde und Verkäufer',           author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/kunde_und_verkaeufer_DE.html'          },
+  { title: 'Турецкая Кофейная Апельсинка',  author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/turetskaya_kofeynaya_apelsynka-1.html' },
+  { title: 'Turkish Coffee Tangerine',      author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/turkish_coffee_tangerine_EN.html'      },
+  { title: 'Türkische Kaffee-Mandarine',    author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/tuerkische_kaffee_mandarine_DE.html'   },
 ];
 
 function shuffleArray(arr) {
