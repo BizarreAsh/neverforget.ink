@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Tribute to Pixels — Bizarre Ash</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #080818;
+    --paper: #e8eaf8;
+    --fade: #506080;
+    --accent: #182858;
+    --gold: #304878;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(48,72,120,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(24,40,88,0.05) 0%, transparent 60%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; }
+  .cover { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 6rem 0; position: relative; }
+  .cover::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); }
+  .cover-eyebrow { font-family: 'Cormorant Garamond', serif; font-size: 11px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 3rem; opacity: 0.8; }
+  .cover-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(36px, 8vw, 58px); font-weight: 300; letter-spacing: 0.04em; color: var(--ink); line-height: 1.15; margin-bottom: 0.4rem; }
+  .cover-title em { font-style: italic; color: var(--accent); }
+  .cover-rule { width: 40px; height: 1px; background: var(--gold); margin: 2.5rem auto; opacity: 0.6; }
+  .cover-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-style: italic; color: var(--fade); letter-spacing: 0.2em; margin-bottom: 5rem; }
+  .cover-author { font-family: 'Cormorant Garamond', serif; font-size: 13px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--fade); opacity: 0.7; }
+  .toc { padding: 7rem 0 5rem; border-bottom: 1px solid rgba(48,72,120,0.2); margin-bottom: 7rem; }
+  .toc-label { font-family: 'Cormorant Garamond', serif; font-size: 10px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 2.5rem; }
+  .toc-item { display: grid; grid-template-columns: 2em 1fr 2em; gap: 0.5rem; align-items: baseline; padding: 0.75rem 0; border-bottom: 1px solid rgba(48,72,120,0.12); font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; color: var(--ink); text-decoration: none; transition: color 0.2s; }
+  .toc-item:hover { color: var(--accent); }
+  .toc-roman { font-style: normal; font-size: 11px; color: var(--gold); letter-spacing: 0.1em; padding-top: 0.3em; }
+  .toc-num { font-style: normal; font-size: 11px; color: var(--fade); text-align: right; }
+  .chapter { padding-top: 6rem; margin-bottom: 3rem; }
+  .chapter-header { margin-bottom: 3rem; }
+  .chapter-number { font-family: 'Cormorant Garamond', serif; font-size: 100px; font-weight: 300; color: var(--gold); opacity: 0.18; line-height: 0.85; margin-bottom: -0.1em; letter-spacing: -0.02em; user-select: none; }
+  .chapter-title { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 300; font-style: italic; color: var(--ink); padding-bottom: 1.5rem; border-bottom: 1px solid rgba(48,72,120,0.35); line-height: 1.3; }
+  p { margin-bottom: 1.5em; text-align: justify; hyphens: auto; }
+  .chapter > p:first-of-type::first-letter { font-family: 'Cormorant Garamond', serif; font-size: 4.8em; font-weight: 300; float: left; line-height: 0.72; margin-right: 0.06em; margin-top: 0.1em; color: var(--accent); }
+  .break { display: flex; align-items: center; justify-content: center; gap: 0.6em; margin: 3rem 0; color: var(--gold); opacity: 0.5; font-size: 8px; letter-spacing: 0.6em; }
+  .break::before, .break::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, transparent, rgba(48,72,120,0.3)); }
+  .break::after { background: linear-gradient(to left, transparent, rgba(48,72,120,0.3)); }
+  .chapter-end { margin: 6rem 0 0; text-align: center; color: var(--gold); opacity: 0.3; font-size: 20px; letter-spacing: 0.6em; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">autobiographical prose</div>
+    <div class="cover-title">A Tribute<br><em>to Pixels</em></div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">about worlds that were real</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Contents</div>
+    <a class="toc-item" href="#ch1"><span class="toc-roman">I</span><span>Zone 51 and the Aircraft Carrier</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch2"><span class="toc-roman">II</span><span>Origins — Path Chosen</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch3"><span class="toc-roman">III</span><span>Salvation Island</span><span class="toc-num">—</span></a>
+  </div>
+
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">Zone 51 and the Aircraft Carrier</div>
+    </div>
+
+    <p>MTA — Multi Theft Auto — was the same San Andreas, but with people inside. Not bots, not scripts — real, unpredictable, each with their own logic and their own plans. Cars were a cult: from a rusted old pickup to a McLaren — everything imaginable existed somewhere on the map and waited for its moment.</p>
+
+    <p>Ren found his thing here — not in building bases or accumulating resources, but in fighting. Wherever people gathered with weapons and a clear objective — he was in his element. Zone 51 was one of those places. A military installation in the middle of the map, closed territory, constant traffic of players who wanted either to clear everything inside or just create chaos at the entrance.</p>
+
+    <p>The aircraft carrier was different — a huge floating platform, open on all sides, with almost nowhere to take cover. Every step onto the deck could end quickly and unexpectedly. That's what made it attractive — no predictability, only reaction and luck.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Victories stayed in memory. Defeats too — but differently. When you got knocked out at the worst moment on the most interesting part of the map it was annoying just enough to make you log straight back in and try something different.</p>
+
+    <p>Exclusive cars were their own story. Not bought, not earned at a shop — obtained at the right moment in the right place. Those trophies had a different value. Not because they were technically better, but because they came with a story — a specific moment, a specific fight, a specific win.</p>
+
+    <p>The tribute was honest. Hours went in — and came back as experience, reaction, understanding of how chaos works when there are a lot of people in it at once.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">Origins — Path Chosen</div>
+    </div>
+
+    <p>Origins was a different dimension of the same universe. A mod for Arma 2 — but not Epoch, not DayZ. Its own thing, separate, with its own philosophy. Here the world demanded not just survival — it demanded a choice. Two paths, two characters, two outcomes. The hero's path or the bandit's path. Good or what counts as evil in pixels.</p>
+
+    <p>Ren tried the PvP server on the first evening — and understood immediately. He had no interest in seeing enemies in other people. None at all. Not from fear — just not interesting. Killing random strangers for the sake of killing felt empty. Origins opened differently when he chose the hero's path and started building karma.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>The environment was its own challenge — food, water, zombies appearing at the wrong moment. And the world's main landmark — two NPC helicopters that patrolled every town in a continuous loop, no schedule, no stopping. They simply flew — and if a player came into view, they opened fire without warning. Sometimes it hurt a lot.</p>
+
+    <p>This created a particular atmosphere — you could never fully relax. Even on the hero's path, even with good karma and the right decisions — the two helicopters reminded you that the world doesn't forgive inattention.</p>
+
+    <p>Ren accepted these rules. He built. He earned karma. He helped random players — sometimes unnecessary, sometimes exactly when needed. Origins taught what games rarely teach — that the path matters, not just the result.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">Salvation Island</div>
+    </div>
+
+    <p>Salvation Island was the legend of Origins. The place everyone wanted to reach and nobody could simply walk into. The perimeter was guarded by heavy machine guns, inside were fifty-plus bots armed the way people arm themselves when they have no intention of losing. It was a fortress within the game — a separate difficulty level against everything else.</p>
+
+    <p>The first visit was simple — in terms of decision-making. Ren and his crew got in a helicopter and flew straight there. No reconnaissance, no plan, no understanding of what was waiting. They just went.</p>
+
+    <p>The island received them the way places receive people who come without knocking. The helicopter and everyone in it were turned to Swiss cheese in under a minute. Machine guns on the perimeter, bots inside — everything fired in sync without ceremony.</p>
+
+    <p>They exited the game. Looked at each other. Nobody had words.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>The second time was with Av — on the SAW clan's PvE server. This was the other side of Origins: no enemies among players, only the environment, only cooperative work against a world that was hostile enough without people in it. SAW ran this server and everything on it — their effort, their rules, their territory.</p>
+
+    <p>On the island there was a bus — delivered there by the Flying Fortress, a flying stronghold that could transport vehicles. There was no other way to get a ground vehicle to Salvation Island — only by swimming or by air. Someone had spent time and resources getting that bus there. Ren and Av decided to use it for the clearance attempt.</p>
+
+    <p>The logic was sound. The execution wasn't.</p>
+
+    <p>Inexperience did its work quickly and without warning. Where exactly things went wrong — hard to say precisely. At some point the bus was gone — and with it, someone else's effort that had gone into it. Not with bad intent. They simply weren't yet capable of what they were attempting.</p>
+
+    <p>The island held. No bus. Ren and Av left with nothing — with that particular feeling when you understand you've let down people who don't even know it.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Salvation Island remained unconquered. Maybe later — when there's experience, when there's a plan, when there's an understanding of how to approach it properly. Maybe never — sometimes legends are better left as legends.</p>
+
+    <p>The tribute to pixels was honest. Everything that was earned was earned through an attempt. Everything that wasn't — remained a goal. That's the most real thing that was ever there.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>

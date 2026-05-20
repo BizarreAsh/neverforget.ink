@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Дань пикселям — Bizarre Ash</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #080818;
+    --paper: #e8eaf8;
+    --fade: #506080;
+    --accent: #182858;
+    --gold: #304878;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(48,72,120,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(24,40,88,0.05) 0%, transparent 60%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; }
+
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 6rem 0;
+    position: relative;
+  }
+
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+
+  .cover-eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 3rem;
+    opacity: 0.8;
+  }
+
+  .cover-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(44px, 10vw, 70px);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    line-height: 1.15;
+    margin-bottom: 0.4rem;
+  }
+
+  .cover-title em { font-style: italic; color: var(--accent); }
+
+  .cover-rule {
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    margin: 2.5rem auto;
+    opacity: 0.6;
+  }
+
+  .cover-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--fade);
+    letter-spacing: 0.2em;
+    margin-bottom: 5rem;
+  }
+
+  .cover-author {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--fade);
+    opacity: 0.7;
+  }
+
+  .toc {
+    padding: 7rem 0 5rem;
+    border-bottom: 1px solid rgba(48,72,120,0.2);
+    margin-bottom: 7rem;
+  }
+
+  .toc-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2.5rem;
+  }
+
+  .toc-item {
+    display: grid;
+    grid-template-columns: 2em 1fr 2em;
+    gap: 0.5rem;
+    align-items: baseline;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(48,72,120,0.12);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .toc-item:hover { color: var(--accent); }
+
+  .toc-roman {
+    font-style: normal;
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    padding-top: 0.3em;
+  }
+
+  .toc-num {
+    font-style: normal;
+    font-size: 11px;
+    color: var(--fade);
+    text-align: right;
+  }
+
+  .chapter { padding-top: 6rem; margin-bottom: 3rem; }
+  .chapter-header { margin-bottom: 3rem; }
+
+  .chapter-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 100px;
+    font-weight: 300;
+    color: var(--gold);
+    opacity: 0.18;
+    line-height: 0.85;
+    margin-bottom: -0.1em;
+    letter-spacing: -0.02em;
+    user-select: none;
+  }
+
+  .chapter-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--ink);
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(48,72,120,0.35);
+    line-height: 1.3;
+  }
+
+  p {
+    margin-bottom: 1.5em;
+    text-align: justify;
+    hyphens: auto;
+  }
+
+  .chapter > p:first-of-type::first-letter {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4.8em;
+    font-weight: 300;
+    float: left;
+    line-height: 0.72;
+    margin-right: 0.06em;
+    margin-top: 0.1em;
+    color: var(--accent);
+  }
+
+  .dialogue {
+    margin: 2em 0 2em 2.2em;
+    font-style: italic;
+    color: #080820;
+    position: relative;
+    font-size: 17.5px;
+  }
+
+  .dialogue::before {
+    content: '—';
+    position: absolute;
+    left: -1.5em;
+    color: var(--gold);
+    font-style: normal;
+  }
+
+  .break {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6em;
+    margin: 3rem 0;
+    color: var(--gold);
+    opacity: 0.5;
+    font-size: 8px;
+    letter-spacing: 0.6em;
+  }
+
+  .break::before, .break::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(48,72,120,0.3));
+  }
+
+  .break::after {
+    background: linear-gradient(to left, transparent, rgba(48,72,120,0.3));
+  }
+
+  .chapter-end {
+    margin: 6rem 0 0;
+    text-align: center;
+    color: var(--gold);
+    opacity: 0.3;
+    font-size: 20px;
+    letter-spacing: 0.6em;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">автобиографическая проза</div>
+    <div class="cover-title">Дань<br><em>пикселям</em></div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">о мирах которые были настоящими</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Содержание</div>
+    <a class="toc-item" href="#ch1">
+      <span class="toc-roman">I</span>
+      <span>Zone 51 и авианосец</span>
+      <span class="toc-num">—</span>
+    </a>
+    <a class="toc-item" href="#ch2">
+      <span class="toc-roman">II</span>
+      <span>Origins — путь выбран</span>
+      <span class="toc-num">—</span>
+    </a>
+    <a class="toc-item" href="#ch3">
+      <span class="toc-roman">III</span>
+      <span>Остров спасения</span>
+      <span class="toc-num">—</span>
+    </a>
+  </div>
+
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">Zone 51 и авианосец</div>
+    </div>
+
+    <p>MTA — Multi Theft Auto — это была та же San Andreas, но с людьми внутри. Не боты, не скрипты — живые, непредсказуемые, каждый со своей логикой и своими планами. Машины были культом: от старого ржавого пикапа до McLaren — всё что можно было вообразить существовало где-то на карте и ждало своего момента.</p>
+
+    <p>Рэн нашёл здесь своё — не в строительстве базы и не в накоплении ресурсов, а в замесах. Там где собирались люди с оружием и чёткой целью — он был в своей стихии. Zone 51 была одним из таких мест. Военный объект посреди карты, закрытая территория, постоянный трафик игроков которые хотели либо зачистить всё внутри либо просто устроить хаос у входа.</p>
+
+    <p>Авианосец был другим — огромная плавучая платформа, открытая со всех сторон, где укрыться было практически негде. Каждый выход на палубу мог закончиться быстро и неожиданно. Это и привлекало — никакой предсказуемости, только реакция и удача.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Победы запоминались. Поражения тоже — но по-другому. Когда тебя выбивали в самый неподходящий момент на самом интересном месте карты это было обидно ровно настолько, чтобы немедленно зайти снова и попробовать иначе.</p>
+
+    <p>Эксклюзивные машины были отдельной историей. Не купить, не заработать в магазине — получить в нужный момент в нужном месте. Такие трофеи ценились по-другому. Не потому что были лучше технически, а потому что за ними стояла история — конкретный момент, конкретный замес, конкретная победа.</p>
+
+    <p>Дань была честной. Часы уходили — и возвращались опытом, реакцией, пониманием как работает хаос когда в нём много людей одновременно.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">Origins — путь выбран</div>
+    </div>
+
+    <p>Origins был другим измерением той же вселенной. Модификация для Arma 2 — но не Epoch, не DayZ. Своё, отдельное, с собственной философией. Здесь мир требовал не просто выживания — он требовал выбора. Два пути, два характера, два результата. Путь героя или путь бандита. Добро или то что принято называть злом в пикселях.</p>
+
+    <p>Рэн зашёл на PvP-сервер в первый же вечер — и понял сразу. Здесь видеть врагов в других людях не хотелось. Совсем, от слова ничего. Не потому что страшно — просто не интересно. Убивать случайных людей ради убийства было пусто. Origins открылся по-другому когда он выбрал путь героя и начал строить карму.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Окружение было проблемой само по себе — еда, вода, зомби которые появлялись не вовремя. И главная достопримечательность мира — два вертолёта NPC которые патрулировали все города по кругу, без остановки, без расписания. Они просто летели — и если игрок попадал в поле зрения, открывали огонь без предупреждения. Иногда попадали очень больно.</p>
+
+    <p>Это создавало особую атмосферу — никогда нельзя было расслабиться полностью. Даже на пути героя, даже с хорошей кармой и правильными решениями — два вертолёта напоминали что мир не прощает невнимательности.</p>
+
+    <p>Рэн принял эти правила. Строил. Зарабатывал карму. Помогал случайным игрокам — иногда лишним, иногда самым нужным. Origins учил тому чему редко учат игры — что путь имеет значение, не только результат.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">Остров спасения</div>
+    </div>
+
+    <p>Salvation Island — Остров спасения — был легендой Origins. Место куда все хотели попасть и никто не мог просто так войти. Периметр охраняли станковые пулемёты, внутри было пятьдесят с лишним ботов вооружённых так, как вооружаются люди которые не собираются проигрывать. Это была крепость внутри игры — отдельный уровень сложности на фоне всего остального.</p>
+
+    <p>Первый визит был простым — в смысле принятия решения. Рэн с товарищами сели в вертолёт и полетели прямо туда. Без разведки, без плана, без понимания что их ждёт. Просто взяли и полетели.</p>
+
+    <p>Остров встретил их как и положено встречать людей которые приходят без стука. Вертолёт и всех кто в нём был превратили в решето меньше чем за минуту. Пулемёты по периметру, боты внутри — всё сработало синхронно и без лишних церемоний.</p>
+
+    <p>Они вышли из игры. Переглянулись. Ни у кого слов не нашлось.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Второй раз был уже с Авом — и на PvE сервере клана SAW. Это была другая сторона Origins: никаких врагов среди игроков, только окружение, только совместная работа против мира который и без людей был достаточно враждебным. SAW держали этот сервер и всё что на нём было — их труд, их правила, их территория.</p>
+
+    <p>На острове стоял автобус — туда его доставила Flying Fortress, летающая крепость которая умела перевозить технику. Иначе на Salvation Island было не попасть наземным транспортом — только вплавь или по воздуху. Кто-то потратил время и ресурсы чтобы доставить этот автобус туда. Рэн с Авом решили использовать его для зачистки.</p>
+
+    <p>Логика была правильной. Исполнение — нет.</p>
+
+    <p>Неопытность сделала своё дело быстро и без предупреждения. Где именно всё пошло не так — сложно сказать точно. Просто в какой-то момент автобус был потерян — и вместе с ним чужой труд который в него вложили. Не со злым умыслом. Просто они ещё не умели того что пытались делать.</p>
+
+    <p>Остров устоял. Автобуса больше не было. Рэн и Ав ушли ни с чем — с тем особым чувством когда понимаешь что подвёл людей которые об этом даже не знают.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Salvation Island так и остался непокорённым. Может потом — когда будет опыт, когда будет план, когда будет понимание как туда заходить правильно. Может никогда — иногда легенды лучше остаются легендами.</p>
+
+    <p>Дань пикселям была честной. Всё что давалось — давалось через попытку. Всё что не давалось — оставалось целью. Это и есть самое настоящее из того что там было.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>

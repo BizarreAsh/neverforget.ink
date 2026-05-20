@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Беркут — Bizarre Ash</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #100c08;
+    --paper: #f2ede5;
+    --fade: #907860;
+    --accent: #503820;
+    --gold: #806040;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(128,96,64,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(80,56,32,0.05) 0%, transparent 60%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; }
+
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 6rem 0;
+    position: relative;
+  }
+
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+
+  .cover-eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 3rem;
+    opacity: 0.8;
+  }
+
+  .cover-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(56px, 12vw, 88px);
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    color: var(--ink);
+    line-height: 1.0;
+    margin-bottom: 0.4rem;
+  }
+
+  .cover-rule {
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    margin: 2.5rem auto;
+    opacity: 0.6;
+  }
+
+  .cover-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--fade);
+    letter-spacing: 0.2em;
+    margin-bottom: 5rem;
+  }
+
+  .cover-author {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--fade);
+    opacity: 0.7;
+  }
+
+  .toc {
+    padding: 7rem 0 5rem;
+    border-bottom: 1px solid rgba(128,96,64,0.2);
+    margin-bottom: 7rem;
+  }
+
+  .toc-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2.5rem;
+  }
+
+  .toc-item {
+    display: grid;
+    grid-template-columns: 2em 1fr 2em;
+    gap: 0.5rem;
+    align-items: baseline;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(128,96,64,0.12);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .toc-item:hover { color: var(--accent); }
+
+  .toc-roman {
+    font-style: normal;
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    padding-top: 0.3em;
+  }
+
+  .toc-num {
+    font-style: normal;
+    font-size: 11px;
+    color: var(--fade);
+    text-align: right;
+  }
+
+  .chapter { padding-top: 6rem; margin-bottom: 3rem; }
+  .chapter-header { margin-bottom: 3rem; }
+
+  .chapter-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 100px;
+    font-weight: 300;
+    color: var(--gold);
+    opacity: 0.18;
+    line-height: 0.85;
+    margin-bottom: -0.1em;
+    letter-spacing: -0.02em;
+    user-select: none;
+  }
+
+  .chapter-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--ink);
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(128,96,64,0.35);
+    line-height: 1.3;
+  }
+
+  p {
+    margin-bottom: 1.5em;
+    text-align: justify;
+    hyphens: auto;
+  }
+
+  .chapter > p:first-of-type::first-letter {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4.8em;
+    font-weight: 300;
+    float: left;
+    line-height: 0.72;
+    margin-right: 0.06em;
+    margin-top: 0.1em;
+    color: var(--accent);
+  }
+
+  .dialogue {
+    margin: 2em 0 2em 2.2em;
+    font-style: italic;
+    color: #2a1808;
+    position: relative;
+    font-size: 17.5px;
+  }
+
+  .dialogue::before {
+    content: '—';
+    position: absolute;
+    left: -1.5em;
+    color: var(--gold);
+    font-style: normal;
+  }
+
+  .break {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6em;
+    margin: 3rem 0;
+    color: var(--gold);
+    opacity: 0.5;
+    font-size: 8px;
+    letter-spacing: 0.6em;
+  }
+
+  .break::before, .break::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(128,96,64,0.3));
+  }
+
+  .break::after {
+    background: linear-gradient(to left, transparent, rgba(128,96,64,0.3));
+  }
+
+  .chapter-end {
+    margin: 6rem 0 0;
+    text-align: center;
+    color: var(--gold);
+    opacity: 0.3;
+    font-size: 20px;
+    letter-spacing: 0.6em;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">автобиографическая проза</div>
+    <div class="cover-title">Беркут</div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">о человеке который всегда был рядом</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Содержание</div>
+    <a class="toc-item" href="#ch1">
+      <span class="toc-roman">I</span>
+      <span>Дед</span>
+      <span class="toc-num">—</span>
+    </a>
+    <a class="toc-item" href="#ch2">
+      <span class="toc-roman">II</span>
+      <span>Засыпает на ходу</span>
+      <span class="toc-num">—</span>
+    </a>
+    <a class="toc-item" href="#ch3">
+      <span class="toc-roman">III</span>
+      <span>Пока он в ресурсе</span>
+      <span class="toc-num">—</span>
+    </a>
+  </div>
+
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">Дед</div>
+    </div>
+
+    <p>Они познакомились через снайпера. Не метафорически — буквально. Один неизвестный игрок в DayZ стрелял по всем подряд в Зеленогорске, и именно это свело две группы в одном ангаре на окраине города. Группа Сола с Димой — и группа Беркута. Перестали стрелять друг в друга, переглянулись, обменялись контактами.</p>
+
+    <p>Потом группы объединились. Потом стали одной командой. Потом Беркут стал просто своим — без статуса, без объяснений.</p>
+
+    <p>Разница в возрасте была больше десяти лет. Сол называл его дедом — не из неуважения, а из той особой теплоты которая бывает только когда прозвище точное. Беркут был дедом в лучшем смысле: знал много, говорил по делу, умел быть рядом без лишних слов. На двадцать пять лет он уже прожил достаточно чтобы не суетиться там где молодые суетились.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Они начали играть вместе буквально во всё. Не потому что специально искали компанию — просто так вышло что с Беркутом хотелось играть дальше. Он умел поддержать разговор, знал как разрядить обстановку, никогда не делал из мелочей большое. Сол со временем подсадил его на Minecraft — тот долго упирался, считал это ребячеством. Потом залип. Как всегда бывает с теми кто упирается дольше всех.</p>
+
+    <p>Хоб появился рядом сам собой — друг Беркута из офлайна, они жили в одном городе. Обувщик по профессии, мастер своего дела — как бы это ни звучало. Втроём они периодически собирались у Беркута — выпить, поговорить, провести время. Сол вспоминал своих и улыбался: у всех одно и то же, только города разные.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">Засыпает на ходу</div>
+    </div>
+
+    <p>У Беркута была особенность. Не недостаток — именно особенность, своя, фирменная. Он умел засыпать в любой момент — без предупреждения, без объявления, просто брал и засыпал. Посреди рейда, на базе, во время копки ресурсов. Сигналом служил начинающийся храп из микрофона.</p>
+
+    <p>Если Беркут оставался без движения поздним вечером — всё, трио рисковало превратиться в дуо. Парни знали это и старались держать его в деле — давали задачи, задавали вопросы, просто разговаривали. В некритических ситуациях не мешали — тихо хихикали между собой каждый раз как в первый.</p>
+
+    <p>Были случаи когда он засыпал в самом начале рейда. Просто садился и засыпал — посреди открытого мира, в опасной зоне, с полным инвентарём. Сол и Ник смотрели на это и не знали смеяться или продолжать рейд без него. Обычно делали и то и другое.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>В остальное время Беркут был продуктивнее большинства. Он любил процессы которые требуют минимального внимания и постоянного нажатия — и разбирался в макросах так, что система нажимала нужные кнопки вместо него в нужный момент. Если нужно было автоматизировать что-то с клавиатурой или мышкой — к Беркуту.</p>
+
+    <p>Работал охранником — смены долгие, событий мало. Это дало ему обширную библиотеку фильмов которые он пересматривал по десять-двадцать раз. Знал их наизусть — цитаты, сцены, детали которые большинство не замечает при первом просмотре.</p>
+
+    <p>Рыбалка была его отдельным миром. Садился в машину и ехал — один, со своими мыслями, с удочкой и терпением которого у него было больше чем у большинства людей которых Сол знал. Пока машина была — ездил часто.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">Пока он в ресурсе</div>
+    </div>
+
+    <p>Беркут когда был в полную силу — ничем не уступал сильным людям. Ни в играх, ни в разговоре, ни в том как он держался рядом когда было нужно. Он всегда поддерживал — не словами которые говорят чтобы что-то сказать, а присутствием. Просто был рядом и этого хватало.</p>
+
+    <p>Товарищеский до мозга костей. Никакого плохого выделить не получилось бы — так оно и было на самом деле. Не идеальный, просто честный. Не громкий, просто настоящий.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Есть вещи о которых говорят между строк — не потому что трудно произнести, а потому что некоторые слова важнее когда их не произносят вслух. Беркут знает о чём речь. Сол знает. Этого достаточно.</p>
+
+    <p>Ресурс у него уже не тот что был. Это замечается — в том как он двигается, в том как быстро устаёт, в том что рыбалки стало меньше. Но он всё ещё здесь. Всё ещё в игре — пусть не с той скоростью что раньше, но в игре.</p>
+
+    <p>Таких людей не забывают. Не потому что они делали что-то особенное — а потому что они просто были. Рядом, по-настоящему, без условий.</p>
+
+    <p>Беркут — это легенда в своём роде.</p>
+
+    <p>Так и есть.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>

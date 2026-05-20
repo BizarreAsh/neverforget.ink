@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Berkut — Bizarre Ash</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #100c08;
+    --paper: #f2ede5;
+    --fade: #907860;
+    --accent: #503820;
+    --gold: #806040;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(128,96,64,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(80,56,32,0.05) 0%, transparent 60%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; }
+  .cover { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 6rem 0; position: relative; }
+  .cover::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); }
+  .cover-eyebrow { font-family: 'Cormorant Garamond', serif; font-size: 11px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 3rem; opacity: 0.8; }
+  .cover-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(56px, 12vw, 88px); font-weight: 300; letter-spacing: 0.08em; color: var(--ink); line-height: 1.0; margin-bottom: 0.4rem; }
+  .cover-rule { width: 40px; height: 1px; background: var(--gold); margin: 2.5rem auto; opacity: 0.6; }
+  .cover-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-style: italic; color: var(--fade); letter-spacing: 0.2em; margin-bottom: 5rem; }
+  .cover-author { font-family: 'Cormorant Garamond', serif; font-size: 13px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--fade); opacity: 0.7; }
+  .toc { padding: 7rem 0 5rem; border-bottom: 1px solid rgba(128,96,64,0.2); margin-bottom: 7rem; }
+  .toc-label { font-family: 'Cormorant Garamond', serif; font-size: 10px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 2.5rem; }
+  .toc-item { display: grid; grid-template-columns: 2em 1fr 2em; gap: 0.5rem; align-items: baseline; padding: 0.75rem 0; border-bottom: 1px solid rgba(128,96,64,0.12); font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; color: var(--ink); text-decoration: none; transition: color 0.2s; }
+  .toc-item:hover { color: var(--accent); }
+  .toc-roman { font-style: normal; font-size: 11px; color: var(--gold); letter-spacing: 0.1em; padding-top: 0.3em; }
+  .toc-num { font-style: normal; font-size: 11px; color: var(--fade); text-align: right; }
+  .chapter { padding-top: 6rem; margin-bottom: 3rem; }
+  .chapter-header { margin-bottom: 3rem; }
+  .chapter-number { font-family: 'Cormorant Garamond', serif; font-size: 100px; font-weight: 300; color: var(--gold); opacity: 0.18; line-height: 0.85; margin-bottom: -0.1em; letter-spacing: -0.02em; user-select: none; }
+  .chapter-title { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 300; font-style: italic; color: var(--ink); padding-bottom: 1.5rem; border-bottom: 1px solid rgba(128,96,64,0.35); line-height: 1.3; }
+  p { margin-bottom: 1.5em; text-align: justify; hyphens: auto; }
+  .chapter > p:first-of-type::first-letter { font-family: 'Cormorant Garamond', serif; font-size: 4.8em; font-weight: 300; float: left; line-height: 0.72; margin-right: 0.06em; margin-top: 0.1em; color: var(--accent); }
+  .break { display: flex; align-items: center; justify-content: center; gap: 0.6em; margin: 3rem 0; color: var(--gold); opacity: 0.5; font-size: 8px; letter-spacing: 0.6em; }
+  .break::before, .break::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, transparent, rgba(128,96,64,0.3)); }
+  .break::after { background: linear-gradient(to left, transparent, rgba(128,96,64,0.3)); }
+  .chapter-end { margin: 6rem 0 0; text-align: center; color: var(--gold); opacity: 0.3; font-size: 20px; letter-spacing: 0.6em; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">autobiographical prose</div>
+    <div class="cover-title">Berkut</div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">about the person who was always there</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Contents</div>
+    <a class="toc-item" href="#ch1"><span class="toc-roman">I</span><span>The Old Man</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch2"><span class="toc-roman">II</span><span>Falls Asleep Mid-Raid</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch3"><span class="toc-roman">III</span><span>While He's Still in the Game</span><span class="toc-num">—</span></a>
+  </div>
+
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">The Old Man</div>
+    </div>
+
+    <p>They met through a sniper. Not metaphorically — literally. An unknown player in DayZ was shooting at everyone in Zelenogorsk, and that's what brought two groups into the same hangar on the edge of town. Sol's group with Dima — and Berkut's group. They stopped shooting at each other, exchanged a look, swapped contacts.</p>
+
+    <p>Then the groups merged. Then became one team. Then Berkut simply became one of theirs — no title, no explanation needed.</p>
+
+    <p>The age gap was over ten years. Sol called him the old man — not out of disrespect, but with the particular warmth that only exists when a nickname is exactly right. Berkut was an old man in the best sense: knew a lot, said what mattered, knew how to be there without unnecessary words. By twenty-five he'd already lived enough not to fuss where younger people fussed.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>They started playing everything together. Not because they were specifically looking for company — it just turned out that playing with Berkut made you want to keep playing. He could hold a conversation, knew how to ease tension, never turned small things into big ones. Sol eventually got him hooked on Minecraft — Berkut resisted for a long time, thought it was childish. Then he got sucked in. The way it always goes with the ones who resist the longest.</p>
+
+    <p>Khob appeared naturally — Berkut's friend from offline life, they lived in the same city. A cobbler by trade, a craftsman at his work — whatever that sounds like. The three of them would gather at Berkut's from time to time — to drink, to talk, to spend time. Sol thought of his own people and smiled: everyone has the same thing, just different cities.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">Falls Asleep Mid-Raid</div>
+    </div>
+
+    <p>Berkut had a trait. Not a flaw — a trait, his own, signature. He could fall asleep at any moment — without warning, without announcement, he'd simply go. Mid-raid, at the base, while mining resources. The signal was a gentle snore starting to come through the microphone.</p>
+
+    <p>If Berkut stopped moving late in the evening — that was it, the trio risked becoming a duo. The guys knew this and tried to keep him engaged — gave him tasks, asked questions, just kept talking. In non-critical situations they didn't interfere — quietly laughing among themselves every time as if it were the first.</p>
+
+    <p>There were cases when he fell asleep at the very start of a raid. Just sat down and went — in the middle of the open world, in a danger zone, with a full inventory. Sol and Nik looked at this not knowing whether to laugh or continue the raid without him. Usually they did both.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>The rest of the time Berkut was more productive than most. He loved processes that need minimal attention and constant key-pressing — and understood macros well enough that the system pressed the right buttons for him at the right moment. If something needed automating with keyboard or mouse — you went to Berkut.</p>
+
+    <p>He worked as a security guard — long shifts, few events. That gave him an extensive film library which he rewatched ten to twenty times each. He knew them by heart — quotes, scenes, details most people miss on a first viewing.</p>
+
+    <p>Fishing was his separate world. He'd get in the car and drive — alone, with his own thoughts, with a rod and more patience than most people Sol had ever known. While the car was there — he went often.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">While He's Still in the Game</div>
+    </div>
+
+    <p>Berkut at full strength was second to none. Not in games, not in conversation, not in how he showed up when it was needed. He always supported — not with words people say just to say something, but with presence. Simply being there was enough.</p>
+
+    <p>Solid through and through. You couldn't find anything bad to say — that's just how it was. Not perfect, just honest. Not loud, just real.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>There are things said between the lines — not because they're hard to say, but because some words mean more when they aren't said out loud. Berkut knows what this is about. Sol knows. That's enough.</p>
+
+    <p>His reserves aren't what they used to be. You notice it — in how he moves, in how quickly he tires, in the fact that there's less fishing now. But he's still here. Still in the game — maybe not at the old speed, but in the game.</p>
+
+    <p>People like this don't get forgotten. Not because they did anything special — but because they simply were there. Close, genuinely, without conditions.</p>
+
+    <p>Berkut is a legend in his own way.</p>
+
+    <p>That's the truth.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>
