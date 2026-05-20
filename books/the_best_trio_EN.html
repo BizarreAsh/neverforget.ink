@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Best Trio — Bizarre Ash</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #0a0a0a;
+    --paper: #e8e8e0;
+    --fade: #707068;
+    --accent: #3a3a28;
+    --gold: #808060;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(100,100,60,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(58,58,40,0.06) 0%, transparent 60%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; }
+  .cover { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 6rem 0; position: relative; }
+  .cover::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); }
+  .cover-eyebrow { font-family: 'Cormorant Garamond', serif; font-size: 11px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 3rem; opacity: 0.8; }
+  .cover-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(44px, 9vw, 68px); font-weight: 300; letter-spacing: 0.04em; color: var(--ink); line-height: 1.15; margin-bottom: 0.4rem; }
+  .cover-title em { font-style: italic; color: var(--accent); }
+  .cover-rule { width: 40px; height: 1px; background: var(--gold); margin: 2.5rem auto; opacity: 0.6; }
+  .cover-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-style: italic; color: var(--fade); letter-spacing: 0.2em; margin-bottom: 5rem; }
+  .cover-author { font-family: 'Cormorant Garamond', serif; font-size: 13px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--fade); opacity: 0.7; }
+  .toc { padding: 7rem 0 5rem; border-bottom: 1px solid rgba(128,128,96,0.2); margin-bottom: 7rem; }
+  .toc-label { font-family: 'Cormorant Garamond', serif; font-size: 10px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 2.5rem; }
+  .toc-item { display: grid; grid-template-columns: 2em 1fr 2em; gap: 0.5rem; align-items: baseline; padding: 0.75rem 0; border-bottom: 1px solid rgba(128,128,96,0.12); font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; color: var(--ink); text-decoration: none; transition: color 0.2s; }
+  .toc-item:hover { color: var(--accent); }
+  .toc-roman { font-style: normal; font-size: 11px; color: var(--gold); letter-spacing: 0.1em; padding-top: 0.3em; }
+  .toc-num { font-style: normal; font-size: 11px; color: var(--fade); text-align: right; }
+  .chapter { padding-top: 6rem; margin-bottom: 3rem; }
+  .chapter-header { margin-bottom: 3rem; }
+  .chapter-number { font-family: 'Cormorant Garamond', serif; font-size: 100px; font-weight: 300; color: var(--gold); opacity: 0.18; line-height: 0.85; margin-bottom: -0.1em; letter-spacing: -0.02em; user-select: none; }
+  .chapter-title { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 300; font-style: italic; color: var(--ink); padding-bottom: 1.5rem; border-bottom: 1px solid rgba(128,128,96,0.35); line-height: 1.3; }
+  p { margin-bottom: 1.5em; text-align: justify; hyphens: auto; }
+  .chapter > p:first-of-type::first-letter { font-family: 'Cormorant Garamond', serif; font-size: 4.8em; font-weight: 300; float: left; line-height: 0.72; margin-right: 0.06em; margin-top: 0.1em; color: var(--accent); }
+  .break { display: flex; align-items: center; justify-content: center; gap: 0.6em; margin: 3rem 0; color: var(--gold); opacity: 0.5; font-size: 8px; letter-spacing: 0.6em; }
+  .break::before, .break::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, transparent, rgba(128,128,96,0.3)); }
+  .break::after { background: linear-gradient(to left, transparent, rgba(128,128,96,0.3)); }
+  .chapter-end { margin: 6rem 0 0; text-align: center; color: var(--gold); opacity: 0.3; font-size: 20px; letter-spacing: 0.6em; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">autobiographical prose</div>
+    <div class="cover-title">The Best<br><em>Trio</em></div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">about worlds built and lost</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Contents</div>
+    <a class="toc-item" href="#ch1"><span class="toc-roman">I</span><span>Epoch — One Restart</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch2"><span class="toc-roman">II</span><span>DayZ — The Hangar</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch3"><span class="toc-roman">III</span><span>Rust — Wiped to Zero</span><span class="toc-num">—</span></a>
+  </div>
+
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">Epoch — One Restart</div>
+    </div>
+
+    <p>Epoch wasn't a game — it was a system. A mod for Arma 2 that took a military simulator and added what it was missing: a reason to survive. Bases, missions, trading zones, random encounters with people who might be allies or might not — all of it across maps where forests, roads and abandoned structures stretched to the horizon, each one potentially hiding something valuable or deadly.</p>
+
+    <p>Or found Epoch early — when it was still taking shape. The first sessions were solo, trial and loss. NPC missions scattered across the map at random — a marker appeared and you knew: something's there, and others are already heading for it. Get there first, clear it, take it. Or don't make it — and take a bullet from someone who came for you, not the bots.</p>
+
+    <p>Then came other servers — ones where the full Arma 2 vehicle roster had been added to standard Epoch. Tanks, attack helicopters, APCs, anti-aircraft batteries, fighter jets. Some dedicated players had a fully operational Topol-M in their arsenal. This was no longer a survival simulator — it was a war with no beginning and no end, only the next target on the horizon.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>They'd wanted a T-72 for a long time. Not because they needed it — because it was the top. Or, Sokol and Khob spent an entire day, an entire night, and the following morning working toward it. Missions, resources, trading, more missions. Around six in the morning the tank was finally theirs.</p>
+
+    <p>Or had been awake for nearly twenty-four hours straight. But it didn't matter — the three of them exhaled and kept moving. The map was large, there were plenty of targets, and the T-72 beneath them made everything else feel small.</p>
+
+    <p>Then Or missed the GPS marker.</p>
+
+    <p>The mission boundary passed under the tracks unnoticed. He understood where they were only when they were already inside the sector — where anti-aircraft guns opened fire on vehicles from a kilometre and a half out. He panicked and drove the wrong way. Instead of pulling back behind a hill into dead ground — he drove uphill, straight into the line of fire.</p>
+
+    <p>The rear of the tank started coming apart under explosive rounds. Fifteen seconds — and a day's progress from three people was gone.</p>
+
+    <p>The characters survived — they retreated into the forest and logged off. Angry, deflated, passing the blame in circles. The next day no one wanted to try again.</p>
+
+    <p>But no one quit either.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">DayZ — The Hangar</div>
+    </div>
+
+    <p>DayZ in its early form was too raw — interesting as a concept, hollow inside. Or would go in alone sometimes: explore the world, collect gear, simply survive without any particular goal. Problems found him — not the other way around.</p>
+
+    <p>Cheaters ran freely back then — no anticheat, no oversight. The more enterprising ones conjured the best gear out of thin air and sold it to regular players for a few dollars. One life, top armour, max weapons — and after that only luck. Or used this when he couldn't be bothered, equipped himself and whoever was nearby, and they went looking for a fight with anyone.</p>
+
+    <p>On one such outing he and Dima landed in the middle of a large firefight in town. A sniper was working through everyone indiscriminately — unknown affiliation, unknown position. Rounds were coming in chaotic but accurate. They kept to the walls, moved in short dashes, and at some point realized they were shooting at the same people from different sides.</p>
+
+    <p>They stopped firing at the same moment. It was Sokol's group.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>They gathered in a hangar on the edge of town — five strangers who'd just been shooting at each other. Caught their breath. Talked over the map, their plans, who was heading where. Exchanged contacts.</p>
+
+    <p>Parted as though they'd always known each other.</p>
+
+    <p>That was how Or met Sokol — the person with whom dozens of other worlds would later be conquered. Nothing special happened that evening. A sniper was shooting at everyone, and they ended up in the same hangar.</p>
+
+    <p>Sometimes that's how you find the ones who stay.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">Rust — Wiped to Zero</div>
+    </div>
+
+    <p>Rust Experimental arrived when the game didn't yet know what it wanted to be. Wooden boxes, minimal mechanics, maximum chaos. Or was in from the early days — when it was still just an idea learning to walk. And he stayed.</p>
+
+    <p>The trio formed on its own. Or built — put maximum effort into bases, calculated every angle, every layer of defence. Sokol handled the dull work — farming, processing, everything others got tired of. Kit shot for all three — twenty frames per second, laggy picture, and somehow hit exactly where he needed to. Inexplicable, but true.</p>
+
+    <p>On trio-only servers with a cap of three they outperformed many groups twice their size. Because they knew the game from the inside and because they complemented each other without gaps.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>On one wipe a neighbour appeared over the hill from their base. Built fast and seriously — by the time the guys noticed, an impressive ring of walls was already standing. Bigger base means more inside. Simple logic, obvious motivation.</p>
+
+    <p>They went on a raid.</p>
+
+    <p>They drilled through the second and third floors using their standard method — spherically, to catch anything hidden higher up. Made it to the middle. Nothing. Went further. Nothing again. No TC in sight — which meant it was hidden somewhere too. Loot in the honeycomb, TC in the walls, everything bricked in.</p>
+
+    <p>The guys stopped and looked at each other.</p>
+
+    <p>Then they made a decision.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Wiping to zero isn't just blowing up the centre and leaving with loot. It means deleting the base as an object. Wall by wall, floor by floor, until what's left is a flat foundation and the memory of something that used to stand there.</p>
+
+    <p>They used explosives. A lot. More than the calculation said it was worth.</p>
+
+    <p>But it wasn't about resources anymore — it was about principle. Hiding your TC is bad form. Hiding your loot is bad form. The lesson needed to be clear.</p>
+
+    <p>When it was done they returned to their own base. No richer than before. No explosives left. But there was that feeling you get when you do something not for the gain — but simply because you decided to.</p>
+
+    <p>Kit said something about twenty frames per second. Everyone laughed.</p>
+
+    <p>That was the best trio.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sunrise for Three — Bizarre Ash</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #1a100a;
+    --paper: #faf3e8;
+    --fade: #a08060;
+    --accent: #a04010;
+    --gold: #d08030;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(220,140,40,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(160,64,16,0.05) 0%, transparent 60%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; }
+
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 6rem 0;
+    position: relative;
+  }
+
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+
+  .cover-eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 3rem;
+    opacity: 0.8;
+  }
+
+  .cover-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(40px, 9vw, 64px);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    line-height: 1.15;
+    margin-bottom: 0.4rem;
+  }
+
+  .cover-title em { font-style: italic; color: var(--accent); }
+
+  .cover-rule {
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    margin: 2.5rem auto;
+    opacity: 0.6;
+  }
+
+  .cover-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--fade);
+    letter-spacing: 0.2em;
+    margin-bottom: 5rem;
+  }
+
+  .cover-author {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--fade);
+    opacity: 0.7;
+  }
+
+  .toc { padding: 7rem 0 5rem; border-bottom: 1px solid rgba(208,128,48,0.2); margin-bottom: 7rem; }
+  .toc-label { font-family: 'Cormorant Garamond', serif; font-size: 10px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 2.5rem; }
+  .toc-item { display: grid; grid-template-columns: 2em 1fr 2em; gap: 0.5rem; align-items: baseline; padding: 0.75rem 0; border-bottom: 1px solid rgba(208,128,48,0.12); font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; color: var(--ink); text-decoration: none; transition: color 0.2s; }
+  .toc-item:hover { color: var(--accent); }
+  .toc-roman { font-style: normal; font-size: 11px; color: var(--gold); letter-spacing: 0.1em; padding-top: 0.3em; }
+  .toc-num { font-style: normal; font-size: 11px; color: var(--fade); text-align: right; }
+  .chapter { padding-top: 6rem; margin-bottom: 3rem; }
+  .chapter-header { margin-bottom: 3rem; }
+  .chapter-number { font-family: 'Cormorant Garamond', serif; font-size: 100px; font-weight: 300; color: var(--gold); opacity: 0.18; line-height: 0.85; margin-bottom: -0.1em; letter-spacing: -0.02em; user-select: none; }
+  .chapter-title { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 300; font-style: italic; color: var(--ink); padding-bottom: 1.5rem; border-bottom: 1px solid rgba(208,128,48,0.35); line-height: 1.3; }
+  p { margin-bottom: 1.5em; text-align: justify; hyphens: auto; }
+  .chapter > p:first-of-type::first-letter { font-family: 'Cormorant Garamond', serif; font-size: 4.8em; font-weight: 300; float: left; line-height: 0.72; margin-right: 0.06em; margin-top: 0.1em; color: var(--accent); }
+  .dialogue { margin: 2em 0 2em 2.2em; font-style: italic; color: #2a1008; position: relative; font-size: 17.5px; }
+  .dialogue::before { content: '—'; position: absolute; left: -1.5em; color: var(--gold); font-style: normal; }
+  .break { display: flex; align-items: center; justify-content: center; gap: 0.6em; margin: 3rem 0; color: var(--gold); opacity: 0.5; font-size: 8px; letter-spacing: 0.6em; }
+  .break::before, .break::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, transparent, rgba(208,128,48,0.3)); }
+  .break::after { background: linear-gradient(to left, transparent, rgba(208,128,48,0.3)); }
+  .chapter-end { margin: 6rem 0 0; text-align: center; color: var(--gold); opacity: 0.3; font-size: 20px; letter-spacing: 0.6em; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">autobiographical prose</div>
+    <div class="cover-title">Sunrise<br><em>for Three</em></div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">about three people seeing the same thing differently</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Contents</div>
+    <a class="toc-item" href="#ch1"><span class="toc-roman">I</span><span>The Big Brother</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch2"><span class="toc-roman">II</span><span>The Terrace</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch3"><span class="toc-roman">III</span><span>Three Packs of Captain Black</span><span class="toc-num">—</span></a>
+  </div>
+
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">The Big Brother</div>
+    </div>
+
+    <p>The third trip had a different lineup. Roy, Iva — and Leo. The younger brother, brought along not because it just worked out that way, but because that's what they decided. SUNRISE Arabian Beach Resort greeted them with January sun, palm trees along the paths, and that particular feeling of a familiar country in an unfamiliar hotel — different place, same air.</p>
+
+    <p>Leo settled in naturally — the way only those do who don't think about settling in. He was simply there, taking everything in through his own eyes, reacting in his own way. The older brother in him was immediately recognizable — in the way he moved, in the way he chose his moment to disappear.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Every day at some point Leo just left. No warning, no explanation — he simply dissolved into the hotel grounds. Roy knew where: graffiti. Leo found whatever surface seemed right and left his mark on it — quietly, without fuss, like someone who has a job and goes to do it.</p>
+
+    <p>Roy watched this with the mixed feeling you get with younger siblings — when you recognize yourself, but slightly different. Leo was his own. Just his own — no conditions, no explanation required. That was worth something.</p>
+
+    <p>He and Iva had those moments together — sea, sun, the kind of quiet that only exists when there's no one extra around. Good time. Leo would come back satisfied, with the look of someone who did what they set out to do.</p>
+
+    <p>Days went like that — steady, warm, each in their own rhythm.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">The Terrace</div>
+    </div>
+
+    <p>It happened on an ordinary evening. Iva and Leo ate in the room — brought food, got comfortable, ate. Then got up and left. Plates, wrappers, leftovers — everything stayed on the terrace. That was the plan: someone will clear it up, that's their job.</p>
+
+    <p>Roy saw this and stopped.</p>
+
+    <p>Not because it was messy — that would have been too simple an explanation. But because behind every cleared plate there's a person. A real one, with a name, with a life outside this hotel. Someone who got up early, put on a uniform, and came to clean up after people who came here to rest. It's their job — but that doesn't mean it's acceptable to drop things at their feet because you can't be bothered to find a bin.</p>
+
+    <p>Roy said this. Not quietly.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>The argument that followed was a proper one — the kind you remember not for the words but for the tone. Roy talked about respect for other people's work, about the fact that money pays for service not for the right to be a pig, about how the difference between a person and a thug is precisely in these small things and nowhere else.</p>
+
+    <p>Iva and Leo listened in silence. Both their faces said everything that needed to be said — no point continuing.</p>
+
+    <p>The terrace was cleared. By them, not the staff.</p>
+
+    <p>It didn't happen again. One lesson — and it was heard.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">Three Packs of Captain Black</div>
+    </div>
+
+    <p>The George Clooney shop — the same place Andy had taken them on the first trip — was on the programme this time too. All three went. Roy knew what to get, Iva knew what to get. Leo wandered between the aisles with the air of someone studying the terrain.</p>
+
+    <p>Then they left. Got in the car. Drove off.</p>
+
+    <p>Back at the hotel Leo reached into his jacket and produced three packs of Captain Black — flavoured cigars, neatly packaged, sitting innocently inside his coat the whole way. He put them on the table. Looked at Roy.</p>
+
+    <p>Roy looked at the cigars. Then at Leo.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>What happened next would take a while to explain. Short version: Leo received everything owed to someone who shoplifts in a foreign country from a shop they were brought to as a guest. Not physically — with words. Roy knew how to talk in a way that made physical feel gentle by comparison.</p>
+
+    <p>Leo was a kid who didn't yet understand consequences. Didn't understand that the shop represented someone else's work, someone else's money, someone else's livelihood. That he'd been brought there as part of the family, and he'd used that differently than he should have. That three packs of cigars were worth less than the trust spent on his being there.</p>
+
+    <p>Captain Black stayed on the table untouched.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>The story didn't end there — it just got a postponement. Leo will grow up and understand. Or already has. Roy didn't forget — and will remind him when the moment comes, without the argument this time, just as a fact that happened.</p>
+
+    <p>Three packs of Captain Black. A mistake that was paid for in advance — Leo just didn't know it.</p>
+
+    <p>Now he does.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>
