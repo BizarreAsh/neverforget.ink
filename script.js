@@ -254,6 +254,12 @@ const bookPool = [
   { title: 'Турецкая Кофейная Апельсинка',  author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/turetskaya_kofeynaya_apelsynka-1.html' },
   { title: 'Turkish Coffee Tangerine',      author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/turkish_coffee_tangerine_EN.html'      },
   { title: 'Türkische Kaffee-Mandarine',    author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/tuerkische_kaffee_mandarine_DE.html'   },
+  { title: 'Брат не по крови',              author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/brat_ne_po_krovi.html'                  },
+  { title: 'Brother Not by Blood',          author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/brother_not_by_blood_EN.html'            },
+  { title: 'Bruder nicht durch Blut',       author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/bruder_nicht_durch_blut_DE.html'         },
+  { title: 'Два экрана один босс',          author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/dva_ekrana_odin_boss.html'               },
+  { title: 'Two Screens One Boss',          author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/two_screens_one_boss_EN.html'            },
+  { title: 'Zwei Bildschirme ein Boss',     author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/zwei_bildschirme_ein_boss_DE.html'       },
 ];
 
 function shuffleArray(arr) {
