@@ -306,6 +306,15 @@ const bookPool = [
   { title: 'Хардкор',                      author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/хардкор.html'                              },
   { title: 'Hardcore',                     author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/hardcore_EN.html'                          },
   { title: 'Hardcore',                     author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/hardcore_DE.html'                          },
+  { title: 'Психуня',                      author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/psikhunya.html'                            },
+  { title: 'The Ward',                     author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/the_ward_EN.html'                          },
+  { title: 'Die Durchdreherin',            author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/Durchdreherin_DE.html'                     },
+  { title: 'Беркут',                       author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/berkut.html'                               },
+  { title: 'Berkut',                       author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/berkut_EN.html'                            },
+  { title: 'Berkut',                       author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/berkut_DE.html'                            },
+  { title: 'Дань пикселям',               author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/dan_pikselyam.html'                        },
+  { title: 'A Tribute to Pixels',         author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/tribute_to_pixels_EN.html'                 },
+  { title: 'Tribut an die Pixel',         author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/tribut_an_die_pixel_DE.html'               },
 ];
 
 function shuffleArray(arr) {
