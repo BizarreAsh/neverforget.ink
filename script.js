@@ -271,26 +271,33 @@ function shuffleArray(arr) {
   return a;
 }
 
-// 1 book per non-empty genre + 1 bonus random
-function getCatalogPicks() {
-  const genres = ['genre_bio', 'genre_romance', 'genre_mystic', 'genre_inspire', 'genre_tech'];
-  const picks  = [];
-  genres.forEach(g => {
-    const group = bookPool.filter(b => b.genre === g);
-    if (group.length) picks.push(group[Math.floor(Math.random() * group.length)]);
-  });
-  const bonus = bookPool.filter(b => !picks.includes(b));
-  if (bonus.length) picks.push(bonus[Math.floor(Math.random() * bonus.length)]);
-  return shuffleArray(picks);
+function bookLang(book) {
+  if (/_EN(-\d+)?\.html$/.test(book)) return 'en';
+  if (/_DE(-\d+)?\.html$/.test(book)) return 'de';
+  return 'ru';
 }
 
-function makeCatalogCard({ title, author, genre, book }) {
+// 2 books per language (RU/EN/DE), no repeats until all shown
+function getCatalogPicks() {
+  const picks = [];
+  ['ru', 'en', 'de'].forEach(lang => {
+    const group = bookPool.filter(b => bookLang(b.book) === lang);
+    const shownKey = `nf_shown_${lang}`;
+    let shown = JSON.parse(sessionStorage.getItem(shownKey) || '[]');
+    let available = group.filter(b => !shown.includes(b.book));
+    if (available.length < 2) { shown = []; available = [...group]; }
+    const selected = shuffleArray(available).slice(0, 2);
+    shown.push(...selected.map(b => b.book));
+    sessionStorage.setItem(shownKey, JSON.stringify(shown));
+    picks.push(...selected);
+  });
+  return picks;
+}
+
+function makeCatalogCard({ title, author, book }) {
   const card = document.createElement('div');
-  card.className = 'book-card';
-  if (book) {
-    card.dataset.book = book;
-    card.classList.add('book-card--original');
-  }
+  card.className    = 'book-card book-card--original';
+  card.dataset.book = book;
 
   const favBtn = document.createElement('button');
   favBtn.className = 'fav-btn';
@@ -316,55 +323,30 @@ function makeCatalogCard({ title, author, genre, book }) {
   const p = document.createElement('p');
   p.textContent = author;
 
-  const pill = document.createElement('span');
-  pill.className      = 'genre-pill';
-  pill.dataset.genre  = genre;
-  pill.textContent    = translations[currentLang][genre] ?? genre;
+  const badge = document.createElement('span');
+  badge.className   = 'book-badge';
+  badge.textContent = 'NeverForget Original';
 
-  if (book) {
-    const badge = document.createElement('span');
-    badge.className   = 'book-badge';
-    badge.textContent = 'NeverForget Original';
-    card.append(favBtn, cover, h3, p, badge, pill);
-  } else {
-    card.append(favBtn, cover, h3, p, pill);
-  }
-
-  card.addEventListener('click', () => {
-    if (card.dataset.book) window.open(card.dataset.book, '_blank');
-  });
+  card.append(favBtn, cover, h3, p, badge);
+  card.addEventListener('click', () => window.open(book, '_blank'));
 
   return card;
 }
 
 const catalogGrid = document.getElementById('catalog-grid');
 const shuffleBtn  = document.getElementById('shuffle-btn');
-const genreBack   = document.getElementById('genre-back');
 
 if (catalogGrid) {
-  const genreFilter = new URLSearchParams(window.location.search).get('genre');
-
-  if (genreFilter) {
-    const h1 = document.querySelector('.catalog-section h1');
-    h1.dataset.i18n  = genreFilter;
-    h1.textContent   = translations[currentLang][genreFilter] ?? genreFilter;
-    shuffleBtn.hidden = true;
-    genreBack.removeAttribute('hidden');
-    bookPool
-      .filter(b => b.genre === genreFilter)
-      .forEach(book => catalogGrid.appendChild(makeCatalogCard(book)));
-  } else {
-    function renderCatalog() {
-      catalogGrid.style.opacity = '0';
-      setTimeout(() => {
-        catalogGrid.innerHTML = '';
-        getCatalogPicks().forEach(book => catalogGrid.appendChild(makeCatalogCard(book)));
-        catalogGrid.style.opacity = '1';
-      }, 180);
-    }
-    renderCatalog();
-    shuffleBtn.addEventListener('click', renderCatalog);
+  function renderCatalog() {
+    catalogGrid.style.opacity = '0';
+    setTimeout(() => {
+      catalogGrid.innerHTML = '';
+      getCatalogPicks().forEach(book => catalogGrid.appendChild(makeCatalogCard(book)));
+      catalogGrid.style.opacity = '1';
+    }, 180);
   }
+  renderCatalog();
+  shuffleBtn.addEventListener('click', renderCatalog);
 }
 
 // --- Favorites page ---
