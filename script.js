@@ -130,13 +130,14 @@ const translations = {
   },
 };
 
-let currentLang = 'ru';
+let currentLang = localStorage.getItem('nf_lang') || 'ru';
 
 const langBtns = document.querySelectorAll('.lang-btn');
 const i18nEls  = document.querySelectorAll('[data-i18n], [data-i18n-placeholder]');
 
 function setLanguage(lang) {
   currentLang = lang;
+  localStorage.setItem('nf_lang', lang);
   document.documentElement.lang = lang;
   const t = translations[lang];
   i18nEls.forEach(el => {
@@ -151,6 +152,7 @@ function setLanguage(lang) {
 }
 
 langBtns.forEach(btn => btn.addEventListener('click', () => setLanguage(btn.dataset.lang)));
+setLanguage(currentLang);
 
 // --- Favorites (localStorage) ---
 
@@ -544,7 +546,6 @@ function bindModal(id, triggerSel) {
   modal.querySelector('.modal-close').addEventListener('click', () => modal.classList.remove('open'));
 }
 
-bindModal('about-modal',    '[data-i18n="nav_about"]');
 bindModal('contacts-modal', '[data-i18n="nav_contacts"]');
 
 document.addEventListener('keydown', e => {

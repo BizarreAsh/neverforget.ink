@@ -526,6 +526,46 @@ a.logo {
   }
 }
 
+/* ABOUT PAGE */
+.about-section {
+  padding: 60px 40px;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.about-section h1 {
+  font-size: 2rem;
+  color: #c9a84c;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.about-section p {
+  font-size: 1.05rem;
+  color: #e8e0d0;
+  line-height: 1.85;
+  margin-bottom: 24px;
+}
+
+.about-section p:last-of-type {
+  color: #c9a84c;
+  font-weight: bold;
+  font-size: 1.1rem;
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+  .about-section {
+    padding: 40px 20px;
+  }
+  .about-section h1 {
+    font-size: 1.6rem;
+    margin-bottom: 34px;
+  }
+}
+
 /* FOOTER */
 footer {
   text-align: center;
