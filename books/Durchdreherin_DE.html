@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Die Durchdreherin</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #1a0f0a;
+    --paper: #f2ece3;
+    --accent: #8b3a22;
+    --gold: #b8895a;
+    --fade: #7a6a5a;
+    --warm-shadow: rgba(139,58,34,0.08);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 15% 0%, rgba(184,137,90,0.07) 0%, transparent 55%),
+      radial-gradient(ellipse at 85% 100%, rgba(139,58,34,0.06) 0%, transparent 55%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.95;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 620px; margin: 0 auto; }
+
+  /* COVER */
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 6rem 0;
+    position: relative;
+  }
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 60px; height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+  .cover-eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10.5px;
+    letter-spacing: 0.55em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 3.5rem;
+    opacity: 0.75;
+  }
+  .cover-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(52px, 11vw, 78px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--accent);
+    line-height: 1.05;
+    letter-spacing: 0.02em;
+    margin-bottom: 0.3rem;
+  }
+  .cover-rule {
+    width: 36px; height: 1px;
+    background: var(--gold);
+    margin: 2.5rem auto;
+    opacity: 0.55;
+  }
+  .cover-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14.5px;
+    font-style: italic;
+    color: var(--fade);
+    letter-spacing: 0.06em;
+    line-height: 1.6;
+    max-width: 340px;
+    margin: 0 auto 5rem;
+  }
+  .cover-author {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 12px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--fade);
+    opacity: 0.65;
+  }
+
+  /* TOC */
+  .toc {
+    padding: 7rem 0 5rem;
+    border-bottom: 1px solid rgba(184,137,90,0.18);
+    margin-bottom: 7rem;
+  }
+  .toc-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10px;
+    letter-spacing: 0.55em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2.5rem;
+  }
+  .toc-item {
+    display: grid;
+    grid-template-columns: 2em 1fr 2em;
+    gap: 0.5rem;
+    align-items: baseline;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid rgba(184,137,90,0.1);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 19px;
+    font-style: italic;
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .toc-item:hover { color: var(--accent); }
+  .toc-roman { font-style: normal; font-size: 10.5px; color: var(--gold); letter-spacing: 0.1em; padding-top: 0.35em; }
+  .toc-dash { font-style: normal; font-size: 11px; color: var(--fade); text-align: right; }
+
+  /* CHAPTER */
+  .chapter { padding-top: 6rem; margin-bottom: 2rem; }
+  .chapter-header { margin-bottom: 3rem; }
+  .chapter-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 110px;
+    font-weight: 300;
+    color: var(--accent);
+    opacity: 0.12;
+    line-height: 0.82;
+    margin-bottom: -0.08em;
+    user-select: none;
+  }
+  .chapter-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--ink);
+    padding-bottom: 1.4rem;
+    border-bottom: 1px solid rgba(184,137,90,0.3);
+    line-height: 1.3;
+  }
+
+  p { margin-bottom: 1.6em; text-align: justify; hyphens: auto; }
+
+  .chapter > p:first-of-type::first-letter {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 5em;
+    font-weight: 300;
+    float: left;
+    line-height: 0.7;
+    margin-right: 0.07em;
+    margin-top: 0.12em;
+    color: var(--accent);
+  }
+
+  .break {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+    margin: 3rem 0;
+    color: var(--gold);
+    opacity: 0.45;
+    font-size: 7.5px;
+    letter-spacing: 0.7em;
+  }
+  .break::before, .break::after {
+    content: '';
+    flex: 1; height: 1px;
+    background: linear-gradient(to right, transparent, rgba(184,137,90,0.28));
+  }
+  .break::after { background: linear-gradient(to left, transparent, rgba(184,137,90,0.28)); }
+
+  .standalone {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-style: italic;
+    color: var(--accent);
+    text-align: center;
+    margin: 2rem 0;
+    opacity: 0.8;
+  }
+
+  .artifact-list {
+    margin: 1.8em 0 1.8em 0;
+  }
+  .artifact-list p {
+    margin-bottom: 0.7em;
+    padding-left: 1.5em;
+    position: relative;
+    text-align: left;
+  }
+  .artifact-list p::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+  }
+
+  blockquote {
+    margin: 2em 0 2em 0;
+    font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 19px;
+    color: var(--accent);
+    line-height: 1.55;
+    opacity: 0.85;
+    padding-left: 1.5em;
+    border-left: 1.5px solid var(--gold);
+  }
+
+  .chapter-end {
+    margin: 6rem 0 0;
+    text-align: center;
+    color: var(--gold);
+    opacity: 0.28;
+    font-size: 18px;
+    letter-spacing: 0.7em;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">autobiografische Prosa</div>
+    <div class="cover-title">Die Durchdreherin</div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">eine Geschichte darüber, wie beständige Güte fast endete — wegen des falschen Umfelds</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Inhalt</div>
+    <a class="toc-item" href="#ch1">
+      <span class="toc-roman">I</span>
+      <span>Fünf Schachbretter</span>
+      <span class="toc-dash">—</span>
+    </a>
+    <a class="toc-item" href="#ch2">
+      <span class="toc-roman">II</span>
+      <span>Geben ohne zu bitten</span>
+      <span class="toc-dash">—</span>
+    </a>
+    <a class="toc-item" href="#ch3">
+      <span class="toc-roman">III</span>
+      <span>Zwei Radieschen, zwei Himbeeren und ein Garten</span>
+      <span class="toc-dash">—</span>
+    </a>
+  </div>
+
+  <!-- KAPITEL I -->
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">Fünf Schachbretter</div>
+    </div>
+
+    <p>Man landet hier auf verschiedene Weisen. Manche durch Schmerz, manche durch Angst, manche durch eine Erschöpfung, die sich so lange angesammelt hatte, dass sie irgendwann einfach schwerer wurde als alles andere zusammen. Der Ort heißt sanft — Psychiatrie. Innen ist alles schlicht gehalten: es gibt Personal, es gibt Patienten, es gibt einen Tagesablauf. Das Personal ist müde — das sieht man sofort. Nicht aus böser Absicht, sondern weil dieselben Fragen, dieselben Probleme, dieselben Gesichter Tag für Tag etwas aus einem Menschen herausarbeiten, das im ersten Arbeitsjahr noch lebendig war.</p>
+
+    <p>Er war hierher gelangt, weil er den Kontakt zu sich selbst verloren hatte. Nicht zu anderen Menschen — zu sich selbst. Der Verstand war getrübt — von Wut, von Unverständnis, von dem Gefühl, dass jemand ein Spiel gegen ihn spielte. Er suchte diesen jemand überall. Betrachtete die Menschen neben sich, wog Motive ab, baute Versionen.</p>
+
+    <p>Er fand ihn nicht.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Vor ihm lagen fünf Schachbretter. Auf jedem war sein Hauptgegner er selbst — und er spielte auf allen Seiten gleichzeitig, gab sich Züge für Weiß und Schwarz, schlug auf die Uhr und bemerkte nicht, dass er jede Partie gegen sich selbst verlor. Der Feind wechselte genau so, wie das Wetter wechselt — ohne Vorwarnung, ohne Logik, einfach weil sein eigener Verstand es so entschieden hatte.</p>
+
+    <p>Für ihn gab es kein Weiß und kein Schwarz. Alles war orange.</p>
+
+    <p>Es war ein Rennen gegen sich selbst, gegen sich selbst. Und erst als er sich von allem befreite, das ihn an das erinnerte, was ihm Schmerz bereitete — erst dann begannen die Bretter sich zu klären. Langsam, eines nach dem anderen. Und auf jedem von ihnen sah er dasselbe Gesicht gegenüber.</p>
+
+    <p>Sein eigenes.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <!-- KAPITEL II -->
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">Geben ohne zu bitten</div>
+    </div>
+
+    <p>Während der Verstand gegen sich selbst kämpfte — machten die Hände weiter, was sie am besten konnten. Er schenkte. Nicht Dinge — Momente. Kleine Stücke von etwas Warmem, die er seinem Umfeld gab ohne nachzudenken, ohne zu zählen, ohne zu erwarten, etwas zurückzubekommen. Das war keine Entscheidung und keine Strategie — das war einfach, wer er war. Immer.</p>
+
+    <p>Sah er, dass es jemandem schlecht ging — gab er ein Stückchen Gutes. Sah er, dass jemand allein war — blieb er dabei. Nicht weil es so sein musste. Einfach weil er es konnte.</p>
+
+    <p>Auf eine Antwort zu hoffen verstand er nicht und versuchte es auch nicht. Er gab — und das war alles. Das war ehrlich gegenüber denen, denen er gab. Und unehrlich sich selbst gegenüber — denn manche Menschen sahen darin keine Güte, sondern eine Ressource. Sie nahmen. Kamen wieder, wenn sie erneut nehmen wollten. Lächelten genau dann, wenn sie etwas haben wollten.</p>
+
+    <p>Er sah das. Manchmal sofort, manchmal später. Aber er gab weiter — weil die Alternative schlimmer war. Derjenige zu werden, der nicht gibt — bedeutete derjenige zu werden, der er nie gewesen war.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Schlechtes Umfeld kommt nicht mit einem Schild. Es kommt mit einem Lächeln, mit den richtigen Worten im richtigen Moment, mit der Fähigkeit, genau bis zu der Sekunde dabei zu sein, solange man gebraucht wird. Dann verschwindet es — still, ohne Erklärung, und lässt eine Leere zurück, die anfangs wie die eigene Schuld aussieht.</p>
+
+    <p>Seine Güte endete fast genau so — nicht durch einen einzigen Schlag, sondern durch viele kleine. Durch Menschen, die nicht wegen ihm nahmen, sondern trotz ihm.</p>
+
+    <p>Aber sie endete nicht.</p>
+
+    <p>Weil er noch hier ist. Mit einem Fuß auf der Schwelle zum Ausgang — die letzten Geschichten zu Ende schreibend, die letzten Momente an diejenigen weitergebend, die wirklich an ihn geglaubt hatten. Wie immer.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <!-- KAPITEL III -->
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">Zwei Radieschen, zwei Himbeeren und ein Garten</div>
+    </div>
+
+    <p>Die Hände steckten in der Erde. Schwarz-schwarz — bis zu den Handgelenken, bis zu den Ellbogen, mit jenem besonderen Gewicht feuchter Erde, das noch lange nach dem Graben unter den Fingernägeln bleibt. Daneben stand der Ergotherapielehrer, und gemeinsam verpflanzten sie einen Himbeerstrauch — von einer Stelle zur anderen, behutsam, um die Wurzeln nicht zu beschädigen.</p>
+
+    <p>Es war ein Garten. Klein, still, eigen. Ein Ort, wo man einfach mit den Händen arbeiten und an nichts Schweres denken konnte — weil die Erde keine Erklärungen braucht. Sie nimmt einfach an, was man ihr gibt, und gibt ihr Eigenes zurück.</p>
+
+    <p>Die Belohnung an jenem Tag war ein Radieschen. Es war von selbst gewachsen — niemand hatte es absichtlich gepflanzt, es war einfach aus der Erde aufgetaucht wie eine Erinnerung daran, dass das Leben ohne Erlaubnis weitergeht. Zwei Radieschen, zwei Himbeeren — wenig, aber genau so viel, wie man für einen guten Moment braucht.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Am Handgelenk erschien ein Freundschaftsarmband — orange-rosa, mit eigenen Händen geflochten. Kein Schmuck und kein Symbol — einfach ein Ding, das er selbst gemacht hatte, aus nichts, während die Hände suchten, womit sie sich beschäftigen konnten. Es blieb.</p>
+
+    <p>Das Personal dieses Ortes war das Beste, was es dort gab. Nicht weil sie alles richtig machten — sondern weil sie alles lebendig machten. Mit jener Erschöpfung, die einem nicht hindert, echt zu sein, und mit jener Geduld, die sich nicht durch eine Dienstvorschrift erklärt.</p>
+
+    <p>Die wichtigste Erkenntnis, die sich hier erschloss — war einfach. Das Herz nur für diejenigen öffnen, denen es wirklich etwas bedeutet. Nicht für alle. Nicht aus Höflichkeit. Nur für die.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Fünf Pfingstrosen standen im Zimmer und öffneten sich — langsam, Tag für Tag, so wie es nur Blumen können, denen niemand im Weg ist. Sie schenkten Freude jedem, der vorbeiging oder einfach in der Nähe war. Ohne etwas zu verlangen. Einfach indem sie sich öffneten.</p>
+
+    <p>Dieser Ort wird für immer im Herzen bleiben. Nicht weil er leicht war — sondern weil er ehrlich war. Erde unter den Fingernägeln, die Himbeere, die es nicht geschafft hatte, das Radieschen, das von selbst gewachsen war, das Armband am Handgelenk.</p>
+
+    <p>Und die einfache Wahrheit, die er hier schließlich sah.</p>
+
+    <p>Das Herz ist entweder schwarz oder rot. Ein Drittes gibt es nicht. Und nur der Mensch selbst entscheidet, welches es sein wird — jeden Tag, jeden Moment, mit jeder seiner Entscheidungen.</p>
+
+    <p>Er wählte rot.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Beim Abschied sagte die Frau, die ihm geholfen hatte, einfach:</p>
+
+    <blockquote>Ich hoffe, dass du hier nicht mehr zurückkommst.</blockquote>
+
+    <p>Er ging mit drei Artefakten hinaus. Nicht Souvenirs — genau Artefakte, jedes mit seinem eigenen Gewicht und seiner eigenen Geschichte.</p>
+
+    <div class="artifact-list">
+      <p>Erinnerungsmarke 6/11 — kaltes Metall, ein Datum, das bei ihm bleiben wird.</p>
+      <p>Rosa-orangefarbenes Armband, mit eigenen Händen geflochten — eben jenes, aus dem Garten, aus der Erde unter den Fingernägeln und der Himbeere, die es nicht geschafft hatte.</p>
+      <p>Vergoldete mechanische Uhr — eingetauscht bei der Ex-Frau. Außen golden. Innen mechanisch. Jeder Zeigerumlauf ehrlich.</p>
+    </div>
+
+    <p>Drei Artefakte. Ein Mensch. Davor — alles Weitere.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>

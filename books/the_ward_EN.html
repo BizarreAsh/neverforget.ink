@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Ward — Bizarre Ash</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #18100a;
+    --paper: #f2ede8;
+    --fade: #907060;
+    --accent: #602010;
+    --gold: #a06040;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(160,96,64,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(96,32,16,0.05) 0%, transparent 60%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; }
+  .cover { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 6rem 0; position: relative; }
+  .cover::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); }
+  .cover-eyebrow { font-family: 'Cormorant Garamond', serif; font-size: 11px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 3rem; opacity: 0.8; }
+  .cover-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(52px, 11vw, 80px); font-weight: 300; letter-spacing: 0.06em; color: var(--ink); line-height: 1.1; margin-bottom: 0.4rem; font-style: italic; }
+  .cover-rule { width: 40px; height: 1px; background: var(--gold); margin: 2.5rem auto; opacity: 0.6; }
+  .cover-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-style: italic; color: var(--fade); letter-spacing: 0.15em; margin-bottom: 5rem; max-width: 420px; line-height: 1.7; }
+  .cover-author { font-family: 'Cormorant Garamond', serif; font-size: 13px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--fade); opacity: 0.7; }
+  .toc { padding: 7rem 0 5rem; border-bottom: 1px solid rgba(160,96,64,0.2); margin-bottom: 7rem; }
+  .toc-label { font-family: 'Cormorant Garamond', serif; font-size: 10px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 2.5rem; }
+  .toc-item { display: grid; grid-template-columns: 2em 1fr 2em; gap: 0.5rem; align-items: baseline; padding: 0.75rem 0; border-bottom: 1px solid rgba(160,96,64,0.12); font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; color: var(--ink); text-decoration: none; transition: color 0.2s; }
+  .toc-item:hover { color: var(--accent); }
+  .toc-roman { font-style: normal; font-size: 11px; color: var(--gold); letter-spacing: 0.1em; padding-top: 0.3em; }
+  .toc-num { font-style: normal; font-size: 11px; color: var(--fade); text-align: right; }
+  .chapter { padding-top: 6rem; margin-bottom: 3rem; }
+  .chapter-header { margin-bottom: 3rem; }
+  .chapter-number { font-family: 'Cormorant Garamond', serif; font-size: 100px; font-weight: 300; color: var(--gold); opacity: 0.18; line-height: 0.85; margin-bottom: -0.1em; letter-spacing: -0.02em; user-select: none; }
+  .chapter-title { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 300; font-style: italic; color: var(--ink); padding-bottom: 1.5rem; border-bottom: 1px solid rgba(160,96,64,0.35); line-height: 1.3; }
+  p { margin-bottom: 1.5em; text-align: justify; hyphens: auto; }
+  .chapter > p:first-of-type::first-letter { font-family: 'Cormorant Garamond', serif; font-size: 4.8em; font-weight: 300; float: left; line-height: 0.72; margin-right: 0.06em; margin-top: 0.1em; color: var(--accent); }
+  .dialogue { margin: 2em 0 2em 2.2em; font-style: italic; color: #2a1008; position: relative; font-size: 17.5px; }
+  .dialogue::before { content: '—'; position: absolute; left: -1.5em; color: var(--gold); font-style: normal; }
+  .break { display: flex; align-items: center; justify-content: center; gap: 0.6em; margin: 3rem 0; color: var(--gold); opacity: 0.5; font-size: 8px; letter-spacing: 0.6em; }
+  .break::before, .break::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, transparent, rgba(160,96,64,0.3)); }
+  .break::after { background: linear-gradient(to left, transparent, rgba(160,96,64,0.3)); }
+  .chapter-end { margin: 6rem 0 0; text-align: center; color: var(--gold); opacity: 0.3; font-size: 20px; letter-spacing: 0.6em; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">autobiographical prose</div>
+    <div class="cover-title">The Ward</div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">a story about how constant kindness almost ended because of the wrong people</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Contents</div>
+    <a class="toc-item" href="#ch1"><span class="toc-roman">I</span><span>Five Chessboards</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch2"><span class="toc-roman">II</span><span>Giving Without Asking</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch3"><span class="toc-roman">III</span><span>Two Radishes, Two Raspberries and a Garden</span><span class="toc-num">—</span></a>
+  </div>
+
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">Five Chessboards</div>
+    </div>
+
+    <p>People arrive here by different routes. Some through pain, some through fear, some through a fatigue that accumulated so long it eventually weighed more than everything else combined. The place has a gentle name — psychiatry. Inside everything is arranged simply: there's staff, there are patients, there's a schedule. The staff are tired — you can see it immediately. Not from bad intentions, but because the same questions, the same problems, the same faces day after day carve something out of a person that was alive in their first year of work.</p>
+
+    <p>He ended up here because he lost the connection with himself. Not with people — with himself. His mind was clouded — by rage, by incomprehension, by the feeling that someone was playing a game against him. He looked for that someone everywhere. Studied the people around him, ran through their motives, built theories.</p>
+
+    <p>Found nothing.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Before him were five chessboards. On each of them his main opponent was himself — and he played all sides at once, moving for both white and black, clicking the timer, not noticing that he was losing every game to himself. The enemy shifted the same way weather shifts — without warning, without logic, simply because his own mind had decided so.</p>
+
+    <p>For him there was no white and no black. Everything was orange.</p>
+
+    <p>It was a race with himself, against himself. And only when he got rid of everything that reminded him of what caused him pain — only then did the boards begin to clear. Slowly, one by one. And on each of them he saw the same face across from him.</p>
+
+    <p>His own.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">Giving Without Asking</div>
+    </div>
+
+    <p>While his mind was fighting itself — his hands kept doing what they did best. He gave. Not things — moments. Small pieces of something warm, handed out to those around him without thinking, without counting, without expecting anything back. It wasn't a decision or a strategy — it was simply who he was. Always.</p>
+
+    <p>He saw someone struggling — gave them a piece of something good. Saw someone alone — stayed nearby. Not because he had to. Simply because he could.</p>
+
+    <p>Expecting something in return wasn't in him and he never tried. He gave — and that was it. That was honest toward the people he gave to. And dishonest toward himself — because some people saw in it not kindness but a resource. They took. Came back when they needed to take again. Smiled precisely when they wanted something.</p>
+
+    <p>He saw this. Sometimes immediately, sometimes later. But kept giving — because the alternative was worse. Becoming someone who doesn't give would mean becoming someone he had never been.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Bad people don't arrive with a sign. They arrive with a smile, with the right words at the right moment, with the ability to be close right up until the second you stop being useful. Then they disappear — quietly, without explanation, leaving a gap behind that at first feels like your own fault.</p>
+
+    <p>His kindness almost ran out exactly that way — not from one blow, but from many small ones. From people who took not because of him, but despite him.</p>
+
+    <p>But it didn't run out.</p>
+
+    <p>Because he is still here. One foot across the threshold — finishing the last stories, giving the last moments to the people who genuinely believed in him. As always.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">Two Radishes, Two Raspberries and a Garden</div>
+    </div>
+
+    <p>His hands were in the earth. Black with it — up to the wrists, up to the elbows, with that particular weight of damp soil that stays under the fingernails long after. The occupational therapist stood beside him and they were transplanting a raspberry bush together — from one spot to another, carefully, so as not to damage the roots.</p>
+
+    <p>This was a garden. Small, quiet, its own. A place where you could simply work with your hands and not think about anything heavy — because the earth doesn't demand explanations. It simply takes what you give it, and returns something of its own.</p>
+
+    <p>The reward that day was a radish. It had grown by itself — nobody had planted it deliberately, it had simply appeared from the soil as a reminder that life continues without permission. Two radishes, two raspberries — not much, but exactly enough for one good moment.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>A friendship bracelet appeared on his wrist — pink and orange, woven by hand. Not an ornament and not a symbol — just a thing he made himself, from nothing, while his hands were looking for something to do. It stayed.</p>
+
+    <p>The staff of this place turned out to be the best thing in it. Not because they did everything right — but because they did everything with life in it. With the tiredness that doesn't get in the way of being real, and with the patience that can't be explained by a job description.</p>
+
+    <p>The main lesson that opened up here was simple. Open your heart only for those it genuinely interests. Not everyone. Not out of politeness. Only those.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Five peonies stood in the room and opened — slowly, day by day, the way only flowers open when nobody is stopping them. They gave joy to everyone who passed by or simply found themselves nearby. Asking nothing in return. Simply opening.</p>
+
+    <p>This place will stay in the heart forever. Not because it was easy — but because it was honest. Soil under the fingernails, the raspberry that didn't make it in time, the radish that grew by itself, the bracelet on the wrist.</p>
+
+    <p>And the simple truth finally seen here.</p>
+
+    <p>A heart is either black or red. There is no other option. And only the person themselves chooses which it will be — every day, every moment, every decision they make.</p>
+
+    <p>He chose red.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>On the way out the woman who had helped him said simply:</p>
+
+    <div class="dialogue">I hope you never come back here.</div>
+
+    <p>He left with three artefacts. Not souvenirs — artefacts, each with its own weight and its own story.</p>
+
+    <p>A commemorative token, 6/11 — cold metal, a date that will stay with him.</p>
+
+    <p>The pink-orange bracelet woven by hand — the one from the garden, from the soil under the fingernails and the raspberry that didn't make it.</p>
+
+    <p>Gold-plated mechanical watch — traded from his former wife. Gold on the outside. Mechanical inside. Every turn of the hand honest.</p>
+
+    <p>Three artefacts. One person. Ahead — everything else.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>
