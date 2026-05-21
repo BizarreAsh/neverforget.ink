@@ -8,8 +8,6 @@
 </head>
 <body>
 
-  <canvas id="star-canvas"></canvas>
-
   <header>
     <a class="logo" href="index.html">📚 NeverForget</a>
     <nav>
@@ -56,7 +54,9 @@
 
   <script>
     (function () {
-      const c = document.getElementById('star-canvas');
+      const c = document.createElement('canvas');
+      c.id = 'star-canvas';
+      document.body.appendChild(c);
       if (!c) return;
       const ctx = c.getContext('2d');
       let stars = [];
