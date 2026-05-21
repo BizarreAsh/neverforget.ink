@@ -8,6 +8,8 @@
 </head>
 <body>
 
+  <canvas id="star-canvas"></canvas>
+
   <header>
     <a class="logo" href="index.html">📚 NeverForget</a>
     <nav>
@@ -35,6 +37,8 @@
     <p data-i18n="about_p2">Каждая книга здесь — это три главы и десять минут твоего времени. Не больше. Но достаточно, чтобы почувствовать что-то настоящее.</p>
     <p data-i18n="about_p3">Биографии реальных людей, истории любви, игры судьбы, события которые меняют всё — жанры разные, но цель одна: подарить эмоцию. Ту самую, которую не забываешь.</p>
     <p data-i18n="about_p4">Библиотека живёт на трёх языках — потому что эмоции не знают границ.</p>
+    <p data-i18n="about_p6">Каждая история здесь прошла через настоящее. Не через редактора, не через алгоритм — через жизнь. Именно это делает их такими, какими они должны быть.</p>
+    <p data-i18n="about_p7">Мы верим, что короткая история, рассказанная честно, способна изменить день. А иногда — и немного больше.</p>
     <p class="about-slogan" data-i18n="about_p5">NeverForget. Потому что такие истории не забываются.</p>
   </section>
 
@@ -49,6 +53,52 @@
       <a class="contact-email" href="mailto:bizarre.ash@proton.me">bizarre.ash@proton.me</a>
     </div>
   </div>
+
+  <script>
+    (function () {
+      const c = document.getElementById('star-canvas');
+      if (!c) return;
+      const ctx = c.getContext('2d');
+      let stars = [];
+
+      function resize() {
+        c.width  = window.innerWidth;
+        c.height = window.innerHeight;
+      }
+
+      function init() {
+        stars = [];
+        for (let i = 0; i < 150; i++) {
+          stars.push({
+            x:     Math.random() * c.width,
+            y:     Math.random() * c.height,
+            r:     Math.random() * 1.1 + 0.2,
+            base:  Math.random() * 0.55 + 0.15,
+            speed: Math.random() * 0.7 + 0.25,
+            phase: Math.random() * Math.PI * 2,
+          });
+        }
+      }
+
+      function draw(t) {
+        const s = t * 0.001;
+        ctx.clearRect(0, 0, c.width, c.height);
+        for (const st of stars) {
+          const a = st.base * (0.55 + 0.45 * Math.sin(s * st.speed + st.phase));
+          ctx.beginPath();
+          ctx.arc(st.x, st.y, st.r, 0, 6.2832);
+          ctx.fillStyle = `rgba(255,255,255,${a.toFixed(2)})`;
+          ctx.fill();
+        }
+        requestAnimationFrame(draw);
+      }
+
+      resize();
+      init();
+      window.addEventListener('resize', () => { resize(); init(); });
+      requestAnimationFrame(draw);
+    })();
+  </script>
 
   <script src="script.js"></script>
 </body>
