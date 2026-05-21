@@ -144,15 +144,32 @@ function setLanguage(lang) {
     if (el.dataset.i18n)            el.textContent = t[el.dataset.i18n]            ?? el.textContent;
     if (el.dataset.i18nPlaceholder) el.placeholder = t[el.dataset.i18nPlaceholder] ?? el.placeholder;
   });
-  // update dynamically rendered genre pills
   document.querySelectorAll('[data-genre]').forEach(el => {
     el.textContent = t[el.dataset.genre] ?? el.textContent;
   });
   langBtns.forEach(btn => btn.classList.toggle('active', btn.dataset.lang === lang));
+  // Show only the book section matching the selected language
+  document.querySelectorAll('[data-lang-section]').forEach(s => {
+    s.style.display = s.dataset.langSection === lang ? '' : 'none';
+  });
 }
 
 langBtns.forEach(btn => btn.addEventListener('click', () => setLanguage(btn.dataset.lang)));
 setLanguage(currentLang);
+
+// Auto-detect language on first visit (no stored preference)
+if (!localStorage.getItem('nf_lang')) {
+  fetch('https://ipapi.co/json/')
+    .then(r => r.json())
+    .then(data => {
+      const cc = (data.country_code || '').toUpperCase();
+      let lang = 'en';
+      if (['RU','UA','BY','KZ','UZ','TJ','KG','AM','AZ','GE','MD','TM'].includes(cc)) lang = 'ru';
+      else if (['DE','AT','CH','LI','LU'].includes(cc)) lang = 'de';
+      setLanguage(lang);
+    })
+    .catch(() => {});
+}
 
 // --- Favorites (localStorage) ---
 
