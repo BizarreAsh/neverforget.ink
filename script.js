@@ -130,7 +130,8 @@ const translations = {
   },
 };
 
-let currentLang = localStorage.getItem('nf_lang') || 'ru';
+const storedLang = localStorage.getItem('nf_lang');
+let currentLang = storedLang || 'ru';
 
 const langBtns = document.querySelectorAll('.lang-btn');
 const i18nEls  = document.querySelectorAll('[data-i18n], [data-i18n-placeholder]');
@@ -158,7 +159,7 @@ langBtns.forEach(btn => btn.addEventListener('click', () => setLanguage(btn.data
 setLanguage(currentLang);
 
 // Auto-detect language on first visit (no stored preference)
-if (!localStorage.getItem('nf_lang')) {
+if (!storedLang) {
   fetch('https://ipapi.co/json/')
     .then(r => r.json())
     .then(data => {
@@ -184,13 +185,13 @@ function saveFavorites(favs) {
   localStorage.setItem(FAVORITES_KEY, JSON.stringify(favs));
 }
 
-function isFavorite(title) {
-  return loadFavorites().some(f => f.title === title);
+function isFavorite(book) {
+  return loadFavorites().some(f => f.book === book);
 }
 
 function toggleFavorite(title, author, book) {
   const favs = loadFavorites();
-  const idx  = favs.findIndex(f => f.title === title);
+  const idx  = favs.findIndex(f => f.book === book);
   if (idx === -1) favs.push({ title, author, book: book || '' });
   else            favs.splice(idx, 1);
   saveFavorites(favs);
@@ -206,13 +207,13 @@ function loadRead() {
   catch { return []; }
 }
 
-function isRead(title) {
-  return loadRead().some(r => r.title === title);
+function isRead(book) {
+  return loadRead().some(r => r.book === book);
 }
 
 function toggleRead(title, author, book) {
   const list = loadRead();
-  const idx  = list.findIndex(r => r.title === title);
+  const idx  = list.findIndex(r => r.book === book);
   if (idx === -1) list.push({ title, author, book: book || '' });
   else            list.splice(idx, 1);
   localStorage.setItem(READ_KEY, JSON.stringify(list));
@@ -223,7 +224,7 @@ function makeReadBtn(title, author, book) {
   const btn = document.createElement('button');
   btn.className = 'read-btn';
   const sync = () => {
-    const on = isRead(title);
+    const on = isRead(book);
     btn.classList.toggle('active', on);
     btn.textContent = on ? '✓' : '○';
     btn.title = on ? '' : '';
@@ -247,7 +248,7 @@ document.querySelectorAll('.book-card').forEach(card => {
   const favBtn = card.querySelector('.fav-btn');
   if (favBtn) {
     const sync = () => {
-      const on = isFavorite(displayTitle);
+      const on = isFavorite(book);
       favBtn.classList.toggle('active', on);
       favBtn.textContent = on ? '♥' : '♡';
     };
@@ -386,7 +387,7 @@ function makeCatalogCard({ title, author, book }) {
   const favBtn = document.createElement('button');
   favBtn.className = 'fav-btn';
   const syncHeart = () => {
-    const on = isFavorite(title);
+    const on = isFavorite(book);
     favBtn.classList.toggle('active', on);
     favBtn.textContent = on ? '♥' : '♡';
   };
@@ -511,7 +512,7 @@ if (historyGrid) {
       const favBtn = document.createElement('button');
       favBtn.className   = 'fav-btn';
       const syncHeart = () => {
-        const on = isFavorite(title);
+        const on = isFavorite(bookUrl);
         favBtn.classList.toggle('active', on);
         favBtn.textContent = on ? '♥' : '♡';
       };
