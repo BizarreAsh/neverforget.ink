@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birth — Bizarre Ash</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #0a0a14;
+    --paper: #f0f0f8;
+    --fade: #7070a0;
+    --accent: #202060;
+    --gold: #5050a0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(80,80,160,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(32,32,96,0.05) 0%, transparent 60%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; }
+  .cover { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 6rem 0; position: relative; }
+  .cover::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); }
+  .cover-eyebrow { font-family: 'Cormorant Garamond', serif; font-size: 11px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 3rem; opacity: 0.8; }
+  .cover-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(56px, 12vw, 88px); font-weight: 300; letter-spacing: 0.06em; color: var(--ink); line-height: 1.0; margin-bottom: 0.4rem; font-style: italic; }
+  .cover-rule { width: 40px; height: 1px; background: var(--gold); margin: 2.5rem auto; opacity: 0.6; }
+  .cover-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-style: italic; color: var(--fade); letter-spacing: 0.2em; margin-bottom: 5rem; }
+  .cover-author { font-family: 'Cormorant Garamond', serif; font-size: 13px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--fade); opacity: 0.7; }
+  .toc { padding: 7rem 0 5rem; border-bottom: 1px solid rgba(80,80,160,0.2); margin-bottom: 7rem; }
+  .toc-label { font-family: 'Cormorant Garamond', serif; font-size: 10px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 2.5rem; }
+  .toc-item { display: grid; grid-template-columns: 2em 1fr 2em; gap: 0.5rem; align-items: baseline; padding: 0.75rem 0; border-bottom: 1px solid rgba(80,80,160,0.12); font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; color: var(--ink); text-decoration: none; transition: color 0.2s; }
+  .toc-item:hover { color: var(--accent); }
+  .toc-roman { font-style: normal; font-size: 11px; color: var(--gold); letter-spacing: 0.1em; padding-top: 0.3em; }
+  .toc-num { font-style: normal; font-size: 11px; color: var(--fade); text-align: right; }
+  .chapter { padding-top: 6rem; margin-bottom: 3rem; }
+  .chapter-header { margin-bottom: 3rem; }
+  .chapter-number { font-family: 'Cormorant Garamond', serif; font-size: 100px; font-weight: 300; color: var(--gold); opacity: 0.18; line-height: 0.85; margin-bottom: -0.1em; letter-spacing: -0.02em; user-select: none; }
+  .chapter-title { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 300; font-style: italic; color: var(--ink); padding-bottom: 1.5rem; border-bottom: 1px solid rgba(80,80,160,0.35); line-height: 1.3; }
+  p { margin-bottom: 1.5em; text-align: justify; hyphens: auto; }
+  .chapter > p:first-of-type::first-letter { font-family: 'Cormorant Garamond', serif; font-size: 4.8em; font-weight: 300; float: left; line-height: 0.72; margin-right: 0.06em; margin-top: 0.1em; color: var(--accent); }
+  .break { display: flex; align-items: center; justify-content: center; gap: 0.6em; margin: 3rem 0; color: var(--gold); opacity: 0.5; font-size: 8px; letter-spacing: 0.6em; }
+  .break::before, .break::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, transparent, rgba(80,80,160,0.3)); }
+  .break::after { background: linear-gradient(to left, transparent, rgba(80,80,160,0.3)); }
+  .chapter-end { margin: 6rem 0 0; text-align: center; color: var(--gold); opacity: 0.3; font-size: 20px; letter-spacing: 0.6em; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">autobiographical prose</div>
+    <div class="cover-title">Birth</div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">about how it all began</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Contents</div>
+    <a class="toc-item" href="#ch1"><span class="toc-roman">I</span><span>Minus Twenty</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch2"><span class="toc-roman">II</span><span>Leya</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch3"><span class="toc-roman">III</span><span>Seven Months</span><span class="toc-num">—</span></a>
+  </div>
+
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">Minus Twenty</div>
+    </div>
+
+    <p>That winter was real — not the soft urban kind where snow sits for three days and melts, but the kind that presses down, squeezes the air until it cracks, and makes every step outside feel like a small act of will. Minus twenty — not a record, but enough to turn the walk to the maternity ward into an ordeal.</p>
+
+    <p>Nora walked. Leya was beside her — her sister, the one who was always there when being there mattered. They weren't driving — they were walking, because that's how it worked out, because time was pressing, because in moments like that your legs move on their own and comfort isn't something you think about.</p>
+
+    <p>The threat of miscarriage had come earlier — not that day, earlier. The pregnancy had never been as smooth as you'd want it to be. The doctors said their part, Nora did hers — held on, didn't let herself fall apart, kept moving forward. That's how she always was — not because it wasn't frightening, but because stopping wasn't something she knew how to do.</p>
+
+    <p>But sometimes the body stops on its own.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">Leya</div>
+    </div>
+
+    <p>On the road Nora fell.</p>
+
+    <p>Not stumbled — fell the way you fall when your body stops listening. In the middle of a winter road, in the cold, in front of people walking past who had their own lives to get on with. Minus twenty doesn't encourage stopping.</p>
+
+    <p>Leya stopped. She always stopped — it was her nature, not a decision. She caught her sister, didn't let her stay where she'd fallen. Held her, pulled her up, talked — what exactly she said is no longer remembered, but she talked, because in moments like that silence is worse than any words.</p>
+
+    <p>They made it.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Leya didn't leave when she'd brought her sister to the door. She stayed — waited, sat, was as close as they'd let her be. That's her role in this story — not the main one and not a minor one. Just the one without which the story might have ended differently.</p>
+
+    <p>She became the godmother later. That's not coincidence — it's recognition. The person who was on that road in minus twenty gets trusted with the most important things. That's how it should be.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">Seven Months</div>
+    </div>
+
+    <p>Ash was born early. Seven months — not eight, not nine. He was in a hurry, or the world was hurrying him, or simply everything that had come before that day had taken its toll sooner than scheduled. Premature children come into the world differently — without the reserve that comes to those who waited out the full time.</p>
+
+    <p>The doctors did their work. Nora held on — as always, without unnecessary words, simply held on. Leya was somewhere nearby behind the walls of that place where only medical staff were allowed to be.</p>
+
+    <p>Ash survived. That's not a given — it's a result. The result of Nora walking in minus twenty, of Leya catching her on the road, of doctors who knew what to do, and of him — small, seven months, premature — turning out to be more stubborn than he might have been.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>After that there was a lot. More than fits into one book — childhood, school, games, people, losses, discoveries, mistakes and what grew out of them. Every other story in this library began right here — on a winter road, at minus twenty, when one woman didn't let another fall.</p>
+
+    <p>Beginnings are always like that — quiet, cold, unannounced.</p>
+
+    <p>One day someone is simply born.</p>
+
+    <p>And everything begins.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Рождение — Bizarre Ash</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #0a0a14;
+    --paper: #f0f0f8;
+    --fade: #7070a0;
+    --accent: #202060;
+    --gold: #5050a0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(80,80,160,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(32,32,96,0.05) 0%, transparent 60%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; }
+
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 6rem 0;
+    position: relative;
+  }
+
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+
+  .cover-eyebrow { font-family: 'Cormorant Garamond', serif; font-size: 11px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 3rem; opacity: 0.8; }
+  .cover-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(56px, 12vw, 88px); font-weight: 300; letter-spacing: 0.06em; color: var(--ink); line-height: 1.0; margin-bottom: 0.4rem; font-style: italic; }
+  .cover-rule { width: 40px; height: 1px; background: var(--gold); margin: 2.5rem auto; opacity: 0.6; }
+  .cover-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-style: italic; color: var(--fade); letter-spacing: 0.2em; margin-bottom: 5rem; }
+  .cover-author { font-family: 'Cormorant Garamond', serif; font-size: 13px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--fade); opacity: 0.7; }
+
+  .toc { padding: 7rem 0 5rem; border-bottom: 1px solid rgba(80,80,160,0.2); margin-bottom: 7rem; }
+  .toc-label { font-family: 'Cormorant Garamond', serif; font-size: 10px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 2.5rem; }
+  .toc-item { display: grid; grid-template-columns: 2em 1fr 2em; gap: 0.5rem; align-items: baseline; padding: 0.75rem 0; border-bottom: 1px solid rgba(80,80,160,0.12); font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; color: var(--ink); text-decoration: none; transition: color 0.2s; }
+  .toc-item:hover { color: var(--accent); }
+  .toc-roman { font-style: normal; font-size: 11px; color: var(--gold); letter-spacing: 0.1em; padding-top: 0.3em; }
+  .toc-num { font-style: normal; font-size: 11px; color: var(--fade); text-align: right; }
+
+  .chapter { padding-top: 6rem; margin-bottom: 3rem; }
+  .chapter-header { margin-bottom: 3rem; }
+  .chapter-number { font-family: 'Cormorant Garamond', serif; font-size: 100px; font-weight: 300; color: var(--gold); opacity: 0.18; line-height: 0.85; margin-bottom: -0.1em; letter-spacing: -0.02em; user-select: none; }
+  .chapter-title { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 300; font-style: italic; color: var(--ink); padding-bottom: 1.5rem; border-bottom: 1px solid rgba(80,80,160,0.35); line-height: 1.3; }
+
+  p { margin-bottom: 1.5em; text-align: justify; hyphens: auto; }
+
+  .chapter > p:first-of-type::first-letter { font-family: 'Cormorant Garamond', serif; font-size: 4.8em; font-weight: 300; float: left; line-height: 0.72; margin-right: 0.06em; margin-top: 0.1em; color: var(--accent); }
+
+  .break { display: flex; align-items: center; justify-content: center; gap: 0.6em; margin: 3rem 0; color: var(--gold); opacity: 0.5; font-size: 8px; letter-spacing: 0.6em; }
+  .break::before, .break::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, transparent, rgba(80,80,160,0.3)); }
+  .break::after { background: linear-gradient(to left, transparent, rgba(80,80,160,0.3)); }
+
+  .chapter-end { margin: 6rem 0 0; text-align: center; color: var(--gold); opacity: 0.3; font-size: 20px; letter-spacing: 0.6em; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">автобиографическая проза</div>
+    <div class="cover-title">Рождение</div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">о том, как всё начиналось</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Содержание</div>
+    <a class="toc-item" href="#ch1"><span class="toc-roman">I</span><span>Минус двадцать</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch2"><span class="toc-roman">II</span><span>Лея</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch3"><span class="toc-roman">III</span><span>Семь месяцев</span><span class="toc-num">—</span></a>
+  </div>
+
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">Минус двадцать</div>
+    </div>
+
+    <p>Зима в тот год была настоящей — не той мягкой городской зимой которая бывает когда снег лежит три дня и тает, а той которая давит, сжимает воздух до хруста и заставляет каждый шаг на улице чувствоваться как маленький подвиг. Минус двадцать — не рекорд, но достаточно чтобы дорога в роддом превратилась в испытание.</p>
+
+    <p>Нора шла. Рядом была Лея — родная сестра, та самая которая всегда была рядом когда нужно было быть рядом. Они не ехали — шли, потому что так сложилось, потому что время поджимало, потому что в такие моменты ноги двигаются сами и думать об удобстве не приходится.</p>
+
+    <p>Угроза выкидыша появилась раньше — не в тот день, раньше. Беременность с самого начала шла не так спокойно как хотелось бы. Врачи говорили своё, Нора делала своё — держалась, не давала себе раскиснуть, шла дальше. У неё всегда так — не потому что не страшно, а потому что останавливаться она не умеет.</p>
+
+    <p>Но тело иногда останавливает само.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">Лея</div>
+    </div>
+
+    <p>На дороге Нора упала.</p>
+
+    <p>Не споткнулась — упала так как падают когда тело перестаёт слушаться. Посреди зимней дороги, на морозе, на глазах у людей которые проходили мимо и которым было не до чужой беды. Минус двадцать не располагает к остановкам.</p>
+
+    <p>Лея остановилась. Она всегда останавливалась — это было её природой, не решением. Подхватила сестру, не дала ей остаться лежать там где упала. Держала, тянула, говорила — что именно говорила уже не вспомнить, но говорила точно, потому что в такие моменты молчание хуже чем любые слова.</p>
+
+    <p>Они добрались.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Лея не ушла когда довела сестру до дверей. Осталась — ждала, сидела, была рядом настолько насколько позволяли пускать. Это её роль в этой истории — не главная и не второстепенная. Просто та без которой история могла закончиться иначе.</p>
+
+    <p>Потом она стала крёстной. Это не случайность — это признание. Человеку который был на той дороге в минус двадцать доверяют самое важное. Так и должно быть.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">Семь месяцев</div>
+    </div>
+
+    <p>Эш родился раньше срока. Семь месяцев — не восемь, не девять. Торопился, или мир торопил, или просто всё что предшествовало этому дню потребовало своё раньше положенного. Недоношенные дети приходят в мир иначе — не с тем запасом с которым приходят те кто дождался всего отведённого времени.</p>
+
+    <p>Врачи делали своё. Нора держалась — как всегда, без лишних слов, просто держалась. Лея была где-то рядом за стенами того места где разрешалось быть только медицинскому персоналу.</p>
+
+    <p>Эш выжил. Это не само собой разумеющееся — это результат. Результат того что Нора шла в минус двадцать, что Лея подхватила её на дороге, что врачи знали что делать, что сам он — маленький, семимесячный — оказался упрямее чем могло бы быть.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Потом было много всего. Больше чем можно уместить в одну книгу — детство, школа, игры, люди, потери, находки, ошибки и то что из них выросло. Все остальные истории в этой библиотеке начались именно здесь — на зимней дороге, в минус двадцать, когда одна женщина не дала упасть другой.</p>
+
+    <p>Начало всегда такое — незаметное, холодное, без объявлений.</p>
+
+    <p>Просто однажды кто-то рождается.</p>
+
+    <p>И всё начинается.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>

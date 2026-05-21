@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Пятый номер — Bizarre Ash</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #100808;
+    --paper: #f5eeea;
+    --fade: #906858;
+    --accent: #a03000;
+    --gold: #d06020;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(210,96,32,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(160,48,0,0.05) 0%, transparent 60%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; }
+
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 6rem 0;
+    position: relative;
+  }
+
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+
+  .cover-eyebrow { font-family: 'Cormorant Garamond', serif; font-size: 11px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 3rem; opacity: 0.8; }
+  .cover-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(44px, 10vw, 70px); font-weight: 300; letter-spacing: 0.04em; color: var(--ink); line-height: 1.15; margin-bottom: 0.4rem; }
+  .cover-title em { font-style: italic; color: var(--accent); }
+  .cover-rule { width: 40px; height: 1px; background: var(--gold); margin: 2.5rem auto; opacity: 0.6; }
+  .cover-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-style: italic; color: var(--fade); letter-spacing: 0.2em; margin-bottom: 5rem; }
+  .cover-author { font-family: 'Cormorant Garamond', serif; font-size: 13px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--fade); opacity: 0.7; }
+
+  .toc { padding: 7rem 0 5rem; border-bottom: 1px solid rgba(210,96,32,0.2); margin-bottom: 7rem; }
+  .toc-label { font-family: 'Cormorant Garamond', serif; font-size: 10px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 2.5rem; }
+  .toc-item { display: grid; grid-template-columns: 2em 1fr 2em; gap: 0.5rem; align-items: baseline; padding: 0.75rem 0; border-bottom: 1px solid rgba(210,96,32,0.12); font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; color: var(--ink); text-decoration: none; transition: color 0.2s; }
+  .toc-item:hover { color: var(--accent); }
+  .toc-roman { font-style: normal; font-size: 11px; color: var(--gold); letter-spacing: 0.1em; padding-top: 0.3em; }
+  .toc-num { font-style: normal; font-size: 11px; color: var(--fade); text-align: right; }
+
+  .chapter { padding-top: 6rem; margin-bottom: 3rem; }
+  .chapter-header { margin-bottom: 3rem; }
+  .chapter-number { font-family: 'Cormorant Garamond', serif; font-size: 100px; font-weight: 300; color: var(--gold); opacity: 0.18; line-height: 0.85; margin-bottom: -0.1em; letter-spacing: -0.02em; user-select: none; }
+  .chapter-title { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 300; font-style: italic; color: var(--ink); padding-bottom: 1.5rem; border-bottom: 1px solid rgba(210,96,32,0.35); line-height: 1.3; }
+
+  p { margin-bottom: 1.5em; text-align: justify; hyphens: auto; }
+
+  .chapter > p:first-of-type::first-letter { font-family: 'Cormorant Garamond', serif; font-size: 4.8em; font-weight: 300; float: left; line-height: 0.72; margin-right: 0.06em; margin-top: 0.1em; color: var(--accent); }
+
+  .break { display: flex; align-items: center; justify-content: center; gap: 0.6em; margin: 3rem 0; color: var(--gold); opacity: 0.5; font-size: 8px; letter-spacing: 0.6em; }
+  .break::before, .break::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, transparent, rgba(210,96,32,0.3)); }
+  .break::after { background: linear-gradient(to left, transparent, rgba(210,96,32,0.3)); }
+
+  .chapter-end { margin: 6rem 0 0; text-align: center; color: var(--gold); opacity: 0.3; font-size: 20px; letter-spacing: 0.6em; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">автобиографическая проза</div>
+    <div class="cover-title">Пятый<br><em>номер</em></div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">о том, что берут и отпускают</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Содержание</div>
+    <a class="toc-item" href="#ch1"><span class="toc-roman">I</span><span>Оранжевое и чёрное</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch2"><span class="toc-roman">II</span><span>Советский паркет</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch3"><span class="toc-roman">III</span><span>Опыт получен</span><span class="toc-num">—</span></a>
+  </div>
+
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">Оранжевое и чёрное</div>
+    </div>
+
+    <p>В команду Клима записала Нора — по совету тёти Тани, которая понимала что мальчику нужно куда-то девать энергию. Логика простая: если энергия не находит выхода в спорте — она найдёт его в чём-то другом, и то другое не всегда бывает безобидным. Клим не особо сопротивлялся. Не потому что хотел играть в футбол — просто так сложилось, и он пошёл.</p>
+
+    <p>Форма была оранжево-чёрная. Яркая, с характером, не та серая безликая экипировка которую раздают когда бюджета не хватает. На спине — номер. Пять. Не выбирал специально, просто досталось — но цифра прилипла. Что-то в ней было своё, узнаваемое, как будто так и должно было быть.</p>
+
+    <p>Тренировки проходили в зале — небольшом, с потолком который давил чуть ниже чем хотелось бы, с запахом старого дерева и пота который впитался в стены за десятилетия. Советский паркет под ногами — тёмный, скрипучий в определённых местах, с разводами от многолетней полировки. Такой пол помнит многих до тебя.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Клим был вратарём. Это позиция для особых — не для тех кто хочет бегать и забивать, а для тех кто готов стоять и держать. Психологически это другое: ты последний, через тебя не должны проходить, и каждый пропущенный мяч — твой лично. Это давление которое не все выдерживают.</p>
+
+    <p>Клим выдерживал — по-своему. Не потому что был прирождённым вратарём. Просто у него был характер который не умел сдаваться без причины. Это не то же самое что талант — но иногда работает не хуже.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">Советский паркет</div>
+    </div>
+
+    <p>Был матч. Обычный — не финал, не турнир, просто игра в зале против кого-то из своих или чужих, уже не важно против кого. Важно что в какой-то момент мяч пошёл в сторону ворот и Клим должен был принять решение.</p>
+
+    <p>Решение было такое: не падать.</p>
+
+    <p>Не потому что испугался боли — советский паркет это не мягкое покрытие, падение на него это удар по коленям, локтям, ладоням. Просто в голове сработало что-то своё — принцип, упрямство, или просто нежелание делать то что от него ждут именно сейчас именно так. Мяч прошёл. Гол.</p>
+
+    <p>Тренер смотрел на него долго. Без крика — просто смотрел. Это хуже крика.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Нора потом узнала об этом — не сразу, постепенно, через разговоры и намёки которые складывались в картину. Клим не оправдывался. Объяснить что именно произошло в тот момент — что он решил не падать не из трусости а из принципа который сам ещё не мог сформулировать — было сложно. Проще было молчать.</p>
+
+    <p>Молчание у него всегда получалось лучше объяснений.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">Опыт получен</div>
+    </div>
+
+    <p>Уход из команды был таким каким бывает большинство уходов — не одним решением а несколькими маленькими которые в какой-то момент сложились в одно. Тренер убирал его всё чаще — не справлялся с требованиями, не вписывался в то каким должен быть вратарь по версии этого конкретного тренера в этом конкретном зале. Клим видел это и понимал.</p>
+
+    <p>И одновременно сам чувствовал что оно ему не нужно. Не футбол вообще — именно это. Эти тренировки, этот зал, эта форма оранжево-чёрная которая всё равно была красивой. Что-то внутри говорило что это не его история, не его дорога, что настоящее его находится в другом месте.</p>
+
+    <p>Компьютер дома ждал. Там было своё, понятное, честное в отношении результата. Там не нужно было падать на советский паркет доказывая что ты вратарь.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Футбол оставил своё. Не победы и не поражения — опыт другого рода. Умение держать позицию. Понимание что ты последний и это значит что через тебя не должны проходить. Привычку стоять там где стоишь даже когда давит.</p>
+
+    <p>Это пригодилось потом — не на поле, в жизни. Там тоже бывают моменты когда нужно стоять в воротах и не падать. И паркет там бывает жёстче советского.</p>
+
+    <p>Номер пять остался где-то в памяти — оранжевое и чёрное, запах старого зала, скрипучий пол под ногами.</p>
+
+    <p>Хорошее начало для истории которая пошла совсем в другую сторону.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>

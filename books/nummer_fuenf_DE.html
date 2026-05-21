@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nummer Fünf — Bizarre Ash</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #100808;
+    --paper: #f5eeea;
+    --fade: #906858;
+    --accent: #a03000;
+    --gold: #d06020;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(210,96,32,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(160,48,0,0.05) 0%, transparent 60%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; }
+  .cover { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 6rem 0; position: relative; }
+  .cover::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); }
+  .cover-eyebrow { font-family: 'Cormorant Garamond', serif; font-size: 11px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 3rem; opacity: 0.8; }
+  .cover-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(44px, 10vw, 70px); font-weight: 300; letter-spacing: 0.04em; color: var(--ink); line-height: 1.15; margin-bottom: 0.4rem; }
+  .cover-title em { font-style: italic; color: var(--accent); }
+  .cover-rule { width: 40px; height: 1px; background: var(--gold); margin: 2.5rem auto; opacity: 0.6; }
+  .cover-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-style: italic; color: var(--fade); letter-spacing: 0.2em; margin-bottom: 5rem; }
+  .cover-author { font-family: 'Cormorant Garamond', serif; font-size: 13px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--fade); opacity: 0.7; }
+  .toc { padding: 7rem 0 5rem; border-bottom: 1px solid rgba(210,96,32,0.2); margin-bottom: 7rem; }
+  .toc-label { font-family: 'Cormorant Garamond', serif; font-size: 10px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 2.5rem; }
+  .toc-item { display: grid; grid-template-columns: 2em 1fr 2em; gap: 0.5rem; align-items: baseline; padding: 0.75rem 0; border-bottom: 1px solid rgba(210,96,32,0.12); font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; color: var(--ink); text-decoration: none; transition: color 0.2s; }
+  .toc-item:hover { color: var(--accent); }
+  .toc-roman { font-style: normal; font-size: 11px; color: var(--gold); letter-spacing: 0.1em; padding-top: 0.3em; }
+  .toc-num { font-style: normal; font-size: 11px; color: var(--fade); text-align: right; }
+  .chapter { padding-top: 6rem; margin-bottom: 3rem; }
+  .chapter-header { margin-bottom: 3rem; }
+  .chapter-number { font-family: 'Cormorant Garamond', serif; font-size: 100px; font-weight: 300; color: var(--gold); opacity: 0.18; line-height: 0.85; margin-bottom: -0.1em; letter-spacing: -0.02em; user-select: none; }
+  .chapter-title { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 300; font-style: italic; color: var(--ink); padding-bottom: 1.5rem; border-bottom: 1px solid rgba(210,96,32,0.35); line-height: 1.3; }
+  p { margin-bottom: 1.5em; text-align: justify; hyphens: auto; }
+  .chapter > p:first-of-type::first-letter { font-family: 'Cormorant Garamond', serif; font-size: 4.8em; font-weight: 300; float: left; line-height: 0.72; margin-right: 0.06em; margin-top: 0.1em; color: var(--accent); }
+  .break { display: flex; align-items: center; justify-content: center; gap: 0.6em; margin: 3rem 0; color: var(--gold); opacity: 0.5; font-size: 8px; letter-spacing: 0.6em; }
+  .break::before, .break::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, transparent, rgba(210,96,32,0.3)); }
+  .break::after { background: linear-gradient(to left, transparent, rgba(210,96,32,0.3)); }
+  .chapter-end { margin: 6rem 0 0; text-align: center; color: var(--gold); opacity: 0.3; font-size: 20px; letter-spacing: 0.6em; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">autobiografische Prosa</div>
+    <div class="cover-title">Nummer<br><em>Fünf</em></div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">über das was man nimmt und was man loslässt</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Inhalt</div>
+    <a class="toc-item" href="#ch1"><span class="toc-roman">I</span><span>Orange und Schwarz</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch2"><span class="toc-roman">II</span><span>Sowjetisches Parkett</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch3"><span class="toc-roman">III</span><span>Erfahrung gemacht</span><span class="toc-num">—</span></a>
+  </div>
+
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">Orange und Schwarz</div>
+    </div>
+
+    <p>Nora meldete Klim beim Team an — auf Anraten von Tante Tanya, die verstand dass ein Junge irgendwo seine Energie lassen muss. Die Logik war einfach: wenn Energie keinen Ausweg im Sport findet, findet sie einen woanders, und dieses Woanders ist nicht immer harmlos. Klim widersetzte sich nicht groß. Nicht weil er Fußball spielen wollte — es ergab sich einfach so, und er ging.</p>
+
+    <p>Das Trikot war orange-schwarz. Auffällig, mit Charakter, nicht die graue gesichtslose Ausrüstung die verteilt wird wenn das Budget knapp ist. Auf dem Rücken — eine Nummer. Fünf. Nicht extra ausgewählt, sie fiel ihm einfach zu — aber die Zahl blieb kleben. Etwas daran fühlte sich richtig an, vertraut, als wäre es immer so gewesen.</p>
+
+    <p>Das Training fand in einer Halle statt — klein, mit einer Decke die ein bisschen tiefer drückte als man sich wünschte, mit dem Geruch von altem Holz und Schweiß der sich über Jahrzehnte in die Wände gesogen hatte. Sowjetisches Parkett unter den Füßen — dunkel, an bestimmten Stellen quietschend, mit den Schlieren jahrelanger Politur. Solch ein Boden erinnert sich an viele vor dir.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Klim war Torwart. Das ist eine Position für eine bestimmte Art von Mensch — nicht für die die laufen und treffen wollen, sondern für die bereit sind zu stehen und zu halten. Psychologisch ist das anders: du bist der Letzte, durch dich soll nichts durchkommen, und jeder kassierte Treffer gehört persönlich dir. Das ist ein Druck den nicht jeder aushält.</p>
+
+    <p>Klim hielt ihn aus — auf seine Art. Nicht weil er ein geborener Torwart war. Einfach weil er einen Charakter hatte der nicht aufgeben konnte ohne Grund. Das ist nicht dasselbe wie Talent — aber manchmal funktioniert es genauso gut.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">Sowjetisches Parkett</div>
+    </div>
+
+    <p>Es gab ein Spiel. Ein gewöhnliches — kein Finale, kein Turnier, einfach ein Spiel in der Halle gegen irgendjemanden, gegen wen spielt heute keine Rolle mehr. Was zählt ist dass in einem bestimmten Moment der Ball aufs Tor kam und Klim eine Entscheidung treffen musste.</p>
+
+    <p>Die Entscheidung war: nicht fallen.</p>
+
+    <p>Nicht aus Angst vor dem Schmerz — sowjetisches Parkett ist kein weicher Untergrund, darauf zu fallen bedeutet Knie, Ellbogen und Handflächen nehmen den Aufprall. Einfach löste in seinem Kopf etwas auf seine eigene Weise aus — ein Prinzip, Sturheit, oder schlicht die Weigerung genau jetzt genau so das zu tun was von ihm erwartet wurde. Der Ball ging rein. Tor.</p>
+
+    <p>Der Trainer schaute ihn lange an. Kein Schreien — nur schauen. Das ist schlimmer als Schreien.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Nora erfuhr es später — nicht sofort, allmählich, durch Gespräche und Andeutungen die sich zu einem Bild zusammensetzten. Klim rechtfertigte sich nicht. Zu erklären was in jenem Moment wirklich passiert war — dass er beschlossen hatte nicht zu fallen nicht aus Feigheit sondern aus einem Prinzip das er selbst noch nicht in Worte fassen konnte — war schwer. Einfacher war zu schweigen.</p>
+
+    <p>Schweigen lag ihm immer mehr als Erklärungen.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">Erfahrung gemacht</div>
+    </div>
+
+    <p>Der Abgang aus dem Team war so wie die meisten Abgänge — keine einzige Entscheidung sondern mehrere kleine die sich irgendwann zu einer einzigen zusammenfügten. Der Trainer stellte ihn immer öfter raus — erfüllte die Anforderungen nicht, passte nicht in das was ein Torwart sein sollte laut diesem bestimmten Trainer in dieser bestimmten Halle. Klim sah das und verstand es.</p>
+
+    <p>Und gleichzeitig spürte er innen dass er es nicht brauchte. Nicht Fußball generell — genau das hier. Diese Trainingseinheiten, diese Halle, dieses orange-schwarze Trikot das trotzdem schön war. Etwas sagte ihm dass das nicht seine Geschichte war, nicht sein Weg, dass das Eigentliche für ihn woanders lag.</p>
+
+    <p>Der Computer zuhause wartete. Dort war alles seins, klar, ehrlich was Ergebnisse anging. Dort musste man nicht auf sowjetisches Parkett fallen um zu beweisen dass man Torwart war.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Der Fußball hinterließ etwas. Nicht Siege und nicht Niederlagen — eine andere Art von Erfahrung. Die Fähigkeit eine Position zu halten. Das Verständnis dass man der Letzte ist und das bedeutet dass nichts durchkommen darf. Die Gewohnheit dort zu stehen wo man steht auch wenn es drückt.</p>
+
+    <p>Das kam später nützlich — nicht auf einem Spielfeld, im Leben. Dort gibt es auch Momente wo man im Tor stehen und nicht fallen muss. Und der Boden ist dort manchmal härter als sowjetisches Parkett.</p>
+
+    <p>Nummer Fünf blieb irgendwo in der Erinnerung — orange und schwarz, der Geruch einer alten Halle, ein quietschendes Parkett unter den Füßen.</p>
+
+    <p>Ein guter Anfang für eine Geschichte die in eine ganz andere Richtung ging.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>
