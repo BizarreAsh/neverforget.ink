@@ -338,6 +338,12 @@ const bookPool = [
   { title: 'Свеб, Лео и ангар',          author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/sveb_leo_i_angar.html'                     },
   { title: 'Sveb, Leo and the Hangar',   author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/sveb_leo_and_hangar_EN.html'               },
   { title: 'Sveb, Leo und der Hangar',   author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/sveb_leo_und_hangar_DE.html'               },
+  { title: 'Рождение',                   author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/rozhdenie.html'                              },
+  { title: 'Birth',                      author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/birth_EN.html'                               },
+  { title: 'Geburt',                     author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/geburt_DE.html'                              },
+  { title: 'Пятый номер',               author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/pyaty_nomer.html'                            },
+  { title: 'Number Five',               author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/number_five_EN.html'                         },
+  { title: 'Nummer Fünf',               author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/nummer_fuenf_DE.html'                        },
 ];
 
 function shuffleArray(arr) {
