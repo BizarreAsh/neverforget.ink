@@ -43,6 +43,7 @@ const translations = {
     history_title:      'История',
     history_empty_title:'Ещё ничего не прочитано',
     history_empty_hint: 'Нажми ○ на любой книге, чтобы отметить её прочитанной',
+    support_btn:        'Поддержать автора',
   },
   en: {
     nav_catalog:        'Catalog',
@@ -88,6 +89,7 @@ const translations = {
     history_title:      'History',
     history_empty_title:'Nothing read yet',
     history_empty_hint: 'Tap ○ on any book to mark it as read',
+    support_btn:        'Support the Author',
   },
   de: {
     nav_catalog:        'Katalog',
@@ -133,6 +135,7 @@ const translations = {
     history_title:      'Verlauf',
     history_empty_title:'Noch nichts gelesen',
     history_empty_hint: 'Tippe ○ auf ein Buch, um es als gelesen zu markieren',
+    support_btn:        'Autor unterstützen',
   },
 };
 
