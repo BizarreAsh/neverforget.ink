@@ -158,10 +158,10 @@ function setLanguage(lang) {
     el.textContent = t[el.dataset.genre] ?? el.textContent;
   });
   langBtns.forEach(btn => btn.classList.toggle('active', btn.dataset.lang === lang));
-  // Show only the book section matching the selected language
   document.querySelectorAll('[data-lang-section]').forEach(s => {
     s.style.display = s.dataset.langSection === lang ? '' : 'none';
   });
+  if (renderCatalog) renderCatalog();
 }
 
 langBtns.forEach(btn => btn.addEventListener('click', () => setLanguage(btn.dataset.lang)));
@@ -371,21 +371,18 @@ function bookLang(book) {
   return 'ru';
 }
 
-// 2 books per language (RU/EN/DE), no repeats until all shown
+// 6 books in the current language, no repeats until all shown
 function getCatalogPicks() {
-  const picks = [];
-  ['ru', 'en', 'de'].forEach(lang => {
-    const group = bookPool.filter(b => bookLang(b.book) === lang);
-    const shownKey = `nf_shown_${lang}`;
-    let shown = JSON.parse(sessionStorage.getItem(shownKey) || '[]');
-    let available = group.filter(b => !shown.includes(b.book));
-    if (available.length < 2) { shown = []; available = [...group]; }
-    const selected = shuffleArray(available).slice(0, 2);
-    shown.push(...selected.map(b => b.book));
-    sessionStorage.setItem(shownKey, JSON.stringify(shown));
-    picks.push(...selected);
-  });
-  return picks;
+  const lang = currentLang;
+  const group = bookPool.filter(b => bookLang(b.book) === lang);
+  const shownKey = `nf_shown_${lang}`;
+  let shown = JSON.parse(sessionStorage.getItem(shownKey) || '[]');
+  let available = group.filter(b => !shown.includes(b.book));
+  if (available.length < 6) { shown = []; available = [...group]; }
+  const selected = shuffleArray(available).slice(0, 6);
+  shown.push(...selected.map(b => b.book));
+  sessionStorage.setItem(shownKey, JSON.stringify(shown));
+  return selected;
 }
 
 function makeCatalogCard({ title, author, book }) {
@@ -428,16 +425,17 @@ function makeCatalogCard({ title, author, book }) {
 
 const catalogGrid = document.getElementById('catalog-grid');
 const shuffleBtn  = document.getElementById('shuffle-btn');
+let renderCatalog = null;
 
 if (catalogGrid) {
-  function renderCatalog() {
+  renderCatalog = function () {
     catalogGrid.style.opacity = '0';
     setTimeout(() => {
       catalogGrid.innerHTML = '';
       getCatalogPicks().forEach(book => catalogGrid.appendChild(makeCatalogCard(book)));
       catalogGrid.style.opacity = '1';
     }, 180);
-  }
+  };
   renderCatalog();
   shuffleBtn.addEventListener('click', renderCatalog);
 }
