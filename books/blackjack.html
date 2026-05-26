@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Блэкджек — Bizarre Ash</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #0a100a;
+    --paper: #eaf2ea;
+    --fade: #507050;
+    --accent: #1a4a1a;
+    --gold: #308030;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(40,120,40,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(26,74,26,0.05) 0%, transparent 60%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; }
+
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 6rem 0;
+    position: relative;
+  }
+
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+
+  .cover-eyebrow { font-family: 'Cormorant Garamond', serif; font-size: 11px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 3rem; opacity: 0.8; }
+  .cover-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(52px, 11vw, 82px); font-weight: 300; letter-spacing: 0.08em; color: var(--ink); line-height: 1.0; margin-bottom: 0.4rem; font-style: italic; }
+  .cover-rule { width: 40px; height: 1px; background: var(--gold); margin: 2.5rem auto; opacity: 0.6; }
+  .cover-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-style: italic; color: var(--fade); letter-spacing: 0.2em; margin-bottom: 5rem; }
+  .cover-author { font-family: 'Cormorant Garamond', serif; font-size: 13px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--fade); opacity: 0.7; }
+
+  .toc { padding: 7rem 0 5rem; border-bottom: 1px solid rgba(48,128,48,0.2); margin-bottom: 7rem; }
+  .toc-label { font-family: 'Cormorant Garamond', serif; font-size: 10px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 2.5rem; }
+  .toc-item { display: grid; grid-template-columns: 2em 1fr 2em; gap: 0.5rem; align-items: baseline; padding: 0.75rem 0; border-bottom: 1px solid rgba(48,128,48,0.12); font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; color: var(--ink); text-decoration: none; transition: color 0.2s; }
+  .toc-item:hover { color: var(--accent); }
+  .toc-roman { font-style: normal; font-size: 11px; color: var(--gold); letter-spacing: 0.1em; padding-top: 0.3em; }
+  .toc-num { font-style: normal; font-size: 11px; color: var(--fade); text-align: right; }
+
+  .chapter { padding-top: 6rem; margin-bottom: 3rem; }
+  .chapter-header { margin-bottom: 3rem; }
+  .chapter-number { font-family: 'Cormorant Garamond', serif; font-size: 100px; font-weight: 300; color: var(--gold); opacity: 0.18; line-height: 0.85; margin-bottom: -0.1em; letter-spacing: -0.02em; user-select: none; }
+  .chapter-title { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 300; font-style: italic; color: var(--ink); padding-bottom: 1.5rem; border-bottom: 1px solid rgba(48,128,48,0.35); line-height: 1.3; }
+
+  p { margin-bottom: 1.5em; text-align: justify; hyphens: auto; }
+
+  .chapter > p:first-of-type::first-letter { font-family: 'Cormorant Garamond', serif; font-size: 4.8em; font-weight: 300; float: left; line-height: 0.72; margin-right: 0.06em; margin-top: 0.1em; color: var(--accent); }
+
+  .break { display: flex; align-items: center; justify-content: center; gap: 0.6em; margin: 3rem 0; color: var(--gold); opacity: 0.5; font-size: 8px; letter-spacing: 0.6em; }
+  .break::before, .break::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, transparent, rgba(48,128,48,0.3)); }
+  .break::after { background: linear-gradient(to left, transparent, rgba(48,128,48,0.3)); }
+
+  .chapter-end { margin: 6rem 0 0; text-align: center; color: var(--gold); opacity: 0.3; font-size: 20px; letter-spacing: 0.6em; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">автобиографическая проза</div>
+    <div class="cover-title">Блэкджек</div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">о том, что удача штука одноразовая</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Содержание</div>
+    <a class="toc-item" href="#ch1"><span class="toc-roman">I</span><span>Энди предупреждал</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch2"><span class="toc-roman">II</span><span>Карта шла в руку</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch3"><span class="toc-roman">III</span><span>При свечах</span><span class="toc-num">—</span></a>
+  </div>
+
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">Энди предупреждал</div>
+    </div>
+
+    <p>Четвёртый Египет был другим. Не лучше первых трёх и не хуже — просто другим. Рой приезжал сюда уже не как турист который открывает страну, а как человек который знает где что лежит, кому звонить и куда не ходить без причины. Ник был рядом впервые — и Рой с удовольствием показывал всё то что за предыдущие разы стало своим.</p>
+
+    <p>Энди встретил их у отеля — управляющий, своих узнавал сразу, с той усталой теплотой человека который видел слишком много туристов но для хороших знакомых у него всегда было время. Поговорили, выпили кофе — Энди рассказал как дела, как отель, как жизнь. Потом как обычно начал объяснять что казино это плохо, игра это грех, у него в религии такому нет места. Говорил убедительно и искренне.</p>
+
+    <p>Пока шёл разговор — магазин Джорджа Клуни стоял в двухстах метрах. Тот самый, куда Рой ходил за каждым визитом. Клуни был своим человеком в этом месте — мужская компания, разговоры, иногда что-нибудь выпить вместе пока туристы занимались туристическими делами. В этот раз Ник тоже познакомился.</p>
+
+    <p>Они пожали Энди руку, попрощались — и пошли в казино.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">Карта шла в руку</div>
+    </div>
+
+    <p>Онлайн-казино — это другое. Там нет атмосферы, нет людей рядом, нет звука фишек и приглушённого света который создаёт особое состояние. Офлайн работает совершенно иначе — всё в нём устроено так чтобы ты чувствовал себя немного особенным и немного расслабленным одновременно. Это не случайность.</p>
+
+    <p>Рой сел не сразу. Сначала наблюдал — за Ником, за случайными гостями которых за столом оказалось несколько, за дилером который работал с той механической точностью которая отличает людей делающих одно и то же много лет подряд. Блэкджек — набрать двадцать одно или максимально близко не превышая, обыграть дилера. Правила простые. Игра другая.</p>
+
+    <p>Ник начал проигрывать сразу. Не катастрофически — методично, как будто карта намеренно обходила его стороной. Рой смотрел на это несколько раз, потом сел за стол сам.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Карта шла в руку. Не всегда и не каждый раз — но шла, и шла хорошо. Рой не всегда даже успевал понять что выиграл — иногда переспрашивал соседей, уточнял правила в моменте, растягивал игру. Никто не раздражался — наоборот, помогали, объясняли, болели за него как болеют за случайного незнакомца у которого вдруг пошло.</p>
+
+    <p>Ник смотрел на это с тем выражением которое бывает когда всё идёт не так как хотел — и одновременно смешно.</p>
+
+    <p>Вечер закончился в плюс триста долларов. Рой и Ник вышли на тёплую египетскую ночь — довольные, живые, с тем особым настроением которое бывает когда сделал что-то немного запрещённое и вышло хорошо. Сувенир решили взять сразу — покерный набор, хороший, в деревянном кейсе. Не потому что нужен. Потому что иначе такую вещь никто никогда не купит, а так — частичка того вечера.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">При свечах</div>
+    </div>
+
+    <p>На следующий день вернулись. Логика была простая и неправильная — вчера повезло, значит сегодня тоже может. Так думают все кто возвращается. Так думали они.</p>
+
+    <p>Казино встретило их с той же приглушённой вежливостью что и накануне. За столом сидел другой дилер — или тот же, уже не разобрать. Карта не шла. Совсем. То что вчера само ложилось в руку, сегодня упрямо не шло ни в какую сторону. Рой проигрывал — методично, уверенно, без пауз на осмысление.</p>
+
+    <p>Они вышли в минус — больше чем заходили изначально, до первого вечера. Народная мудрость которую Рой потом проверил на собственном опыте звучит просто: если выиграл — уходи. Удача штука одноразовая. А вот была ли это удача или казино тебя прикормило — выяснится потом, но в обоих случаях ты потеряешь больше.</p>
+
+    <p>Было обидно. Хотелось иначе. Но они знали на что шли — их интересовали эмоции, деньги не имели значения. Даже проигранные.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Покерный набор уехал вместе с ними домой — в деревянном кейсе, с фишками и картами внутри. Лежал какое-то время без дела, как лежат вещи которые купили не из необходимости а из момента.</p>
+
+    <p>Потом началась война.</p>
+
+    <p>Электричество пропадало на несколько часов в день — иногда дольше. Темнота становилась бытом, свечи из декора превратились в инструмент. И в один из таких вечеров когда за окном была темнота а на столе горели свечи — кейс открыли. Раздали фишки. Перетасовали карты.</p>
+
+    <p>Играли при свечах. В покер. Во время войны.</p>
+
+    <p>Вот тогда покерный набор из Египта отработал каждый свой доллар. И тот второй вечер в казино — тоже.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>

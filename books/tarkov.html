@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Тарков — Bizarre Ash</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #0a0a08;
+    --paper: #eeeee8;
+    --fade: #707060;
+    --accent: #303020;
+    --gold: #606040;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(96,96,64,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(48,48,32,0.05) 0%, transparent 60%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; }
+
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 6rem 0;
+    position: relative;
+  }
+
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+
+  .cover-eyebrow { font-family: 'Cormorant Garamond', serif; font-size: 11px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 3rem; opacity: 0.8; }
+  .cover-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(56px, 12vw, 90px); font-weight: 300; letter-spacing: 0.06em; color: var(--ink); line-height: 1.0; margin-bottom: 0.4rem; font-style: italic; }
+  .cover-rule { width: 40px; height: 1px; background: var(--gold); margin: 2.5rem auto; opacity: 0.6; }
+  .cover-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-style: italic; color: var(--fade); letter-spacing: 0.2em; margin-bottom: 5rem; }
+  .cover-author { font-family: 'Cormorant Garamond', serif; font-size: 13px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--fade); opacity: 0.7; }
+
+  .toc { padding: 7rem 0 5rem; border-bottom: 1px solid rgba(96,96,64,0.2); margin-bottom: 7rem; }
+  .toc-label { font-family: 'Cormorant Garamond', serif; font-size: 10px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 2.5rem; }
+  .toc-item { display: grid; grid-template-columns: 2em 1fr 2em; gap: 0.5rem; align-items: baseline; padding: 0.75rem 0; border-bottom: 1px solid rgba(96,96,64,0.12); font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; color: var(--ink); text-decoration: none; transition: color 0.2s; }
+  .toc-item:hover { color: var(--accent); }
+  .toc-roman { font-style: normal; font-size: 11px; color: var(--gold); letter-spacing: 0.1em; padding-top: 0.3em; }
+  .toc-num { font-style: normal; font-size: 11px; color: var(--fade); text-align: right; }
+
+  .chapter { padding-top: 6rem; margin-bottom: 3rem; }
+  .chapter-header { margin-bottom: 3rem; }
+  .chapter-number { font-family: 'Cormorant Garamond', serif; font-size: 100px; font-weight: 300; color: var(--gold); opacity: 0.18; line-height: 0.85; margin-bottom: -0.1em; letter-spacing: -0.02em; user-select: none; }
+  .chapter-title { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 300; font-style: italic; color: var(--ink); padding-bottom: 1.5rem; border-bottom: 1px solid rgba(96,96,64,0.35); line-height: 1.3; }
+
+  p { margin-bottom: 1.5em; text-align: justify; hyphens: auto; }
+
+  .chapter > p:first-of-type::first-letter { font-family: 'Cormorant Garamond', serif; font-size: 4.8em; font-weight: 300; float: left; line-height: 0.72; margin-right: 0.06em; margin-top: 0.1em; color: var(--accent); }
+
+  .break { display: flex; align-items: center; justify-content: center; gap: 0.6em; margin: 3rem 0; color: var(--gold); opacity: 0.5; font-size: 8px; letter-spacing: 0.6em; }
+  .break::before, .break::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, transparent, rgba(96,96,64,0.3)); }
+  .break::after { background: linear-gradient(to left, transparent, rgba(96,96,64,0.3)); }
+
+  .chapter-end { margin: 6rem 0 0; text-align: center; color: var(--gold); opacity: 0.3; font-size: 20px; letter-spacing: 0.6em; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">автобиографическая проза</div>
+    <div class="cover-title">Тарков</div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">о цене хорошей реакции</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Содержание</div>
+    <a class="toc-item" href="#ch1"><span class="toc-roman">I</span><span>Мост</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch2"><span class="toc-roman">II</span><span>Жёлтая карта</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch3"><span class="toc-roman">III</span><span>PvP</span><span class="toc-num">—</span></a>
+  </div>
+
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">Мост</div>
+    </div>
+
+    <p>Escape from Tarkov — не та игра куда заходят расслабиться. Это место где каждый рейд начинается с тревоги и заканчивается либо облегчением либо злостью, где потеря снаряжения ощущается физически, где хорошая реакция — это выживание, а плохая — вайп персонажа и начало сначала. Именно поэтому в неё играют — и именно поэтому из неё уходят.</p>
+
+    <p>У Ника была реакция. Не средняя, не хорошая — шикарная. Та которая формируется годами в шутерах, когда рука и голова начинают работать быстрее чем ты успеваешь подумать. Цель в поле зрения — выстрел. Без паузы, без колебания, чисто механически. В PvP это преимущество. В рейде с союзниками — иногда проблема.</p>
+
+    <p>На мосту разделились — Ник пошёл под мостом, Сол с Беркутом по мосту. Стандартный манёвр на двух уровнях, классическое разделение чтобы перекрыть больше углов. Пока Сол с Беркутом шли по верху — они что-то настраивали, может кнопки раскладки, может маркер на карте. Замешкались. Не долго — но достаточно.</p>
+
+    <p>Ник тем временем прошёл под мостом, перебрался на другую сторону — и зашёл им в тыл. С той стороны откуда его никто не ждал — с их собственного переда, который теперь оказался сзади. Реакция сработала как всегда: два силуэта, две очереди, оба готовы. Почти одновременно.</p>
+
+    <p>Осознание пришло через секунду — в голосовом чате стало сначала тихо, потом все трое заговорили одновременно. Ник понял что произошло примерно в тот же момент что и они. Это было и смешно и обидно — причём обе эти вещи сразу, без паузы между ними.</p>
+
+    <p>Туман войны не спрашивает кто свой. Реакция не спрашивает тоже. Именно в этом честность Таркова — и именно в этом его жестокость.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">Жёлтая карта</div>
+    </div>
+
+    <p>Лаборатория — место для терпеливых. Подземный комплекс с закрытыми дверями, специальными картами для каждого уровня и ботами которые охраняют внутренние зоны с серьёзностью реальной охраны. Войти туда с нормальным снаряжением уже подвиг. Выйти с лутом — отдельное искусство.</p>
+
+    <p>У Сола была жёлтая карта. Карты в Лабе — валюта, пропуск, иногда цель всего рейда. Жёлтая открывала определённые двери — там за ними лежало то ради чего и заходили. Он стоял у двери и разбирался с механикой открытия — не всегда интуитивно понятной, с нюансами которые можно не знать если не читал заранее.</p>
+
+    <p>Рядом был Беркут.</p>
+
+    <p>Беркут увидел кнопку. Кнопки в Лабе нажимают — это логично. Он нажал.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Из гаража вышли боты. Не один — сразу несколько, с той скоростью и точностью которые делают ботов Лабы отдельной темой обсуждения в любом комьюнити по игре. Сол стоял у двери — в позиции которая не предполагала немедленного боя, без готовности, без угла прикрытия. Первая очередь попала в голову. Моментально.</p>
+
+    <p>Лут остался там. Жёлтая карта — израсходована. Рейд — закончен досрочно.</p>
+
+    <p>Сол горел. Не тихо — знатно. Беркут слушал это с тем особым молчанием которое бывает когда человек понимает что сделал что-то не то но пока не совсем понял что именно. Потом понял. Потом тоже стало тихо — но иначе.</p>
+
+    <p>Злость прошла быстро — как всегда проходит в играх. Это не настоящие потери, просто ощущаются как настоящие. В этом весь Тарков.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">PvP</div>
+    </div>
+
+    <p>Тарков держит по-особому. Не как большинство игр — те затягивают петлёй прогресса, наградами, следующим уровнем. Тарков держит страхом потери и радостью от того что выжил. Это другой механизм — более честный и более жестокий одновременно.</p>
+
+    <p>PvP в Таркове — это не арена где тебя и противника поставили в равные условия. Это встреча двух людей которые пришли с разным снаряжением, разным опытом, разными целями. Кто-то фармит, кто-то охотится на фармеров. Кто-то потерял всё в прошлом рейде и зашёл с минимумом. Каждый выход — своя история.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Они играли долго — рейд за рейдом, вайп за вайпом. Каждый новый сезон начинался с нуля и это было честно. Ник с его реакцией был опасен в любой ситуации. Беркут был надёжен там где надо было держаться и не делать лишнего. Сол строил тактику и иногда сгорал когда тактика шла не по плану.</p>
+
+    <p>Тарков остался в памяти не победами и не поражениями — моментами. Мост в тумане. Кнопка в Лабе. Тишина в голосовом чате после чего-то что уже не исправить.</p>
+
+    <p>Это и есть игра которая честна с тобой — показывает что бывает когда реакция опережает осознание, когда любопытство дороже осторожности, когда команда — это и сила и уязвимость одновременно.</p>
+
+    <p>Уроки одни и те же везде. Просто в Таркове за них платишь снаряжением.</p>
+
+    <p>В жизни — дороже.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>

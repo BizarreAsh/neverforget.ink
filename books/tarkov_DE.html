@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tarkov — Bizarre Ash</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #0a0a08;
+    --paper: #eeeee8;
+    --fade: #707060;
+    --accent: #303020;
+    --gold: #606040;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(96,96,64,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(48,48,32,0.05) 0%, transparent 60%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; }
+  .cover { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 6rem 0; position: relative; }
+  .cover::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); }
+  .cover-eyebrow { font-family: 'Cormorant Garamond', serif; font-size: 11px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 3rem; opacity: 0.8; }
+  .cover-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(56px, 12vw, 90px); font-weight: 300; letter-spacing: 0.06em; color: var(--ink); line-height: 1.0; margin-bottom: 0.4rem; font-style: italic; }
+  .cover-rule { width: 40px; height: 1px; background: var(--gold); margin: 2.5rem auto; opacity: 0.6; }
+  .cover-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-style: italic; color: var(--fade); letter-spacing: 0.2em; margin-bottom: 5rem; }
+  .cover-author { font-family: 'Cormorant Garamond', serif; font-size: 13px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--fade); opacity: 0.7; }
+  .toc { padding: 7rem 0 5rem; border-bottom: 1px solid rgba(96,96,64,0.2); margin-bottom: 7rem; }
+  .toc-label { font-family: 'Cormorant Garamond', serif; font-size: 10px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 2.5rem; }
+  .toc-item { display: grid; grid-template-columns: 2em 1fr 2em; gap: 0.5rem; align-items: baseline; padding: 0.75rem 0; border-bottom: 1px solid rgba(96,96,64,0.12); font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; color: var(--ink); text-decoration: none; transition: color 0.2s; }
+  .toc-item:hover { color: var(--accent); }
+  .toc-roman { font-style: normal; font-size: 11px; color: var(--gold); letter-spacing: 0.1em; padding-top: 0.3em; }
+  .toc-num { font-style: normal; font-size: 11px; color: var(--fade); text-align: right; }
+  .chapter { padding-top: 6rem; margin-bottom: 3rem; }
+  .chapter-header { margin-bottom: 3rem; }
+  .chapter-number { font-family: 'Cormorant Garamond', serif; font-size: 100px; font-weight: 300; color: var(--gold); opacity: 0.18; line-height: 0.85; margin-bottom: -0.1em; letter-spacing: -0.02em; user-select: none; }
+  .chapter-title { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 300; font-style: italic; color: var(--ink); padding-bottom: 1.5rem; border-bottom: 1px solid rgba(96,96,64,0.35); line-height: 1.3; }
+  p { margin-bottom: 1.5em; text-align: justify; hyphens: auto; }
+  .chapter > p:first-of-type::first-letter { font-family: 'Cormorant Garamond', serif; font-size: 4.8em; font-weight: 300; float: left; line-height: 0.72; margin-right: 0.06em; margin-top: 0.1em; color: var(--accent); }
+  .break { display: flex; align-items: center; justify-content: center; gap: 0.6em; margin: 3rem 0; color: var(--gold); opacity: 0.5; font-size: 8px; letter-spacing: 0.6em; }
+  .break::before, .break::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, transparent, rgba(96,96,64,0.3)); }
+  .break::after { background: linear-gradient(to left, transparent, rgba(96,96,64,0.3)); }
+  .chapter-end { margin: 6rem 0 0; text-align: center; color: var(--gold); opacity: 0.3; font-size: 20px; letter-spacing: 0.6em; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">autobiografische Prosa</div>
+    <div class="cover-title">Tarkov</div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">über den Preis guter Reflexe</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Inhalt</div>
+    <a class="toc-item" href="#ch1"><span class="toc-roman">I</span><span>Die Brücke</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch2"><span class="toc-roman">II</span><span>Der gelbe Schlüssel</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch3"><span class="toc-roman">III</span><span>PvP</span><span class="toc-num">—</span></a>
+  </div>
+
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">Die Brücke</div>
+    </div>
+
+    <p>Escape from Tarkov ist kein Spiel in das man geht um sich zu entspannen. Es ist ein Ort wo jeder Raid mit Anspannung beginnt und entweder in Erleichterung oder Ärger endet, wo der Verlust von Ausrüstung sich körperlich anfühlt, wo gute Reflexe Überleben bedeuten und schlechte einen Charakterwipe und Neuanfang. Genau deshalb spielt man es — und genau deshalb hört man auf.</p>
+
+    <p>Nik hatte Reflexe. Nicht durchschnittlich, nicht gut — außergewöhnlich. Die Art die sich jahrelang in Shootern formt, wenn Hand und Kopf schneller arbeiten als der bewusste Gedanke. Ziel im Blickfeld — Schuss. Keine Pause, kein Zögern, reine Mechanik. Im PvP ist das ein Vorteil. Im Raid mit Verbündeten — manchmal ein Problem.</p>
+
+    <p>An der Brücke trennten sie sich — Nik ging unten durch, Sol und Berkut oben drüber. Standardmanöver auf zwei Ebenen, klassische Aufteilung um mehr Winkel abzudecken. Während Sol und Berkut oben liefen — wurden sie durch irgendetwas abgelenkt, vielleicht Tastenbelegungen einstellen, vielleicht ein Marker auf der Karte. Sie zögerten. Nicht lange — aber lang genug.</p>
+
+    <p>Nik ging unterdessen unter der Brücke durch, wechselte auf die andere Seite — und kam ihnen in den Rücken. Von der Richtung die niemand erwartete — von ihrer eigenen Vorderseite die jetzt zur Rückseite geworden war. Die Reflexe feuerten wie immer: zwei Silhouetten, zwei Feuerstöße, beide unten. Fast gleichzeitig.</p>
+
+    <p>Die Erkenntnis kam eine Sekunde später — im Sprachchat wurde es zuerst still, dann fingen alle drei gleichzeitig an zu reden. Nik verstand was passiert war ungefähr in demselben Moment wie sie. Es war sowohl lustig als auch schmerzhaft — beides gleichzeitig, keine Pause dazwischen.</p>
+
+    <p>Friendly Fire fragt nicht wer auf welcher Seite ist. Reflexe auch nicht. Das ist die Ehrlichkeit von Tarkov — und das ist seine Brutalität.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">Der gelbe Schlüssel</div>
+    </div>
+
+    <p>Das Labor ist ein Ort für Geduldige. Ein unterirdischer Komplex mit verschlossenen Türen, spezifischen Schlüsselkarten für jede Zone und Bots die die inneren Bereiche mit dem Ernst echter Sicherheitskräfte bewachen. Dort mit ordentlicher Ausrüstung reinzukommen ist bereits eine Leistung. Mit Beute rauszukommen ist eine eigene Kunst.</p>
+
+    <p>Sol hatte die gelbe Schlüsselkarte. Schlüsselkarten im Labor sind Währung, Zugang, manchmal der einzige Grund für den Raid. Die gelbe öffnete bestimmte Türen — dahinter lag was sie hergekommen waren. Er stand an der Tür und arbeitete die Öffnungsmechanik durch — nicht immer intuitiv, mit Nuancen die man nicht kennt wenn man sich nicht vorbereitet hat.</p>
+
+    <p>Berkut war daneben.</p>
+
+    <p>Berkut sah einen Knopf. Knöpfe im Labor drückt man — das ist die Logik. Er drückte.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Aus der Garage kamen Bots. Nicht einer — mehrere auf einmal, mit der Geschwindigkeit und Präzision die Labor-Bots zu einem eigenen Gesprächsthema in jeder Community rund ums Spiel machen. Sol stand an der Tür — in einer Position die nicht für sofortigen Kampf gedacht war, ohne Bereitschaftsstellung, ohne Deckungswinkel. Der erste Feuerstoß traf ihn in den Kopf. Sofort.</p>
+
+    <p>Das Loot blieb dort. Gelbe Schlüsselkarte — verbraucht. Raid — vorzeitig beendet.</p>
+
+    <p>Sol brannte. Nicht leise — ordentlich. Berkut hörte das mit jenem besonderen Schweigen das entsteht wenn jemand versteht dass er etwas falsch gemacht hat aber noch nicht ganz was. Dann verstand er es. Dann wurde es wieder still — aber anders.</p>
+
+    <p>Der Ärger verging schnell — so wie er in Spielen immer vergeht. Das sind keine echten Verluste, sie fühlen sich nur wie echte an. Das ist der ganze Tarkov.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">PvP</div>
+    </div>
+
+    <p>Tarkov hält anders fest. Nicht wie die meisten Spiele — die ziehen durch eine Fortschrittsschleife, Belohnungen, das nächste Level. Tarkov hält durch die Angst vor Verlust und die Erleichterung überlebt zu haben. Ein anderer Mechanismus — ehrlicher und brutaler zugleich.</p>
+
+    <p>PvP in Tarkov ist keine Arena wo man und der Gegner unter gleichen Bedingungen antreten. Es ist eine Begegnung zweier Menschen die mit unterschiedlicher Ausrüstung, unterschiedlicher Erfahrung, unterschiedlichen Zielen ankamen. Einer farmt, einer jagt Farmer. Einer hat im letzten Raid alles verloren und kam mit dem Minimum rein. Jeder Ausflug ist seine eigene Geschichte.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Sie spielten lange — Raid für Raid, Wipe für Wipe. Jede neue Saison begann bei null und das war fair. Nik mit seinen Reflexen war in jeder Situation gefährlich. Berkut war zuverlässig dort wo man halten und nichts Überflüssiges tun musste. Sol baute die Taktiken und brannte manchmal wenn die Taktiken nicht nach Plan liefen.</p>
+
+    <p>Tarkov blieb nicht durch Siege und Niederlagen in Erinnerung — sondern durch Momente. Die Brückenaufteilung. Der Knopf im Labor. Die Stille im Sprachchat nach etwas das nicht mehr rückgängig zu machen war.</p>
+
+    <p>Das ist ein Spiel das ehrlich mit einem ist — es zeigt was passiert wenn Reflexe die Erkenntnis überholen, wenn Neugier mehr kostet als Vorsicht, wenn ein Team gleichzeitig Stärke und Verwundbarkeit ist.</p>
+
+    <p>Die Lektionen sind überall dieselben. In Tarkov bezahlt man mit Ausrüstung.</p>
+
+    <p>Im Leben — mehr.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>

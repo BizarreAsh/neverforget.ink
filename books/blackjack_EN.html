@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blackjack — Bizarre Ash</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #0a100a;
+    --paper: #eaf2ea;
+    --fade: #507050;
+    --accent: #1a4a1a;
+    --gold: #308030;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(40,120,40,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(26,74,26,0.05) 0%, transparent 60%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; }
+  .cover { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 6rem 0; position: relative; }
+  .cover::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); }
+  .cover-eyebrow { font-family: 'Cormorant Garamond', serif; font-size: 11px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 3rem; opacity: 0.8; }
+  .cover-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(52px, 11vw, 82px); font-weight: 300; letter-spacing: 0.08em; color: var(--ink); line-height: 1.0; margin-bottom: 0.4rem; font-style: italic; }
+  .cover-rule { width: 40px; height: 1px; background: var(--gold); margin: 2.5rem auto; opacity: 0.6; }
+  .cover-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-style: italic; color: var(--fade); letter-spacing: 0.2em; margin-bottom: 5rem; }
+  .cover-author { font-family: 'Cormorant Garamond', serif; font-size: 13px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--fade); opacity: 0.7; }
+  .toc { padding: 7rem 0 5rem; border-bottom: 1px solid rgba(48,128,48,0.2); margin-bottom: 7rem; }
+  .toc-label { font-family: 'Cormorant Garamond', serif; font-size: 10px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 2.5rem; }
+  .toc-item { display: grid; grid-template-columns: 2em 1fr 2em; gap: 0.5rem; align-items: baseline; padding: 0.75rem 0; border-bottom: 1px solid rgba(48,128,48,0.12); font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; color: var(--ink); text-decoration: none; transition: color 0.2s; }
+  .toc-item:hover { color: var(--accent); }
+  .toc-roman { font-style: normal; font-size: 11px; color: var(--gold); letter-spacing: 0.1em; padding-top: 0.3em; }
+  .toc-num { font-style: normal; font-size: 11px; color: var(--fade); text-align: right; }
+  .chapter { padding-top: 6rem; margin-bottom: 3rem; }
+  .chapter-header { margin-bottom: 3rem; }
+  .chapter-number { font-family: 'Cormorant Garamond', serif; font-size: 100px; font-weight: 300; color: var(--gold); opacity: 0.18; line-height: 0.85; margin-bottom: -0.1em; letter-spacing: -0.02em; user-select: none; }
+  .chapter-title { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 300; font-style: italic; color: var(--ink); padding-bottom: 1.5rem; border-bottom: 1px solid rgba(48,128,48,0.35); line-height: 1.3; }
+  p { margin-bottom: 1.5em; text-align: justify; hyphens: auto; }
+  .chapter > p:first-of-type::first-letter { font-family: 'Cormorant Garamond', serif; font-size: 4.8em; font-weight: 300; float: left; line-height: 0.72; margin-right: 0.06em; margin-top: 0.1em; color: var(--accent); }
+  .break { display: flex; align-items: center; justify-content: center; gap: 0.6em; margin: 3rem 0; color: var(--gold); opacity: 0.5; font-size: 8px; letter-spacing: 0.6em; }
+  .break::before, .break::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, transparent, rgba(48,128,48,0.3)); }
+  .break::after { background: linear-gradient(to left, transparent, rgba(48,128,48,0.3)); }
+  .chapter-end { margin: 6rem 0 0; text-align: center; color: var(--gold); opacity: 0.3; font-size: 20px; letter-spacing: 0.6em; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">autobiographical prose</div>
+    <div class="cover-title">Blackjack</div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">about luck being a one-time thing</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Contents</div>
+    <a class="toc-item" href="#ch1"><span class="toc-roman">I</span><span>Andy Had Warned Them</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch2"><span class="toc-roman">II</span><span>The Cards Were Coming</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch3"><span class="toc-roman">III</span><span>By Candlelight</span><span class="toc-num">—</span></a>
+  </div>
+
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">Andy Had Warned Them</div>
+    </div>
+
+    <p>The fourth Egypt was different. Not better than the first three and not worse — just different. Roy came here no longer as a tourist discovering a country, but as someone who knew where things were, who to call and where not to go without a reason. Nik was beside him for the first time — and Roy was happy to show him everything that over the previous visits had become his own.</p>
+
+    <p>Andy met them at the hotel — the manager, always recognized his regulars immediately, with that weary warmth of a man who'd seen too many tourists to be surprised by them but always had time for familiar faces. They talked, drank coffee — Andy shared how things were, how the hotel was doing, how life was going. Then as usual he started explaining that casinos are bad, gambling is a sin, there's no place for that in his religion. He spoke convincingly and sincerely.</p>
+
+    <p>While the conversation was going — the George Clooney shop stood two hundred metres away. The same one Roy visited every trip. Clooney was a known face around that part of the resort — good company, conversations, sometimes something to drink together while the tourists did their tourist things. This time Nik got acquainted too.</p>
+
+    <p>They shook Andy's hand, said goodbye — and walked to the casino.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">The Cards Were Coming</div>
+    </div>
+
+    <p>Online casinos are different. No atmosphere, no people nearby, no sound of chips and the particular subdued light that creates a specific state of mind. Offline works completely differently — everything about it is arranged so you feel slightly special and slightly relaxed at the same time. That's not accidental.</p>
+
+    <p>Roy didn't sit down right away. First he watched — Nik, the other guests at the table, the dealer working with the mechanical precision that marks people who've done the same thing for years. Blackjack — get to twenty-one or as close as possible without going over, beat the dealer. Simple rules. Different game.</p>
+
+    <p>Nik started losing immediately. Not catastrophically — methodically, as if the cards were deliberately going around him. Roy watched this a few times, then sat down at the table himself.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>The cards were coming. Not every time — but they were coming, and coming well. Roy sometimes didn't even register that he'd won — he'd ask the people beside him, clarify rules on the spot, draw the game out. Nobody got annoyed — on the contrary, they helped, explained, rooted for him the way you root for a random stranger who's suddenly on a run.</p>
+
+    <p>Nik watched with the expression you get when everything is going wrong for you — and it's also funny.</p>
+
+    <p>The evening ended three hundred dollars up. Roy and Nik stepped out into the warm Egyptian night — satisfied, alive, with that particular mood you get when you've done something slightly forbidden and it came off. They decided on a souvenir right away — a poker set, a good one, in a wooden case. Not because they needed it. Because nobody ever buys something like that otherwise, and this way it was a piece of that evening.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">By Candlelight</div>
+    </div>
+
+    <p>The next day they went back. The logic was simple and wrong — yesterday was lucky, so today might be too. That's what everyone who goes back thinks. That's what they thought.</p>
+
+    <p>The casino received them with the same subdued politeness as the evening before. Behind the table sat a different dealer — or the same one, impossible to say now. The cards weren't coming. At all. What had fallen naturally into hand the night before today refused to come anywhere near. Roy was losing — methodically, steadily, without pauses to reconsider.</p>
+
+    <p>They left down — more than they'd brought in before the first evening. The folk wisdom Roy later confirmed through personal experience is simple: if you win — leave. Luck is a one-time thing. Whether it was luck or the casino feeding you to come back — you'll find out later, but either way you'll lose more.</p>
+
+    <p>It stung. They'd wanted it to go differently. But they knew what they were walking into — it was the emotion they were after, the money didn't really matter. Even the money they lost.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>The poker set went home with them — in its wooden case, chips and cards inside. It sat unused for a while, the way things do when you buy them not out of necessity but out of a moment.</p>
+
+    <p>Then the war started.</p>
+
+    <p>The power went out for several hours a day — sometimes longer. Darkness became part of the routine, candles stopped being decoration and became tools. And one of those evenings — when outside was dark and on the table candles were burning — the case was opened. Chips were dealt out. Cards were shuffled.</p>
+
+    <p>They played by candlelight. Poker. During the war.</p>
+
+    <p>That's when the poker set from Egypt earned every dollar it cost. And that second evening at the casino too.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>
