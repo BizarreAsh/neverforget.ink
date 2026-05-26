@@ -354,6 +354,12 @@ const bookPool = [
   { title: 'Пятый номер',               author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/pyaty_nomer.html'                            },
   { title: 'Number Five',               author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/number_five_EN.html'                         },
   { title: 'Nummer Fünf',               author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/nummer_fuenf_DE.html'                        },
+  { title: 'Юлианна',                  author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/yulianna.html'                                 },
+  { title: 'Julianna',                 author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/julianna_EN.html'                              },
+  { title: 'Julianna',                 author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/julianna_DE.html'                              },
+  { title: 'Поворот не туда',          author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/povorot_ne_tuda.html'                         },
+  { title: 'Wrong Turn',               author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/wrong_turn_EN.html'                           },
+  { title: 'Falsche Abzweigung',       author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/falsche_abzweigung_DE.html'                   },
 ];
 
 function shuffleArray(arr) {
