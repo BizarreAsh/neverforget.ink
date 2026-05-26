@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Falsche Abzweigung — Bizarre Ash</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #100a08;
+    --paper: #f0ebe8;
+    --fade: #887060;
+    --accent: #483018;
+    --gold: #786048;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(120,96,72,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(72,48,24,0.05) 0%, transparent 60%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; }
+  .cover { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 6rem 0; position: relative; }
+  .cover::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); }
+  .cover-eyebrow { font-family: 'Cormorant Garamond', serif; font-size: 11px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 3rem; opacity: 0.8; }
+  .cover-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(36px, 8vw, 58px); font-weight: 300; letter-spacing: 0.04em; color: var(--ink); line-height: 1.15; margin-bottom: 0.4rem; }
+  .cover-title em { font-style: italic; color: var(--accent); }
+  .cover-rule { width: 40px; height: 1px; background: var(--gold); margin: 2.5rem auto; opacity: 0.6; }
+  .cover-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-style: italic; color: var(--fade); letter-spacing: 0.2em; margin-bottom: 5rem; }
+  .cover-author { font-family: 'Cormorant Garamond', serif; font-size: 13px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--fade); opacity: 0.7; }
+  .toc { padding: 7rem 0 5rem; border-bottom: 1px solid rgba(120,96,72,0.2); margin-bottom: 7rem; }
+  .toc-label { font-family: 'Cormorant Garamond', serif; font-size: 10px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 2.5rem; }
+  .toc-item { display: grid; grid-template-columns: 2em 1fr 2em; gap: 0.5rem; align-items: baseline; padding: 0.75rem 0; border-bottom: 1px solid rgba(120,96,72,0.12); font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; color: var(--ink); text-decoration: none; transition: color 0.2s; }
+  .toc-item:hover { color: var(--accent); }
+  .toc-roman { font-style: normal; font-size: 11px; color: var(--gold); letter-spacing: 0.1em; padding-top: 0.3em; }
+  .toc-num { font-style: normal; font-size: 11px; color: var(--fade); text-align: right; }
+  .chapter { padding-top: 6rem; margin-bottom: 3rem; }
+  .chapter-header { margin-bottom: 3rem; }
+  .chapter-number { font-family: 'Cormorant Garamond', serif; font-size: 100px; font-weight: 300; color: var(--gold); opacity: 0.18; line-height: 0.85; margin-bottom: -0.1em; letter-spacing: -0.02em; user-select: none; }
+  .chapter-title { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 300; font-style: italic; color: var(--ink); padding-bottom: 1.5rem; border-bottom: 1px solid rgba(120,96,72,0.35); line-height: 1.3; }
+  p { margin-bottom: 1.5em; text-align: justify; hyphens: auto; }
+  .chapter > p:first-of-type::first-letter { font-family: 'Cormorant Garamond', serif; font-size: 4.8em; font-weight: 300; float: left; line-height: 0.72; margin-right: 0.06em; margin-top: 0.1em; color: var(--accent); }
+  .break { display: flex; align-items: center; justify-content: center; gap: 0.6em; margin: 3rem 0; color: var(--gold); opacity: 0.5; font-size: 8px; letter-spacing: 0.6em; }
+  .break::before, .break::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, transparent, rgba(120,96,72,0.3)); }
+  .break::after { background: linear-gradient(to left, transparent, rgba(120,96,72,0.3)); }
+  .chapter-end { margin: 6rem 0 0; text-align: center; color: var(--gold); opacity: 0.3; font-size: 20px; letter-spacing: 0.6em; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">autobiografische Prosa</div>
+    <div class="cover-title">Falsche<br><em>Abzweigung</em></div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">darüber wie eine Gruppe zur falschen wird</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Inhalt</div>
+    <a class="toc-item" href="#ch1"><span class="toc-roman">I</span><span>Mochte ihn von Anfang an nicht</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch2"><span class="toc-roman">II</span><span>Immer im Mittelpunkt</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch3"><span class="toc-roman">III</span><span>Stopp</span><span class="toc-num">—</span></a>
+  </div>
+
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">Mochte ihn von Anfang an nicht</div>
+    </div>
+
+    <p>Rus tauchte in der Klasse so auf wie Menschen auftauchen die niemand erwartet hat — einfach versetzt worden, und das war alles. Neu, unbeschriebenes Blatt, keine Geschichte die alle schon kannten. In solchen Situationen nimmt eine Klasse jemanden entweder auf oder nicht. Die Klasse nahm Rus mit offenen Armen auf. Ash beobachtete das von der Seite und fand es amüsant — er verstand warum es passierte, schloss sich dem Chor aber nicht an.</p>
+
+    <p>Rus behagte ihm von Anfang an nicht. Nicht wegen einer konkreten Handlung — einfach nicht, Instinkt. Der lag selten falsch.</p>
+
+    <p>Dann fing Rus an Vyach aufzuziehen. Vyach war jemand den Ash nicht in Stich ließ — ohne Ankündigungen und ohne Gründe die laut formuliert werden mussten. So war es einfach, Punkt. Ein paar geworfene Sätze — und eine richtige Schlägerei begann. Ernst, echt, wo jeder dort dominierte wo er stärker oder flinker war. Beendet wurde sie erst als die Schulleitung eingriff.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Ash hatte nie Kampfsport betrieben. Nie gelernt zu kämpfen — er konnte sich einfach so gut behaupten wie die die es gelernt hatten. Gegner machten ihm keine Angst, egal wie groß oder alt sie waren. Ein Gedanke saß immer im Kopf: ich schaff das. Nicht jede Auseinandersetzung endete mit einem Sieg — aber sie blieben lange in der Erinnerung aller Beteiligten.</p>
+
+    <p>Rus erinnerte sich auch. Nach der Schlägerei landeten sie irgendwie nebeneinander. So funktioniert das manchmal — durch Konflikt, durch eine Prüfung, durch zwei Menschen die einander gegenüberstanden und keiner wich. Da ist etwas drin.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">Immer im Mittelpunkt</div>
+    </div>
+
+    <p>Rus war clever — nicht klug, genau clever. Der Unterschied ist wesentlich. Kluge Menschen bauen, clevere nutzen. Gut aussehend, konnte Geschichten spinnen, konnte gemocht werden — von denen die es glaubten. Auf der Straße aufgewachsen, in Gesellschaften die keine zu vielen Fragen stellen und keine Erklärungen erwarten. Ein Taugenichts in maximaler Ausstattung — aber mit dem Charme der das lange genug versteckte.</p>
+
+    <p>Und er verstand es die Decke zu sich zu ziehen — das hätte man als eigene Fähigkeit studieren sollen. Jede Situation, jedes Gespräch, jede Gruppe — irgendwie endete alles damit dass es sich um ihn drehte. Nicht weil er der Mittelpunkt war — er nahm einfach immer die Mittelposition ein bevor jemand anderes daran gedacht hatte.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Die Gruppe wurde allmählich zur falschen — nicht an einem Tag und nicht durch eine Entscheidung. Ash stellte irgendwann einfach fest dass Spaziergänge anders endeten als sie begannen. Dass er nach Hause kam in einem Zustand der versteckt werden musste. Dass Drogen, Alkohol und Ausschweifungen Teil davon geworden waren wie Zeit neben Rus aussah.</p>
+
+    <p>Er hörte auf tagelang zuhause zu sitzen — das stimmte. Aber wohin er jetzt ging war es wert nachzudenken. Ash war gut darin sich an Situationen anzupassen — das war seine Stärke und gleichzeitig seine Schwachstelle. Wenn jemand in der Nähe beharrlich genug in eine bestimmte Richtung zieht — kann man nicht merken wie weit man gegangen ist.</p>
+
+    <p>Rus war nicht böse. Das ist wichtig zu verstehen — er hatte keine Pläne, wollte niemanden kaputt machen. Er lebte einfach so wie er lebte, und die Menschen um ihn herum lebten genauso. Das war keine böse Absicht — das war einfach eine Umlaufbahn. Wer in sie gerät beginnt sich in dieselbe Richtung zu bewegen.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">Stopp</div>
+    </div>
+
+    <p>Der Moment als Ash anhielt war nicht laut. Kein Bruch, keine Konfrontation, kein abschließendes Gespräch das alles klargestellt hätte. Irgendwann schaute er auf wohin er sich bewegte und verstand — nein, Stopp, da gehe ich nicht mehr hin. Keine Erklärung für Rus, keine Zeremonie. Einfach Stopp.</p>
+
+    <p>Das bedeutet nicht dass alles die ganze Zeit schrecklich war. Es gab Momente wo Rus aufrichtig war — selten, aber sie existierten. Manchmal war er echt. Öfter — nicht. Öfter war es etwas das man einfach zusammenfassen konnte: in Worten eines, in der Praxis etwas ganz anderes. Und immer der Erste, immer im Mittelpunkt, immer mit einer neuen Idee die ein bisschen weiter zog als es sich gehört hätte.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Rus hielt dort nicht an wo Ash anhielt. Es gab diesen Punkt für ihn nicht — oder er war da und er ging daran vorbei ohne es zu bemerken. Wo Ash Stopp sagte öffnete sich für Rus eine Straße weiter. Und er ging sie.</p>
+
+    <p>Wohin sie führte — Ash erfuhr es allmählich und nicht vollständig. Das Letzte was zu ihm durchdrang — Rus war am Rand. Lange, beständig, ohne Zeichen dass sich etwas änderte.</p>
+
+    <p>Höchstwahrscheinlich lebt er nicht mehr.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Das ist keine Moral und keine Lektion — es passierte einfach so. Zwei Menschen gingen eine Weile nebeneinander. Irgendwann trennten sich die Wege. Einer hielt an, der andere nicht.</p>
+
+    <p>Rus lehrte eine Sache — wichtig und konkret. Eine Regel die danach strikt eingehalten wurde: wissen wo der eigene Stopp ist. Nicht jeder hat einen. Nicht jeder hört ihn. Aber wenn man ihn hört — zuhören.</p>
+
+    <p>Ruhe in Metall.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>

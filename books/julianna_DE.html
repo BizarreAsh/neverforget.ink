@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Julianna — Bizarre Ash</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #0a0a14;
+    --paper: #f0f0fa;
+    --fade: #7070a8;
+    --accent: #3030a0;
+    --gold: #6060c0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(96,96,192,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(48,48,160,0.05) 0%, transparent 60%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; }
+  .cover { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 6rem 0; position: relative; }
+  .cover::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); }
+  .cover-eyebrow { font-family: 'Cormorant Garamond', serif; font-size: 11px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 3rem; opacity: 0.8; }
+  .cover-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(48px, 10vw, 76px); font-weight: 300; letter-spacing: 0.06em; color: var(--ink); line-height: 1.1; margin-bottom: 0.4rem; font-style: italic; }
+  .cover-rule { width: 40px; height: 1px; background: var(--gold); margin: 2.5rem auto; opacity: 0.6; }
+  .cover-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-style: italic; color: var(--fade); letter-spacing: 0.2em; margin-bottom: 5rem; }
+  .cover-author { font-family: 'Cormorant Garamond', serif; font-size: 13px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--fade); opacity: 0.7; }
+  .toc { padding: 7rem 0 5rem; border-bottom: 1px solid rgba(96,96,192,0.2); margin-bottom: 7rem; }
+  .toc-label { font-family: 'Cormorant Garamond', serif; font-size: 10px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 2.5rem; }
+  .toc-item { display: grid; grid-template-columns: 2em 1fr 2em; gap: 0.5rem; align-items: baseline; padding: 0.75rem 0; border-bottom: 1px solid rgba(96,96,192,0.12); font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; color: var(--ink); text-decoration: none; transition: color 0.2s; }
+  .toc-item:hover { color: var(--accent); }
+  .toc-roman { font-style: normal; font-size: 11px; color: var(--gold); letter-spacing: 0.1em; padding-top: 0.3em; }
+  .toc-num { font-style: normal; font-size: 11px; color: var(--fade); text-align: right; }
+  .chapter { padding-top: 6rem; margin-bottom: 3rem; }
+  .chapter-header { margin-bottom: 3rem; }
+  .chapter-number { font-family: 'Cormorant Garamond', serif; font-size: 100px; font-weight: 300; color: var(--gold); opacity: 0.18; line-height: 0.85; margin-bottom: -0.1em; letter-spacing: -0.02em; user-select: none; }
+  .chapter-title { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 300; font-style: italic; color: var(--ink); padding-bottom: 1.5rem; border-bottom: 1px solid rgba(96,96,192,0.35); line-height: 1.3; }
+  p { margin-bottom: 1.5em; text-align: justify; hyphens: auto; }
+  .chapter > p:first-of-type::first-letter { font-family: 'Cormorant Garamond', serif; font-size: 4.8em; font-weight: 300; float: left; line-height: 0.72; margin-right: 0.06em; margin-top: 0.1em; color: var(--accent); }
+  .break { display: flex; align-items: center; justify-content: center; gap: 0.6em; margin: 3rem 0; color: var(--gold); opacity: 0.5; font-size: 8px; letter-spacing: 0.6em; }
+  .break::before, .break::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, transparent, rgba(96,96,192,0.3)); }
+  .break::after { background: linear-gradient(to left, transparent, rgba(96,96,192,0.3)); }
+  .chapter-end { margin: 6rem 0 0; text-align: center; color: var(--gold); opacity: 0.3; font-size: 20px; letter-spacing: 0.6em; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">autobiografische Prosa</div>
+    <div class="cover-title">Julianna</div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">über den Menschen der am nächsten in den Interessen war</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Inhalt</div>
+    <a class="toc-item" href="#ch1"><span class="toc-roman">I</span><span>Blumen an eine fremde Adresse</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch2"><span class="toc-roman">II</span><span>Ju</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch3"><span class="toc-roman">III</span><span>Die Partnerin</span><span class="toc-num">—</span></a>
+  </div>
+
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">Blumen an eine fremde Adresse</div>
+    </div>
+
+    <p>In seinem Feed tauchte ein Post auf. Eine Karte mit Text — "Ich will eine überraschende Blumenlieferung" — und unten, in kleinen Buchstaben, fast wie ein Flüstern: "p.s. Wünschen schadet nicht." Ash las es. Lächelte. Dachte eine Sekunde nach.</p>
+
+    <p>Er hatte damals etwas mit Blumen zu tun — Arbeit, Kontakte, ein paar Anrufe und ein paar Tastendrücke. Es war keine große Geste — nur die Möglichkeit jemandem den er kaum kannte etwas Schönes zu tun. Oder fast kaum kannte.</p>
+
+    <p>Eine Überraschungslieferung bedeutete eines — sie musste eine Überraschung sein. Man ruft den Empfänger erst an wenn der Kurier schon vor der Tür steht. Ash schrieb ihrer Freundin — überzeugend, mit Argumenten, bat sie ihn nicht zu verraten und ihm eine Adresse zu nennen wo es praktisch wäre eine unerwartete Lieferung anzunehmen. Die Freundin zögerte — und gab nach. Die Blumen fuhren los.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Ju empfing sie dort wo es ihr passte — und empfing sie in vollem Maße. Nicht nur Blumen, sondern alles dahinter — die Unerwartheit, die Aufmerksamkeit, das Gefühl dass jemand diesen Post gelesen hatte und sich die Mühe gemacht hatte. Sie schrieb zurück. Sie fingen an zu reden.</p>
+
+    <p>Aus nichts — aus einer Karte im Feed und einem gut gemachten Anruf — entstand ein Mensch der sich als näher in den Interessen herausstellte als viele die Ash jahrelang kannte.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">Ju</div>
+    </div>
+
+    <p>Der Spitzname entstand von selbst — vom Nutzernamen Julilit88, ohne Aufwand, er wurde einfach so und blieb. Ju.</p>
+
+    <p>Sie war Künstlerin — in dem Sinne wie Menschen Künstler sind wenn sie nicht anders können. Sie schuf Schönheit und Gemütlichkeit überall wo sie auftauchte — nicht weil sie es versuchte, einfach weil sie so gemacht war. Ihre Hände zogen sich von selbst zu etwas Visuellem, zu Farbe, zu Form.</p>
+
+    <p>Genshin Impact nahm einen eigenen, unerschütterlichen Platz in ihrem Leben ein. Ash hatte manchmal das Gefühl wenn das Spiel jemals abgeschaltet würde könnte man den Menschen dabei verlieren. Er spielte selbst eine Weile — anfangs interessant, dann die übliche Geschichte: entweder stundenlang grinden oder zahlen. Das hielt Ju nicht auf. Sie spielte — mit jener Hingabe die man nicht logisch erklären muss, einfach weil.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Minecraft wurde ihr gemeinsames Territorium. Ash versuchte die Technologien zu erklären, zu zeigen wie die Mechanismen funktionierten, warum ein Atomreaktor wichtig war. Ju hörte zu — und ging das Design rund um eben diesen Reaktor bauen. Schön, durchdacht, mit Details die Ash nie aufgefallen wären. Wie der Reaktor funktioniert — nicht wichtig. Hauptsache der Raum darum herum fühlt sich richtig an.</p>
+
+    <p>Sie kamen sich nicht in die Quere. Jeder machte sein Ding — und zusammen ergab das etwas Lebendiges. Das passiert wenn zwei Menschen einander ergänzen nicht weil sie es versuchen, sondern einfach weil es so funktioniert.</p>
+
+    <p>Ihr Charakter hatte seine Ecken — Unbeständigkeit, die Gewohnheit nach eigenem Zeitplan zu verschwinden und aufzutauchen. Bekannt und akzeptiert. Weil alles andere überwog.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">Die Partnerin</div>
+    </div>
+
+    <p>Ash hatte nie eine Partnerin für Zweispielerspiele gehabt — die spezifische Art wo man einen bestimmten Menschen braucht und nicht einfach irgendjemanden. Ju stellte sich als genau dieser Mensch heraus. Mit dem Richtigen — spielen diese Spiele in völlig anderen Farben. Es geht nicht um Können und nicht um Ergebnisse — es geht darum jemanden dabei zu haben dem es auch wichtig ist.</p>
+
+    <p>Sie versuchten keine Beziehung aufzubauen. Niemand verkündete das laut — es ergab sich einfach so. Sie waren Freunde, Partner, Menschen die sich in derselben Gesellschaft wohlfühlten. Jeder hatte sein eigenes Leben — das störte niemanden. Sie verbrachten gerne Zeit miteinander ohne das in etwas anderes zu übersetzen.</p>
+
+    <p>Das ist selten — jemanden zu finden mit dem alles einfach ist. Nicht weil es keine Komplikationen gibt, sondern weil die Komplikationen das Gute nicht überwiegen.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Dann verschwand Ju. Nicht gegangen — verschwunden. Nachrichten bleiben ungelesen. Keine Erklärung, kein abschließendes Gespräch, irgendwann hörte sie einfach auf zu antworten.</p>
+
+    <p>Das war ihre Art — Ash wusste es von Anfang an. Sie lebte immer nach eigenem Zeitplan, tauchte auf und verschwand wenn sie es für richtig hielt. Ein schwieriger Charakter — aber ihrer, echter.</p>
+
+    <p>Höchstwahrscheinlich geht es ihr gut. Sie antwortet gerade einfach nicht.</p>
+
+    <p>Ju — falls du das jemals liest — das Design rund um diesen Reaktor war das Beste was in dem Spiel war. Das weißt du.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>

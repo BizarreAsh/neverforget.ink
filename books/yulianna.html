@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Юлианна — Bizarre Ash</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #0a0a14;
+    --paper: #f0f0fa;
+    --fade: #7070a8;
+    --accent: #3030a0;
+    --gold: #6060c0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(96,96,192,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(48,48,160,0.05) 0%, transparent 60%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; }
+
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 6rem 0;
+    position: relative;
+  }
+
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+
+  .cover-eyebrow { font-family: 'Cormorant Garamond', serif; font-size: 11px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 3rem; opacity: 0.8; }
+  .cover-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(48px, 10vw, 76px); font-weight: 300; letter-spacing: 0.06em; color: var(--ink); line-height: 1.1; margin-bottom: 0.4rem; font-style: italic; }
+  .cover-rule { width: 40px; height: 1px; background: var(--gold); margin: 2.5rem auto; opacity: 0.6; }
+  .cover-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-style: italic; color: var(--fade); letter-spacing: 0.2em; margin-bottom: 5rem; }
+  .cover-author { font-family: 'Cormorant Garamond', serif; font-size: 13px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--fade); opacity: 0.7; }
+
+  .toc { padding: 7rem 0 5rem; border-bottom: 1px solid rgba(96,96,192,0.2); margin-bottom: 7rem; }
+  .toc-label { font-family: 'Cormorant Garamond', serif; font-size: 10px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 2.5rem; }
+  .toc-item { display: grid; grid-template-columns: 2em 1fr 2em; gap: 0.5rem; align-items: baseline; padding: 0.75rem 0; border-bottom: 1px solid rgba(96,96,192,0.12); font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; color: var(--ink); text-decoration: none; transition: color 0.2s; }
+  .toc-item:hover { color: var(--accent); }
+  .toc-roman { font-style: normal; font-size: 11px; color: var(--gold); letter-spacing: 0.1em; padding-top: 0.3em; }
+  .toc-num { font-style: normal; font-size: 11px; color: var(--fade); text-align: right; }
+
+  .chapter { padding-top: 6rem; margin-bottom: 3rem; }
+  .chapter-header { margin-bottom: 3rem; }
+  .chapter-number { font-family: 'Cormorant Garamond', serif; font-size: 100px; font-weight: 300; color: var(--gold); opacity: 0.18; line-height: 0.85; margin-bottom: -0.1em; letter-spacing: -0.02em; user-select: none; }
+  .chapter-title { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 300; font-style: italic; color: var(--ink); padding-bottom: 1.5rem; border-bottom: 1px solid rgba(96,96,192,0.35); line-height: 1.3; }
+
+  p { margin-bottom: 1.5em; text-align: justify; hyphens: auto; }
+
+  .chapter > p:first-of-type::first-letter { font-family: 'Cormorant Garamond', serif; font-size: 4.8em; font-weight: 300; float: left; line-height: 0.72; margin-right: 0.06em; margin-top: 0.1em; color: var(--accent); }
+
+  .break { display: flex; align-items: center; justify-content: center; gap: 0.6em; margin: 3rem 0; color: var(--gold); opacity: 0.5; font-size: 8px; letter-spacing: 0.6em; }
+  .break::before, .break::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, transparent, rgba(96,96,192,0.3)); }
+  .break::after { background: linear-gradient(to left, transparent, rgba(96,96,192,0.3)); }
+
+  .chapter-end { margin: 6rem 0 0; text-align: center; color: var(--gold); opacity: 0.3; font-size: 20px; letter-spacing: 0.6em; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">автобиографическая проза</div>
+    <div class="cover-title">Юлианна</div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">о самом близком по интересам человеке</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Содержание</div>
+    <a class="toc-item" href="#ch1"><span class="toc-roman">I</span><span>Цветы по чужому адресу</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch2"><span class="toc-roman">II</span><span>Джу</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch3"><span class="toc-roman">III</span><span>Напарник</span><span class="toc-num">—</span></a>
+  </div>
+
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">Цветы по чужому адресу</div>
+    </div>
+
+    <p>В ленте промелькнул пост. Карточка с текстом — «Хочу внезапную доставку цветов» — и внизу мелко, транслитом, почти как шёпот: «p.s. хотеть не вредно». Эш прочитал. Улыбнулся. Подумал секунду.</p>
+
+    <p>У него тогда было что-то связанное с цветами — работа, связи, пара звонков и несколько нажатий кнопок. Это был не подвиг и не жест — просто возможность сделать что-то приятное для человека которого он видел первый раз. Или почти первый.</p>
+
+    <p>Внезапная доставка означала одно — сюрприз. Звонить получателю надо в тот момент когда курьер уже стоит у двери. Эш написал её подруге — убедительно, с аргументами, попросил не выдавать и подсказать адрес. Подруга помялась — и сдала. Цветы поехали.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Джу получила их там где ей было удобно — и получила полной мерой. Не просто цветы, а всё что за ними стоит — неожиданность, внимание, ощущение что кто-то прочитал тот пост и не поленился. Она написала. Они начали разговаривать.</p>
+
+    <p>Из ничего — из карточки в ленте и правильно сделанного звонка — появился человек который оказался ближе по интересам чем многие из тех кого Эш знал годами.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">Джу</div>
+    </div>
+
+    <p>Прозвище прижилось само — от ника Julilit88, без усилий, просто стало так и осталось. Джу.</p>
+
+    <p>Она была художницей — в том смысле в каком художниками бывают люди которые не могут иначе. Создавала красоту и уют везде где появлялась — не потому что старалась, просто потому что так устроена. Руки сами тянулись к чему-то визуальному, к цвету, к форме.</p>
+
+    <p>Genshin Impact занимал отдельное место в её жизни — основательное, нерушимое. Эшу казалось что если игра когда-нибудь закроется — человека можно будет потерять. Он сам поиграл какое-то время — интересно поначалу, потом стандартная история: или гринди часами, или плати. Джу это не останавливало. Она играла — с той преданностью которую не объяснишь логикой, просто так.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Майнкрафт стал их общей территорией. Эш пытался объяснить технологии, показать как работают механизмы, зачем нужен ядерный реактор. Джу слушала — и шла строить дизайн вокруг этого самого реактора. Красивый, продуманный, с деталями которые Эш не заметил бы никогда. Как реактор работает — неважно. Главное чтобы рядом с ним было уютно.</p>
+
+    <p>Они не мешали друг другу. Каждый делал своё — и это вместе складывалось во что-то живое. Так бывает когда двое дополняют друг друга не потому что стараются, а просто потому что так получается.</p>
+
+    <p>Характер у неё был своеобразный — с углами, с непостоянством, с привычкой исчезать и появляться по собственному расписанию. Это знали и принимали. Потому что остальное перевешивало.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">Напарник</div>
+    </div>
+
+    <p>У Эша никогда не было напарника для игр на двоих — именно того типа, где нужен конкретный человек рядом а не просто кто-то. Джу оказалась именно таким человеком. С правильным — игры жанра играют совершенно другими красками. Это не про скиллы и не про результат — про то что рядом кто-то кому тоже интересно.</p>
+
+    <p>Отношения они строить не пытались. Никто не объявлял об этом вслух — просто так сложилось. Были кентами, напарниками, людьми которым хорошо в одной компании. У каждого была своя жизнь — это никому не мешало. Им было по кайфу проводить время вместе и не переводить это в другой регистр.</p>
+
+    <p>Это редкость — найти человека с которым всё просто. Не потому что нет сложностей, а потому что сложности не перевешивают хорошее.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Потом Джу исчезла. Не ушла — именно исчезла. Сообщения остаются непрочитанными. Без объяснений, без финального разговора, просто в какой-то момент перестала отвечать.</p>
+
+    <p>Это её способ — Эш знал это с самого начала. Она всегда жила по своему расписанию, появлялась и пропадала когда считала нужным. Скверноватый характер — но свой, настоящий.</p>
+
+    <p>Скорее всего всё с ней хорошо. Просто сейчас не отвечает.</p>
+
+    <p>Джу — если ты это когда-нибудь прочитаешь — дизайн вокруг того реактора был лучшим что было в той игре. Ты это знаешь.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>
