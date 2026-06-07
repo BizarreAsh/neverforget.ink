@@ -443,7 +443,7 @@ function makeCatalogCard({ title, author, book }) {
 
 const catalogGrid = document.getElementById('catalog-grid');
 const shuffleBtn  = document.getElementById('shuffle-btn');
-let renderCatalog = null;
+var renderCatalog;
 
 if (catalogGrid) {
   renderCatalog = function () {
