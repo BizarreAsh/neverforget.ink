@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Restart — Bizarre Ash</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #f0ebe3;
+    --paper: #141410;
+    --fade: #706860;
+    --accent: #c8a96e;
+    --gold: #c8a96e;
+    --dim: #504840;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(200,169,110,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(160,120,60,0.04) 0%, transparent 60%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; }
+  .cover { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 6rem 0; position: relative; }
+  .cover::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); }
+  .cover-eyebrow { font-family: 'Cormorant Garamond', serif; font-size: 11px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 3rem; opacity: 0.8; }
+  .cover-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(64px, 14vw, 104px); font-weight: 300; letter-spacing: 0.04em; color: var(--ink); line-height: 1.0; margin-bottom: 0.4rem; }
+  .cover-title em { font-style: italic; color: var(--accent); }
+  .cover-rule { width: 40px; height: 1px; background: var(--gold); margin: 2.5rem auto; opacity: 0.6; }
+  .cover-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-style: italic; color: var(--fade); letter-spacing: 0.15em; margin-bottom: 5rem; max-width: 400px; line-height: 1.7; }
+  .cover-author { font-family: 'Cormorant Garamond', serif; font-size: 13px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--dim); opacity: 0.9; }
+  .toc { padding: 7rem 0 5rem; border-bottom: 1px solid rgba(200,169,110,0.15); margin-bottom: 7rem; }
+  .toc-label { font-family: 'Cormorant Garamond', serif; font-size: 10px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 2.5rem; }
+  .toc-item { display: grid; grid-template-columns: 2em 1fr 2em; gap: 0.5rem; align-items: baseline; padding: 0.75rem 0; border-bottom: 1px solid rgba(200,169,110,0.08); font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; color: var(--ink); text-decoration: none; transition: color 0.2s; opacity: 0.85; }
+  .toc-item:hover { color: var(--accent); opacity: 1; }
+  .toc-roman { font-style: normal; font-size: 11px; color: var(--gold); letter-spacing: 0.1em; padding-top: 0.3em; }
+  .toc-num { font-style: normal; font-size: 11px; color: var(--dim); text-align: right; }
+  .chapter { padding-top: 6rem; margin-bottom: 3rem; }
+  .chapter-header { margin-bottom: 3rem; }
+  .chapter-number { font-family: 'Cormorant Garamond', serif; font-size: 100px; font-weight: 300; color: var(--gold); opacity: 0.12; line-height: 0.85; margin-bottom: -0.1em; letter-spacing: -0.02em; user-select: none; }
+  .chapter-title { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 300; font-style: italic; color: var(--ink); padding-bottom: 1.5rem; border-bottom: 1px solid rgba(200,169,110,0.2); line-height: 1.3; }
+  .chapter-title em { color: var(--accent); }
+  p { margin-bottom: 1.5em; text-align: justify; hyphens: auto; color: rgba(240,235,227,0.85); }
+  .chapter > p:first-of-type::first-letter { font-family: 'Cormorant Garamond', serif; font-size: 4.8em; font-weight: 300; float: left; line-height: 0.72; margin-right: 0.06em; margin-top: 0.1em; color: var(--accent); }
+  p em { color: var(--accent); font-style: italic; }
+  .break { display: flex; align-items: center; justify-content: center; gap: 0.6em; margin: 3rem 0; color: var(--gold); opacity: 0.3; font-size: 8px; letter-spacing: 0.6em; }
+  .break::before, .break::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, transparent, rgba(200,169,110,0.25)); }
+  .break::after { background: linear-gradient(to left, transparent, rgba(200,169,110,0.25)); }
+  .chapter-end { margin: 6rem 0 0; text-align: center; color: var(--gold); opacity: 0.2; font-size: 20px; letter-spacing: 0.6em; }
+  .finale { padding: 8rem 0 4rem; border-top: 1px solid rgba(200,169,110,0.15); text-align: center; }
+  .finale-word { font-family: 'Cormorant Garamond', serif; font-size: clamp(64px, 14vw, 104px); font-weight: 300; font-style: italic; color: var(--ink); line-height: 0.9; margin-bottom: 3rem; letter-spacing: 0.04em; }
+  .finale-text { font-family: 'Spectral', Georgia, serif; font-size: 17px; line-height: 1.9; color: var(--dim); font-style: italic; max-width: 480px; margin: 0 auto; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">autobiografische Prosa</div>
+    <div class="cover-title">Re<em>start</em></div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">die Geschichte eines Morgens</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Inhalt</div>
+    <a class="toc-item" href="#ch1"><span class="toc-roman">I</span><span>Vollständige Stille</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch2"><span class="toc-roman">II</span><span>Sechs Lieder</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch3"><span class="toc-roman">III</span><span>König ohne Königin</span><span class="toc-num">—</span></a>
+  </div>
+
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">Vollständige <em>Stille</em></div>
+    </div>
+
+    <p>Es war ein Morgen. Nicht der schöne aus Büchern — einfach ein Morgen. Grau, still, so wie Morgen sind wenn etwas zu Ende geht und man es bereits weiß, aber noch sitzt und noch nicht aufgestanden ist.</p>
+
+    <p>Er weinte. Richtig, nicht schön — so wie man weint wenn niemand zuschaut und man sich endlich nicht mehr zusammenreißen muss. Dann lachte er durch die Tränen. Weil es genau so ist — wenn etwas einen wirklich loslässt, tut es das ohne Eleganz.</p>
+
+    <p>Fünf Jahre. Menschen die er für nahestehend hielt. Ressourcen die nirgendwo hingingen wo es sinnvoll gewesen wäre. Hilfe die keine Hilfe war — sie sah nur lange genug danach aus damit er aufhörte nachzuprüfen.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Er hat sie nicht verloren. Er hat sie <em>losgelassen</em>. Das sind verschiedene Dinge — und der Unterschied ist groß. Verlust passiert dir. Loslassen ist etwas das du selbst tust. Es kostet mehr. Aber danach weißt du dass die Entscheidung deine war und nicht jemand anderes Sieg.</p>
+
+    <p>Nicht vergessen — sondern zertreten und loslassen. Vergessen ist Selbstbetrug, eine Art so zu tun als wäre nichts gewesen. Zertreten ist etwas anderes. Alles so sehen wie es war, beim Namen nennen, und sich entscheiden weiterzugehen. Das ist eine Entscheidung. Die einzige die irgendeinen Sinn ergibt.</p>
+
+    <p>Solo-Gameplay beginnt dann wenn man endlich seine echten Zahlen sieht. Ohne fremden Ballast im Inventar — und ohne die Illusion dass dieser Ballast notwendig war.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">Sechs <em>Lieder</em></div>
+    </div>
+
+    <p>Er stellte eine Playlist zusammen. Nicht absichtlich — er legte einfach eines nach dem anderen auf, und bis zum Morgen hatte sich von selbst ein Bild ergeben. Sechs Lieder. Sechs Stufen. Der Reihe nach, genau so wie sie kamen — von der Erkenntnis bis zur Handlung.</p>
+
+    <p>Als erstes kam Vaas — der Monolog über den Wahnsinn, die Definition die jeder kennt der Far Cry 3 gespielt hat. Immer wieder dasselbe tun und ein anderes Ergebnis erwarten. Er hörte zu und dachte an das Muster das sich fünf Jahre lang wiederholt hatte. Vaas erkannte das Muster — und blieb darin. Bis zum Ende. Er erkannte es — und stieg aus. Das ist der ganze Unterschied.</p>
+
+    <p>Dann Klarer Himmel — durch den Schmerz gehen, auf das Licht warten. Dann Dzarakhov — zehn Jahre sagten sie geh da nicht rein, ich bin hier, und ihr wo. Dann Die Maschine — Modus einschalten, fahren, nicht zu viel denken. Dann Egal — Rüstung an, Emotionen auf Pause. Und zuletzt — Make It Bun Dem. Alles verbrennen was hinter einem liegt.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Keine zufällige Playlist — ein <em>Manifest</em>. Er schaltete sich nicht aus. Er schaltete um. Innen brannte noch etwas — aber das Feuer zeigte jetzt in eine andere Richtung. In die Arbeit. In sich selbst. In das was danach kommt.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">König ohne <em>Königin</em></div>
+    </div>
+
+    <p>Dann dachte er über Schach nach. Nicht im Sinne des Spiels — im Sinne davon wie das alles aussah wenn man ehrlich hinschaute, ohne die Version die er sich selbst jahrelang erzählt hatte.</p>
+
+    <p>Sie war ein Bauer. Keine Königin, keine Figur mit echtem Gewicht — ein Bauer der irgendwann beschloss klüger und wichtiger zu sein als alle anderen auf dem Brett. Ohne Grundlage. Ohne irgendetwas das das belegt hätte. Sie beschloss es einfach — und verhielt sich entsprechend. Das passiert mit Menschen die innen nichts Echtes haben aber ein enormes Bedürfnis haben so auszusehen als ob.</p>
+
+    <p>Sie verriet ihn früh. Nicht als das Kind geboren wurde — früher. Das Kind war einfach der Punkt ohne Rückkehr, der Moment an dem es bequem wurde sich als Opfer zu bezeichnen. Er traf Entscheidungen für sich selbst — normale, menschliche Entscheidungen über sein eigenes Leben. Sie entschied dass das Grund genug war sich als alleinerziehende Mutter zu bezeichnen und damit als die Hauptgeschichte zu leben die sie über sich erzählte.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Fünf Jahre. Nicht weil es gut war — weil er glaubte es besser machen zu können, dass er etwas retten könnte, dass er etwas schuldet. Das ist nicht sein Versagen. Das ist sein Charakter — der der bis zum Ende hält und nicht aufgibt. Das Problem ist nicht der Charakter. Das Problem ist dass nicht jeder das verdient.</p>
+
+    <p>Sie war nichts. Nicht damals, nicht jetzt, nicht in Zukunft. Das ist keine Wut — das ist einfach eine Tatsache, kalt und präzise. Menschen die ihre Identität auf der Schuld anderer aufbauen halten nicht lange durch. Irgendwann ist die Schuld aufgebraucht, und es stellt sich heraus dass darunter nichts war.</p>
+
+    <p>König ohne Königin — keine Niederlage. Ein König der von einem Bauern in die Enge getrieben wurde der glaubte er sei wichtig — <em>ist noch immer König</em>. Und das Universum wird mit allen abrechnen. Nur nicht heute und nicht durch seine Hand.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Er sagte: ich bin es müde mich für jemanden zu zerstören. Und dieses Mal — hörte er sich selbst. Endlich.</p>
+
+    <p>Über das Leben vor diesem Morgen ist genug geschrieben. Jetzt beginnt der nächste Teil.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="finale">
+    <div class="finale-word">Restart.</div>
+    <p class="finale-text">Ein Morgen. Tränen. Sechs Lieder. Schach.<br><br>Und ein Mann der beschloss dass es nirgendwo zurückzugehen gibt — und dass das gut ist.<br><br>Die Maschine tankt auf.<br><br>Das Spiel ist nicht vorbei.</p>
+  </div>
+
+</div>
+</body>
+</html>

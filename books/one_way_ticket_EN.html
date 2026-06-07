@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>One Way Ticket — Bizarre Ash</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #14100a;
+    --paper: #f2ede6;
+    --fade: #908070;
+    --accent: #603818;
+    --gold: #a07040;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(160,112,64,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(96,56,24,0.05) 0%, transparent 60%);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    padding: 0 1.5rem 8rem;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; }
+  .cover { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 6rem 0; position: relative; }
+  .cover::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); }
+  .cover-eyebrow { font-family: 'Cormorant Garamond', serif; font-size: 11px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 3rem; opacity: 0.8; }
+  .cover-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(36px, 8vw, 58px); font-weight: 300; letter-spacing: 0.04em; color: var(--ink); line-height: 1.15; margin-bottom: 0.4rem; }
+  .cover-title em { font-style: italic; color: var(--accent); }
+  .cover-rule { width: 40px; height: 1px; background: var(--gold); margin: 2.5rem auto; opacity: 0.6; }
+  .cover-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-style: italic; color: var(--fade); letter-spacing: 0.2em; margin-bottom: 5rem; }
+  .cover-author { font-family: 'Cormorant Garamond', serif; font-size: 13px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--fade); opacity: 0.7; }
+  .toc { padding: 7rem 0 5rem; border-bottom: 1px solid rgba(160,112,64,0.2); margin-bottom: 7rem; }
+  .toc-label { font-family: 'Cormorant Garamond', serif; font-size: 10px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 2.5rem; }
+  .toc-item { display: grid; grid-template-columns: 2em 1fr 2em; gap: 0.5rem; align-items: baseline; padding: 0.75rem 0; border-bottom: 1px solid rgba(160,112,64,0.12); font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; color: var(--ink); text-decoration: none; transition: color 0.2s; }
+  .toc-item:hover { color: var(--accent); }
+  .toc-roman { font-style: normal; font-size: 11px; color: var(--gold); letter-spacing: 0.1em; padding-top: 0.3em; }
+  .toc-num { font-style: normal; font-size: 11px; color: var(--fade); text-align: right; }
+  .chapter { padding-top: 6rem; margin-bottom: 3rem; }
+  .chapter-header { margin-bottom: 3rem; }
+  .chapter-number { font-family: 'Cormorant Garamond', serif; font-size: 100px; font-weight: 300; color: var(--gold); opacity: 0.18; line-height: 0.85; margin-bottom: -0.1em; letter-spacing: -0.02em; user-select: none; }
+  .chapter-title { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 300; font-style: italic; color: var(--ink); padding-bottom: 1.5rem; border-bottom: 1px solid rgba(160,112,64,0.35); line-height: 1.3; }
+  p { margin-bottom: 1.5em; text-align: justify; hyphens: auto; }
+  .chapter > p:first-of-type::first-letter { font-family: 'Cormorant Garamond', serif; font-size: 4.8em; font-weight: 300; float: left; line-height: 0.72; margin-right: 0.06em; margin-top: 0.1em; color: var(--accent); }
+  .break { display: flex; align-items: center; justify-content: center; gap: 0.6em; margin: 3rem 0; color: var(--gold); opacity: 0.5; font-size: 8px; letter-spacing: 0.6em; }
+  .break::before, .break::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, transparent, rgba(160,112,64,0.3)); }
+  .break::after { background: linear-gradient(to left, transparent, rgba(160,112,64,0.3)); }
+  .chapter-end { margin: 6rem 0 0; text-align: center; color: var(--gold); opacity: 0.3; font-size: 20px; letter-spacing: 0.6em; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="cover-eyebrow">autobiographical prose</div>
+    <div class="cover-title">One Way<br><em>Ticket</em></div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">about where you don't go back from</div>
+    <div class="cover-author">Bizarre Ash</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Contents</div>
+    <a class="toc-item" href="#ch1"><span class="toc-roman">I</span><span>Rain in Egypt</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch2"><span class="toc-roman">II</span><span>Under the Convoys</span><span class="toc-num">—</span></a>
+    <a class="toc-item" href="#ch3"><span class="toc-roman">III</span><span>Morning Train</span><span class="toc-num">—</span></a>
+  </div>
+
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-number">I</div>
+      <div class="chapter-title">Rain in Egypt</div>
+    </div>
+
+    <p>It doesn't rain in Egypt — anyone who's been there knows that. Desert, sun, dry hot air that doesn't change for weeks. And that's exactly why when it did rain — it felt like a signal. Not a beautiful one, not poetic — just something coming off the rails. Something going not the way it should.</p>
+
+    <p>Ash watched the rain and understood it wasn't about the weather. The country he knew by heart — the routes, the people, the shops, the smells — none of that had gone anywhere. But something in the air had changed before the rain came. The rain just made it visible.</p>
+
+    <p>Back home there was a war. Not abstract, not distant — the kind that changes everything around it and makes impossible what used to go without saying. Going back meant something different now. The place was the same. Home was something else.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>He didn't know then that this Egypt was the last one. That the next time he found himself here he'd be a completely different person at a completely different point in his life. That rain which breaks the usual order of things is sometimes the only honest forecast there is.</p>
+
+    <p>He watched the water on the asphalt. Egyptians watched it with surprise — for them too it was an event. Everyone has their own normal order of things. And everyone has their own moment when that order ends.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-number">II</div>
+      <div class="chapter-title">Under the Convoys</div>
+    </div>
+
+    <p>The convoys moved at night. Not always and not every night — but when they did, you could hear them. A heavy, steady sound that couldn't be confused with anything else. Somewhere near the border, in the dark, life continued on its own separate logic — military, opaque to anyone civilian, existing in parallel with what was happening two steps away.</p>
+
+    <p>He and Nik stood and smoked. Didn't talk — just stood beside each other and listened. Sometimes that's enough. Sometimes words only get in the way of what's already understood without them.</p>
+
+    <p>Nik would leave six months earlier. Ash didn't know that yet — or knew it but didn't let himself think about it out loud. People who matter have a way of ending up in different places exactly when you'd want them in the same one. That's not betrayal and not accident — just life going its own routes.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>The cigarette burned out. The convoy passed. They went back inside.</p>
+
+    <p>Some moments stay with you not because something happened in them — but because you stood beside someone and were silent about something very important. That was one of those moments.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-number">III</div>
+      <div class="chapter-title">Morning Train</div>
+    </div>
+
+    <p>Nik left first. Six months — a long stretch when you're living in a situation where each week weighs differently than an ordinary week. In those six months a lot changed — inside and outside. Ash saw him off and came back to a city that was getting quieter and less like the one he'd grown up in.</p>
+
+    <p>Then his own morning came.</p>
+
+    <p>Odessa — the last point before crossing the border in the other direction. Not as a tourist, not temporarily — in the direction where you take only what fits in a rucksack and what fits in your head. The train was early, morning, with the particular light you get in carriages before dawn — dim and honest at the same time.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>Outside the window passed everything he'd known all his life. Not beautifully and not frightening — it just passed. Fields, level crossings, small stations where the train stops for a minute and moves on. All of it part of the same place — and all of it falling behind.</p>
+
+    <p>A one-way ticket doesn't mean you don't love where you're coming from. Sometimes it means you do — and that's exactly why you're going. So there's something to come back to eventually. So what matters keeps standing.</p>
+
+    <p>Nik was already there — in the States, at the other end of the route Ash was only beginning. Something like a marker in the dark. Not a guarantee and not a plan — just a point on the map where there's someone of your own.</p>
+
+    <div class="break">· · ·</div>
+
+    <p>The train arrived in Odessa in the morning. Ash stepped onto the platform, lit a cigarette, looked at the sky.</p>
+
+    <p>Ahead was the border. Ahead was Poland — the first stop, the first foreign ground underfoot. Ahead was everything else.</p>
+
+    <p>The ticket was one way — and that was right.</p>
+
+    <div class="chapter-end">· · ·</div>
+  </div>
+
+</div>
+</body>
+</html>
