@@ -366,6 +366,12 @@ const bookPool = [
   { title: 'Тарков',                   author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/tarkov.html'                                   },
   { title: 'Tarkov',                   author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/tarkov_EN.html'                                },
   { title: 'Tarkov',                   author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/tarkov_DE.html'                                },
+  { title: 'Restart',                  author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/restart.html'                                  },
+  { title: 'Restart',                  author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/restart_EN.html'                               },
+  { title: 'Restart',                  author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/restart_DE.html'                               },
+  { title: 'One Way Ticket',           author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/one_way_ticket-1.html'                         },
+  { title: 'One Way Ticket',           author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/one_way_ticket_EN.html'                        },
+  { title: 'One Way Ticket',           author: 'Bizarre Ash', genre: 'genre_bio', book: 'books/one_way_ticket_DE.html'                        },
 ];
 
 function shuffleArray(arr) {
